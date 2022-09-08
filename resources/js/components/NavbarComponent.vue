@@ -1,0 +1,502 @@
+<template>
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <div class="container">
+            <inertia-link class="navbar-brand" href="/">
+                <img src="/images/logo.jpg">
+            </inertia-link>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <div class="collapse navbar-collapse  justify-content-between" id="navbarSupportedContent">
+                <form class="form-inline my-2 my-lg-0">
+                    <input class="form-control mr-sm-2 ml-sm-2" type="search"
+                           :placeholder="switchWord('part_number_of_part_name')" aria-label="Search">
+                    <button class="btn btn-outline-primary my-2 my-sm-0" type="submit">{{ switchWord('Search') }}</button>
+                </form>
+                <ul class="d-flex">
+                    <li class="nav-item dropdown d-flex align-items-center">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            <i class="ri-global-line"></i>
+                        </a>
+                        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                            <a class="dropdown-item" href="/lang/ar">{{ switchWord('Arabic_Language') }}</a>
+                            <a class="dropdown-item" href="/lang/en">{{ switchWord('English_Language') }}</a>
+                            <a class="dropdown-item" href="/lang/tu">{{ switchWord('Turkish_Language') }}</a>
+                            <!--                            <div class="dropdown-divider"></div>-->
+                        </div>
+                    </li>
+                    <li class="nav-item d-flex align-items-center">
+                        <inertia-link href="#" class="nav-link">
+                            <span>{{ switchWord('Help') }}?</span>
+                        </inertia-link>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#"  role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            <div class="user_profile">
+                                <img src="/images/icons/profile.svg">
+                                <span></span>
+                            </div>
+                            <div class="dropdown-menu p-0 user-info-auth" aria-labelledby="navbarDropdown">
+                                <div class="sign-form" v-if="user == null">
+                                    <div class="p-4">
+                                        <h2>{{ switchWord('sign_in') }}</h2>
+                                        <p>{{ switchWord('add_ad') }}</p>
+                                        <inertia-link class="d-block" href="/login">
+                                            {{ switchWord('sign_in') }}
+                                        </inertia-link>
+                                        <inertia-link class="d-block" href="/register">
+                                            {{ switchWord('sign_up') }}
+                                        </inertia-link>
+                                    </div>
+                                    <div class="p-4">
+                                        <p>{{ switchWord('my_offers') }}</p>
+                                        <p>{{ switchWord('get_best_offers') }}</p>
+                                    </div>
+                                </div>
+                                <div class="auth-form" v-else>
+                                    <div class="user_image">
+                                        <img :src="'/images/users/'+user.image">
+                                        <div>
+                                            <p>example@gmail.com</p>
+                                            <p>{{ switchWord('registered_from_date') }}
+                                                {{ new Date(user.created_at).toLocaleDateString() }}
+                                            </p>
+                                        </div>
+                                    </div>
+                                    <hr>
+                                    <div class="list">
+                                        <p>
+                                            <inertia-link href="/profile/edit">
+                                                {{ switchWord('activities') }}
+                                            </inertia-link>
+                                        </p>
+                                        <ul>
+                                            <li class="d-flex align-items-center justify-content-between">
+                                                <p>
+                                                    <span><i class="ri-heart-line"></i></span>
+                                                    <span>{{ switchWord('my_favourite') }}</span>
+                                                </p>
+                                                <span>4</span>
+                                            </li>
+                                            <li class="d-flex align-items-center justify-content-between">
+                                                <p>
+                                                    <span><i class="ri-file-line"></i></span>
+                                                    <span>{{ switchWord('my_notes') }}</span>
+                                                </p>
+                                                <span>2</span>
+                                            </li>
+                                            <li class="d-flex align-items-center justify-content-between">
+                                                <p>
+                                                    <span><i class="ri-notification-line"></i></span>
+                                                    <span>{{ switchWord('notifications') }}</span>
+                                                </p>
+                                                <span>2</span>
+                                            </li>
+                                            <hr>
+                                            <li class="d-flex align-items-center justify-content-between">
+                                                <p>
+                                                    <span><i class="ri-building-line"></i></span>
+                                                    <span>{{ switchWord('my_listings') }}</span>
+                                                </p>
+                                                <span>2</span>
+                                            </li>
+                                            <li class="d-flex align-items-center justify-content-between">
+                                                <p>
+                                                    <span><i class="ri-bank-card-line"></i></span>
+                                                    <span>{{ switchWord('my_balance') }}</span>
+                                                </p>
+                                                <span></span>
+                                            </li>
+                                            <li class="d-flex align-items-center justify-content-between">
+                                                <p>
+                                                    <span><i class="ri-wallet-3-line"></i></span>
+                                                    <span>{{ switchWord('charge_credit') }}</span>
+                                                </p>
+                                                <span></span>
+                                            </li>
+                                            <li class="d-flex align-items-center justify-content-between">
+                                                <p>
+                                                    <span><i class="ri-logout-box-line"></i></span>
+                                                    <span>{{ switchWord('logout') }}</span>
+                                                </p>
+                                                <span></span>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                                <!--                            <div class="dropdown-divider"></div>-->
+                            </div>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+</template>
+
+<script>
+import SwitchLangWord from '../mixin/SwitchLangWord';
+import {mapActions , mapGetters} from "vuex";
+export default {
+    name: "NavbarComponent",
+    mixins:[SwitchLangWord],
+    computed:{
+        user:function(){
+            return this.$inertia.page.props.user;
+        },
+        ...mapGetters({
+           'get_parent_categories_data':'categories/get_parent_categories_data',
+        }),
+    },
+    created() {
+        this.get_parent_cats();
+    },
+    methods:{
+        showList:function (){
+            let arrow = $(event.target).parent().find('span i');
+            if(arrow.hasClass('ri-arrow-drop-down-fill')){
+                arrow.removeClass('ri-arrow-drop-down-fill').addClass('ri-arrow-drop-up-fill')
+            }else{
+                arrow.removeClass('ri-arrow-drop-up-fill').addClass('ri-arrow-drop-down-fill')
+            }
+            $(event.target).parent().next().fadeToggle();
+        },
+        ...mapActions({
+            'get_parent_cats':'categories/get_parent_categories',
+        })
+    }
+}
+</script>
+
+<style lang="scss" scoped>
+@import "resources/sass/variables";
+
+.ar{
+    .navbar-brand{
+        margin-left: 5%;
+    }
+    .dropdown-menu{
+        img{
+            margin-left: 5px;
+        }
+    }
+
+    .nav-link{
+        >span:first-of-type{
+            margin-left: 7px;
+        }
+    }
+    .auth-form{
+        .user_image{
+            img{
+                margin-left: 10px;
+            }
+        }
+        .list{
+            ul{
+                li{
+                    p{
+                        span:first-of-type{
+                            margin-left: 5px;
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+}
+.en{
+    .navbar-brand{
+        margin-right: 5%;
+    }
+    .dropdown-menu{
+        right: 0px;
+        left: unset;
+    }
+    .dropdown-menu{
+        img{
+            margin-right: 5px;
+        }
+    }
+
+    .nav-link{
+        >span:first-of-type{
+            margin-right: 7px;
+        }
+    }
+    .auth-form{
+        .user_image{
+            img{
+                margin-right: 10px;
+            }
+        }
+        .list{
+            ul{
+                li{
+                    p{
+                        span:first-of-type{
+                            margin-right: 5px;
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+nav {
+    position: fixed;
+    top:0px;
+    right: 0px;
+    left: 0px;
+    z-index: 9999;
+    .navbar-brand{
+        img{
+            height: 50px;
+        }
+    }
+    .nav-item{
+        >a{
+            color:$black !important;
+        }
+    }
+    padding: 0px;
+    box-shadow: 1px 1px 1px 1px #ddd;
+    background-color: white !important;
+
+    .navbar-brand{
+        margin: 0px;
+        font-size: 30px;
+        font-weight: bold;
+        color:$main_color;
+        padding: 0px;
+        position: relative;
+        top:-3px;
+        &:hover{
+            color:#007e72;
+        }
+    }
+    .nav-item {
+        cursor: pointer;
+    }
+    form{
+        input:first-of-type{
+            width:230px;
+        }
+    }
+    .dropdown-menu{
+        padding: 10px;
+        a{
+            display: flex;
+            align-items: center;
+            margin-bottom: 15px;
+            img{
+                height:30px;
+            }
+            span:first-of-type{
+                i{
+                    color:$main_color;
+                }
+            }
+        }
+
+    }
+    .user-info-auth {
+        max-width: 320px;
+        width: 320px;
+        overflow: hidden;
+        .sign-form {
+            h2 {
+                margin-bottom: 10px;
+                color: $main_color;
+                font-weight: bold;
+            }
+
+            p {
+                color: $gray;
+                margin-bottom: 10px;
+            }
+
+            div:nth-of-type(2) {
+                background-color: $main_color;
+                padding: 15px;
+
+                p {
+                    color: white;
+                }
+            }
+
+            a {
+                display: block;
+                text-align: center;
+                color: $main_color;
+                padding: 8px;
+                border-radius: 24px;
+            }
+
+            a:first-of-type {
+                color: white;
+                background-color: $main_color;
+            }
+
+            a:nth-of-type(2) {
+                background-color: $white_gray;
+            }
+        }
+
+        .auth-form{
+            .user_image{
+                display: flex;
+                align-items: center;
+                padding: 10px;
+                img{
+                    width: 50px;
+                    height: 50px;
+                    border-radius: 50%;
+                    object-fit: cover;
+                }
+                div{
+                    p:last-of-type{
+                        color:$gray;
+                        margin-top: 5px;
+                    }
+                }
+            }
+            .list{
+                >p{
+                    padding: 0px 10px;
+                    margin-top: 15px;
+                    margin-bottom: 10px;
+                }
+                ul{
+                    li{
+                        padding:3px 10px;
+                        p{
+                            span{
+                                font-size: $small;
+                            }
+                            span:last-of-type{
+                                font-weight: bold;
+                            }
+                        }
+                        >span{
+                            color:white;
+                            padding:0px 5px;
+                            border-radius: 3px;
+                            background-color: $main_color;
+                        }
+                    }
+                }
+            }
+        }
+
+    }
+}
+.nav-link{
+    color:$black;
+    .box{
+        position: absolute;
+        top:0px;
+        display: none;
+    }
+    p{
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        span:nth-of-type(2){
+            margin-right: 7px;
+            margin-left: 7px;
+        }
+    }
+}
+.dropdown-toggle{
+    span:nth-of-type(2){
+        margin-right: 7px;
+        margin-left: 7px;
+    }
+    .user_profile{
+        text-align: center;
+        img{
+            width:40px;
+            height: 40px;
+            border-radius: 50%;
+            border:1px solid #eee;
+        }
+        span{
+            background-color: $main_color;
+            color: white;
+            font-size: 10px;
+            display: block;
+            text-align: center;
+            position: absolute;
+            top: 7px;
+            width: 10px;
+            height: 10px;
+            border-radius: 50px;
+            padding: 0;
+        }
+    }
+}
+.dropdown-toggle::after{
+    display: none;
+}
+@media (min-width: 992px) {
+    nav ul:first-of-type .nav-item:nth-of-type(2) div{
+        width:203px;
+    }
+}
+@media (max-width:992px) {
+    .navbar-collapse {
+        flex-wrap: wrap;
+        .navbar-nav {
+            width: 100%;
+        }
+    }
+    .user-info-auth{
+        width:320px;
+    }
+    ul.d-flex{
+        flex-direction: column;
+    }
+    .ar {
+        nav .dropdown-menu{
+            right: 0px;
+        }
+        .user-info-auth{
+            right: 0px;
+        }
+        .nav-link {
+            padding-right: 0px;
+        }
+    }
+    .en{
+        nav .dropdown-menu{
+            left:0px;
+        }
+        .user-info-auth{
+            left: 0px;
+        }
+        .nav-link {
+            padding-left: 0px;
+        }
+    }
+}
+
+@media (max-width: 767px) {
+    .auth-form , .sign-form{
+        max-height: 400px;
+        overflow: auto;
+    }
+    nav{
+        form{
+            margin: auto;
+            input:first-of-type{
+                margin-left: 5px;
+                margin-right: 5px;
+            }
+        }
+    }
+}
+
+</style>
