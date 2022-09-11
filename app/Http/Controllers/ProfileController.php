@@ -47,7 +47,7 @@ class ProfileController extends ProfileServiceClass
     public function statistics(){
         return Inertia::render('profile/statistics',[
             'keywords'=>ProfileStatisticsKeywords::get_keywords(),
-            'data_numbers'=>statistics_profile_handling::handle_data(),
+            'data_statistics'=>[0,0,0,0,10,20,30,4,15,50,20,60],
         ]);
     }
 

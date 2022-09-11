@@ -5,29 +5,33 @@
             <profile-nav-component></profile-nav-component>
             <div class="inner_content mt-4">
                 <div class="container">
-                    <h2 class="d-flex align-items-center mb-4 main-title justify-content-between">
-                        <p class="d-flex align-items-center">
-                            <span v-if="$page.props.lang == 'ar'"><i class="ri-arrow-left-s-fill"></i></span>
-                            <span v-else><i class="ri-arrow-right-s-fill"></i></span>
-                            <span>{{ keywords.interactions_rate }}</span>
-                        </p>
-                        <select>
-                            <option value="30">{{ keywords.last_thirty_days }}</option>
-                            <option value="60">{{ keywords.last_sixty_days }}</option>
-                            <option value="90">{{ keywords.last_ninety_days }}</option>
-                        </select>
+                    <h2 class="mb-4 main-title">
+                        <span>{{ keywords.statistics }}</span>
                     </h2>
-                    <div class="box_details_numbers mt-4 mb-4">
-                        <div v-for="(i,index) in Object.keys(data_numbers['statistics'])" :key="index">
-                            <h2>{{ data_numbers['statistics'][i] }}</h2>
-                            <p>{{ keywords[i] }}</p>
+                    <form>
+                        <div class="row">
+                            <div class="col-6">
+                                <div class="form-group">
+                                    <select class="form-control" name="process_type">
+                                        <option value="">{{ keywords.select_process_type }}</option>
+                                        <option value="sale">{{ keywords.sale }}</option>
+                                        <option value="buying">{{ keywords.buying }}</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-6">
+                                <div class="form-group">
+                                    <select class="form-control" name="process_type">
+                                        <option value="">{{ keywords.select_year }}</option>
+                                        <option v-for="(i,index) in 15" :key="index"
+                                                :value="new Date().getFullYear() - index">
+                                            {{ new Date().getFullYear() - index }}
+                                        </option>
+                                    </select>
+                                </div>
+                            </div>
                         </div>
-                    </div>
-                    <h2 class="d-flex align-items-center mb-4 main-title">
-                        <span v-if="$page.props.lang == 'ar'"><i class="ri-arrow-left-s-fill"></i></span>
-                        <span v-else><i class="ri-arrow-right-s-fill"></i></span>
-                        <span>{{ keywords.rating }}</span>
-                    </h2>
+                    </form>
                     <line-chart   :chart_data="chart_data" :labels_data="labels"></line-chart>
 
                 </div>
@@ -43,10 +47,10 @@ import FooterComponent from "../../components/FooterComponent";
 import ProfileNavComponent from "../../components/ProfileNavComponent";
 export default {
     name: "statistics",
-    props:['keywords','data_numbers'],
+    props:['keywords','data_statistics'],
     data:function(){
         return {
-            chart_data:this.data_numbers['total_count_data'],
+            chart_data:this.data_statistics,
             labels:[
                 "يناير",
                 "يناير",
@@ -70,10 +74,7 @@ export default {
 <style lang="scss" scoped>
 @import "resources/sass/variables";
 .inner_content{
-    select{
-        border: none;
-        font-size: $paragraph;
-    }
+
 }
 .box_details_numbers{
     display: flex;

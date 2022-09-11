@@ -97,11 +97,7 @@
                 <img class="d-block m-auto" src="/images/loading.gif">
             </div>
             <div class="best_offer">
-                <table class="table table-hover table-striped table-hover">
-                    <thead>
-
-                    </thead>
-                </table>
+                <qutoation_details_box :keywords="keywords"></qutoation_details_box>
             </div>
         </div>
 
@@ -113,10 +109,10 @@
 import NavbarComponent from "../../components/NavbarComponent";
 import FooterComponent from "../../components/FooterComponent";
 import ProfileNavComponent from "../../components/ProfileNavComponent";
-import ListingPostComponent from "../../components/ListingPostComponent";
 import delete_item from "../../mixin/delete_item";
 import SwitchLangWord from "../../mixin/SwitchLangWord";
 import {mapActions} from "vuex";
+import Qutoation_details_box from "../../components/qutoation_details_box";
 export default {
     name: "qutoation_request",
     props:['keywords','data'],
@@ -160,6 +156,10 @@ export default {
         },
         send_quotation:function(){
             $('.result').css('display','flex');
+            setTimeout(()=>{
+                $('.load').css('display','none');
+                $('.best_offer').fadeIn();
+            },4000);
         },
         close_box:function(){
             $(event.target).parent().parent().parent().fadeOut();
@@ -167,7 +167,7 @@ export default {
 
     },
 
-    components: {ListingPostComponent, ProfileNavComponent, FooterComponent, NavbarComponent}
+    components: {Qutoation_details_box, ProfileNavComponent, FooterComponent, NavbarComponent}
 }
 </script>
 
@@ -238,6 +238,9 @@ export default {
     background-color: #dddddd7d;
     z-index: 9999;
     display: none;
+    >div{
+        display: none;
+    }
     .load{
         max-width: 600px;
         border: 1px solid #ddd;
@@ -250,6 +253,7 @@ export default {
         flex-wrap: wrap;
         padding-top: 30px;
         position: relative;
+        top:-57px;
         span{
             color:$red;
             position: absolute;
@@ -259,6 +263,11 @@ export default {
                 font-size:$semi_big;
             }
         }
+    }
+    .best_offer{
+        background-color: white;
+        width: 95%;
+
     }
 }
 </style>

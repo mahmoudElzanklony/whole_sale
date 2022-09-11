@@ -2267,8 +2267,8 @@ vue__WEBPACK_IMPORTED_MODULE_5__.default.component('line-chart', {
         datasets: [{
           label: 'احصائيات العام',
           fill: false,
-          borderColor: '#ff6a15',
-          backgroundColor: '#ff6a15',
+          borderColor: '#035397',
+          backgroundColor: '#035397',
           borderWidth: 1,
           data: this.chart_data //[40, 39, 10, 40, 39, 80, 40]
 
@@ -99774,6 +99774,10 @@ var map = {
 		"./resources/js/Pages/auth/sign_up_brands.vue",
 		"resources_js_Pages_auth_sign_up_brands_vue"
 	],
+	"./checkout.vue": [
+		"./resources/js/Pages/checkout.vue",
+		"resources_js_Pages_checkout_vue"
+	],
 	"./contactus.vue": [
 		"./resources/js/Pages/contactus.vue",
 		"resources_js_Pages_contactus_vue"
@@ -99790,10 +99794,6 @@ var map = {
 		"./resources/js/Pages/notifications.vue",
 		"resources_js_Pages_notifications_vue"
 	],
-	"./profile/favourites.vue": [
-		"./resources/js/Pages/profile/favourites.vue",
-		"resources_js_Pages_profile_favourites_vue"
-	],
 	"./profile/listings_dashboard.vue": [
 		"./resources/js/Pages/profile/listings_dashboard.vue",
 		"resources_js_Pages_profile_listings_dashboard_vue"
@@ -99801,10 +99801,6 @@ var map = {
 	"./profile/main_info.vue": [
 		"./resources/js/Pages/profile/main_info.vue",
 		"resources_js_Pages_profile_main_info_vue"
-	],
-	"./profile/notes.vue": [
-		"./resources/js/Pages/profile/notes.vue",
-		"resources_js_Pages_profile_notes_vue"
 	],
 	"./profile/qutoation_request.vue": [
 		"./resources/js/Pages/profile/qutoation_request.vue",
@@ -99951,7 +99947,7 @@ module.exports = webpackAsyncContext;
 /******/ 		// This function allow to reference async chunks
 /******/ 		__webpack_require__.u = (chunkId) => {
 /******/ 			// return url for filenames based on template
-/******/ 			return "js/" + chunkId + "." + {"resources_js_Pages_auth_forget_password_vue":"ef7993ea9324aef3ce15","resources_js_Pages_auth_new_password_vue":"0134a91ac540a5e4fcdf","resources_js_Pages_auth_sign_in_vue":"e0aafa9523fbb3f9c2cb","resources_js_Pages_auth_sign_up_vue":"9e7946a06a282f7f939d","resources_js_Pages_auth_sign_up_bank_vue":"587df39e425bd53501b4","resources_js_Pages_auth_sign_up_brands_vue":"ff98aea68e6a36357cb9","resources_js_Pages_contactus_vue":"93a4cc6b56196e355bbd","resources_js_Pages_feedback_vue":"de337805443b77a0d79e","resources_js_Pages_home_vue":"c22e9833e9d8eb5c5b7d","resources_js_Pages_notifications_vue":"cd6eafaf090840bf608b","resources_js_Pages_profile_favourites_vue":"3575d26980ec68ef157f","resources_js_Pages_profile_listings_dashboard_vue":"752a2ab920bbec545471","resources_js_Pages_profile_main_info_vue":"12e8274aaff0ca194eff","resources_js_Pages_profile_notes_vue":"9460752e90ae482bf5c4","resources_js_Pages_profile_qutoation_request_vue":"dcff07356dffea6d20c9","resources_js_Pages_profile_statistics_vue":"e881f89ea4a906393371"}[chunkId] + ".js";
+/******/ 			return "js/" + chunkId + "." + {"resources_js_Pages_auth_forget_password_vue":"ef7993ea9324aef3ce15","resources_js_Pages_auth_new_password_vue":"0134a91ac540a5e4fcdf","resources_js_Pages_auth_sign_in_vue":"e0aafa9523fbb3f9c2cb","resources_js_Pages_auth_sign_up_vue":"9e7946a06a282f7f939d","resources_js_Pages_auth_sign_up_bank_vue":"587df39e425bd53501b4","resources_js_Pages_auth_sign_up_brands_vue":"ff98aea68e6a36357cb9","resources_js_Pages_checkout_vue":"f6fbeb60295c50bd8413","resources_js_Pages_contactus_vue":"93a4cc6b56196e355bbd","resources_js_Pages_feedback_vue":"de337805443b77a0d79e","resources_js_Pages_home_vue":"c22e9833e9d8eb5c5b7d","resources_js_Pages_notifications_vue":"d6c0fbcb3881e6b38f90","resources_js_Pages_profile_listings_dashboard_vue":"752a2ab920bbec545471","resources_js_Pages_profile_main_info_vue":"12e8274aaff0ca194eff","resources_js_Pages_profile_qutoation_request_vue":"9acd62b9c16043a30fd0","resources_js_Pages_profile_statistics_vue":"38b1e70ee100bd49427f"}[chunkId] + ".js";
 /******/ 		};
 /******/ 	})();
 /******/ 	

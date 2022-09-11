@@ -1,7 +1,7 @@
 <template>
     <section class="notifications">
         <navbar-component></navbar-component>
-        <div class="loading align-items-center justify-content-center">
+        <div v-if="false" class="loading align-items-center justify-content-center">
             <img  src="/images/loading.gif">
         </div>
         <div class="container mt-4 mb-4">
@@ -12,21 +12,21 @@
                 </p>
                 <div class="inner">
                     <div class="notification d-flex align-items-center justify-content-between"
-                         v-for="(i,index) in vuex_data" :key="index"
+                         v-for="(i,index) in 10" :key="index"
                     >
                         <div class="data d-flex align-items-center">
-                            <img :src="'/images/users/'+i['receiver']['image']">
+                            <img src="/images/users/default.png">
                             <div class="text">
                                 <p>
-                                    <strong>{{ i['receiver']['username'] }}</strong>
+                                    <strong>ahmed ali</strong>
                                 </p>
                                 <p>
-                                    {{ i['info'] }}
+                                    قام بشراء قطعه رقم 1003
                                 </p>
                             </div>
                         </div>
                         <p class="d-flex align-items-center">
-                            <span>{{ new Date(i['created_at']).toLocaleDateString() }}</span>
+                            <span>{{ new Date().toLocaleDateString() }}</span>
                             <span><i class="ri-calendar-2-line"></i></span>
                         </p>
                     </div>
@@ -87,6 +87,7 @@ export default {
     .outer-notification{
         border: 1px solid #ddd;
         border-radius: 8px;
+        margin-top: 100px;
         >p{
             display: flex;
             align-items: center;
@@ -112,7 +113,7 @@ export default {
         }
         .inner{
             .notification:nth-child(odd){
-                background-color: #ff6a150f;
+                background-color: #0353970a;
             }
             .notification{
                 border-bottom: 1px solid #dddddd;

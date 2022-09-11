@@ -53,15 +53,19 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
 
 
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   name: "statistics",
-  props: ['keywords', 'data_numbers'],
+  props: ['keywords', 'data_statistics'],
   data: function data() {
     return {
-      chart_data: this.data_numbers['total_count_data'],
+      chart_data: this.data_statistics,
       labels: ["يناير", "يناير", "مارس", "ابريل", "مايو", "يونيو", "يوليو", "اغسطس", "سبتمر", "اكتوبر", "نوفمبر", "ديسمبر"]
     };
   },
@@ -1406,7 +1410,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, ".inner_content select[data-v-3629b212] {\n  border: none;\n  font-size: 16px;\n}\n.box_details_numbers[data-v-3629b212] {\n  display: flex;\n  flex-wrap: wrap;\n}\n.box_details_numbers > div[data-v-3629b212] {\n  padding: 20px;\n  border: 1px solid #dddddd;\n  padding-bottom: 30px;\n}\n.box_details_numbers > div h2[data-v-3629b212] {\n  font-size: 40px;\n  color: #035397;\n}\n.box_details_numbers > div p[data-v-3629b212] {\n  font-weight: bold;\n}\n.box_details_numbers > div h2[data-v-3629b212], .box_details_numbers > div p[data-v-3629b212] {\n  text-align: center;\n}\n.box_details_numbers > div[data-v-3629b212] {\n  width: 33.333333333%;\n  text-align: center;\n}\n.box_details_numbers > div[data-v-3629b212]:nth-of-type(4),\n.box_details_numbers > div[data-v-3629b212]:nth-of-type(5) {\n  width: 50%;\n}\n@media (max-width: 567px) {\n.box_details_numbers > div[data-v-3629b212] {\n    width: 100%;\n}\n}", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, ".box_details_numbers[data-v-3629b212] {\n  display: flex;\n  flex-wrap: wrap;\n}\n.box_details_numbers > div[data-v-3629b212] {\n  padding: 20px;\n  border: 1px solid #dddddd;\n  padding-bottom: 30px;\n}\n.box_details_numbers > div h2[data-v-3629b212] {\n  font-size: 40px;\n  color: #035397;\n}\n.box_details_numbers > div p[data-v-3629b212] {\n  font-weight: bold;\n}\n.box_details_numbers > div h2[data-v-3629b212], .box_details_numbers > div p[data-v-3629b212] {\n  text-align: center;\n}\n.box_details_numbers > div[data-v-3629b212] {\n  width: 33.333333333%;\n  text-align: center;\n}\n.box_details_numbers > div[data-v-3629b212]:nth-of-type(4),\n.box_details_numbers > div[data-v-3629b212]:nth-of-type(5) {\n  width: 50%;\n}\n@media (max-width: 567px) {\n.box_details_numbers > div[data-v-3629b212] {\n    width: 100%;\n}\n}", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -1954,76 +1958,75 @@ var render = function () {
               "div",
               { staticClass: "container" },
               [
-                _c(
-                  "h2",
-                  {
-                    staticClass:
-                      "d-flex align-items-center mb-4 main-title justify-content-between",
-                  },
-                  [
-                    _c("p", { staticClass: "d-flex align-items-center" }, [
-                      _vm.$page.props.lang == "ar"
-                        ? _c("span", [
-                            _c("i", { staticClass: "ri-arrow-left-s-fill" }),
-                          ])
-                        : _c("span", [
-                            _c("i", { staticClass: "ri-arrow-right-s-fill" }),
-                          ]),
-                      _vm._v(" "),
-                      _c("span", [
-                        _vm._v(_vm._s(_vm.keywords.interactions_rate)),
+                _c("h2", { staticClass: "mb-4 main-title" }, [
+                  _c("span", [_vm._v(_vm._s(_vm.keywords.statistics))]),
+                ]),
+                _vm._v(" "),
+                _c("form", [
+                  _c("div", { staticClass: "row" }, [
+                    _c("div", { staticClass: "col-6" }, [
+                      _c("div", { staticClass: "form-group" }, [
+                        _c(
+                          "select",
+                          {
+                            staticClass: "form-control",
+                            attrs: { name: "process_type" },
+                          },
+                          [
+                            _c("option", { attrs: { value: "" } }, [
+                              _vm._v(_vm._s(_vm.keywords.select_process_type)),
+                            ]),
+                            _vm._v(" "),
+                            _c("option", { attrs: { value: "sale" } }, [
+                              _vm._v(_vm._s(_vm.keywords.sale)),
+                            ]),
+                            _vm._v(" "),
+                            _c("option", { attrs: { value: "buying" } }, [
+                              _vm._v(_vm._s(_vm.keywords.buying)),
+                            ]),
+                          ]
+                        ),
                       ]),
                     ]),
                     _vm._v(" "),
-                    _c("select", [
-                      _c("option", { attrs: { value: "30" } }, [
-                        _vm._v(_vm._s(_vm.keywords.last_thirty_days)),
-                      ]),
-                      _vm._v(" "),
-                      _c("option", { attrs: { value: "60" } }, [
-                        _vm._v(_vm._s(_vm.keywords.last_sixty_days)),
-                      ]),
-                      _vm._v(" "),
-                      _c("option", { attrs: { value: "90" } }, [
-                        _vm._v(_vm._s(_vm.keywords.last_ninety_days)),
+                    _c("div", { staticClass: "col-6" }, [
+                      _c("div", { staticClass: "form-group" }, [
+                        _c(
+                          "select",
+                          {
+                            staticClass: "form-control",
+                            attrs: { name: "process_type" },
+                          },
+                          [
+                            _c("option", { attrs: { value: "" } }, [
+                              _vm._v(_vm._s(_vm.keywords.select_year)),
+                            ]),
+                            _vm._v(" "),
+                            _vm._l(15, function (i, index) {
+                              return _c(
+                                "option",
+                                {
+                                  key: index,
+                                  domProps: {
+                                    value: new Date().getFullYear() - index,
+                                  },
+                                },
+                                [
+                                  _vm._v(
+                                    "\n                                        " +
+                                      _vm._s(new Date().getFullYear() - index) +
+                                      "\n                                    "
+                                  ),
+                                ]
+                              )
+                            }),
+                          ],
+                          2
+                        ),
                       ]),
                     ]),
-                  ]
-                ),
-                _vm._v(" "),
-                _c(
-                  "div",
-                  { staticClass: "box_details_numbers mt-4 mb-4" },
-                  _vm._l(
-                    Object.keys(_vm.data_numbers["statistics"]),
-                    function (i, index) {
-                      return _c("div", { key: index }, [
-                        _c("h2", [
-                          _vm._v(_vm._s(_vm.data_numbers["statistics"][i])),
-                        ]),
-                        _vm._v(" "),
-                        _c("p", [_vm._v(_vm._s(_vm.keywords[i]))]),
-                      ])
-                    }
-                  ),
-                  0
-                ),
-                _vm._v(" "),
-                _c(
-                  "h2",
-                  { staticClass: "d-flex align-items-center mb-4 main-title" },
-                  [
-                    _vm.$page.props.lang == "ar"
-                      ? _c("span", [
-                          _c("i", { staticClass: "ri-arrow-left-s-fill" }),
-                        ])
-                      : _c("span", [
-                          _c("i", { staticClass: "ri-arrow-right-s-fill" }),
-                        ]),
-                    _vm._v(" "),
-                    _c("span", [_vm._v(_vm._s(_vm.keywords.rating))]),
-                  ]
-                ),
+                  ]),
+                ]),
                 _vm._v(" "),
                 _c("line-chart", {
                   attrs: {

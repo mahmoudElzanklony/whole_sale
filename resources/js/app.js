@@ -65,8 +65,8 @@ Vue.component('line-chart', {
                     {
                         label: 'احصائيات العام',
                         fill: false,
-                        borderColor: '#ff6a15',
-                        backgroundColor: '#ff6a15',
+                        borderColor: '#035397',
+                        backgroundColor: '#035397',
                         borderWidth: 1,
                         data: this.chart_data //[40, 39, 10, 40, 39, 80, 40]
                     }

@@ -52,166 +52,30 @@ return [
    'make_new_password'=>'أنشاء كلمه مرور جديدة',
    'password_confirmed'=>'تأكيد كلمة المرور الجديدة',
 
-   // search filter page
-   'area'=>'منطقه',
-   'category'=>'القسم',
-   'sub_category'=>'القسم الفرعي',
-   'choose_sub_category'=>'اختر القسم الفرعي',
-   'type'=>'النوع',
-   'price_range'=>'السعر',
-   'min_price'=>'اقل سعر',
-   'max_price'=>'اعلي سعر',
-   'more_filters'=>'خيارات اعلي',
-   'less_filters'=>'خيارات اقل',
-   'area_range'=>'المساحه',
-   'min_area'=>'أقل مساحة',
-   'max_area'=>'أكبر مساحه',
-   'payment_methods'=>'طرق الدفع',
-   'all_options'=>'كل الخيارات',
-   'cash'=>'كاش',
-   'installments'=>'تقسيط',
-   'cash_or_installments'=>'كاش او تقسيط',
-   'listings_available_for_mortgage'=>'عقارات متاحة للتمويل العقاري',
-   'all_financing_options'=>'جميع خيارات التمويل',
-   'cbe_initiative'=>'مبادرة البنك المركزى 3%',
-   'cbe_another_initiative'=>'مبادرة البنك المركزى 8%',
-   'commercial_financing'=>'التمويل التجاري',
-   'view'=>'الإطلالة',
-   'keywords'=>'بحث بالكلمة',
-   'result_filtering'=>'عرض النتائج لـ',
-   'listings_with_photos_only'=>'الأعلانات المصوره فقط',
-   'listings_inside_compounds_only'=>'عقارات داخل كوبوند فقط',
-   'direct_from_the_owner_listings'=>'عقارات من المالك مباشرة',
-   'sort_by'=>'رتب النتائج حسب',
-   'newest_first'=>'الأحدث أولا',
-   'lowest_price'=>'أقل سعر',
-   'height_price'=>'أعلي سعر',
-   'smallest_area'=>'مساحه أقل',
-   'largest_area'=>'مساحة أكبر',
-   'areas'=>'مساحات',
-   'search'=>'بحث',
-   'listings_at_egypt'=>'عقارات في مصر',
-   'properties_for_sale'=>'عقارات للبيع',
-
-
-   // start of market place page------------------------------------------------
-   'city_or_neighbour_streetname'=>'المدينة او الحي او اسم الشارع',
-   'properties_for_rent'=>'عقارات للايجار',
-    'show_more'=>'أظهار المزيد',
-    'do_you_need_help'=>'هل تحتاج الي مساعده',
-    'to_get_best_results'=>'للحصول على نتائج اسرع و اكثر ، نرشح لك أن نتواصل مع أكبر المكاتب العقارية - لمساعدتك في العثور على ماتبحث عنه .',
-    'registered_at_date'=>'سجل في تاريخ',
-    'close'=>'أغلاق',
-    'pound'=>'دولار',
-    'meter'=>'متر',
-    'verified'=>'موثق',
-    'sponsored'=>'ممول',
-    'request_contact'=>'طلب اتصال',
-   // end of market place page------------------------------------------------
-
-   // start of neighbour page------------------------------------------------
-    'egypt_properties'=>'عقارات مصر',
-    'neighborhood_prices'=>'اسعار العقارات',
-    'real_estate_prices_in_egypt'=>'اسعار العقارات في مصر',
-    'search_inside_the_cities_of_egypt'=>'عقارات في مدن مصر',
-   // end of neighbour page------------------------------------------------
 
 
 
 
-  // start of listing post initialize----------------------------------------------------
-    'listing_type'=>'النوع',
-    'listing_section'=>'القسم',
-    'location'=>'المكان',
-    'choose_property_type'=>'اختر نوع العقار',
-    'select_location'=>'أختر المكان',
-    'listing_data'=>'بيانات العقار',
-    'listing_info'=>'تفاصيل العقار',
-    'listing_images'=>'صور العقار',
+
     'next'=>'التالي',
     'previous'=>'السابق',
-  // end of listing post initialize----------------------------------------------------
 
 
-  // start of listing post info ----------------------------------------------------
-    'title_in_english'=>'عنوان الأعلان بالأنجليزي',
-    'title_in_arabic'=>'عنوان الأعلان بالعربي',
-    'description_in_english'=>'تفاصيل الأعلان بالأنجليزي',
-    'description_in_arabic'=>'تفاصيل الأعلان بالعربي',
-    'youtube_video_url'=>'رابط الفديو يوتيوب',
-    'advertiser_details'=>'بيانات المعلن',
-    'phone_number'=>'رقم الهاتف',
-    'if_you_want_to_update_the_current_phone_number_please_go_to'=>'ذا أردت تعديل رقم الهاتف فرجاء اذهب',
-    'my_account'=>'اعدادتي',
-    'this_number_has_whatsapp'=>'يوجد WhatsApp علي هذا الرقم',
-    'contact_me_by_email'=>'تواصل معي عن طريق الأيمل',
-    'property_details'=>'وصف العقار',
-    'size_in_meters'=>'المساحه (بالمتر)',
-    'view'=>'تطلي علي',
-    'select_view'=>'أختر الأطلالة',
-    'price_egp'=>'السعر بالجنيه',
-    'price'=>'السعر',
-    'payment_types'=>'طرق الدفع',
-    'select_payment_type'=>'اختر طريقة الدفع',
-    'coordinates'=>'الأحداثيات',
-    'payment_method'=>'طريقة الدفع',
-    'complete_payment'=>'استكمال عمليه الدفع',
-    'rooms'=>'الغرف',
-    'floor'=>'الدور',
-    'bathrooms'=>'الحمامات',
-    'building_year'=>'سنة البناء / التسليم',
-    'finishing_type'=>'نوع التشطيب',
-    'super_lux'=>'سوبر لوكس',
-    'extra_super_lux'=>'اكسترا سوبر لوكس',
-    'lux'=>'لوكس',
-    'semi_finished'=>'نص تشطيب',
-    'without_finish'=>'بدون تشطيب',
-    'property_address'=>'عنوان العقار',
-    'property_address_arabic'=>'العنوان بالعربي',
-    'property_address_english'=>'العنوان بالانجليزي',
-    'mark_your_listing_location'=>'حدد مكان العقار على الخريطة',
-    'kindly_read_terms_and_instructions_of_adding_listings_on_ewaa'=>'الرجاء قراءة شروط وتعليمات إضافة الإعلانات على ايواء',
-    'here'=>'هنا',
+    // start of profile quotations------------------------------------------
+    'seq'=>'الترتيب',
+    'item_no'=>'رقم القطعه',
+    'req_qty'=>'الكمية المطلوبة',
+    'supplied_qty'=>'الكمية المتاح طلبها',
+    'unit_price'=>'سعر الوحدة (SAR)',
+    'total_value'=>'المبلغ الكلي',
+    'remarks'=>'ملاحظات',
+    'check_better_price_for_minimum_qty'=>'افضل كمية بأفضل سعر',
+    'estimated_unit_loaded_cost'=>'متسوط سعر الوحدة بالشحن تقريبيا',
+    'estimated_required_days_for_delivery'=>'الوقت المتوقع لوصول الشحنة',
+    'charge'=>'ضرائب',
+    'confirm_order_and_processed_to_checkout'=>'تأكيد الطلب و الذهاب لصفحه الدفع',
 
-    // end of listing post info ----------------------------------------------------
-
-
-
-    // start of listing photos  ----------------------------------------------------
-    'add_your_photos'=>'أصف صور عقارك',
-    'please_make_sure_each_photo_is_smaller_than'=>'برجاء تحميل صور أصغر حجما من 2 ميجابايت و عليك اختيار 10 صور فقط على الأكثر',
-    'drop_your_images_here'=>'قم بسحب وإلقاء الصور هنا',
-    'add_files'=>'تصفح',
-
-    // end of listing photos  ----------------------------------------------------
-
-
-
-    // start of listing details
-    'show_phone_number'=>'اظهر رقم الهاتف',
-    'send_email'=>'ارسل بريد الكتروني',
-    'get_help'=>'طلب المساعده',
-    'see_this_properties_also'=>'شاهد هذه العقارات ايضا',
-    'listing'=>'اعلان',
-    'listing_details'=>'تفاصيل الاعلان',
-    'listing_description'=>'وصف الاعلان',
-    'want_help'=>'هل تحتاج الي مزيد من المساعدة ؟',
-    'get_help_from'=>'تواصل مع أكبر الشركات في كمبوندات أخرى بالعاصمة الإدارية الجديدة',
-    'view_properties_from_this_seller'=>'اظهر اعلانات هذا البائع',
-    'enter_your_info_to_contact_with_seller'=>'ادخل بيناتك للتواصل مع المعلن',
-    'note_you_write_it'=>'هذه الملاحظة خاصة بك و لن تظهر على الإعلان أو للمُعلن, يمكنك الرجوع لهذه الملاحظة عن طريق الرجوع ل نشاطاتي',
-    'note'=>'ملاحظاتي',
-    'share'=>'مشاركه',
-    'favourite'=>'المفضلة',
-    'save'=>'حفظ',
-    'delete_note'=>'حذف الملاحظة',
-    'share_listing'=>'شارك هذا العقار',
-    'details'=>'تفاصيل',
-    'video'=>'فديو',
-    'show_properties'=>'اظهر العقارات',
-    'map'=>'الخريطة',
-
-    // end of listing details  ----------------------------------------------------
+    // end of profile quotations----------------------------------
 
 
 
@@ -254,7 +118,27 @@ return [
     // end of notifications  ----------------------------------------------------
 
 
+    // start of checkout -------------------------------------------------------
+    'total_items'=>'مجموع القطع',
+    'total_qty'=>'مجموع الكمية',
+    'total_goods_value'=>'السعر الكلي للقطع',
+    'other_charge'=>'ضرائب اخري',
+    'total_price'=>'السعر الكلي',
+    'request_info'=>'تفاصيل الطلب',
+    'proceed_payment_with'=>'اتمام عملية الدفع عن طريق',
+    'electric_payment'=>'دفع الكتروني',
+    'save_two_and_pay_with_bank'=>'وفر 2% وادفع عن طريق تحويل بنكي',
+    'upload_bank_transfer_photo'=>'ارفت صوره التحويل البنكي',
+    'card_no'=>'رقم البطاقة',
+    'name_on_card'=>'اسم البطاقة',
+    'expire_date'=>'معاد الانتهاء',
+    'cvv'=>'CVV',
 
+    'you_will_have_discount_bank'=>'ستحصل علي خصم قدره',
+    'total_price_become'=>'السعر الكلي الان اصبح',
+    'bank_account_number_you_should_transfer'=>'رقم الحساب البنكي المراد تحويل له',
+    'pay'=>'دفع',
+    // end of checkout -------------------------------------------------------
 
 
 
@@ -268,6 +152,7 @@ return [
     'my_listings'=>'عقاراتي',
     'my_favourite'=>'المفضلة',
     'statistics'=>'احصائيات',
+    'statistics_year'=>'احصائيات العام',
 
 
     'change_your_info'=>'تعديل البيانات',
@@ -328,24 +213,9 @@ return [
 
 
     // start of profile listings statics ----------------------------------------------------
-    'interactions_rate'=>'مستوي التفاعل',
-    'rating'=>'التقييم',
-    'show_rate'=>'اظهر التقييم',
-    'users_feedbacks'=>'تقييم المستخدمين',
-    'other_comments'=>'تعليقات اخري',
-    'time_period'=>'فتره زمنية',
-    'all_time'=>'كل الوقت',
-    'last_thirty_days'=>'اخر 30 يوم',
-    'last_sixty_days'=>'اخر 60 يوم',
-    'last_ninety_days'=>'اخر 90 يوم',
-    'last_thirty_days'=>'اخر 30 يوم',
-    'last_seven_days'=>'اخر 7 يوم',
-    'total_search_impressions'=>'إجمالي الظهور في البحث',
-    'total_page_views'=>'إجمالي المشاهدات',
-    'total_leads'=>'إجمالي محاولات الإتصال',
-    'average_seen_rate'=>'متوسط نسبة المشاهدة',
-    'average_contact_rate'=>'متوسط نسبة الإتصال',
-    'note_you_write_it_in_profile'=>'هذه الملاحظة هي سرية ولن تظهر للمعلن او لأي شخص اخر غيرك',
+    'select_process_type'=>'اختر نوع العملية',
+    'buying'=>'شراء',
+    'select_year'=>'اختر السنة',
     // end of profile listings statics ----------------------------------------------------
 
 

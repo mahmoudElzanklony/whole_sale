@@ -10,6 +10,7 @@ use App\Http\Controllers\FeedbackController;
 
 use App\Http\Controllers\NotificationsController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\CheckoutController;
 
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\URL;
@@ -46,4 +47,8 @@ Route::group(['middleware'=>'changeLang'],function (){
     // feedback
     Route::get('/feedback',[FeedbackController::class,'index']);
     Route::post('/import',[WelcomeController::class,'import_countries']);
+
+    // checkout
+    Route::get('/checkout',[CheckoutController::class,'index']);
+    Route::get('/notifications',[NotificationsController::class,'index']);
 });

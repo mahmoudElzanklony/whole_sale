@@ -262,6 +262,7 @@ return [
     'my_notes'=>'My Notes',
     'my_favourite'=>'Favourite',
     'statistics'=>'Statics',
+    'statistics_year'=>'Statics Year',
     'my_listings'=>'My Listings',
 
    'change_your_info'=>'Change Your Info',
@@ -287,154 +288,33 @@ return [
     'wholesale-is-trying-to-get-the-best-deal-for-you-from-the-registered-vendors-this-process-may-take-few-moments'=>'Wholesale is trying to get the best deal for you from the
 registered vendors, this process may take few moments',
 
-    // end of profile  ----------------------------------------------------
+    'seq'=>'Seq',
+    'item_no'=>'Item No',
+    'req_qty'=>'REQ QTY',
+    'supplied_qty'=>'Supplied Qty',
+    'unit_price'=>'Unit Price (SAR)',
+    'total_value'=>'Total Value',
+    'remarks'=>'Remarks',
+    'check_better_price_for_minimum_qty'=>'Check Better Price For Minimum QTY',
+    'estimated_unit_loaded_cost'=>'Estimated Unit Loaded Cost',
+    'estimated_required_days_for_delivery'=>'Estimated Required Days For Delivery',
+    'charge'=>'Charge',
+    'confirm_order_and_processed_to_checkout'=>'Confirm order and processed to checkout',
 
 
-
-
-    // start of profile listings dashboard ----------------------------------------------------
-    'search_your_listings'=>'Search your listings',
-    'id_or_keyword'=>'ID or keyword',
-    'live_listings'=>'Live listings',
-    'live_listings_txt_info'=>'This section shows all the listings those are live, please note that listings are live for 6 months starting from its publish date.',
-    'rejected_listings'=>'Rejected listings',
-    'rejected_listings_txt_info'=>'This section shows all the listings those were rejected by our system, for each listing you will find the rejection reason next to it. Please edit the listing to fix the issue, and submit the listing again. For more information, please review our advertising rules.',
-    'expired_listings'=>'Expired listings',
-    'expired_listings_txt_info'=>'This section shows all the listings that have expired, listings expire after 6 months from their publish date. You can either relist or delete the listing, if you choose to relist the listing, and the listing is in a paid area, points will be deducted from your credit.',
-    'pending_listings'=>'Pending listings',
-    'pending_listings_txt_info'=>'This section shows all the listings those are pending, the listing can be pending approval, pending photos or pending payment. Pending approval listings are listings waiting admins review. Pending photos listings are listings added without photos. ',
-    'pending_listings_txt_info_first'=>'Properties under review are properties awaiting supervisor review.',
-    'pending_listings_txt_info_second'=>'Properties Pending Images are properties that have been added without images.',
-    'pending_listings_txt_info_third'=>'Pending properties are properties that have been added without completing the payment process.',
-    'deleted_listings'=>'Deleted listings',
-    'deleted_listings_txt_info'=>'This section shows all the listings those were deleted by you. You can relist deleted listings, if you choose to relist the listing, and the listing is in a paid area, points will be deducted from your credit.',
-    'draft_listings'=>'Draft Listings',
-    'draft_listings_txt_info'=>'This section shows all draft listings, You can Complete them and publish them',
-    'listing_id'=>'Listing ID',
-    'listing_details_info'=>'Details',
-    'listing_rejected_reasons'=>'Rejected Reasons',
-    'actions'=>'Actions',
-    'update'=>'Updated',
-    'update_info'=>'Update Info',
     'update_photos'=>'Update Photos',
     'delete'=>'Delete',
     'clear'=>'Clear',
-    // end of profile listings dashboard ----------------------------------------------------
-
-
-
-    // start of profile listings statics ----------------------------------------------------
-    'interactions_rate'=>'Interactions Rate',
-    'rating'=>'Rating',
-    'show_rate'=>'Show Rate',
-    'users_feedbacks'=>'Users Feedbacks',
-    'other_comments'=>'Other Comments',
-    'time_period'=>'Time Period',
-    'all_time'=>'All Time',
-    'last_thirty_days'=>'Last 30 days',
-    'last_seven_days'=>'Last 7 days',
-    'last_sixty_days'=>'last sixty days',
-    'last_ninety_days'=>'last ninety days',
-    'total_search_impressions'=>'Total Search Impressions',
-    'total_page_views'=>'Total Page Views',
-    'total_leads'=>'Total Leads',
-    'average_seen_rate'=>'Average Seen Rate',
-    'average_contact_rate'=>'Average Contact Rate',
-    'note_you_write_it_in_profile'=>'This note is private and will not be posted on the listing or sent to its owner',
-    // end of profile listings statics ----------------------------------------------------
 
 
 
 
 
-
-
-    // start of compounds ---------------------------------------------------------------------
-    'compounds_guide'=>'Compounds Guide',
-    'projects_with_prices_of_all_units'=>'projects with prices of all units',
-    'locations'=>'locations',
-    'property_types'=>'Property types',
-    'price_level'=>'Price level',
-    'economic'=>'economic',
-    'mid_range'=>'mid range',
-    'luxury'=>'luxury',
-    'compound_status'=>'Status',
-    'under_construction'=>'Under construction',
-    'delivered'=>'Delivered',
-    'launch'=>'Launch',
-    'developer_experience'=>'Developer experience',
-    'has_delivered_projects'=>'has delivered projects',
-    'has_inhabited_projects'=>'has inhabited projects',
-    'compound_name'=>'Compound name',
-    'prices_start_from'=>'Prices start from',
-    'since'=>'since',
-    'projects'=>'projects',
-    'inhabited'=>'Inhabited',
-    'in_progress'=>'In Progress',
-    // end of compounds ---------------------------------------------------------------------
-
-
-
-
-    // start of confirm payment-------------------------------------------------------------
-    'for_rent'=>'For Rent',
-    'for_sale'=>'For Sale',
-    'take_from_my_points'=>'Take from my points',
-    'press_here_to_complete_process'=>'Press here to complete process',
-    'publish_listing'=>'Publish Listing',
-    'You_added_listing_in_one_of_our_paid'=>'You added your listing in one of our paid area you need to pay',
-    'from_points'=>' from points',
-    'you_dont_have_enough_balance'=>'You dont have enough balance to publish this listing',
-    'click_here_to_buy_one_of_our_packages'=>'Click here to buy one of our packages',
-    // end of confirm payment-------------------------------------------------------------
-
-
-
-
-    // start of charge credit-------------------------------------------------------------
-    'sell_rent_your_properties_faster_with_ewaa'=>'Sell rent your properties faster with Ewaa',
-    'list_all_your_properties_to_be_viewed_by_thousands_of_potential_clients'=>'List all your properties to be viewed by thousands of potential clients',
-    'tell_us_who_you_are'=>'Tell us who you are',
-    'we_carefully_designed_packages_to_perfectly_fit_your_needs'=>'We carefully designed packages to perfectly fit your needs',
-    'compound_developer'=>'Compound developer',
-    // end of charge credit-------------------------------------------------------------
-
-
-
-    // start of package info-------------------------------------------------------------
-    'reach_more_clients_with_ewaa'=>'Reach more clients with Ewaa',
-    'company_packages'=>'Company packages',
-    'select_the_package_that_suits_your_budget_and_get_immediate_results'=>'Select the package that suits your budget and get immediate results',
-    'recommended'=>'Recommended',
-    'continue'=>'Continue',
-    'buy_now'=>'Buy Now',
-    'what_our_clients_say'=>'What our clients say',
-    'frequent_questions'=>'Frequent questions',
-    'terms_and_conditions'=>'Terms and conditions',
-    'points'=>'Points',
-    'point'=>'point',
-    'min_points'=>'Min points',
-    'max_points'=>'Max points',
-    'expiration_package_date'=>'Expiration date of package',
-    'not_selected'=>'Not selected',
-    'point_price'=>'Point price',
-    'currency_used'=>'Currency used',
-    'total'=>'Total',
-    'featured_ads'=>'Featured Ads',
-    'free_points'=>'Free Points',
-    'points_validity'=>'Points Validity',
-    'ewaa_live'=>'Ewaa Live',
-    'logo_exposure'=>'Logo Exposure',
-    'online_banner_for'=>'Online banner for',
-    'month'=>'month',
-    'months'=>'months',
-    'week'=>'week',
-    'weeks'=>'weeks',
-    'day'=>'day',
-    // end of package info-------------------------------------------------------------
-
-
-
+    // start of profile statistics ------------------------------------
+    'select_process_type'=>'Select process type',
+    'buying'=>'buying',
+    'select_year'=>'Select Year',
+    // end of profile statistics ------------------------------------
 
 
     // start of feedback--------------------------------------------------------------
@@ -459,50 +339,34 @@ registered vendors, this process may take few moments',
 
 
 
-    // start of merchant balance -------------------------------------------------------
-    'my_credit'=>'My Credit',
-    'account_number'=>'Account Number',
-    'current_balance'=>'Current Balance',
-    'charge_credit'=>'Charge credit',
-    'amount'=>'Amount',
-    'balance'=>'Balance',
-    'description'=>'Description',
-    'date'=>'Date',
-    // end of merchant balance -------------------------------------------------------
+
+    // start of checkout ----------------------------------------------------------
+
+    // start of checkout -------------------------------------------------------
+    'total'=>'Total',
+    'total_items'=>'Total Items',
+    'total_qty'=>'Total Quantity',
+    'total_goods_value'=>'Total Goods value',
+    'other_charge'=>'Other Charge',
+    'total_price'=>'Total Price',
+    'request_info'=>'Request Info',
+    'proceed_payment_with'=>'Process payment with',
+    'electric_payment'=>'online payment',
+    'save_two_and_pay_with_bank'=>'save 2% and pay using bank transfer',
+    'upload_bank_transfer_photo'=>'Upload bank transfer photo',
+    'card_no'=>'Card Number',
+    'name_on_card'=>'Card Name',
+    'expire_date'=>'Expire Date',
+    'cvv'=>'CVV',
+
+    'you_will_have_discount_bank'=>'You will have bank discount',
+    'total_price_become'=>'Total price become now',
+    'bank_account_number_you_should_transfer'=>'Bank account number you should transfer',
+    'pay'=>'pay',
+    // end of checkout -------------------------------------------------------
 
 
-
-
-    // start of ask neighbour -------------------------------------------------------
-    'the_most_discussed_questions'=>'The most discussed questions',
-    'ask_your_neighbors'=>'Ask Your Neighbours',
-    'write_your_question_and_get_answers_from_the_community'=>'Write your question and get answers from the community',
-    'all_locations'=>'All locations',
-    'in'=>'in',
-    'all_categories'=>'All categories',
-    'select_category'=>'Select Category',
-    'the_most_discussed'=>'Most Discussed',
-    'unanswered'=>'Unanswered',
-    'all_questions'=>'All questions',
-    'answers'=>'Answers',
-    'add_question'=>'Add question',
-    'question'=>'question',
-    'city'=>'City',
-    'neighbour'=>'Neighbour',
-    'select'=>'Select',
-    // end of ask neighbour -------------------------------------------------------
-
-
-
-    // end of answers of question -------------------------------------------------------
-    'follow'=>'Follow',
-    'unfollow'=>'Unfollow',
-    'share'=>'Share',
-    'reply'=>'Reply',
-    'properties_you_may_be_interested_in'=>'Properties you may be interested in',
-
-    // end of answers of question -------------------------------------------------------
-
+    // end of checkout ----------------------------------------------------------
 
 
 

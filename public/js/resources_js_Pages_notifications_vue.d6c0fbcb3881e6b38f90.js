@@ -1382,7 +1382,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, ".notifications .outer-notification[data-v-93abbba2] {\n  border: 1px solid #ddd;\n  border-radius: 8px;\n}\n.notifications .outer-notification > p[data-v-93abbba2] {\n  display: flex;\n  align-items: center;\n  padding: 6px;\n  border-bottom: 1px solid #ddd;\n  padding-bottom: 10px;\n}\n.notifications .outer-notification > p span[data-v-93abbba2] {\n  font-size: 25px;\n}\n.notifications .outer-notification > p span[data-v-93abbba2]:first-of-type {\n  margin-left: 5px;\n}\n.notifications .outer-notification > p span[data-v-93abbba2]:last-of-type {\n  width: 30px;\n  height: 30px;\n  border-radius: 10px;\n  color: white;\n  background-color: #035397;\n  display: inline-flex;\n  justify-content: center;\n  align-items: center;\n}\n.notifications .outer-notification .inner .notification[data-v-93abbba2]:nth-child(odd) {\n  background-color: #ff6a150f;\n}\n.notifications .outer-notification .inner .notification[data-v-93abbba2] {\n  border-bottom: 1px solid #dddddd;\n  padding: 8px;\n}\n.notifications .outer-notification .inner .notification > div img[data-v-93abbba2] {\n  border: 1px solid #eee;\n  border-radius: 8px;\n  width: 60px;\n  height: 60px;\n  margin-left: 7px;\n}\n.notifications .outer-notification .inner .notification > div p[data-v-93abbba2] {\n  margin-bottom: 3px;\n}\n.notifications .outer-notification .inner .notification > p span[data-v-93abbba2]:first-of-type {\n  color: #03071E;\n}\n.notifications .outer-notification .inner .notification > p span[data-v-93abbba2]:last-of-type {\n  color: #616161;\n  position: relative;\n  top: 1px;\n}\n.loading[data-v-93abbba2] {\n  display: none;\n}", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, ".notifications .outer-notification[data-v-93abbba2] {\n  border: 1px solid #ddd;\n  border-radius: 8px;\n  margin-top: 100px;\n}\n.notifications .outer-notification > p[data-v-93abbba2] {\n  display: flex;\n  align-items: center;\n  padding: 6px;\n  border-bottom: 1px solid #ddd;\n  padding-bottom: 10px;\n}\n.notifications .outer-notification > p span[data-v-93abbba2] {\n  font-size: 25px;\n}\n.notifications .outer-notification > p span[data-v-93abbba2]:first-of-type {\n  margin-left: 5px;\n}\n.notifications .outer-notification > p span[data-v-93abbba2]:last-of-type {\n  width: 30px;\n  height: 30px;\n  border-radius: 10px;\n  color: white;\n  background-color: #035397;\n  display: inline-flex;\n  justify-content: center;\n  align-items: center;\n}\n.notifications .outer-notification .inner .notification[data-v-93abbba2]:nth-child(odd) {\n  background-color: #0353970a;\n}\n.notifications .outer-notification .inner .notification[data-v-93abbba2] {\n  border-bottom: 1px solid #dddddd;\n  padding: 8px;\n}\n.notifications .outer-notification .inner .notification > div img[data-v-93abbba2] {\n  border: 1px solid #eee;\n  border-radius: 8px;\n  width: 60px;\n  height: 60px;\n  margin-left: 7px;\n}\n.notifications .outer-notification .inner .notification > div p[data-v-93abbba2] {\n  margin-bottom: 3px;\n}\n.notifications .outer-notification .inner .notification > p span[data-v-93abbba2]:first-of-type {\n  color: #03071E;\n}\n.notifications .outer-notification .inner .notification > p span[data-v-93abbba2]:last-of-type {\n  color: #616161;\n  position: relative;\n  top: 1px;\n}\n.loading[data-v-93abbba2] {\n  display: none;\n}", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -2562,7 +2562,9 @@ var render = function () {
     [
       _c("navbar-component"),
       _vm._v(" "),
-      _vm._m(0),
+       false
+        ? 0
+        : _vm._e(),
       _vm._v(" "),
       _c("div", { staticClass: "container mt-4 mb-4" }, [
         _c("div", { staticClass: "outer-notification" }, [
@@ -2575,7 +2577,7 @@ var render = function () {
           _c(
             "div",
             { staticClass: "inner" },
-            _vm._l(_vm.vuex_data, function (i, index) {
+            _vm._l(10, function (i, index) {
               return _c(
                 "div",
                 {
@@ -2584,33 +2586,11 @@ var render = function () {
                     "notification d-flex align-items-center justify-content-between",
                 },
                 [
-                  _c("div", { staticClass: "data d-flex align-items-center" }, [
-                    _c("img", {
-                      attrs: { src: "/images/users/" + i["receiver"]["image"] },
-                    }),
-                    _vm._v(" "),
-                    _c("div", { staticClass: "text" }, [
-                      _c("p", [
-                        _c("strong", [
-                          _vm._v(_vm._s(i["receiver"]["username"])),
-                        ]),
-                      ]),
-                      _vm._v(" "),
-                      _c("p", [
-                        _vm._v(
-                          "\n                                " +
-                            _vm._s(i["info"]) +
-                            "\n                            "
-                        ),
-                      ]),
-                    ]),
-                  ]),
+                  _vm._m(0, true),
                   _vm._v(" "),
                   _c("p", { staticClass: "d-flex align-items-center" }, [
                     _c("span", [
-                      _vm._v(
-                        _vm._s(new Date(i["created_at"]).toLocaleDateString())
-                      ),
+                      _vm._v(_vm._s(new Date().toLocaleDateString())),
                     ]),
                     _vm._v(" "),
                     _vm._m(1, true),
@@ -2633,11 +2613,19 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c(
-      "div",
-      { staticClass: "loading align-items-center justify-content-center" },
-      [_c("img", { attrs: { src: "/images/loading.gif" } })]
-    )
+    return _c("div", { staticClass: "data d-flex align-items-center" }, [
+      _c("img", { attrs: { src: "/images/users/default.png" } }),
+      _vm._v(" "),
+      _c("div", { staticClass: "text" }, [
+        _c("p", [_c("strong", [_vm._v("ahmed ali")])]),
+        _vm._v(" "),
+        _c("p", [
+          _vm._v(
+            "\n                                قام بشراء قطعه رقم 1003\n                            "
+          ),
+        ]),
+      ]),
+    ])
   },
   function () {
     var _vm = this
