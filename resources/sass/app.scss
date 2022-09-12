@@ -783,7 +783,7 @@ table{
         span{
             width: 40px;
             height: 40px;
-            background-color: #ff6a150a;
+            background-color: #0353971a;
             padding: 4px;
             cursor: pointer;
             display: flex;
@@ -801,7 +801,10 @@ table{
             margin-left: 3px;
         }
         >span:first-of-type{
-            color: #ff6a15;
+            color: $blue;
+        }
+        span.delete{
+            background-color: #f443361a;
         }
         >span:last-of-type{
             color:$red;

@@ -99802,13 +99802,25 @@ var map = {
 		"./resources/js/Pages/profile/main_info.vue",
 		"resources_js_Pages_profile_main_info_vue"
 	],
+	"./profile/orders.vue": [
+		"./resources/js/Pages/profile/orders.vue",
+		"resources_js_Pages_profile_orders_vue"
+	],
 	"./profile/qutoation_request.vue": [
 		"./resources/js/Pages/profile/qutoation_request.vue",
 		"resources_js_Pages_profile_qutoation_request_vue"
 	],
+	"./profile/sales.vue": [
+		"./resources/js/Pages/profile/sales.vue",
+		"resources_js_Pages_profile_sales_vue"
+	],
 	"./profile/statistics.vue": [
 		"./resources/js/Pages/profile/statistics.vue",
 		"resources_js_Pages_profile_statistics_vue"
+	],
+	"./save_products.vue": [
+		"./resources/js/Pages/save_products.vue",
+		"resources_js_Pages_save_products_vue"
 	]
 };
 function webpackAsyncContext(req) {
@@ -99947,7 +99959,7 @@ module.exports = webpackAsyncContext;
 /******/ 		// This function allow to reference async chunks
 /******/ 		__webpack_require__.u = (chunkId) => {
 /******/ 			// return url for filenames based on template
-/******/ 			return "js/" + chunkId + "." + {"resources_js_Pages_auth_forget_password_vue":"ef7993ea9324aef3ce15","resources_js_Pages_auth_new_password_vue":"0134a91ac540a5e4fcdf","resources_js_Pages_auth_sign_in_vue":"e0aafa9523fbb3f9c2cb","resources_js_Pages_auth_sign_up_vue":"9e7946a06a282f7f939d","resources_js_Pages_auth_sign_up_bank_vue":"587df39e425bd53501b4","resources_js_Pages_auth_sign_up_brands_vue":"ff98aea68e6a36357cb9","resources_js_Pages_checkout_vue":"f6fbeb60295c50bd8413","resources_js_Pages_contactus_vue":"93a4cc6b56196e355bbd","resources_js_Pages_feedback_vue":"de337805443b77a0d79e","resources_js_Pages_home_vue":"c22e9833e9d8eb5c5b7d","resources_js_Pages_notifications_vue":"d6c0fbcb3881e6b38f90","resources_js_Pages_profile_listings_dashboard_vue":"752a2ab920bbec545471","resources_js_Pages_profile_main_info_vue":"12e8274aaff0ca194eff","resources_js_Pages_profile_qutoation_request_vue":"9acd62b9c16043a30fd0","resources_js_Pages_profile_statistics_vue":"38b1e70ee100bd49427f"}[chunkId] + ".js";
+/******/ 			return "js/" + chunkId + "." + {"resources_js_Pages_auth_forget_password_vue":"9665aa1f684661972a04","resources_js_Pages_auth_new_password_vue":"7f576ca359272351e1e8","resources_js_Pages_auth_sign_in_vue":"f866bc59c74bc5644ac8","resources_js_Pages_auth_sign_up_vue":"97073f1edc389ed1cf73","resources_js_Pages_auth_sign_up_bank_vue":"fac92f44ed42119f0f37","resources_js_Pages_auth_sign_up_brands_vue":"fa307f3575caf067f55c","resources_js_Pages_checkout_vue":"a6dd877b1896d1057a12","resources_js_Pages_contactus_vue":"9957e08fb108eb2d757b","resources_js_Pages_feedback_vue":"41243ead3686af1b65eb","resources_js_Pages_home_vue":"8d39bb2ad4e3f29fd77a","resources_js_Pages_notifications_vue":"fe0622ad9479065efe92","resources_js_Pages_profile_listings_dashboard_vue":"79f4744b1e35a835e98e","resources_js_Pages_profile_main_info_vue":"191f5fad885886cefb85","resources_js_Pages_profile_orders_vue":"05a93d4baca123e3e0e3","resources_js_Pages_profile_qutoation_request_vue":"a77ff0e494ec199a4f1f","resources_js_Pages_profile_sales_vue":"748831c478ec7bde5d89","resources_js_Pages_profile_statistics_vue":"f25debad18a21c579676","resources_js_Pages_save_products_vue":"b7594a8146c753005da4"}[chunkId] + ".js";
 /******/ 		};
 /******/ 	})();
 /******/ 	

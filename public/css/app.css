@@ -10803,7 +10803,7 @@ table .actions {
 table .actions span {
   width: 40px;
   height: 40px;
-  background-color: #ff6a150a;
+  background-color: #0353971a;
   padding: 4px;
   cursor: pointer;
   display: flex;
@@ -10819,7 +10819,10 @@ table .actions > a + span {
   margin-left: 3px;
 }
 table .actions > span:first-of-type {
-  color: #ff6a15;
+  color: #2E348E;
+}
+table .actions span.delete {
+  background-color: #f443361a;
 }
 table .actions > span:last-of-type {
   color: #9D0208;

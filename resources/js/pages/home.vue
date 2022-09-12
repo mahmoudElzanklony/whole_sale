@@ -181,6 +181,7 @@ header{
     background-size: cover;
     height: 650px;
     background-position: center;
+    margin-top: 55px;
     .container{
         display: flex;
         align-items: center;

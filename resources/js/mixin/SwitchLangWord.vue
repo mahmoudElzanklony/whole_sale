@@ -348,13 +348,23 @@ export default {
 
               statistics:{
                   ar:'احصائياتي',
-                  en:'statistics',
+                  en:'Statistics',
                   tu:'',
               },
               my_favourite:{
                   ar:'المفضلة',
                   en:'Favourite',
                   tu:'',
+              },
+              my_orders:{
+                ar:'مشترياتي',
+                en:'Orders',
+                tu:'',
+              },
+              my_sales:{
+                ar:'مبيعاتي',
+                en:'Sales',
+                tu:'',
               },
               quotations:{
                 ar:'الطلبات',

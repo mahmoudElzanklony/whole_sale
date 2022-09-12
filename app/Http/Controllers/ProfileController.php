@@ -11,6 +11,7 @@ use App\Keywords\Profile\ProfileKeywords;
 use App\Keywords\Profile\ProfileListingsKeywords;
 use App\Keywords\Profile\ProfileNotesKeywords;
 use App\Keywords\Profile\ProfileQutationsKeywords;
+use App\Keywords\Profile\ProfileSalesKeywords;
 use App\Keywords\Profile\ProfileStatisticsKeywords;
 use App\Models\listings_info;
 use App\Models\User;
@@ -37,12 +38,7 @@ class ProfileController extends ProfileServiceClass
         ]);
     }
 
-    public function dashboard_listings(){
-        return Inertia::render('profile/listings_dashboard',[
-            'keywords'=>ProfileListingsKeywords::get_keywords(),
-            'data'=> listing_dashboard::handle_data(request()->has('tab') ? request('tab') : 'live_listings'),
-        ]);
-    }
+
 
     public function statistics(){
         return Inertia::render('profile/statistics',[
@@ -51,20 +47,17 @@ class ProfileController extends ProfileServiceClass
         ]);
     }
 
-    public function favourites(){
-        $data = favourites::fav();
-        return Inertia::render('profile/favourites',[
-            'keywords'=>ProfileFavouritesKeywords::get_keywords(),
-            'data'=>$data,
+    public function sales(){
+        return Inertia::render('profile/sales',[
+            'keywords'=>ProfileSalesKeywords::get_keywords(),
+        ]);
+    }
+
+    public function orders(){
+        return Inertia::render('profile/orders',[
+            'keywords'=>ProfileSalesKeywords::get_keywords(),
         ]);
     }
 
 
-    public function notes(){
-
-        return Inertia::render('profile/notes',[
-            'data'=>all_listings_notes::get_notes(),
-            'keywords'=>ProfileNotesKeywords::get_keywords(),
-        ]);
-    }
 }

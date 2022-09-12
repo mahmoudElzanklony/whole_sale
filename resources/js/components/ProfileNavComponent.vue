@@ -19,23 +19,22 @@
                             <span>{{ switchWord('quotations') }}</span>
                         </inertia-link>
                     </li>
+                   <li>
+                     <inertia-link href="/profile/statistics">
+                       <span><i class="ri-line-chart-line"></i></span>
+                       <span>{{ switchWord('statistics') }}</span>
+                     </inertia-link>
+                   </li>
                     <li>
-                        <inertia-link href="/profile/sa">
-                            <span><i class="ri-file-list-3-line"></i></span>
-                            <span>تيست تيست تيست</span>
+                        <inertia-link href="/profile/orders">
+                            <span><i class="ri-shopping-cart-line"></i></span>
+                            <span>{{ switchWord('my_orders') }}</span>
                         </inertia-link>
                     </li>
-
                     <li>
-                        <inertia-link href="/profile/statistics" >
-                            <span><i class="ri-line-chart-line"></i></span>
-                            <span>{{ switchWord('statistics') }}</span>
-                        </inertia-link>
-                    </li>
-                    <li>
-                        <inertia-link href="/profile/favourites">
-                            <span><i class="ri-heart-line"></i></span>
-                            <span>{{ switchWord('my_favourite') }}</span>
+                        <inertia-link href="/profile/sales">
+                            <span><i class="ri-money-dollar-circle-line"></i></span>
+                            <span>{{ switchWord('my_sales') }}</span>
                         </inertia-link>
                     </li>
 

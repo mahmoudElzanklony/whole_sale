@@ -179,28 +179,6 @@ return [
 البائعين المسجلين ، قد تستغرق هذه العملية بضع دقائق',
     // end of profile  ----------------------------------------------------
 
-
-    // start of profile listings dashboard ----------------------------------------------------
-    'search_your_listings'=>'ابحث في عقاراتك',
-    'id_or_keyword'=>'كلمة او رقم الأعلان',
-    'live_listings'=>'الأعلانات المنشورة',
-    'live_listings_txt_info'=>'هذا القسم يعرض جميع العقارات المنشورة، يرجى ملاحظة أن العقارات تظل منشورة لمدة 6 أشهر بدءا من تاريخ نشرها.',
-    'rejected_listings'=>'إعلانات مرفوضة',
-    'rejected_listings_txt_info'=>'هذا القسم يعرض جميع العقارات التي تم رفضها من قبل نظامنا، بجانب كل عقار سوف تجد سبب الرفض. يرجى تعديل بيانات العقار .لإصلاح المشكلة، وإدخال العقار مرة أخرى. للمزيد من التفاصيل، يمكنك مراجعة شروط الإعلان على إيواء بلس',
-    'expired_listings'=>'الأعلانات المنتهية',
-    'expired_listings_txt_info'=>'هذا القسم يعرض جميع العقارات التي انتهت فترة النشر الخاصة بها ، فترة نشر العقار هي 6 أشهر.يمكنك إما إعادة نشر العقار أو حذفه، إذا اخترت أن تعيد نشر العقار، وكان العقار في منطقة مدفوعة، سيتم خصم نقاط من رصيدك.',
-    'pending_listings'=>'أعلانات قيد الأنتظار',
-    'pending_listings_txt_info'=>':هذا القسم يعرض جميع العقارات المعلقة، ويمكن أن يكون العقار قيد المراجعة، في انتظار الصور أو في انتظار الدفع',
-    'pending_listings_txt_info_first'=>'عقارات قيد المراجعة هي عقارات في انتظار مراجعة المشرف.',
-    'pending_listings_txt_info_second'=>'عقارات في انتظار الصور هي عقارات تم اضافتها بدون صور.',
-    'pending_listings_txt_info_third'=>'عقارات في انتظار الدفع هي عقارات تم إضافتها بدون استكمال عملية الدفع.',
-    'deleted_listings'=>'الأعلانات المحذوفة',
-    'deleted_listings_txt_info'=>'هذا القسم يعرض جميع العقارات التي تم حذفها من قبلك. يمكنك أن تعيد نشر العقارات المحذوفة، وإذا اخترت أن تعيد نشر العقار، وكان العقار في منطقة مدفوعة، سيتم خصم نقاط من رصيدك.',
-    'draft_listings'=>'مسودات',
-    'draft_listings_txt_info'=>'هذا القسم يعرض جميع العقارات التي تم انشائها ولم تكتمل من قبلك. يمكنك أن تعيد اكمالها لنشرها.',
-    'listing_id'=>'رقم الأعلان',
-    'listing_details_info'=>'تفاصيل العقار',
-    'listing_rejected_reasons'=>'اسباب الرفض',
     'actions'=>'الأوامر',
     'update'=>'تعديل',
     'update_info'=>' تعديل البيانات',
@@ -219,87 +197,28 @@ return [
     // end of profile listings statics ----------------------------------------------------
 
 
-
-    // start of compounds ---------------------------------------------------------------------
-    'compounds_guide'=>'دليل الكمبوند',
-    'projects_with_prices_of_all_units'=>'مشروع بأسعار كل الوحدات',
-    'locations'=>'الأماكن',
-    'property_types'=>'أنواع العقارات',
-    'price_level'=>'مستوي السعر',
-    'economic'=>'أقتصادي',
-    'mid_range'=>'متوسط',
-    'luxury'=>'luxury',
-    'compound_status'=>'حالة الأنشاء',
-    'under_construction'=>'تحت الأنشاء',
-    'delivered'=>'تم التسليم',
-    'launch'=>'Launch',
-    'developer_experience'=>'خبرة المطور',
-    'has_delivered_projects'=>'لدية مشاريع تم تسلميها',
-    'has_inhabited_projects'=>'لدية مشاريع ساكنة',
-    'compound_name'=>'اسم الكمبوند',
-    'prices_start_from'=>'أسعار تبدا من',
-    'since'=>'منذ',
-    'projects'=>'مشاريع',
-    'inhabited'=>'تم السكن',
-    'in_progress'=>'قيد التطوير',
-    // end of compounds ---------------------------------------------------------------------
+    // start of profile sales ----------------------------------------------------
+    'my_current_sales'=>'ارباحي الحالية',
+    'my_current_orders'=>'مشترياتي الحالية',
+    'status'=>'الحالة',
+    // end of profile sales ----------------------------------------------------
 
 
-   // start of confirm payment-------------------------------------------------------------
-    'for_rent'=>'للأيجار',
-    'for_sale'=>'للبيع',
-    'take_from_my_points'=>'أخذ من رصيد نقاطي',
-    'press_here_to_complete_process'=>'أضغط هنا لأكمال العملية',
-    'publish_listing'=>'أنشر إعلانك',
-    'You_added_listing_in_one_of_our_paid'=>'لقد قمت باضافة اعلان في منطقة من المناطق المدفوعة تحتاح لدفع',
-    'from_points'=>' من النقاط ',
-    'you_dont_have_enough_balance'=>'ليس لديك رصيد كافي لنشر هذا الإعلان',
-    'click_here_to_buy_one_of_our_packages'=>'اضغط هنا لشراء إحدي هذه الباقات',
-    // end of confirm payment-------------------------------------------------------------
-
-
-
-    // start of charge credit-------------------------------------------------------------
-    'sell_rent_your_properties_faster_with_ewaa'=>'قم ببيع أو تأجير عقاراتك أسرع مع إيواء بلس',
-    'list_all_your_properties_to_be_viewed_by_thousands_of_potential_clients'=>'اعلن عن عقاراتك ليشاهدها آلاف العملاء المحتملين من زوار موقعنا',
-    'tell_us_who_you_are'=>'اخبرنا من أنت',
-    'we_carefully_designed_packages_to_perfectly_fit_your_needs'=>'قمنا بإعداد الباقات بعناية لتناسب حاجتك',
-    'compound_developer'=>'مطور كمبوند',
-    // end of charge credit-------------------------------------------------------------
-
-
-
-    // start of package info-------------------------------------------------------------
-    'reach_more_clients_with_ewaa'=>'ستصل لعملاء أكثر مع ايواء',
-    'company_packages'=>' باقات التسويق',
-    'select_the_package_that_suits_your_budget_and_get_immediate_results'=>'اختر الباقة التي تناسب ميزانيتك، واحصل على نتائج فورية',
-    'recommended'=>'مفضلة',
-    'continue'=>'اشترك الان',
-    'buy_now'=>'اشترك الان',
-    'what_our_clients_say'=>'أعرف اكتر عنا',
-    'frequent_questions'=>'الاسئلة الشائعة',
-    'terms_and_conditions'=>'الأحكام والشروط',
-    'points'=>'عدد النقاط',
-    'point'=>'نقطة',
-    'min_points'=>'اقل عدد نقاط',
-    'max_points'=>'اقصي عدد نقاط',
-    'expiration_package_date'=>'تاريخ انتهاء الباقة',
-    'not_selected'=>'غير محدد',
-    'point_price'=>'سعر النقطة',
-    'currency_used'=>'العملة المستخدمة',
-    'total'=>'المجموع',
-    'featured_ads'=>'إعلانات مميزة',
-    'free_points'=>'بوستات مجانية',
-    'points_validity'=>'صلاحية النقاط',
-    'ewaa_live'=>'إيواء لايف',
-    'logo_exposure'=>'شعار الشركة',
-    'online_banner_for'=>'اونلاين بانر لمدة',
-    'month'=>'شهر',
-    'months'=>'اشهر',
-    'week'=>'اسبوع',
-    'weeks'=>'اسابيع',
-    'day'=>'يوم',
-    // end of package info-------------------------------------------------------------
+    // start of save product ----------------------------------------------------
+    'create_product_using_for_or_file'=>'انشاء قطعة جديدة عن طريق ادخال البيانات في فورم او رفع ملف',
+    'create_product'=>'انشاء قطعة جديدة',
+    'update_product'=>'تعديل بيانات',
+    'ar_part_name'=>'اسم القطعة بالعربي',
+    'en_part_name'=>'اسم القطعة بالانجليزي',
+    'offered_stock'=>'ما استطيع توفيرة',
+    'min_quantity_per_transaction'=>'اقل كمية للمعاملة الواحدة',
+    'max_quantity_per_transaction'=>'اقصي كمية للمعاملة الواحدة',
+    'unit_of_packing'=>'وحدة التعبئة',
+    'width'=>'العرض',
+    'length'=>'الطول',
+    'thickness'=>'الارتفاع',
+    'quantity_per_pallet_load'=>'الكمية لكل حمولة منصة نقالة',
+    // end of save product ----------------------------------------------------
 
 
 
@@ -325,49 +244,6 @@ return [
     'address_title'=>'21 شارع دكتور نجيب محفوظ، مدينة نصر، القاهرة',
   // end of contact us -------------------------------------------------------
 
-
-
-  // start of merchant balance -------------------------------------------------------
-    'my_credit'=>'رصيدي',
-    'account_number'=>'رقم حسابك',
-    'current_balance'=>'رصيدك الحالي',
-    'charge_credit'=>'اشحن رصيدك',
-    'amount'=>'النقاط',
-    'balance'=>'الرصيد',
-    'description'=>'الوصف',
-    'date'=>'التاريخ',
-  // end of merchant balance -------------------------------------------------------
-
-
-
-  // start of ask neighbour -------------------------------------------------------
-    'the_most_discussed_questions'=>'الأسئلة الأكثر نقاشا',
-    'ask_your_neighbors'=>'أسئل أهل المنطقة',
-    'write_your_question_and_get_answers_from_the_community'=>'اكتب سؤالاً عن العقارات واسأل أهل المنطقة',
-    'ask_a_question_and_get_answers_from_neighbors'=>'Ask a question and get answers from neighbors',
-    'all_locations'=>'الاماكن والمناطق',
-    'in'=>'في',
-    'all_categories'=>'كل الأقسام',
-    'select_category'=>'اختر القسم',
-    'the_most_discussed'=>'الأكثر نقاشا',
-    'unanswered'=>'بدون اجابة',
-    'all_questions'=>'جميع الأسئلة',
-    'answers'=>'إجابة',
-    'add_question'=>'أضافة سؤال',
-    'question'=>'سؤال',
-    'city'=>'المدينة',
-    'neighbour'=>'المنطقة',
-    'select'=>'أختر',
-  // end of ask neighbour -------------------------------------------------------
-
-
-
-  // end of answers of question -------------------------------------------------------
-    'follow'=>'تابع',
-    'unfollow'=>'إلغاء المتابعة',
-    'reply'=>'شارك في الإجابة',
-    'properties_you_may_be_interested_in'=>'عقارات قد تكون مهتمًا بها',
-  // end of answers of question -------------------------------------------------------
 
 
 

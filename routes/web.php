@@ -11,6 +11,7 @@ use App\Http\Controllers\FeedbackController;
 use App\Http\Controllers\NotificationsController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\CheckoutController;
+use App\Http\Controllers\ProductsController;
 
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\URL;
@@ -40,9 +41,13 @@ Route::group(['middleware'=>'changeLang'],function (){
         // edit
         Route::get('/edit',[ProfileController::class,'edit']);
         Route::get('/quotations',[ProfileController::class,'qutation_reuqest']);
-        Route::get('/dashboard',[ProfileController::class,'dashboard_listings']);
         Route::get('/statistics',[ProfileController::class,'statistics']);
-        Route::get('/favourites',[ProfileController::class,'favourites']);
+        Route::get('/sales',[ProfileController::class,'sales']);
+        Route::get('/orders',[ProfileController::class,'orders']);
+    });
+    // products
+    Route::group(['prefix'=>'/products'],function(){
+        Route::get('/saveproduct',[ProductsController::class,'save_product']);
     });
     // feedback
     Route::get('/feedback',[FeedbackController::class,'index']);
