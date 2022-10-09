@@ -37,16 +37,22 @@
                     <span>{{ switchWord('users') }}</span>
                 </inertia-link>
             </li>
-            <li custom="categories">
-                <inertia-link href="/dashboard/categories">
-                    <span><i class="ri-list-check"></i></span>
-                    <span>{{ switchWord('categories') }}</span>
+            <li custom="brands">
+                <inertia-link href="/dashboard/brands">
+                    <span><i class="ri-roadster-line"></i></span>
+                    <span>{{ switchWord('brands') }}</span>
                 </inertia-link>
             </li>
-            <li custom="questions">
-                <inertia-link href="/dashboard/questions">
-                    <span><i class="ri-question-line"></i></span>
-                    <span>{{ switchWord('questions') }}</span>
+            <li custom="quotations">
+                <inertia-link href="/dashboard/quotations">
+                    <span><i class="ri-send-plane-line"></i></span>
+                    <span>{{ switchWord('quotations') }}</span>
+                </inertia-link>
+            </li>
+            <li custom="products">
+                <inertia-link  href="/dashboard/products">
+                    <span><i class="ri-stack-line"></i></span>
+                    <span>{{ switchWord('products') }}</span>
                 </inertia-link>
             </li>
             <li custom="statistics">
@@ -55,58 +61,22 @@
                     <span>{{ switchWord('chart') }}</span>
                 </inertia-link>
             </li>
-            <li custom="packages">
-                <inertia-link  href="/dashboard/packages">
-                    <span><i class="ri-inbox-fill"></i></span>
-                    <span>{{ switchWord('packages') }}</span>
+            <li custom="orders">
+                <inertia-link  href="/dashboard/orders">
+                    <span><i class="ri-shopping-cart-2-line"></i></span>
+                    <span>{{ switchWord('orders') }}</span>
                 </inertia-link>
             </li>
-            <li custom="currencies">
-                <inertia-link  href="/dashboard/currencies">
+            <li custom="sales">
+                <inertia-link  href="/dashboard/sales">
                     <span><i class="ri-currency-line"></i></span>
-                    <span>{{ switchWord('currencies') }}</span>
+                    <span>{{ switchWord('sales') }}</span>
                 </inertia-link>
             </li>
-            <li custom="subscriptions">
-                <inertia-link  href="/dashboard/subscriptions">
-                    <span><i class="ri-stack-line"></i></span>
-                    <span>{{ switchWord('subscriptions') }}</span>
-                </inertia-link>
-            </li>
-            <li custom="buildings">
-                <inertia-link  href="/dashboard/buildings">
-                    <span><i class="ri-building-line"></i></span>
-                    <span>{{ switchWord('buildings') }}</span>
-                </inertia-link>
-            </li>
-            <li custom="pointad">
-                <inertia-link  href="/dashboard/pointad">
-                    <span><i class="ri-shield-flash-line"></i></span>
-                    <span>{{ switchWord('ad_points') }}</span>
-                </inertia-link>
-            </li>
-            <li custom="countries">
-                <inertia-link  href="/dashboard/map/countries">
-                    <span><i class="ri-bank-line"></i></span>
-                    <span>{{ switchWord('countries') }}</span>
-                </inertia-link>
-            </li>
-            <li custom="governments">
-                <inertia-link  href="/dashboard/map/governments">
-                    <span><i class="ri-government-line"></i></span>
-                    <span>{{ switchWord('governments') }}</span>
-                </inertia-link>
-            </li>
-            <li custom="cities">
-                <inertia-link  href="/dashboard/map/cities">
-                    <span><i class="ri-community-line"></i></span>
-                    <span>{{ switchWord('cities') }}</span>
-                </inertia-link>
-            </li>
-            <li custom="areas">
-                <inertia-link  href="/dashboard/map/areas">
-                    <span><i class="ri-map-pin-line"></i></span>
-                    <span>{{ switchWord('areas') }}</span>
+            <li custom="timer">
+                <inertia-link  href="/dashboard/timer">
+                    <span><i class="ri-timer-line"></i></span>
+                    <span>{{ switchWord('timer') }}</span>
                 </inertia-link>
             </li>
             <li custom="reports">

@@ -1,11 +1,15 @@
 <template>
     <div>
         <navbar-component></navbar-component>
+        <div class="loading">
+            <img src="/images/loading.gif">
+            <p>{{ switchWord('please_wait_until_finish_processing') }}</p>
+        </div>
         <div class="auth mb-5">
             <div class="container">
                 <div class="row">
                     <div class="col-md-6">
-                        <form method="post" @submit.prevent="register">
+                        <form method="post" @submit.prevent="store_local_data">
                             <div class="progress-form" data-aos="fade-down">
                                 <span class="active"><i class="ri-check-line"></i></span>
                                 <p>{{ keywords.personal_info }}</p>
@@ -17,39 +21,47 @@
                             </div>
                             <div class="form-group" data-aos="fade-up" data-aos-delay="500">
                                 <label>{{ keywords.username }}</label>
-                                <input name="username" type="text" class="form-control" required>
+                                <input name="username" type="text" class="form-control"
+                                       :value="stored_info != null ? stored_info['username']:''"
+                                       required>
                                 <p class="alert alert-danger"></p>
                             </div>
                             <div class="form-group" data-aos="fade-up" data-aos-delay="1000">
                                 <label>{{ keywords.email }}</label>
-                                <input name="email" type="email" class="form-control" required>
+                                <input name="email" type="email" class="form-control"
+                                       :value="stored_info != null ? stored_info['email']:''"
+                                       required>
                                 <p class="alert alert-danger"></p>
                             </div>
                             <div class="form-group" data-aos="fade-up" data-aos-delay="1500">
                                 <label>{{ keywords.password }}</label>
-                                <input name="password" type="password" class="form-control" required>
+                                <input name="password" type="password" class="form-control"
+                                       :value="stored_info != null ? stored_info['password']:''"
+                                       required>
                                 <p class="alert alert-danger"></p>
                             </div>
                             <div class="form-group" data-aos="fade-up" data-aos-delay="2000">
                                 <label>{{ keywords.phone }}</label>
-                                <input name="phone" type="number" min="0" pattern=".{7,}" class="form-control" required>
+                                <input name="phone" type="number" min="0" pattern=".{7,}"
+                                       :value="stored_info != null ? stored_info['phone']:''"
+                                       class="form-control" required>
                                 <p class="alert alert-danger"></p>
                             </div>
 
                             <div class="form-group" data-aos="fade-up" data-aos-delay="2500">
                                 <label>{{ keywords.user_type }}</label>
-                                <select name="type"  class="form-control" required>
-                                    <option value="seller">{{ keywords.seller }}</option>
-                                    <option value="buyer">{{ keywords.buyer }}</option>
-                                    <option value="seller_buyer">{{ keywords.seller_buyer }}</option>
+                                <select name="role_id"  class="form-control" @change="change_role" required>
+                                    <option value="seller" v-for="(i,index) in data"
+                                            :key="index"
+                                            :selected="stored_info != null && stored_info['role_id'] == i['id']"
+                                            :value="i['id']">{{ keywords[i['name']] }}</option>
                                 </select>
                                 <p class="alert alert-danger"></p>
                             </div>
                             <div class="form-group" data-aos="fade-up" data-aos-delay="3000">
-                                <input type="button" name="send"
+                                <input type="submit" name="send"
                                        class="btn btn-primary"
-                                       @click="nextPage('/register?type=bank-info')"
-                                       :value="switchWord('next')">
+                                       :value="switchWord('save')">
                             </div>
                             <p class="text-center" >
                                 <span>{{ keywords.have_already_account }} ? </span>
@@ -77,11 +89,18 @@ import {mapActions} from "vuex";
 export default {
     name: "sign_up",
     mixins:[SwitchLangWord],
-    props:['keywords'],
+    props:['keywords','data','stored_info'],
     methods:{
       ...mapActions({
-          'register':'register/register',
+          'store_local_data':'register/store_personal_data',
       }),
+      change_role:function(){
+         if(event.target.value == 3){
+             $('.progress-form').fadeOut();
+         }else{
+             $('.progress-form').css('display','flex');
+         }
+      },
       nextPage:function(url){
           this.$inertia.visit(url);
       }

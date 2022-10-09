@@ -9,4 +9,5 @@ return [
   'saved_successfully'=>'تم حفظ العملية بنجاح',
   'removed_from_fav_successfully'=>'تمت الازاله من المفضلة بنجاح',
   'added_to_fav_successfully'=>'تمت الاضافة الي المفضلة بنجاح',
+  'saved_new_user'=>'تمت تسجيل بياناتك بنجاح',
 ];

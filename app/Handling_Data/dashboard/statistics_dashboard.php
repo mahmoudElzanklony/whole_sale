@@ -17,11 +17,9 @@ class statistics_dashboard
                trans('keywords.username'),
                trans('keywords.email'),
                trans('keywords.phone'),
-               trans('keywords.country'),
                trans('keywords.address'),
                trans('keywords.block'),
-               trans('keywords.auto_publish'),
-               trans('keywords.user_listings'),
+               trans('keywords.user_products'),
                trans('keywords.actions'),
            ],
            'data_model'=>[
@@ -29,10 +27,8 @@ class statistics_dashboard
                'email'=>trans('keywords.email'),
                'password'=>trans('keywords.password'),
                'phone'=>trans('keywords.phone'),
-               'country_id'=>trans('keywords.countries'),
                'address'=>trans('keywords.address'),
                'block'=>trans('keywords.block'),
-               'auto_publish'=>trans('keywords.auto_publish'),
                'image'=>trans('keywords.image'),
            ],
            'data'=>User::query()->with('country')->whereHas('role',function($e){

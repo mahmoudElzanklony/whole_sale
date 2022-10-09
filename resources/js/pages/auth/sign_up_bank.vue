@@ -1,11 +1,15 @@
 <template>
     <div>
         <navbar-component></navbar-component>
+        <div class="loading">
+            <img src="images/loading.gif">
+            <p>{{ switchWord('please_wait_until_finish_processing') }}</p>
+        </div>
         <div class="auth mb-5">
             <div class="container">
                 <div class="row">
                     <div class="col-md-6">
-                        <form method="post" @submit.prevent="register">
+                        <form method="post" @submit.prevent="store_bank_data">
                             <div class="progress-form" data-aos="fade-down">
                                 <span><i class="ri-check-line"></i></span>
                                 <p>{{ keywords.personal_info }}</p>
@@ -15,32 +19,44 @@
                                 <p>{{ keywords.brands_dealing }}</p>
                                 <span><i class="ri-check-line"></i></span>
                             </div>
+                            <div>
+                                <img class="preview"
+                                     :src="data != null ? '/images/bank_licence/'+data['bank_licence']:'images/preview.png'">
+                            </div>
                             <div class="form-group" data-aos="fade-up" data-aos-delay="500" >
                                 <label>{{ keywords.account_number }}</label>
-                                <input name="account_number" type="text" class="form-control" required>
+                                <input name="account_number" type="text" class="form-control"
+                                       :value="data != null ? data['account_number']:''"
+                                       required>
                                 <p class="alert alert-danger"></p>
                             </div>
                             <div class="form-group" data-aos="fade-up" data-aos-delay="1000">
                                 <label>IBAN</label>
-                                <input name="iban" type="text" class="form-control" required>
+                                <input name="iban" type="text" class="form-control"
+                                       :value="data != null ? data['iban']:''"
+                                       required>
                                 <p class="alert alert-danger"></p>
                             </div>
                             <div class="form-group" data-aos="fade-up" data-aos-delay="1500">
                                 <label>Swift Code</label>
-                                <input name="swift_code" class="form-control" required>
+                                <input name="swift_code" class="form-control"
+                                       :value="data != null ? data['swift_code']:''"
+                                       required>
                                 <p class="alert alert-danger"></p>
                             </div>
                             <div class="drag-drop-files mb-3" data-aos="fade-up" data-aos-delay="2000">
-                                <input type="file" name="bank_info_document" accept="image/*" class="preview-image">
+                                <input type="file" name="bank_licence" accept="image/*"
+                                       selector=".preview"
+                                       class="preview-image" :required="data == null">
+                                <p class="alert alert-danger"></p>
                                 <button type="button" class="btn btn-primary">
                                     <span>{{ keywords.bank_info_document }}</span>
                                     <span><i class="ri-add-line"></i></span>
                                 </button>
                             </div>
                             <div class="form-group" data-aos="fade-up" data-aos-delay="2500">
-                                <input type="button" name="send"
+                                <input type="submit" name="send"
                                        class="btn btn-primary"
-                                       @click="nextPage('/register?type=brands')"
                                        :value="switchWord('next')">
                                 <input type="button" name="send"
                                        class="btn btn-outline-primary"
@@ -61,7 +77,7 @@
                 </div>
             </div>
         </div>
-        <footer-component data-aos="fade-down"></footer-component>
+        <footer-component ></footer-component>
     </div>
 </template>
 
@@ -73,10 +89,10 @@ import {mapActions} from "vuex";
 export default {
     name: "sign_up_bank",
     mixins:[SwitchLangWord],
-    props:['keywords'],
+    props:['keywords','data'],
     methods:{
         ...mapActions({
-            'register':'register/register',
+            'store_bank_data':'register/store_bank_data',
         }),
         nextPage:function(url){
             this.$inertia.visit(url);
@@ -108,6 +124,11 @@ export default {
         width: 100%;
         height: 100%;
     }
+}
+.preview{
+    width:100px;
+    display: block;
+    margin: auto;
 }
 form{
     p{

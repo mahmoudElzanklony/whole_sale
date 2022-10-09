@@ -15,7 +15,7 @@ class ProfileKeywords
             'personal_info'=>trans('keywords.personal_info'),
             'edit_personal_info'=>trans('keywords.edit_personal_info'),
             'edit_main_info'=>trans('keywords.edit_main_info'),
-
+            'current_balance'=>trans('keywords.current_balance'),
 
             'my_profile'=>trans('keywords.my_profile'),
             'change_your_info'=>trans('keywords.change_your_info'),

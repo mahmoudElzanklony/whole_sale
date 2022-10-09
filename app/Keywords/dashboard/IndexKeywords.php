@@ -9,18 +9,18 @@ class IndexKeywords
     public static function get_keywords(){
         return [
             'show_details'=>trans('keywords.show_details'),
-            'last_listings'=>trans('keywords.last_listings'),
-            'ewaa_word'=>trans('keywords.ewaa_word'),
-            'ewaa_listings'=>trans('keywords.ewaa_listings'),
-            'last_packages_sales'=>trans('keywords.last_packages_sales'),
-            'allow_for_you_number_of_points'=>trans('keywords.allow_for_you_number_of_points'),
-            'ewaa_statistics_word'=>trans('keywords.ewaa_statistics_word'),
-            'ewaa_statistics_info'=>trans('keywords.ewaa_statistics_info'),
+            'wholesale_word'=>trans('keywords.wholesale_word'),
+            'wholesale_header_info'=>trans('keywords.wholesale_header_info'),
+            'last_products'=>trans('keywords.last_products'),
+            'last_quotations_out'=>trans('keywords.last_quotations_out'), // you send qutation i mean you are a buyer
+            'last_sales'=>trans('keywords.last_sales'),
+            'last_brands'=>trans('keywords.last_brands'),
+            'wholesale_statistics_word'=>trans('keywords.wholesale_statistics_word'),
+            'wholesale_statistics_info'=>trans('keywords.wholesale_statistics_info'),
             'explore_statistics'=>trans('keywords.explore_statistics'),
-            'last_listings_statistics'=>trans('keywords.last_listings_statistics'),
-            'pending_listings'=>trans('keywords.pending_listings'),
-            'last_categories'=>trans('keywords.last_categories'),
-            'approve'=>trans('keywords.approve'),
+            'explore_sales'=>trans('keywords.explore_sales'),
+            'update'=>trans('keywords.update'),
+            'delete'=>trans('keywords.delete'),
         ];
     }
 }

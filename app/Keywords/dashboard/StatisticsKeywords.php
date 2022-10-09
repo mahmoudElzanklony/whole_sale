@@ -8,12 +8,11 @@ class StatisticsKeywords
 {
     public static function get_keywords(){
         return [
-            'main_title'=>trans('keywords.ewaa_statistics'),
+            'main_title'=>trans('keywords.wholesale_statistics'),
             'users'=>trans('keywords.users'),
-            'packages'=>trans('keywords.company_packages'),
-            'subscriptions'=>trans('keywords.packages_orders'),
-            'listings'=>trans('keywords.listings'),
-            'listings_pending'=>trans('keywords.listings_orders'),
+            'brands'=>trans('keywords.brands'),
+            'products'=>trans('keywords.products'),
+            'sales'=>trans('keywords.sales'),
             'see_more'=>trans('keywords.see_more'),
         ];
     }

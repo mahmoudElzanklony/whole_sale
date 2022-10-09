@@ -24,7 +24,7 @@ class support_dashboard
                 'message'=>trans('keywords.message'),
                 'reply'=>trans('keywords.reply'),
             ],
-            'data'=>support::query()->get(),
+            'data'=>[]
         ];
     }
 }

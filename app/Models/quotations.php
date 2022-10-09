@@ -8,4 +8,14 @@ use Illuminate\Database\Eloquent\Model;
 class quotations extends Model
 {
     use HasFactory;
+
+    protected $fillable = ['user_id','brand_id','part_number','quantity','serial'];
+
+    public function user(){
+        return $this->belongsTo(User::class,'user_id');
+    }
+
+    public function brand(){
+        return $this->belongsTo(brands::class,'brand_id');
+    }
 }

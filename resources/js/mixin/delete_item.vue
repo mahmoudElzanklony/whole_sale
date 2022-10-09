@@ -21,7 +21,7 @@ export default {
                 title: msg,
                 icon: 'info',
                 showCancelButton: true,
-                confirmButtonColor: '#ff6a15',
+                confirmButtonColor: '#035397',
                 cancelButtonColor: '#aaa',
                 confirmButtonText: confirm,
                 cancelButtonText:cancel,

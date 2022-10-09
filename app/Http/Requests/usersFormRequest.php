@@ -30,16 +30,33 @@ class usersFormRequest extends FormRequest
         ];
     }
 
+    public function store_user_from_register(){
+        return [
+            //
+            'brands'=>'required|array',
+            'brands.*'=>'required|exists:brands,id',
+            'trade_licence'=>'required|image|mimes:png,jpeg,jpg,gif'
+        ];
+    }
+
     public function register(){
         return [
             //
-            'country_id'=>'required|integer|exists:countries,id',
             'username'=>'required|max:191',
             'email'=>'required|email|max:191|unique:users,email',
             'password'=>'required|min:7|max:191',
             'phone'=>'required|min:7',
-            'address'=>'nullable|max:191',
-            'image'=>'nullable|image|mimes:jpg,jpeg,png,gif',
+            'role_id'=>'required|exists:roles,id',
+        ];
+    }
+
+    public function store_bank(){
+        return [
+            //
+            'account_number'=>'required|max:191',
+            'iban'=>'required|max:191',
+            'swift_code'=>'required|max:191',
+            'bank_licence'=>session()->has('bank_data') ? 'nullable':'required|image|mimes:png,jpg,jpeg,gif',
         ];
     }
     public function update_admin(){
@@ -102,8 +119,12 @@ class usersFormRequest extends FormRequest
     {
         if(str_contains($this->getRequestUri(),'/login')){
             return $this->login();
-        }else if(str_contains($this->getRequestUri() , '/register')){
+        }else if(str_contains($this->getRequestUri() , '/register/store-personal-data')){
             return $this->register();
+        }else if(str_contains($this->getRequestUri() , '/register/store-bank-data')){
+            return $this->store_bank();
+        }else if(str_contains($this->getRequestUri() , '/register/store-user-from-register')){
+            return $this->store_user_from_register();
         }else if(str_contains($this->getRequestUri() , '/profile/update-email-image')){
             return $this->update_email_image();
         }else if(str_contains($this->getRequestUri() , '/profile/update-password')){
@@ -122,25 +143,18 @@ class usersFormRequest extends FormRequest
     public function attributes()
     {
         return [
-            'country_id'=>trans('keywords.country'),
             'username'=>trans('keywords.username'),
             'full_name'=>trans('keywords.full_name'),
-            'whatapp_status'=>trans('keywords.whatapp_status'),
             'email'=>trans('keywords.email'),
             'password'=>trans('keywords.password'),
             'current_password'=>trans('keywords.current_password'),
-            'address'=>trans('keywords.address'),
             'image'=>trans('keywords.image'),
-            'profile_picture'=>trans('keywords.image'),
-            'bio'=>trans('keywords.company_bio'),
-            'age'=>trans('keywords.age'),
-            'gender'=>trans('keywords.gender'),
-            'marital_status'=>trans('keywords.marital_status'),
-            'education'=>trans('keywords.education'),
-            'industry'=>trans('keywords.industry'),
-            'position'=>trans('keywords.position'),
             'block'=>trans('keywords.block'),
-            'auto_publish'=>trans('keywords.auto_publish'),
+            'role_id'=>trans('keywords.user_type'),
+            'account_number'=>trans('keywords.account_number'),
+            'bank_licence'=>trans('keywords.bank_info_document'),
+            'trade_licence'=>trans('keywords.trade_licence'),
+            'brands'=>trans('keywords.brands'),
         ];
     }
 

@@ -117,8 +117,14 @@
                                             </li>
                                             <li class="d-flex align-items-center justify-content-between">
                                                 <p>
+
                                                     <span><i class="ri-logout-box-line"></i></span>
-                                                    <span>{{ switchWord('logout') }}</span>
+                                                    <span>
+                                                        <inertia-link href="/logout">
+                                                             {{ switchWord('logout') }}
+                                                        </inertia-link>
+                                                    </span>
+
                                                 </p>
                                                 <span></span>
                                             </li>
@@ -137,7 +143,6 @@
 
 <script>
 import SwitchLangWord from '../mixin/SwitchLangWord';
-import {mapActions , mapGetters} from "vuex";
 export default {
     name: "NavbarComponent",
     mixins:[SwitchLangWord],
@@ -145,12 +150,6 @@ export default {
         user:function(){
             return this.$inertia.page.props.user;
         },
-        ...mapGetters({
-           'get_parent_categories_data':'categories/get_parent_categories_data',
-        }),
-    },
-    created() {
-        this.get_parent_cats();
     },
     methods:{
         showList:function (){
@@ -162,9 +161,6 @@ export default {
             }
             $(event.target).parent().next().fadeToggle();
         },
-        ...mapActions({
-            'get_parent_cats':'categories/get_parent_categories',
-        })
     }
 }
 </script>
@@ -290,13 +286,12 @@ nav {
         a{
             display: flex;
             align-items: center;
-            margin-bottom: 15px;
             img{
                 height:30px;
             }
             span:first-of-type{
                 i{
-                    color:$main_color;
+                    /*color:$main_color;*/
                 }
             }
         }
@@ -460,23 +455,11 @@ nav {
         flex-direction: column;
     }
     .ar {
-        nav .dropdown-menu{
-            right: 0px;
-        }
-        .user-info-auth{
-            right: 0px;
-        }
         .nav-link {
             padding-right: 0px;
         }
     }
     .en{
-        nav .dropdown-menu{
-            left:0px;
-        }
-        .user-info-auth{
-            left: 0px;
-        }
         .nav-link {
             padding-left: 0px;
         }

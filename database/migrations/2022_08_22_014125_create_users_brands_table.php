@@ -16,9 +16,7 @@ class CreateUsersBrandsTable extends Migration
         Schema::create('users_brands', function (Blueprint $table) {
             $table->id();
             $table->foreignId('user_id')->constrained()->onUpdate('cascade')->onDelete('cascade');
-            $table->string('ar_name');
-            $table->string('en_name');
-            $table->tinyInteger('approved_status')->default(0);
+            $table->foreignId('brand_id')->constrained()->onUpdate('cascade')->onDelete('cascade');
             $table->timestamps();
         });
     }

@@ -23,6 +23,9 @@ class ProfileSalesKeywords
             'total'=>trans('keywords.total'),
             'status'=>trans('keywords.status'),
             'actions'=>trans('keywords.actions'),
+            'print_data_info'=>trans('keywords.print_data_info'),
+            'wholesale_bill_info'=>trans('keywords.wholesale_bill_info'),
+            'bill_export_date'=>trans('keywords.bill_export_date'),
         ];
     }
 }

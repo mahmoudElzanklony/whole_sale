@@ -12,6 +12,7 @@ use App\Http\Controllers\NotificationsController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\CheckoutController;
 use App\Http\Controllers\ProductsController;
+use App\Http\Controllers\DashboardController;
 
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\URL;
@@ -36,6 +37,7 @@ Route::group(['middleware'=>'changeLang'],function (){
     Route::get('/register',[AuthController::class,'register'])->middleware('guest');;
     Route::get('/forget-password',[AuthController::class,'forget_password']);
     Route::get('/new-password',[AuthController::class,'new_password']);
+    Route::get('/logout',[AuthController::class,'logout'])->middleware('auth');
     // profile
     Route::group(['prefix'=>'/profile'],function(){
         // edit
@@ -47,6 +49,7 @@ Route::group(['middleware'=>'changeLang'],function (){
     });
     // products
     Route::group(['prefix'=>'/products'],function(){
+        Route::get('/',[ProductsController::class,'index']);
         Route::get('/saveproduct',[ProductsController::class,'save_product']);
     });
     // feedback
@@ -56,4 +59,24 @@ Route::group(['middleware'=>'changeLang'],function (){
     // checkout
     Route::get('/checkout',[CheckoutController::class,'index']);
     Route::get('/notifications',[NotificationsController::class,'index']);
+
+
+    Route::group(['prefix'=>'/dashboard','middleware'=>['auth','checkAdmin']],function(){
+        Route::get('/',[DashboardController::class,'index']);
+        Route::get('/notifications',[DashboardController::class,'notifications']);
+        Route::get('/users',[DashboardController::class,'users']);
+        Route::get('/brands',[DashboardController::class,'brands']);
+        Route::get('/products',[DashboardController::class,'products']);
+        Route::get('/statistics',[DashboardController::class,'statistics']);
+        Route::get('/sales',[DashboardController::class,'sales']);
+        Route::get('/orders',[DashboardController::class,'orders']);
+        Route::get('/reports',[DashboardController::class,'reports']);
+        Route::get('/support',[DashboardController::class,'support']);
+        Route::get('/settings',[DashboardController::class,'settings']);
+        Route::get('/timer',[DashboardController::class,'timer']);
+        Route::get('/quotations',[DashboardController::class,'quotations']);
+    });
+
+    Route::get('/sendmail',[\App\Http\Controllers\MailController::class,'basic_email']);
+
 });

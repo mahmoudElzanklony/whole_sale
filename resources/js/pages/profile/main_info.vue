@@ -5,6 +5,10 @@
             <ProfileNavComponent></ProfileNavComponent>
             <div class="change_data">
                 <div class="container">
+                    <p class="alert alert-warning">
+                        <span>{{ keywords.current_balance }}</span>
+                        <strong>100</strong>
+                    </p>
                     <div class="row">
                         <div class="col-md-6 col-12">
                             <div class="section_inputs">
@@ -119,14 +123,7 @@
                                     </h2>
                                     <div class="form-group" >
                                         <label>{{ keywords.brands_dealing }}</label>
-                                        <select name="brands_dealing"  class="form-control" multiple required>
-                                            <option value="" disabled>{{ switchWord('select_best_for_you') }}</option>
-                                            <option value="toytoa">Toyta</option>
-                                            <option value="Nysan">Nysan</option>
-                                            <option value="BMW">BMW</option>
-                                            <option value="Marcedis">Marcedis</option>
-                                        </select>
-                                        <p class="alert alert-danger"></p>
+                                        <brands_selections :data="['toyta','nisan','bmw']"></brands_selections>
                                     </div>
                                     <div class="form-group">
                                         <input type="submit" name="save" class="btn btn-primary" :value="keywords.save">
@@ -152,6 +149,7 @@ import FooterComponent from "../../components/FooterComponent";
 import ProfileNavComponent from "../../components/ProfileNavComponent";
 import SwitchLangWord from "../../mixin/SwitchLangWord";
 import {mapActions} from "vuex";
+import Brands_selections from "../../components/brands_selections";
 export default {
     name: "main_info",
     props:['keywords','data','role'],
@@ -170,7 +168,7 @@ export default {
          'update_secondary_data':'personal_info/update_secondary_data',
       }),
     },
-    components: {ProfileNavComponent, FooterComponent, NavbarComponent}
+    components: {Brands_selections, ProfileNavComponent, FooterComponent, NavbarComponent}
 }
 </script>
 

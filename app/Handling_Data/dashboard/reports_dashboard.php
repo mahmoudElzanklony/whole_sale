@@ -12,17 +12,18 @@ class reports_dashboard
 
         return [
             'search_form'=>[
-              'country_id'=>trans('keywords.countries'),
-              'government_id'=>trans('keywords.governments'),
-              'city_id'=>trans('keywords.cities'),
+              'part_no'=>trans('keywords.part_no'),
+              'seller_name'=>trans('keywords.seller_name'),
+              'year'=>trans('keywords.year'),
             ],
             'table_head_keys'=>[
-                'name'=>trans('keywords.name'),
-                'listings_number'=>trans('keywords.listings_number'),
-                'average_price_meter'=>trans('keywords.average_price_meter'),
+                'part_no'=>trans('keywords.part_no'),
+                'seller_name'=>trans('keywords.seller_name'),
+                'year'=>trans('keywords.year'),
+                'no_of_orders'=>trans('keywords.no_of_orders'),
             ],
             'data'=>[
-              'countries'=>countries::selection()->get(),
+
             ],
         ];
     }

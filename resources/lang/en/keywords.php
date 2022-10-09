@@ -40,6 +40,7 @@ return [
     'seller'=>'Seller',
     'buyer_seller'=>'Buyer & Seller',
     'bank_info'=>'Bank Info',
+    'account_number'=>'Account Number',
     'brands_dealing'=>'Brands dealing',
     'trade_licence'=>'Trade Licence',
     'bank_info_document'=>'Bank info document',
@@ -65,6 +66,7 @@ return [
 
     // start of profile  ----------------------------------------------------
     'my_profile'=>'My profile',
+    'current_balance'=>'My current wallet balance is : ',
     'update_main_info'=>'Update main info',
     'my_notes'=>'My Notes',
     'my_favourite'=>'Favourite',
@@ -89,8 +91,10 @@ return [
     'enter_data'=>'Enter data',
     'upload_file'=>'Upload file',
     'serial'=>'Serial',
+    'bill_number'=>'Bill Number',
     'part_no'=>'Part number',
-    'brand'=>'Brande',
+    'brand'=>'Brand',
+    'select_brand'=>'Select brand',
     'quantity'=>'Quantity',
     'wholesale-is-trying-to-get-the-best-deal-for-you-from-the-registered-vendors-this-process-may-take-few-moments'=>'Wholesale is trying to get the best deal for you from the
 registered vendors, this process may take few moments',
@@ -107,13 +111,17 @@ registered vendors, this process may take few moments',
     'estimated_required_days_for_delivery'=>'Estimated Required Days For Delivery',
     'charge'=>'Charge',
     'confirm_order_and_processed_to_checkout'=>'Confirm order and processed to checkout',
+    'print_data_info'=>'You can download the data in the table below by pressing the Print or Excel button. If you want to download data other than that, you can search for what you want to reach what you want and then press print or excel to download specified data',
 
 
     'update_photos'=>'Update Photos',
     'delete'=>'Delete',
     'clear'=>'Clear',
-
-
+    'save'=>'Save',
+    'add'=>'Add',
+    'update'=>'Update',
+    'actions'=>'Actions',
+    'close'=>'Close',
 
 
 
@@ -139,6 +147,8 @@ registered vendors, this process may take few moments',
     'ar_part_name'=>'Part name in arabic',
     'en_part_name'=>'Part name in english',
     'offered_stock'=>'Offered Stock',
+    'min_quantity'=>'Min quantity',
+    'price'=>'Price',
     'min_quantity_per_transaction'=>'Min quantity per transaction',
     'max_quantity_per_transaction'=>'Max quantity per transaction',
     'unit_of_packing'=>'Unit of packing',
@@ -146,8 +156,12 @@ registered vendors, this process may take few moments',
     'length'=>'Length',
     'thickness'=>'Thickness',
     'quantity_per_pallet_load'=>'Quantity per pallet load',
+    'add_specific_slab'=>'Add specific slab',
     // end of save product ----------------------------------------------------
 
+    // start of my products --------------------------------------------------
+    'my_products'=>'My current products',
+    // end of my products --------------------------------------------------
 
 
 
@@ -179,6 +193,7 @@ registered vendors, this process may take few moments',
     // start of checkout ----------------------------------------------------------
 
     // start of checkout -------------------------------------------------------
+    'required'=>' input is required ',
     'total'=>'Total',
     'total_items'=>'Total Items',
     'total_qty'=>'Total Quantity',
@@ -207,18 +222,22 @@ registered vendors, this process may take few moments',
 
 
     // start of dashboard ----------------------------------------------------------
-    'ewaa_word'=>'Ewaa plus is the best ',
-    'ewaa_listings'=>'You can manage real estate, packages and sales and know the latest news and reports to make the best decisions',
+    'wholesale_word'=>'wholesale is the best platform for selling parts of cars',
+    'wholesale_header_info'=>'You can manage real estate, qutations and sales and know the latest news and reports to make the best decisions',
+    'wholesale_bill_info'=>'Thank you for your dealings with us, and we hope to be at your best',
+    'bill_export_date'=>'Bill exported at date ',
     'show_details'=>'Show Details',
-    'last_listings'=>'Last Listings',
+    'last_products'=>'Last Products',
+    'last_brands'=>'Last Brands',
+    'last_sales'=>'Last Sales',
+    'last_quotations_out'=>'Last Qutations',
     'last_packages_sales'=>'Latest sales of packages',
     'allow_for_you_number_of_points'=>'Allow you a number of ability points',
     'ewaa_statistics_word'=>'Graphs and statistics that show you the movement of the site',
     'ewaa_statistics_info'=>'Through the graphs, the best decisions can be made to develop the shelter platform to become better in the future',
     'explore_statistics'=>'Explore Statistics',
+    'explore_sales'=>'Explore Sales',
     'last_listings_statistics'=>'Statistics on the spread of real estate this year',
-    'pending_listings'=>'Pending Listings',
-   'last_categories'=>'Last Categories',
    'approve'=>'Approve',
     'block'=>'Block',
     'auto_publish'=>'Auto Publish',
@@ -229,117 +248,36 @@ registered vendors, this process may take few moments',
 
     'update_user'=>'Update user info',
     'upload_image'=>'Upload Image',
-    'user_listings'=>'User Listings',
+    'user_products'=>'User Products',
+    'brands'=>'Brands',
+    'prices'=>'Prices',
     // end of dashboard ----------------------------------------------------------
 
 
-
-    // start of dashboard categories ----------------------------------------------------------
-    'categories_info'=>'Categories Information',
-    'ar_name'=>'Name in arabic',
-    'en_name'=>'Name in english',
-    'tu_name'=>'Name in turkish',
-    'ar_description'=>'Description in arabic',
-    'en_description'=>'Description in english',
-    'tu_description'=>'Description in turkish',
-    'sub_categories'=>'Sub Categories',
-    'category_parent_id'=>'Parent Category',
-    'see_more'=>'See more',
-    // end of dashboard categories ----------------------------------------------------------
-
-
-
-
-    // start of dashboard sub categories ----------------------------------------------------------
-    'inner_sub_categories_at'=>'Inner sub categories at',
-    'select_from_questions'=>'Select from questions',
-    'add_new_question'=>'Add new question',
-    'add_another_question'=>'Add another question',
-    'select_question'=>'Select question',
-    'questions'=>'Questions',
-    'ar_question'=>'Question in arabic',
-    'en_question'=>'Question in english',
-    'tu_question'=>'Question in turkish',
-    'question_type'=>'Question Type',
-    'question_required'=>'Mandatory question',
-    'icon'=>'Icon',
-    'cover_appearance'=>'Status of  cover appearance',
-    'ar_question_values'=>'Question values in arabic',
-    'en_question_values'=>'Question values in english',
-    'tu_question_values'=>'Question values in turkish',
-
-    // end of dashboard sub categories ----------------------------------------------------------
     // start of dashboard statistics ----------------------------------------------------------
-
-    'ewaa_statistics'=>'Ewaa Statistics',
-    'packages_orders'=>'Packages Orders',
-    'listings_orders'=>'Listings Orders',
-    'listings'=>'Listings',
+    'wholesale_statistics'=>'Wholesale Statistics',
+    'products'=>'Products',
+    'sales'=>'Sales',
 
     // end of dashboard statistics ----------------------------------------------------------
 
-    // start of dashboard packages ----------------------------------------------------------
-    'packages'=>'Packages',
-    'min_value'=>'Min value',
-    'max_value'=>'Max value',
-    'currency'=>'Currency',
-    'is_visible'=>'Is Visible',
-    'expiration_date'=>'Expiration Date',
-    'point_price'=>'Price of points',
-    'country'=>'Country',
-    'city'=>'City',
-    'area'=>'Area',
-    'specific_price_for_specific_areas'=>'Specific price for specific areas',
-    'add_specific_price_for_specific_areas'=>'Add specific price for specific areas',
-    // end of dashboard packages ----------------------------------------------------------
-
-    // start of dashboard subscription ----------------------------------------------------------
-    'subscriptions'=>'Subscriptions',
-    'package'=>'Package',
-    'points_ordered'=>'Points ordered',
-    'package_min_points'=>'Package min points',
-    'package_max_points'=>'Package max points',
-    // end of dashboard subscription ----------------------------------------------------------
 
 
-    // start of dashboard pointad ----------------------------------------------------------
-    'pointad'=>'Ad price to points',
-    'no_points'=>'Number of points',
-    // end of dashboard pointad ----------------------------------------------------------
+    // start of dashboard orders ----------------------------------------------------------
+    'orders'=>'Orders',
+    'seller_name'=>'Seller name',
+    'buyer_name'=>'Buyer name',
+    'no_of_orders'=>'Number of orders',
+    'reaming_time'=>'Reaming time',
+
+    // end of dashboard orders ----------------------------------------------------------
 
 
 
-
-    // start of dashboard currencies ----------------------------------------------------------
-    'currencies'=>'Currencies',
-    'currency_code'=>'Currency Code',
-    'country_code'=>'Country Code',
-    'select_country'=>'Select Country',
-    // end of dashboard currencies ----------------------------------------------------------
-
-
-    // start of dashboard listings ----------------------------------------------------------
-    'listing_name'=>'Listing name',
-    'approval_status'=>'Approval status',
-    'change_approval_status'=>'Change Approval status',
-    'payment_status'=>'Payment Status',
-    'meters_number'=>'Area in meters',
-    'average_price_meter'=>'Average price for one meter',
-
-    // end of dashboard listings ----------------------------------------------------------
-
-
-    // start of dashboard map ----------------------------------------------------------
-    'countries'=>'Countries',
-    'governments'=>'Governments',
-    'government'=>'Government',
-    'cities'=>'Cities',
-    'areas'=>'Areas',
-    'name'=>'Name',
-    'reports'=>'Reports',
-    'listings_number'=>'Listings Number',
-    'select_type'=>'Select Type',
-    // end of dashboard map ----------------------------------------------------------
+    // start of dashboard timer ----------------------------------------------------------
+    'timer_settings'=>'Timer Settings',
+    'time_allowed_per_order'=>'The maximum number of days possible for the seller to complete the order',
+    // end of dashboard timer ----------------------------------------------------------
 
 
     // start of dashboard support ----------------------------------------------------------
@@ -359,6 +297,7 @@ registered vendors, this process may take few moments',
     // end of days ----------------------------------------------------------
 
     // start of months ----------------------------------------------------------
+    'year'=>'Year',
     'january'=>'January',
     'february'=>'February',
     'march'=>'March',

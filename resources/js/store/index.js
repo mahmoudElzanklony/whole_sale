@@ -5,7 +5,7 @@ Vue.use(Vuex);
 import register from "./modules/auth/register";
 import login from "./modules/auth/login";
 import personal_info from "./modules/profile/personal_info";
-import notes from"./modules/profile/notes";
+import send_qutoation from "./modules/profile/send_qutoation";
 import areas from "./modules/areas";
 import payment_ways from "./modules/payment_ways";
 //------------------- start of  dashboard---------------------------
@@ -40,7 +40,7 @@ const store = new Vuex.Store({
         register,
         login,
         personal_info,
-        notes,
+        send_qutoation,
         areas,
         payment_ways,
         discussions_questions,

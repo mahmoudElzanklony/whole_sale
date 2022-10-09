@@ -16,9 +16,10 @@ class CreateQuotationsTable extends Migration
         Schema::create('quotations', function (Blueprint $table) {
             $table->id();
             $table->foreignId('user_id')->constrained()->onUpdate('cascade')->onDelete('cascade');
+            $table->foreignId('brand_id')->constrained()->onUpdate('cascade')->onDelete('cascade');
             $table->bigInteger('part_number');
-            $table->string('brand');
             $table->integer('quantity');
+            $table->integer('serial');
             $table->timestamps();
         });
     }

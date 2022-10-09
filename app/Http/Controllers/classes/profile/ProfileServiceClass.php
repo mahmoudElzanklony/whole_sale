@@ -6,13 +6,18 @@ namespace App\Http\Controllers\classes\profile;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\noteFormRequest;
+use App\Http\Requests\QuotationFormRequest;
 use App\Http\Requests\usersFormRequest;
 use App\Http\traits\messages;
 use App\Http\traits\upload_image;
+use App\Imports\countriesImportCSV;
+use App\Imports\QuotationImportCSV;
 use App\Models\listings_notes;
+use App\Models\quotations;
 use App\Models\User;
 use App\Models\user_company_info;
 use App\Models\user_info;
+use Maatwebsite\Excel\Facades\Excel;
 
 class ProfileServiceClass extends Controller
 {
@@ -57,48 +62,40 @@ class ProfileServiceClass extends Controller
         return messages::success_output([trans('messages.updated_successfully')]);
     }
 
-    public function update_company_data(usersFormRequest $request){
-         $role = User::query()->find(auth()->id())->role;
-         if($role->name != 'brokerage_company'){
-             return messages::error_output(['unauthorized'=>[trans('errors.unauthorized')]],401);
-         }else{
-             $bio = request('bio');
-             $data = [
-                 'bio'=>$bio
-             ];
-             if(request()->hasFile('image')){
-                 $image_name = $this->upload(request()->file('image'),'companies');
-                 if($image_name == false){
-                     return messages::error_output(['profile_picture'=>[trans('errors.error_upload_image')]],response()->status(),response()->getStatusCode());
-                 }
-                 $data['image'] = $image_name;
-             }
-             user_company_info::query()->where('user_id','=',auth()->id())->first()->update($data);
-             return messages::success_output([trans('messages.updated_successfully')]);
-         }
-    }
-
     public function update_secondary_data(usersFormRequest $request){
         $data = $request->validated();
         user_info::query()->where('user_id','=',auth()->id())->update($data);
         return messages::success_output([trans('messages.updated_successfully')]);
     }
 
-
-    public function save_note(noteFormRequest $noteFormRequest){
-        if(request()->has('id')){
-            // check if you are authorized
-            $note = listings_notes::query()->where('id','=',request('id'))
-                ->where('user_id','=',auth()->id())->first();
-            if($note == null) {
-                return messages::error_output(['unauthorized' => [trans('errors.unauthorized')]], 401);
-            }
+    public function send_quotation(QuotationFormRequest $request){
+        for($i = 0; $i < sizeof($request->validated()['brand_id']); $i++){
+            $inserted_data = [];
+            $inserted_data['user_id'] = auth()->id();
+            $inserted_data['brand_id'] = $request->validated()['brand_id'][$i];
+            $inserted_data['quantity'] = $request->validated()['quantity'][$i];
+            $inserted_data['serial'] = $request->validated()['serial'][$i];
+            $inserted_data['part_number'] = $request->validated()['part_number'][$i];
+            quotations::query()->create($inserted_data);
         }
-        // save note
-        listings_notes::query()->updateOrCreate([
-            'id'=>request()->has('id') ? request('id') : null,
-        ],$noteFormRequest->validated());
         return messages::success_output([trans('messages.saved_successfully')]);
+    }
 
+    public function send_quotation_excel(){
+        $file = request()->file('file');
+        $exten = $file->getClientOriginalExtension();
+        $file_name = time().rand(0,9999999999999). '_excel.' .$exten;
+
+        try {
+            Excel::import(new QuotationImportCSV,
+                request()->file('file')
+            );
+        } catch (\Maatwebsite\Excel\Validators\ValidationException $e) {
+            $failures = $e->failures();
+
+            return messages::error_output($failures[0]->errors());
+
+        }
+        return messages::success_output([trans('messages.saved_successfully')]);
     }
 }

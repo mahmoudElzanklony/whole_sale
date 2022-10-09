@@ -29,16 +29,6 @@ export default {
                  en:'part number of part name',
                  tu:'',
               },
-              Know:{
-                  ar:'أعرف',
-                  en:'Know',
-                  tu:'',
-              },
-              List:{
-                  ar:'أعلن',
-                  en:'List',
-                  tu:'',
-              },
               Arabic_Language:{
                   ar:'اللغة العربية',
                   en:'Arabic Language',
@@ -57,71 +47,6 @@ export default {
               Help:{
                   ar:'مساعدة',
                   en:'Help',
-                  tu:'',
-              },
-              Blue:{
-                  ar:'الأزرق',
-                  en:'Blue',
-                  tu:'',
-              },
-              buildings:{
-                  ar:'عقارات',
-                  en:'Buildings',
-                  tu:'',
-              },
-              ad_points:{
-                  ar:'نقاط الاعلان',
-                  en:'Ad Points',
-                  tu:'',
-              },
-              Componds:{
-                  ar:'كومبودات',
-                  en:'Componds',
-                  tu:'',
-              },
-              Beds:{
-                  ar:'مساكن',
-                  en:'Bed',
-                  tu:'',
-              },
-              rate_building:{
-                  ar:'تقييم عقاري',
-                  en:'Rate Building',
-                  tu:'',
-              },
-              building_prices:{
-                  ar:'اسعار العقارات',
-                  en:'Rate Building',
-                  tu:'',
-              },
-              ask_people_area:{
-                  ar:'أسئل أهل المنطه',
-                  en:'Ask People area',
-                  tu:'',
-              },
-              premium_people:{
-                  ar:'وساط متميزون',
-                  en:'Top Agent',
-                  tu:'',
-              },
-              real_state_index:{
-                  ar:'المؤشر العقاري',
-                  en:'real state index',
-                  tu:'',
-              },
-              public_advice:{
-                  ar:'نصائح عامة',
-                  en:'public advice',
-                  tu:'',
-              },
-              List_your_property:{
-                  ar:'أعلن عن عقارك',
-                  en:'List Your Property',
-                  tu:'',
-              },
-              List_Companies_properties:{
-                  ar:'أعلن عن عقار شركتك',
-                  en:'List Companies properties',
                   tu:'',
               },
               sign_in:{
@@ -235,24 +160,9 @@ export default {
                   en:'Do you need help',
                   tu:'',
               },
-              to_get_best_results:{
-                  ar:'للحصول على نتائج اسرع و اكثر ، نرشح لك أن نتواصل مع أكبر المكاتب العقارية - لمساعدتك في العثور على ماتبحث عنه .',
-                  en:'To get faster and more results, we recommend that you contact the largest real estate offices - to help you find what you are looking for.',
-                  tu:'',
-              },
               registered_at_date:{
                   ar:'سجل في تاريخ',
                   en:'Registered at date',
-                  tu:'',
-              },
-              ads:{
-                ar:'اعلانات',
-                en:'Ads',
-                tu:'',
-              },
-              properties:{
-                  ar:'عقارات مصر',
-                  en:'Properties',
                   tu:'',
               },
               request_contact:{
@@ -263,11 +173,6 @@ export default {
               personal_info:{
                   ar:'حسابي',
                   en:'My Account',
-                  tu:'',
-              },
-              my_listings:{
-                  ar:'عقاراتي',
-                  en:'My Listings',
                   tu:'',
               },
               select_status:{
@@ -300,51 +205,12 @@ export default {
                  en:'payment done',
                  tu:'',
               },
-              cash:{
-                ar:'كاش',
-                en:'cash',
-                tu:'',
-              },
-              installment:{
-                 ar:'تقسيط',
-                 en:'installment',
-                 tu:'',
-              },
-              one_payment:{
-                 ar:'دفعة واحدة',
-                 en:'one payment',
-                 tu:'',
-              },
-              two_payments:{
-                  ar:'دفعتان',
-                  en:'two payments',
-                  tu:'',
-              },
-              three_payments:{
-                  ar:'ثلاث دفعات',
-                  en:'three payments',
-                  tu:'',
-              },
-              four_payments:{
-                  ar:'أربع دفعات',
-                  en:'four payments',
-                  tu:'',
-              },
               pending:{
                   ar:'معلقة',
                   en:'pending',
                   tu:'',
               },
-              my_balance:{
-                  ar:'رصيدي',
-                  en:'Credit',
-                  tu:'',
-              },
-              charge_credit:{
-                  ar:'شحن رصيد',
-                  en:'charge credit',
-                  tu:'',
-              },
+
 
               statistics:{
                   ar:'احصائياتي',
@@ -367,7 +233,7 @@ export default {
                 tu:'',
               },
               quotations:{
-                ar:'الطلبات',
+                ar:'الكوتيشن',
                 en:'quotations',
                 tu:'',
               },
@@ -386,21 +252,6 @@ export default {
                  en:'settings',
                  tu:'',
               },
-              meter:{
-                  ar:'متر',
-                  en:'Meter',
-                  tu:'',
-              },
-              bed:{
-                  ar:'سراير',
-                  en:'beds',
-                  tu:'',
-              },
-              baths:{
-                  ar:'حمام',
-                  en:'baths',
-                  tu:'',
-              },
               added_to_fav_successfully:{
                   ar:'تم الأضافة الي المفضلة بنجاح',
                   en:'added to favourite successfully',
@@ -416,34 +267,14 @@ export default {
                   en:'who us',
                   tu:'',
               },
-              ask_home:{
-                  ar:'اطلب مسكن',
-                  en:'request accommodation',
-                  tu:'',
-              },
               please_contact_with_this_number:{
                   ar:'برجاء التواصل مع الرقم',
                   en:'please contact with this number',
                   tu:'',
               },
-              work_daily:{
-                  ar:'ساعات العمل هي من العاشره صباحا الي الثامنة مساء',
-                  en:'Business hours are from ten in the morning until eight in the evening',
-                  tu:'',
-              },
               contact_with_us:{
                   ar:'يمكنك التواصل معنا هنا',
                   en:'you can contact with us',
-                  tu:'',
-              },
-              search_inside_the_cities:{
-                  ar:'عقارات خاصة بالمدن',
-                  en:'Search inside the cities',
-                  tu:'',
-              },
-              rent:{
-                  ar:'تأجير',
-                  en:'Rent',
                   tu:'',
               },
               sale:{
@@ -460,11 +291,6 @@ export default {
                   en:'Close',
                   tu:'',
               },
-              like_answer:{
-                  ar:'لقد تمت عملية الاعجاب بنجاح',
-                  en:'like on this answer has done successfully',
-                  tu:'',
-              },
               // dashboard words
               users:{
                   ar:'المستخدمين',
@@ -476,34 +302,24 @@ export default {
                   en:'Chart',
                   tu:'',
               },
-              packages:{
-                  ar:'الباقات',
-                  en:'Packages',
+              orders:{
+                  ar:'الطلبات',
+                  en:'Orders',
                   tu:'',
               },
-              currencies:{
-                  ar:'العملات',
-                  en:'Currencies',
+              sales:{
+                ar:'المبيعات',
+                en:'Sales',
+                tu:'',
+              },
+              brands:{
+                  ar:'الأنواع',
+                  en:'brands',
                   tu:'',
               },
-              used_currency:{
-                 ar:'العملة المستخدمة',
-                 en:'Used Currency',
-                  tu:'',
-              },
-              subscriptions:{
-                 ar:'الاشتراكات',
-                 en:'Subscriptions',
-                 tu:'',
-              },
-              categories:{
-                  ar:'الأقسام',
-                  en:'Categories',
-                  tu:'',
-              },
-              questions:{
-                  ar:'الأسئلة',
-                  en:'Questions',
+              products:{
+                  ar:'المنتجات',
+                  en:'Products',
                   tu:'',
               },
               countries:{
@@ -532,10 +348,10 @@ export default {
                   en:'client support',
                   tu:'',
               },
-              explore_listings:{
-                  ar:'تصفح العقارات',
-                  en:'Explore Listings',
-                  tu:'',
+              timer:{
+                ar:'ظبط المواعيد',
+                en:'Timer',
+                tu:'',
               },
               see_statics:{
                   ar:'رؤيه الاحصائيات',
@@ -612,96 +428,9 @@ export default {
                   en:'upload images',
                   tu:'',
               },
-              select_question:{
-                  ar:'اختر السؤال',
-                  en:'Select question',
-                  tu:'',
-              },
-              // question at dashboard
-              ar_question:{
-                  ar:'السؤال بالعربي',
-                  en:'arabic question',
-                  tu:'',
-              },
-              en_question:{
-                  ar:'السؤال بالانجليزي',
-                  en:'english question',
-                  tu:'',
-              },
-              tu_question:{
-                  ar:'السؤال بالتركي',
-                  en:'turkish question',
-                  tu:'',
-              },
-              question_type:{
-                  ar:'نوع السؤال',
-                  en:'question type',
-                  tu:'',
-              },
-              question_type_text:{
-                 ar:'نص',
-                 en:'text',
-                 tu:'',
-              },
-              question_type_select:{
-                  ar:'اختر من متعدد',
-                  en:'Select from options',
-                  tu:'',
-              },
-              question_type_radio:{
-                  ar:'نعم او لا ',
-                  en:'yes or no',
-                  tu:'',
-              },
-              question_required:{
-                ar:'اختر نوع حقل الادخال من حيث إجباري ام لا',
-                en:'required or not required',
-                tu:'',
-              },
-              required:{
-                  ar:'مطلوب',
-                  en:'required',
-                  tu:''
-              },
-              not_required:{
-                  ar:'غير مطلوب',
-                  en:'not required',
-                  tu:''
-              },
-              cover_appearance:{
-                 ar:'ظهور السؤال في كافر الاعلان',
-                 en:'show question at cover of ad',
-                 tu:'',
-              },
               appearance:{
                   ar:'عملية الظهور',
                   en:'appearance',
-                  tu:'',
-              },
-              question_answers:{
-                  ar:'اجابات السؤال',
-                  en:'question answers',
-                  tu:'',
-              },
-              question_answer_ar:{
-                  ar:'اجابة السؤال بالعربي',
-                  en:'question answer in arabic',
-                  tu:'',
-              },
-              question_answer_en:{
-                  ar:'اجابة السؤال بالأنجليزي',
-                  en:'question answer in english',
-                  tu:'',
-              },
-              question_answer_tu:{
-                  ar:'اجابة السؤال بالتركي',
-                  en:'question answer in turkish',
-                  tu:'',
-              },
-
-              add_question_answer:{
-                  ar:'اضف اجابة جديدة',
-                  en:'add question answer',
                   tu:'',
               },
               actions:{
@@ -717,11 +446,6 @@ export default {
               select_year:{
                   ar:'أختر السنة',
                   en:'Select year',
-                  tu:'',
-              },
-              please_select_type_of_area_you_want_to_be_added:{
-                  ar:'من فضلك اختر نوع المنطقة التي تود اضافتها',
-                  en:'Please select type of area you want to be added',
                   tu:'',
               },
               area:{
@@ -764,16 +488,6 @@ export default {
                   en:'Select area',
                   tu:'',
               },
-              select_currency:{
-                ar:'اختر العملة',
-                en:'Select Currency',
-                tu:'',
-              },
-              is_visible:{
-                  ar:'هل متاحة',
-                  en:'Is Visible',
-                  tu:'',
-              },
               visible:{
                   ar:'متاح',
                   en:'visible',
@@ -782,16 +496,6 @@ export default {
               not_visible:{
                   ar:'غير متاح',
                   en:'not visible',
-                  tu:'',
-              },
-              point_price:{
-                  ar:'سعر النقطة',
-                  en:'Point Price',
-                  tu:'',
-              },
-              coutry_selected:{
-                  ar:'أختر الدولة التي تود انشاء سعر خاص بها',
-                  en:'Select country that you want to make special price',
                   tu:'',
               },
               save:{
@@ -854,6 +558,11 @@ export default {
                   en:'Select best choice',
                   tu:'',
               },
+              search_for_you_best:{
+                  ar:'ابحث عن ما يناسبك',
+                  en:'search about anything',
+                  tu:'',
+              },
               in:{
                   ar:'في',
                   en:'in',
@@ -875,18 +584,8 @@ export default {
                   tu:'',
               },
               seller_phone:{
-                  ar:'رقم تليفون المعلن',
+                  ar:'رقم تليفون البائع',
                   en:'Phone Seller',
-                  tu:'',
-              },
-              reactions_questions:{
-                  ar:'عدد الاجابات لهذا السؤال هي ',
-                  en:'number of answers for this question is',
-                  tu:'',
-              },
-              press_here_to_show_my_discussions:{
-                  ar:'اضغط هنا لعرض جميع نقاشاتي',
-                  en:'press here to show all my discussions',
                   tu:'',
               },
               next:{
@@ -912,6 +611,21 @@ export default {
               please_enter_all_required_data:{
                   ar:'من فضلك ادخل قيم للبيانات الاجبارية',
                   en:'Please enter all required inputs',
+                  tu:'',
+              },
+              part_slabs_should_be_unit_of_packing:{
+                 ar:'لابد ان تكون اقل كميات لوضع لها اسعار معينه هي مضاعفات وحدات التعبئه مثل ',
+                 en:'quantities that related to prices should be multiplayer of unit of packing like ',
+                 tu:'',
+              },
+              print_bill:{
+                  ar:'طباعه الفاتورة',
+                  en:'Print bill',
+                  tu:'',
+              },
+              please_wait_until_finish_processing:{
+                  ar:'من فضلك انتظر حتي يتم اكتمال التحميل',
+                  en:'please wait until finish processing',
                   tu:'',
               }
 

@@ -16,7 +16,7 @@ class CreateItemsInfosTable extends Migration
         Schema::create('items_infos', function (Blueprint $table) {
             $table->id();
             $table->bigInteger('part_number');
-            $table->foreignId('brand_id')->constrained('users_brands')
+            $table->foreignId('brand_id')->constrained()
                 ->onUpdate('cascade')->onDelete('cascade');
             $table->string('ar_part_name');
             $table->string('en_part_name');
@@ -25,7 +25,11 @@ class CreateItemsInfosTable extends Migration
             $table->integer('offered_stock');
             $table->integer('min_quantity_per_transaction');
             $table->integer('max_quantity_per_transaction');
-            $table->integer('discount');
+            $table->integer('unit_of_packing');
+            $table->integer('quantity_per_pallet');
+            $table->integer('width');
+            $table->integer('length');
+            $table->integer('thickness');
             $table->timestamps();
         });
     }

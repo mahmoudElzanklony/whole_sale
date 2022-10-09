@@ -13,6 +13,7 @@ use App\Keywords\Profile\ProfileNotesKeywords;
 use App\Keywords\Profile\ProfileQutationsKeywords;
 use App\Keywords\Profile\ProfileSalesKeywords;
 use App\Keywords\Profile\ProfileStatisticsKeywords;
+use App\Models\brands;
 use App\Models\listings_info;
 use App\Models\User;
 use App\Services\listings\favourites;
@@ -33,8 +34,10 @@ class ProfileController extends ProfileServiceClass
     }
 
     public function qutation_reuqest(){
+        $brands = brands::selection()->get();
         return Inertia::render('profile/qutoation_request',[
             'keywords'=>ProfileQutationsKeywords::get_keywords(),
+            'brands'=>$brands,
         ]);
     }
 

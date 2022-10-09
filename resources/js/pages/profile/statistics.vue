@@ -10,7 +10,7 @@
                     </h2>
                     <form>
                         <div class="row">
-                            <div class="col-6">
+                            <div class="col-md-3 col-6">
                                 <div class="form-group">
                                     <select class="form-control" name="process_type">
                                         <option value="">{{ keywords.select_process_type }}</option>
@@ -19,7 +19,26 @@
                                     </select>
                                 </div>
                             </div>
-                            <div class="col-6">
+                            <div class="col-md-3 col-6">
+                                <div class="form-group">
+                                    <select class="form-control" name="process_type">
+                                        <option value="">{{ keywords.select_brand }}</option>
+                                        <option value="toyta">Toyta</option>
+                                        <option value="bmw">Bmw</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-md-3 col-6">
+                                <div class="form-group">
+                                    <select class="form-control" name="process_type">
+                                        <option value="">{{ keywords.part_no }}</option>
+                                        <option value="toyta">2</option>
+                                        <option value="bmw">211</option>
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div class="col-md-3 col-6">
                                 <div class="form-group">
                                     <select class="form-control" name="process_type">
                                         <option value="">{{ keywords.select_year }}</option>

@@ -15,11 +15,10 @@ class statistics_public_dashboard
 
         return [
             'data'=>[
-                'users'=>User::query()->count(),
-                'packages'=>packages::query()->count(),
-                'subscriptions'=>subscriptions::query()->count(),
-                'listings'=>listings_info::query()->where('payment_status','=',1)->count(),
-                'listings_pending'=>listings_info::query()->where('type','=','pending')->count(),
+                'users'=>10,
+                'brands'=>20,
+                'products'=>40,
+                'sales'=>100,
             ],
         ];
     }

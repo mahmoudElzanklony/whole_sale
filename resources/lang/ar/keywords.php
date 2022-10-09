@@ -36,11 +36,11 @@ return [
    'phone'=>'رقم الهاتف',
    'image'=>'الصورة',
    'user_image'=>'صورة المستخدم',
-   'private_owner'=>'مالك عقار',
    'buyer'=>'مشتري',
    'seller'=>'بائع',
    'buyer_seller'=>'بائع ومشتري',
    'bank_info'=>'بيانات البنك',
+   'account_number'=>'رقم الحساب',
    'brands_dealing'=>'البرندات العالمية',
    'user_type'=>'نوع المستخدم',
    'trade_licence'=>'السجل التجاري',
@@ -74,6 +74,7 @@ return [
     'estimated_required_days_for_delivery'=>'الوقت المتوقع لوصول الشحنة',
     'charge'=>'ضرائب',
     'confirm_order_and_processed_to_checkout'=>'تأكيد الطلب و الذهاب لصفحه الدفع',
+    'print_data_info'=>'تستطيع تحميل البيانات التي ف الجدول بالاسفل عن طريق الضغط علي زر طباعه او اكسل . ان اردت تحميل بيانات غير ذلك تستطيع البحث عما تريد للوصول الي ما تريد ثم الضغط علي طباعه او اكسل لتحميل البيانات المحددة',
 
     // end of profile quotations----------------------------------
 
@@ -119,8 +120,10 @@ return [
 
 
     // start of checkout -------------------------------------------------------
+    'required'=>' حقل ادخال مطلوب ',
     'total_items'=>'مجموع القطع',
     'total_qty'=>'مجموع الكمية',
+    'total'=>'المجموع الكلي',
     'total_goods_value'=>'السعر الكلي للقطع',
     'other_charge'=>'ضرائب اخري',
     'total_price'=>'السعر الكلي',
@@ -147,6 +150,7 @@ return [
 
     // start of profile  ----------------------------------------------------
     'my_profile'=>'حسابي الشخصي',
+    'current_balance'=>'حساب المحفظه الحالي هو : ',
     'update_main_info'=>'تعديل بياناتي الشخصية',
     'my_notes'=>'ملاحظاتي',
     'my_listings'=>'عقاراتي',
@@ -172,6 +176,8 @@ return [
     'enter_data'=>'ادخل البيانات',
     'upload_file'=>'تحميل الملف',
     'serial'=>'الرقم',
+    'bill_number'=>'رقم الفاتورة',
+
     'part_no'=>'رقم القطعة',
     'brand'=>'الماركة',
     'quantity'=>'الكمية',
@@ -185,6 +191,9 @@ return [
     'update_photos'=>' تعديل الصور',
     'delete'=>'حذف',
     'clear'=>'الغي',
+    'save'=>'حفظ',
+    'add'=>'اضافه',
+    'close'=>'اغلاق',
     // end of profile listings dashboard ----------------------------------------------------
 
 
@@ -198,11 +207,15 @@ return [
 
 
     // start of profile sales ----------------------------------------------------
-    'my_current_sales'=>'ارباحي الحالية',
+    'my_current_sales'=>'مبياعتي الحالية',
     'my_current_orders'=>'مشترياتي الحالية',
     'status'=>'الحالة',
     // end of profile sales ----------------------------------------------------
 
+
+    // start of my products --------------------------------------------------
+    'my_products'=>'منتجاتي الحالية',
+    // end of my products --------------------------------------------------
 
     // start of save product ----------------------------------------------------
     'create_product_using_for_or_file'=>'انشاء قطعة جديدة عن طريق ادخال البيانات في فورم او رفع ملف',
@@ -211,6 +224,8 @@ return [
     'ar_part_name'=>'اسم القطعة بالعربي',
     'en_part_name'=>'اسم القطعة بالانجليزي',
     'offered_stock'=>'ما استطيع توفيرة',
+    'min_quantity'=>'اقل كمية',
+    'price'=>'السعر',
     'min_quantity_per_transaction'=>'اقل كمية للمعاملة الواحدة',
     'max_quantity_per_transaction'=>'اقصي كمية للمعاملة الواحدة',
     'unit_of_packing'=>'وحدة التعبئة',
@@ -218,6 +233,8 @@ return [
     'length'=>'الطول',
     'thickness'=>'الارتفاع',
     'quantity_per_pallet_load'=>'الكمية لكل حمولة منصة نقالة',
+    'add_specific_slab'=>'اضافه سعر مخصص',
+
     // end of save product ----------------------------------------------------
 
 
@@ -249,15 +266,19 @@ return [
 
 
     // start of dashboard ----------------------------------------------------------
-    'ewaa_word'=>'إيواء بلس المنصة الاولي في مجال الإيجار والبيع',
-    'ewaa_listings'=>'يمكنك اداره العقارات والباقات والمبيعات ومعرفة اخر الاخبار والتقارير لاتخاذ افضل القرارات',
+    'wholesale_word'=>'هولسيل المنصة الاولي في مجال بيع قطع غيار السيارات بالجمله',
+    'wholesale_header_info'=>'من خلال هولسيل تستطيع رؤيه العلامات التجاريه و التحكم بها و رؤيه الطلبات و المبيعات و الارباح و انشاء تقارير لاتخاذ افضل قرار',
+    'wholesale_bill_info'=>'شكرا علي تعاملكم معنا ونتمني ان نكون عند حسن ظنكم بنا',
+    'bill_export_date'=>'تم اصدار الفاتورة بتاريخ ',
     'show_details'=>'عرض التفاصيل',
-    'last_listings'=>'اخر العقارات',
-    'last_packages_sales'=>'أحدث عمليات بيع الباقات',
-    'allow_for_you_number_of_points'=>'تسمح لك بعدد من النقاط قدرة',
-    'ewaa_statistics_word'=>'رسوم بيانية واحصائية تبين لك حركة الموقع',
-    'ewaa_statistics_info'=>'من خلال الرسومات البيانية يمكن اتخاذ افضل القرارات لتوطير منصة ايواء لتصبح أفضل في المستقبل',
+    'last_products'=>'احدث المنتجات',
+    'last_quotations_out'=>'احدث الطلبات',
+    'last_sales'=>'احدث المبيعات',
+    'last_brands'=>'احدث العلامات التجاريه',
+    'wholesale_statistics_word'=>'رسوم بيانية واحصائية تبين لك حركة الموقع',
+    'wholesale_statistics_info'=>'من خلال الرسومات البيانية يمكن اتخاذ افضل القرارات لتوطير منصة ايواء لتصبح أفضل في المستقبل',
     'explore_statistics'=>'تصفح كافة الاحصائيات',
+    'explore_sales'=>'تصفح المبيعات',
     'last_listings_statistics'=>'أحصائيات عن أنتشار العقارات هذا العام',
     'pending_listings'=>'العقارات المعلقة',
     'last_categories'=>'أحدث الأقسام',
@@ -269,9 +290,11 @@ return [
     'users_statics'=>'إحصائيات المستخدمين',
 
 
-    'update_user'=>'تعديل بيانات المستخدم',
     'upload_image'=>'أرفع الصورة',
-    'user_listings'=>'عقارات المستخدم',
+    'user_products'=>'منتجات المستخدم',
+    'prices'=>'الاسعار',
+    'brands'=>'العملات التجارية',
+    'select_brand'=>'اختر العلامه التجارية',
     // end of dashboard ----------------------------------------------------------
 
     // start of dashboard categories ----------------------------------------------------------
@@ -287,79 +310,28 @@ return [
     'see_more'=>'رؤية المزيد',
     // end of dashboard categories ----------------------------------------------------------
 
-
-    // start of dashboard sub categories ----------------------------------------------------------
-    'inner_sub_categories_at'=>'الأقسام الفرعية بداخل',
-    'select_from_questions'=>'أختر من الاسئلة المضافة مسبقا',
-    'add_new_question'=>'أضف سؤال جديد',
-    'add_another_question'=>'أضف سؤال اخر',
-    'select_question'=>'أختر السؤال',
-    'questions'=>'الأسئلة',
-    'ar_question'=>'السؤال بالعربي',
-    'en_question'=>'السؤال بالأنجليزي',
-    'tu_question'=>'السؤال بالتركي',
-    'question_type'=>'نوع السؤال',
-    'question_required'=>'إجبارية السؤال',
-    'icon'=>'صورة الايقون',
-    'cover_appearance'=>'ظهور السؤال في كافر الأعلان',
-    'ar_question_values'=>'إجابات السؤال بالعربي',
-    'en_question_values'=>'إجابات السؤال بالأنجليزي',
-    'tu_question_values'=>'إجابات السؤال بالتركي',
-
-    // end of dashboard sub categories ----------------------------------------------------------
-
-    // start of dashboard questions ----------------------------------------------------------
-    'questions_categories'=>'أسئلة الاقسام',
-
-    // end of dashboard questions ----------------------------------------------------------
     // start of dashboard statistics ----------------------------------------------------------
-    'ewaa_statistics'=>'إحصائيات ايواء',
-    'packages_orders'=>'طلبات الباقات',
-    'listings_orders'=>'طلبات العقارات',
-    'listings'=>'العقارات',
-    'packages'=>'الباقات',
+
+    'wholesale_statistics'=>'احصائيات هولسيل',
+    'products'=>'المنتجات',
+    'sales'=>'المبيعات',
+
+
     // end of dashboard statistics ----------------------------------------------------------
 
-
-    // start of dashboard packages ----------------------------------------------------------
-    'min_value'=>'اقل قيمة',
-    'max_value'=>'اقصي قيمة',
-    'currency'=>'العملة',
-    'is_visible'=>'هل متاحة',
-    'expiration_date'=>'تاريخ انتهاء الباقة',
-    'point_price'=>'سعر النقطة',
-    'country'=>'الدولة',
-    'city'=>'المدينة',
-    'area'=>'منطقة او مركز',
-    'specific_price_for_specific_areas'=>'سعر مخصص لمناطق معينة',
-    'add_specific_price_for_specific_areas'=>'أضف سعر مخصص لمناطق معينة',
-    // end of dashboard packages ----------------------------------------------------------
-
-    // start of dashboard subscription ----------------------------------------------------------
-    'subscriptions'=>'الاشتراكات',
-    'package'=>'الباقة',
-    'points_ordered'=>'عدد النقاط التي تم شرائها',
-    'package_min_points'=>'اقل عدد للنقاط',
-    'package_max_points'=>'اقصي عدد للنقاط',
-    // end of dashboard subscription ----------------------------------------------------------
+    // start of dashboard orders ----------------------------------------------------------
+    'orders'=>'الطلبات',
+    'seller_name'=>'اسم البائع',
+    'buyer_name'=>'اسم المشتري',
+    'reaming_time'=>'الوقت المتبقي',
+    // end of dashboard orders ----------------------------------------------------------
 
 
-    // start of dashboard currencies ----------------------------------------------------------
-    'currencies'=>'العملات',
-    'currency_code'=>'كود العملة',
-    'country_code'=>'كود الدولة',
-    'select_country'=>'اختر الدولة',
-    // end of dashboard currencies ----------------------------------------------------------
+    // start of dashboard timer ----------------------------------------------------------
+    'timer_settings'=>'اعدادت التوقيت',
+    'time_allowed_per_order'=>'اقصي عدد ايام ممكنه لاكتمال الطلب لدي البائع',
+    // end of dashboard timer ----------------------------------------------------------
 
-
-    // start of dashboard listings ----------------------------------------------------------
-    'listing_name'=>'اسم العقار',
-    'approval_status'=>'حالة الموافقة',
-    'change_approval_status'=>'تغيير الموافقة',
-    'payment_status'=>'حالة الدفع',
-    'meters_number'=>'المساحة بالمتر',
-    'average_price_meter'=>'متوسط سعر المتر',
-    // end of dashboard listings ----------------------------------------------------------
 
 
     // start of dashboard map ----------------------------------------------------------
@@ -374,7 +346,7 @@ return [
     // end of dashboard map ----------------------------------------------------------
     // start of dashboard report ----------------------------------------------------------
     'reports'=>'التقارير',
-    'listings_number'=>'عدد العقارات',
+    'no_of_orders'=>'عدد المبيعات',
     // end of dashboard report ----------------------------------------------------------
 
     // start of dashboard support ----------------------------------------------------------
@@ -401,6 +373,7 @@ return [
     // end of days ----------------------------------------------------------
 
     // start of months ----------------------------------------------------------
+    'year'=>'السنة',
     'january'=>'يناير',
     'february'=>'فبراير',
     'march'=>'مارس',

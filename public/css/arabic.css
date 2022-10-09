@@ -86,12 +86,19 @@ nav .dropdown-menu a span:first-of-type {
 }
 
 /*---------------------------------------------end of filter page-----------------------------------------*/
-/*---------------------------------------------start of neighbour page------------------------------------*/
+/*---------------------------------------------start of save product page------------------------------------*/
 .pages span, .pages a {
   margin-left: 10px;
 }
 
-/*---------------------------------------------end of neighbour page------------------------------------*/
+.save_product .input-has-delete span {
+  left: 0px !important;
+}
+.save_product .input-has-delete span i {
+  left: 0px !important;
+}
+
+/*---------------------------------------------end of save page------------------------------------*/
 /*---------------------------------------------start of table ------------------------------------*/
 .table-item-span {
   margin-left: 10px;
@@ -108,6 +115,11 @@ nav .dropdown-menu a span:first-of-type {
 /*-------------------------------------------start of dashboard -------------------------------------*/
 .dashboard .content {
   margin-right: auto;
+  width: calc(100% - 200px);
+  transition: 0.5s all;
+}
+.dashboard .content > div {
+  padding-top: 20px;
 }
 .dashboard .inserted_questions > div:not(:first-of-type) {
   padding-left: 35px;

@@ -1,6 +1,10 @@
 <template>
     <div>
         <navbar-component></navbar-component>
+        <div class="loading">
+            <img src="images/loading.gif">
+            <p>{{ switchWord('please_wait_until_finish_processing') }}</p>
+        </div>
         <div class="auth mb-5">
             <div class="container">
                 <div class="row">
@@ -15,17 +19,19 @@
                                 <p>{{ keywords.brands_dealing }}</p>
                                 <span><i class="ri-check-line"></i></span>
                             </div>
+                            <div>
+                                <img class="preview"
+                                     src="images/preview.png">
+                            </div>
                             <div class="form-group" data-aos="fade-down" data-aos-delay="500">
                                 <label>{{ keywords.brands_dealing }}</label>
-                                <select name="brands_dealing"  class="form-control" multiple required>
-                                    <option value="">{{ switchWord('select_best_for_you') }}</option>
-                                    <option value="toytoa">Toyta</option>
-                                    <option value="Nysan">Nysan</option>
-                                </select>
+                                <brands_selections :data=brands></brands_selections>
                                 <p class="alert alert-danger"></p>
                             </div>
                             <div class="drag-drop-files mb-3" data-aos="fade-down" data-aos-delay="1000">
-                                <input type="file" name="trade_licence" accept="image/*" class="preview-image">
+                                <input type="file" name="trade_licence"
+                                       selector=".preview"
+                                       accept="image/*" class="preview-image" required>
                                 <button type="button" class="btn btn-primary">
                                     <span>{{ keywords.trade_licence }}</span>
                                     <span><i class="ri-add-line"></i></span>
@@ -35,6 +41,7 @@
                                 <input type="submit" name="send"
                                        class="btn btn-primary"
                                        :value="switchWord('save')">
+
                                 <input type="button" name="send"
                                        class="btn btn-outline-primary"
                                        @click="nextPage('/register?type=bank-info')"
@@ -63,10 +70,11 @@ import NavbarComponent from "../../components/NavbarComponent";
 import FooterComponent from "../../components/FooterComponent";
 import SwitchLangWord from "../../mixin/SwitchLangWord";
 import {mapActions} from "vuex";
+import Brands_selections from "../../components/brands_selections";
 export default {
     name: "sign_up_brands",
     mixins:[SwitchLangWord],
-    props:['keywords'],
+    props:['keywords','brands'],
     methods:{
         ...mapActions({
             'register':'register/register',
@@ -75,7 +83,7 @@ export default {
             this.$inertia.visit(url);
         }
     },
-    components: {FooterComponent, NavbarComponent}
+    components: {Brands_selections, FooterComponent, NavbarComponent}
 }
 </script>
 
@@ -110,4 +118,10 @@ form{
 
     }
 }
+.preview{
+    width:100px;
+    display: block;
+    margin: auto;
+}
+
 </style>

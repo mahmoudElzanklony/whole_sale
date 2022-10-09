@@ -10233,15 +10233,29 @@ input:focus {
 }
 
 .loading {
+  display: none;
   width: 100%;
   height: 100%;
   position: fixed;
-  top: 0;
+  top: -80px;
   right: 0;
   left: 0;
   bottom: 0;
   z-index: 11;
-  display: flex;
+  flex-wrap: wrap;
+  align-content: center;
+  justify-content: center;
+  background-color: #eeeeee38;
+}
+.loading img {
+  width: 100px;
+  display: block;
+}
+.loading p {
+  width: 100%;
+  text-shadow: 0px 0px 1px #696565;
+  font-weight: bold;
+  text-align: center;
 }
 
 .big-button, .btn-main-color-outline, .btn-main-color {
@@ -10603,6 +10617,33 @@ input:focus {
   top: 50%;
 }
 
+/*--------------start of dashboard----------------*/
+.dashboard .content {
+  margin-top: 0px;
+}
+.dashboard .products-dashboard .dataTables_wrapper {
+  flex-direction: row !important;
+}
+.dashboard .products-dashboard .dataTables_wrapper .dataTables_length {
+  order: 3;
+}
+.dashboard .products-dashboard .dataTables_wrapper .dt-buttons {
+  order: 2;
+}
+.dashboard .products-dashboard .dataTables_wrapper .dataTables_filter {
+  order: 1;
+}
+.dashboard .products-dashboard .dataTables_wrapper table {
+  order: 4;
+}
+.dashboard .products-dashboard .dataTables_wrapper .dataTables_info {
+  order: 6;
+}
+.dashboard .products-dashboard .dataTables_wrapper .dataTables_paginate {
+  order: 5;
+}
+
+/*--------------end of dashboard----------------*/
 /*--------------start of data table----------------*/
 .dataTables_wrapper {
   margin: 25px 0px;
@@ -10617,6 +10658,13 @@ input:focus {
   width: 100% !important;
   max-width: 100%;
   margin-top: 20px;
+}
+.dataTables_wrapper table td {
+  vertical-align: middle;
+}
+.dataTables_wrapper table td input[type=checkbox] {
+  width: 20px;
+  height: 20px;
 }
 
 .dataTables_wrapper .dataTables_filter input {
@@ -10761,6 +10809,10 @@ input:focus {
   outline: none;
 }
 
+.modal.show .modal-dialog {
+  top: 50px;
+}
+
 .modal-header {
   align-items: center;
   justify-content: space-between;
@@ -10818,14 +10870,22 @@ table .actions > a + span {
   margin-right: 3px;
   margin-left: 3px;
 }
+table .actions > span:last-of-type {
+  color: #9D0208 !important;
+}
 table .actions > span:first-of-type {
   color: #2E348E;
 }
 table .actions span.delete {
   background-color: #f443361a;
 }
-table .actions > span:last-of-type {
-  color: #9D0208;
+table .actions span.accept {
+  color: #6bb66b !important;
+  background-color: #0080001c !important;
+}
+table .actions span.print {
+  background-color: #d4ae3726;
+  color: #D4AE37;
 }
 table .table-item-span {
   border: 1px solid #035397;
@@ -10880,4 +10940,8 @@ select[name=DataTables_Table_0_length] {
   padding: 2px 5px;
   border-radius: 2px;
   outline: none;
+}
+
+body.swal2-toast-shown .swal2-container {
+  z-index: 100000000000000030000000;
 }

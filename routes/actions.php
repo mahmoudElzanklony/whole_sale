@@ -29,16 +29,21 @@ use Illuminate\Support\Facades\DB;
 */
 
 Route::group(['middleware'=>'changeLang'],function (){
-    Route::post('/register',[AuthController::class,'register_post']);
+    Route::group(['prefix'=>'/register','middleware'=>['guest']],function(){
+        Route::post('/store-user-from-register',[AuthController::class,'register_post']);
+        Route::post('/store-personal-data',[AuthController::class,'store_personal_info']);
+        Route::post('/store-bank-data',[AuthController::class,'store_bank_info']);
+
+    });
     Route::post('/login',[AuthController::class,'login_post']);
     // profile
     Route::group(['prefix'=>'/profile','middleware'=>['auth']],function(){
         Route::post('/update-email-image',[ProfileController::class,'update_email_image']);
         Route::post('/update-password',[ProfileController::class,'update_password']);
         Route::post('/update-personal-data',[ProfileController::class,'update_personal_data']);
-        Route::post('/update-company-data',[ProfileController::class,'update_company_data']);
         Route::post('/update-secondary-data',[ProfileController::class,'update_secondary_data']);
-        Route::post('/save-note',[ProfileController::class,'save_note']);
+        Route::post('/send-quotation',[ProfileController::class,'send_quotation']);
+        Route::post('/send-quotation-excel',[ProfileController::class,'send_quotation_excel']);
     });
     // user
     Route::group(['prefix'=>'/user'],function(){
@@ -87,5 +92,8 @@ Route::group(['middleware'=>'changeLang'],function (){
         Route::post('/answer-react',[AskNeighborsController::class,'answer_react']);
         Route::post('/add-answer',[AskNeighborsController::class,'add_answer']);
     });
+
+
+    Route::any('/dashboard/paginate-orders',[\App\Http\Controllers\DashboardController::class,'paginate_products']);
 
 });

@@ -1,15 +1,21 @@
 <template>
     <section class="profile">
         <navbar-component></navbar-component>
+        <div class="loading">
+            <img src="/images/loading.gif">
+            <p>{{ switchWord('please_wait_until_finish_processing') }}</p>
+        </div>
         <profile-nav-component></profile-nav-component>
         <div class="container" style="padding-top: 40px">
             <h2 class="text-center main-title">
                 <span>{{ keywords.main_title }}</span>
             </h2>
             <p>
-                <a href="/excels/template.csv" download>{{ keywords.you_can_press_here_to_download_file }}</a>
+                <a href="/excels/template.csv" download>
+                    <span class="pb-2" style="border-bottom: 2px solid">{{ keywords.you_can_press_here_to_download_file }}</span>
+                </a>
             </p>
-            <form method="post" @submit.prevent="send_quotation">
+            <form method="post" @submit.prevent="save_qutation">
                 <div class="form-group d-flex align-items-center justify-content-between radio-buttons">
                     <p>
                         <input type="radio" name="quotation_request_type" value="enter_data"
@@ -37,16 +43,16 @@
                                <div class="col-lg-3 col-md-6 col-12">
                                    <div class="form-group">
                                        <label>{{ keywords.part_no }}</label>
-                                       <input name="part_no[]" class="form-control" required>
+                                       <input name="part_number[]" class="form-control" required>
                                    </div>
                                </div>
                                <div class="col-lg-3 col-md-6 col-12">
                                    <div class="form-group">
                                        <label>{{ keywords.brand }}</label>
-                                       <select name="brand[]" class="form-control" required>
+                                       <select name="brand_id[]" class="form-control" required>
                                            <option value="">{{ switchWord('select_best_choice') }}</option>
-                                           <option v-for="i in ['toyta','bmw','honda','houndai']" :value="i">
-                                               {{ i }}
+                                           <option v-for="i in brands" :value="i['id']">
+                                               {{ i['name'] }}
                                            </option>
                                        </select>
                                    </div>
@@ -69,8 +75,7 @@
                    </div>
                    <div class="enter_file">
                        <div class="drag-drop-files mb-3">
-                           <input type="file" name="bank_info_document"
-                                  class="preview-image">
+                           <input type="file" name="file">
                            <button type="button" class="btn btn-primary">
                                <span>{{ keywords.upload_file }}</span>
                                <span><i class="ri-add-line"></i></span>
@@ -111,11 +116,11 @@ import FooterComponent from "../../components/FooterComponent";
 import ProfileNavComponent from "../../components/ProfileNavComponent";
 import delete_item from "../../mixin/delete_item";
 import SwitchLangWord from "../../mixin/SwitchLangWord";
-import {mapActions} from "vuex";
+import {mapActions,mapMutations} from "vuex";
 import Qutoation_details_box from "../../components/qutoation_details_box";
 export default {
     name: "qutoation_request",
-    props:['keywords','data'],
+    props:['keywords','data','brands'],
     mixins:[delete_item,SwitchLangWord],
     data:function(){
         return {
@@ -123,6 +128,9 @@ export default {
         }
     },
     methods:{
+        ...mapActions({
+           'save_qutation':'send_qutoation/send_quotation_request',
+        }),
         add_new_item:function(){
             let error_status = false;
             for(let input of $('.enter_data input,.enter_data select')){
@@ -155,11 +163,11 @@ export default {
           }
         },
         send_quotation:function(){
-            $('.result').css('display','flex');
+            /*$('.result').css('display','flex');
             setTimeout(()=>{
                 $('.load').css('display','none');
                 $('.best_offer').fadeIn();
-            },4000);
+            },4000);*/
         },
         close_box:function(){
             $(event.target).parent().parent().parent().fadeOut();

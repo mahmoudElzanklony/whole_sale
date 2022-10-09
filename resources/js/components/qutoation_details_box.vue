@@ -3,7 +3,7 @@
         <div>
             <table class="table table-hover table-striped table-hover">
                 <thead>
-                <tr >
+                <tr>
                     <td>{{ keywords.seq }}</td>
                     <td>{{ keywords.item_no }}</td>
                     <td>{{ keywords.brand }}</td>

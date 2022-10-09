@@ -104,12 +104,19 @@ nav .dropdown-menu a span:first-of-type {
 }
 
 /*---------------------------------------------end of filter page-----------------------------------------*/
-/*---------------------------------------------start of neighbour page------------------------------------*/
+/*---------------------------------------------start of save product page------------------------------------*/
 .pages span, .pages a {
   margin-right: 10px;
 }
 
-/*---------------------------------------------end of neighbour page------------------------------------*/
+.save_product .input-has-delete span {
+  right: 0px !important;
+}
+.save_product .input-has-delete span i {
+  right: 0px !important;
+}
+
+/*---------------------------------------------end of save product page------------------------------------*/
 /*---------------------------------------------start of table ------------------------------------*/
 .table-item-span {
   margin-right: 10px;

@@ -25,7 +25,7 @@ export default {
                 if(e.data.hasOwnProperty('success')){
                     commit('setUser',e.data.success.user);
                 }
-                validation(e.data,target,'/');
+                validation(e.data,target,e.data.related);
 
             }).catch((e)=>{
                 window.location = document.URL;

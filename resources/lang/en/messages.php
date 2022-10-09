@@ -9,5 +9,6 @@ return [
     'deleted_successfully'=>'Delete operation done successfully',
     'removed_from_fav_successfully'=>'removed from favourite has done successfully',
     'added_to_fav_successfully'=>'adding to favourite has done successfully',
+    'saved_new_user'=>'Saved new user successfully',
 
 ];
