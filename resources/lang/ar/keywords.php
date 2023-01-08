@@ -336,6 +336,7 @@ return [
     // start of dashboard quoations ----------------------------------------------------------
     'is_completed_status'=>'حالة الاكتمال',
     'date'=>'التاريخ',
+    'sent_to_admin'=>'تم الارسال للاداره وفي انتظار الرد',
     'wait_to_send_file_quotation'=>'في انتظار ارسالك ملف الاكسل',
     'file_send_and_wait_from_client_to_confirm_request'=>'في انتظار العميل بتأكيد الطلب',
     'client_confirm_request'=>'قام العميل بتأكيد الطلب',

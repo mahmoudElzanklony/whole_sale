@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Exports\quotations_orders_export;
 use App\Http\Requests\QuotationFormRequest;
 use App\Http\traits\messages;
 use App\Http\traits\upload_image;
@@ -165,5 +166,16 @@ class QuoationsInfoController extends Controller
             ]);
         }
         return messages::success_output(trans('messages.saved_successfully'));
+    }
+
+    public function export_file(){
+        $ids = explode(',',request('ids'));
+
+        $data = quotation_orders::query()->whereIn('id',$ids)
+            ->with('quotations',function($e) {
+            $e->with('brand:id,' . app()->getLocale() . '_name as name');
+        })->get();
+        return Excel::download(new quotations_orders_export($data), 'quotations.xlsx');
+
     }
 }

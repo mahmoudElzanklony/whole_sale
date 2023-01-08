@@ -292,6 +292,7 @@ registered vendors, this process may take few moments',
     // start of dashboard quoations ----------------------------------------------------------
     'is_completed_status'=>'Complete status',
     'date'=>'Date',
+    'sent_to_admin'=>'sent to admin and waiting reply',
     'wait_to_send_file_quotation'=>'Waiting you to send excel file',
     'file_send_and_wait_from_client_to_confirm_request'=>'Waiting client to confirm request',
     'client_confirm_request'=>'Client confirm request',

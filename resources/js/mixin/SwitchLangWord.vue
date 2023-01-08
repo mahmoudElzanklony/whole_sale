@@ -701,6 +701,16 @@ export default {
                   en:'Basic value',
                   tu:''
               },
+              export_selected:{
+                  ar:'إستيراد  المحدد',
+                  en:'Export Selected',
+                  tu:'',
+              },
+              please_select_rows_to_export:{
+                  ar:'من فضلك اختر الصفوف المناسبة لعملية الاستيراد',
+                  en:'please select rows to export operation',
+                  tu:'',
+              }
 
 
 

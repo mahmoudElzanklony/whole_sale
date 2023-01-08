@@ -43,6 +43,8 @@
                             </div>
                         </form>
                     </div>
+                    <button class="btn btn-primary export_excel"
+                            @click="pass_data_to_export">{{ switchWord('export_selected') }}</button>
                     <div class="data">
                         <table class="myTableServer table table-hover table-striped table-bordered"
                                data-order='[[ 1, "desc" ]]'
@@ -525,7 +527,7 @@ export default {
                     }else if (row['is_completed'] == 2){
                         return '<span class="receipt accept" el_id="'+row['id']+'"><i class="ri-file-paper-line"></i></span>'
                     }else if (row['is_completed'] == 3){
-                        return '<span class="print" el_id="'+row['id']+'"><i class="ri-printer-line"></i></span><span class="receipt" el_id="'+row['id']+'"><i class="ri-file-paper-line"></i></span>'
+                        return '<span class="print" el_id="'+row['id']+'"><i class="ri-printer-line"></i></span><span class="receipt accept" el_id="'+row['id']+'"><i class="ri-file-paper-line"></i></span>'
                     }else{
                         return '';
                     }
@@ -596,6 +598,22 @@ export default {
             'get_info_to_print_bill':'quotations_dash/get_info_to_print_bill',
             'get_receipt_action':'quotations_dash/get_receipt_action',
         }),
+        pass_data_to_export:function (){
+            let arr = [];
+            let checked = $('table tr td input:checked');
+            if(checked.length == 0){
+                Toast.fire({
+                   'icon':'error',
+                   'title':this.switchWord('please_select_rows_to_export'),
+                });
+                return false;
+            }
+            for(let tr_id of checked){
+                arr.push($(tr_id).parent().next().next().html());
+            }
+          //  window.location = window.location.host+'/quotations/export-file?ids='+arr.join();
+            window.open(window.location.origin+'/quotations/export-file?ids='+arr.join());
+        },
         get_data_of_quotation:function(id){
             this.get_info_about_quotation(id);
         },

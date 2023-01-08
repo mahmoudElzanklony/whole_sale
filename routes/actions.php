@@ -60,6 +60,8 @@ Route::group(['middleware'=>'changeLang'],function (){
 
     // quotations
     Route::group(['prefix'=>'/quotations'],function(){
+        Route::get('/export-file',[QuoationsInfoController::class,'export_file']);
+
         Route::post('/get-quotations-info',[QuoationsInfoController::class,'get_info']);
         Route::post('/get-quotations-info-admin',[QuoationsInfoController::class,'quotations_info_admin']);
         Route::post('/upload-excel-admin',[QuoationsInfoController::class,'upload_excel_admin']);

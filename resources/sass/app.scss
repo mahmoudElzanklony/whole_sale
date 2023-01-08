@@ -1029,3 +1029,19 @@ select[name="DataTables_Table_0_length"]{
 body.swal2-toast-shown .swal2-container{
     z-index: 99999999999999999999999;
 }
+
+.profile{
+    .inner-profile{
+        .sales{
+            .data{
+                .dt-buttons{
+                    display: none;
+                }
+            }
+            .export_excel{
+                position: absolute;
+                margin-top: 22px;
+            }
+        }
+    }
+}
