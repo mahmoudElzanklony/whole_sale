@@ -5,9 +5,9 @@
             <ProfileNavComponent></ProfileNavComponent>
             <div class="change_data">
                 <div class="container">
-                    <p class="alert alert-warning">
+                    <p class="alert alert-warning" v-if="role == 'buyer'">
                         <span>{{ keywords.current_balance }}</span>
-                        <strong>100</strong>
+                        <strong>100 SR</strong>
                     </p>
                     <div class="row">
                         <div class="col-md-6 col-12">
@@ -17,21 +17,34 @@
                                         <span>{{ keywords.edit_main_info }}</span>
                                     </h2>
                                     <div>
-                                        <img src="/images/users/default.png">
+                                        <img :src="'/images/users/'+$page.props.user.image">
                                     </div>
-                                    <div class="form-group">
+                                    <div class="form-group input-icon">
                                         <label>{{ keywords.profile_picture }}</label>
                                         <input class="form-control preview-image"
                                                accept="image/*"
                                                selector=".profile .change_data .section_inputs img"
                                                type="file" name="profile_picture">
                                         <p class="alert alert-danger"></p>
+                                        <span class="required"><i class="ri-asterisk"></i></span>
                                     </div>
-                                    <div class="form-group">
+                                    <div class="form-group input-icon">
                                         <label>{{ keywords.email }}</label>
-                                        <input class="form-control" type="email" name="email"
+                                        <input class="form-control" type="email"
+                                               :value="$page.props.user.email"
+                                               name="email"
                                                 required>
                                         <p class="alert alert-danger"></p>
+                                        <span class="required"><i class="ri-asterisk"></i></span>
+                                    </div>
+                                    <div class="form-group input-icon">
+                                        <label>{{ keywords.phone }}</label>
+                                        <input class="form-control"
+                                               :value="$page.props.user.phone"
+                                               name="phone"
+                                               required>
+                                        <p class="alert alert-danger"></p>
+                                        <span class="required"><i class="ri-asterisk"></i></span>
                                     </div>
                                     <div class="form-group">
                                         <input type="submit" name="save" class="btn btn-primary" :value="keywords.save">
@@ -47,20 +60,23 @@
                                     <h2 class="d-flex align-items-center mb-4 ">
                                         <span>{{ keywords.change_password }}</span>
                                     </h2>
-                                    <div class="form-group">
+                                    <div class="form-group input-icon">
                                         <label>{{ keywords.current_password }}</label>
                                         <input class="form-control" type="password" name="current_password">
                                         <p class="alert alert-danger"></p>
+                                        <span class="required"><i class="ri-asterisk"></i></span>
                                     </div>
-                                    <div class="form-group">
+                                    <div class="form-group input-icon">
                                         <label>{{ keywords.make_new_password }}</label>
                                         <input class="form-control" type="password" name="password">
                                         <p class="alert alert-danger"></p>
+                                        <span class="required"><i class="ri-asterisk"></i></span>
                                     </div>
-                                    <div class="form-group">
+                                    <div class="form-group input-icon">
                                         <label>{{ keywords.password_confirmed }}</label>
                                         <input class="form-control" type="password" name="password_confirmation">
                                         <p class="alert alert-danger"></p>
+                                        <span class="required"><i class="ri-asterisk"></i></span>
                                     </div>
                                     <div class="form-group">
                                         <input type="submit" name="save" class="btn btn-primary" :value="keywords.save">
@@ -74,7 +90,7 @@
                     </div>
                     <div class="row">
 
-                        <div class="col-md-6 col-12">
+                        <div class="col-md-6 col-12" v-if="role == 'seller' || role == 'buyer_seller'">
                             <div class="section_inputs">
                                 <form method="post" class="bank_info">
                                     <h2 class="d-flex align-items-center mb-4 ">
@@ -85,25 +101,40 @@
                                     </div>
                                     <div class="form-group" >
                                         <label>{{ keywords.account_number }}</label>
-                                        <input name="account_number" type="text" class="form-control" required>
+                                        <input name="account_number" type="text"
+                                               :value="data['bank_info']['account_number']"
+                                               class="form-control" required>
                                         <p class="alert alert-danger"></p>
                                     </div>
                                     <div class="form-group" >
                                         <label>IBAN</label>
-                                        <input name="iban" type="text" class="form-control" required>
+                                        <input name="iban" type="text"
+                                               :value="data['bank_info']['iban']"
+                                               class="form-control" required>
                                         <p class="alert alert-danger"></p>
                                     </div>
                                     <div class="form-group">
                                         <label>Swift Code</label>
-                                        <input name="swift_code" class="form-control" required>
+                                        <input name="swift_code" class="form-control"
+                                               :value="data['bank_info']['swift_code']"
+                                               required>
                                         <p class="alert alert-danger"></p>
                                     </div>
-                                    <div class="drag-drop-files mb-3" v-if="false">
-                                        <input type="file" name="bank_info_document"
+                                    <div class="drag-drop-files mb-3">
+                                        <input type="file" name="bank_licence"
                                                selector=".profile .bank_info  img"
                                                accept="image/*" class="preview-image">
                                         <button type="button" class="btn btn-primary">
                                             <span>{{ keywords.bank_info_document }}</span>
+                                            <span><i class="ri-add-line"></i></span>
+                                        </button>
+                                    </div>
+                                    <div class="drag-drop-files mb-3">
+                                        <input type="file" name="trade_licence"
+                                               selector=".profile .bank_info  img"
+                                               accept="image/*" class="preview-image">
+                                        <button type="button" class="btn btn-primary">
+                                            <span>{{ keywords.trade_licence }}</span>
                                             <span><i class="ri-add-line"></i></span>
                                         </button>
                                     </div>
@@ -115,7 +146,7 @@
                         </div>
 
 
-                        <div class="col-md-6 col-12">
+                        <div class="col-md-6 col-12" v-if="role == 'seller' || role == 'buyer_seller'">
                             <div class="section_inputs">
                                 <form method="post" class="bank_info">
                                     <h2 class="d-flex align-items-center mb-4 ">
@@ -123,7 +154,7 @@
                                     </h2>
                                     <div class="form-group" >
                                         <label>{{ keywords.brands_dealing }}</label>
-                                        <brands_selections :data="['toyta','nisan','bmw']"></brands_selections>
+                                        <brands_selections :data="data['all_brands']"></brands_selections>
                                     </div>
                                     <div class="form-group">
                                         <input type="submit" name="save" class="btn btn-primary" :value="keywords.save">

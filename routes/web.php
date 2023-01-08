@@ -39,10 +39,11 @@ Route::group(['middleware'=>'changeLang'],function (){
     Route::get('/new-password',[AuthController::class,'new_password']);
     Route::get('/logout',[AuthController::class,'logout'])->middleware('auth');
     // profile
-    Route::group(['prefix'=>'/profile'],function(){
+    Route::group(['prefix'=>'/profile','middleware'=>'auth'],function(){
         // edit
         Route::get('/edit',[ProfileController::class,'edit']);
         Route::get('/quotations',[ProfileController::class,'qutation_reuqest']);
+        Route::get('/last-quotations',[ProfileController::class,'last_quotations']);
         Route::get('/statistics',[ProfileController::class,'statistics']);
         Route::get('/sales',[ProfileController::class,'sales']);
         Route::get('/orders',[ProfileController::class,'orders']);
@@ -58,7 +59,7 @@ Route::group(['middleware'=>'changeLang'],function (){
 
     // checkout
     Route::get('/checkout',[CheckoutController::class,'index']);
-    Route::get('/notifications',[NotificationsController::class,'index']);
+    Route::get('/notifications',[NotificationsController::class,'index'])->middleware('auth');
 
 
     Route::group(['prefix'=>'/dashboard','middleware'=>['auth','checkAdmin']],function(){
@@ -66,6 +67,8 @@ Route::group(['middleware'=>'changeLang'],function (){
         Route::get('/notifications',[DashboardController::class,'notifications']);
         Route::get('/users',[DashboardController::class,'users']);
         Route::get('/brands',[DashboardController::class,'brands']);
+        Route::get('/upload',[DashboardController::class,'upload_files']);
+
         Route::get('/products',[DashboardController::class,'products']);
         Route::get('/statistics',[DashboardController::class,'statistics']);
         Route::get('/sales',[DashboardController::class,'sales']);

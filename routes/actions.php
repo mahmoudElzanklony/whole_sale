@@ -13,6 +13,8 @@ use App\Http\Controllers\PaymentWaysController;
 use App\Http\Controllers\AskNeighborsController;
 use App\Http\Controllers\classes\general\GeneralServiceController;
 use App\Http\Controllers\classes\listings\ListingsServiceClass;
+use App\Http\Controllers\QuoationsInfoController;
+use App\Http\Controllers\BrandsController;
 
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\URL;
@@ -43,6 +45,7 @@ Route::group(['middleware'=>'changeLang'],function (){
         Route::post('/update-personal-data',[ProfileController::class,'update_personal_data']);
         Route::post('/update-secondary-data',[ProfileController::class,'update_secondary_data']);
         Route::post('/send-quotation',[ProfileController::class,'send_quotation']);
+        Route::post('/preview-request',[ProfileController::class,'preview_request']);
         Route::post('/send-quotation-excel',[ProfileController::class,'send_quotation_excel']);
     });
     // user
@@ -53,45 +56,38 @@ Route::group(['middleware'=>'changeLang'],function (){
     // general
     Route::post('/deleteitem',[GeneralServiceController::class,'delete_item']);
     Route::post('/paginate-notifications',[GeneralServiceController::class,'paginate_notification_data']);
-    // map
-    Route::post('/map/get-map-type-data',[GeneralServiceController::class,'get_map_data_type']);
-    Route::post('/map/get_next_map_type_from_previous_value',[GeneralServiceController::class,'get_next_map_type']);
-    // categories
+    Route::post('/paginate-data',[GeneralServiceController::class,'paginate_data_definisons']);
+
+    // quotations
+    Route::group(['prefix'=>'/quotations'],function(){
+        Route::post('/get-quotations-info',[QuoationsInfoController::class,'get_info']);
+        Route::post('/get-quotations-info-admin',[QuoationsInfoController::class,'quotations_info_admin']);
+        Route::post('/upload-excel-admin',[QuoationsInfoController::class,'upload_excel_admin']);
+        Route::post('/send-agreement-to-admin',[QuoationsInfoController::class,'send_agreement_to_admin']);
+        Route::post('/change-status-of-request',[QuoationsInfoController::class,'change_status_of_request']);
+        Route::post('/save-tax',[QuoationsInfoController::class,'save_tax']);
+        Route::post('/get-receipt',[QuoationsInfoController::class,'get_receipt']);
+        Route::post('/get-money-file',[QuoationsInfoController::class,'get_money']);
+        Route::post('/send-file-money-to-admin',[QuoationsInfoController::class,'send_file_money_to_admin']);
+        // statistics
+        Route::post('/search-statics',[QuoationsInfoController::class,'search_statistics']);
+    });
+   // categories
     Route::group(['prefix'=>'/categories'],function(){
        Route::post('/get-subcategories-where',[CategoriesController::class,'get_sub_where']);
        Route::post('/get-parent',[CategoriesController::class,'get_parent']);
     });
-    // listings
-    Route::group(['prefix'=>'/listings'],function(){
-       Route::post('/save-inilaize',[ListingPostController::class,'save_inilaize']);
-       Route::post('/save-listing-info',[ListingPostController::class,'save_listing_info']);
-       Route::post('/save-photos',[ListingPostController::class,'save_photos']);
-       Route::post('/payment',[ListingPostController::class,'payment_points']);
+
+    // brands
+    Route::group(['prefix'=>'/brands'],function(){
+        Route::get('/getall',[BrandsController::class,'get_data']);
     });
-    // listings statics
-    Route::group(['prefix'=>'/listings-statistics'],function(){
-        Route::post('/seen',[ListingsServiceClass::class,'seen']);
-        Route::post('/search',[ListingsServiceClass::class,'search']);
-        Route::post('/call',[ListingsServiceClass::class,'call']);
+
+    // quotations
+    Route::group(['prefix'=>'/quotations'],function (){
+       Route::post('/save-quotation-at-draft',[QuoationsInfoController::class,'save_quotation_at_draft']);
     });
-    // questions
-    Route::group(['prefix'=>'/questions'],function(){
-       Route::post('/get-questions',[QuestionsController::class,'get_questions']);
-    });
-    // areas
-    Route::group(['prefix'=>'/areas'],function(){
-        Route::post('/search',[AreasController::class,'search']);
-    });
-    // payment ways
-    Route::group(['prefix'=>'/payment-ways'],function(){
-        Route::post('/find',[PaymentWaysController::class,'get_payment_methods']);
-    });
-    // discussions
-    Route::group(['prefix'=>'/discussions','middleware'=>['auth']],function(){
-        Route::post('/addquestion',[AskNeighborsController::class,'addquestion']);
-        Route::post('/answer-react',[AskNeighborsController::class,'answer_react']);
-        Route::post('/add-answer',[AskNeighborsController::class,'add_answer']);
-    });
+
 
 
     Route::any('/dashboard/paginate-orders',[\App\Http\Controllers\DashboardController::class,'paginate_products']);

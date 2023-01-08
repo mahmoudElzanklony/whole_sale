@@ -15,6 +15,7 @@ class ProfileStatisticsKeywords
            'select_year'=>trans('keywords.select_year'),
            'select_brand'=>trans('keywords.select_brand'),
            'part_no'=>trans('keywords.part_no'),
+           'search'=>trans('keywords.search'),
         ];
     }
 }

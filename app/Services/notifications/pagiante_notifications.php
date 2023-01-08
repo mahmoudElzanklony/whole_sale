@@ -9,7 +9,9 @@ use App\Models\notifications;
 class pagiante_notifications
 {
     public static function get_notifications($id = 0 , $type = ''){
-        return notifications::selection()->with('receiver')
+        $data =  notifications::selection()->with('receiver',function($e){
+            $e->with('role:id,name');
+        })
             ->when($id != 0 , function($e) use($id){
                 $e->where('receiver_id','=',$id);
             })
@@ -21,5 +23,12 @@ class pagiante_notifications
                 });
             })
             ->paginate(12);
+        $ids = $data->getCollection()->map(function ($e){
+            return $e['id'];
+        });
+        notifications::query()->whereIn('id',$ids)->update([
+            'seen'=>1
+        ]);
+        return $data;
     }
 }

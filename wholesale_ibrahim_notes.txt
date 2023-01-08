@@ -1,0 +1,13 @@
+register will be for buyers only
+remove user type and username
+
+
+update phone number at profile
+
+cant update quotations automatic number
+
+at quotations delete labels from second row 
+
+
+admin will send quotation to client with excel contain ( name , brand , quantity , price , available , provided quantity , وصول الشحنه , 
+نفس الحجات في صفحه مشترياتي 

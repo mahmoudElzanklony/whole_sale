@@ -8,4 +8,6 @@ use Illuminate\Database\Eloquent\Model;
 class items_infos_prices extends Model
 {
     use HasFactory;
+
+    protected $fillable = ['item_id','min_quantity','price'];
 }

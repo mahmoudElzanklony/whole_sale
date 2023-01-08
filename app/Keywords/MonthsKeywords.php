@@ -14,6 +14,7 @@ class MonthsKeywords
             'april'=>trans('keywords.april'),
             'may'=>trans('keywords.may'),
             'june'=>trans('keywords.june'),
+            'july'=>trans('keywords.july'),
             'august'=>trans('keywords.august'),
             'september'=>trans('keywords.september'),
             'october'=>trans('keywords.october'),

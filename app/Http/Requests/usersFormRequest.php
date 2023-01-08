@@ -42,9 +42,9 @@ class usersFormRequest extends FormRequest
     public function register(){
         return [
             //
-            'username'=>'required|max:191',
+            'username'=>'nullable',
             'email'=>'required|email|max:191|unique:users,email',
-            'password'=>'required|min:7|max:191',
+            'password'=>'required|min:7|max:191|confirmed',
             'phone'=>'required|min:7',
             'role_id'=>'required|exists:roles,id',
         ];
@@ -62,14 +62,10 @@ class usersFormRequest extends FormRequest
     public function update_admin(){
         return [
             //
-            'country_id'=>'required|integer|exists:countries,id',
             'username'=>'required|max:191',
             'email'=>'required|email|max:191|unique:users,email,'.request('id'),
             'password'=>'nullable|min:7|max:191',
             'phone'=>'required|min:7',
-            'address'=>'nullable|max:191',
-            'block'=>'required',
-            'auto_publish'=>'required',
             'image'=>'nullable|image|mimes:jpg,jpeg,png,gif',
         ];
     }
@@ -78,6 +74,7 @@ class usersFormRequest extends FormRequest
         return [
             //
             'email'=>'required|max:191|email|unique:users,email,'.auth()->user()->id,
+            'phone'=>'required|max:191',
             'profile_picture'=>'nullable|mimes:jpg,jpeg,png,gif',
         ];
     }

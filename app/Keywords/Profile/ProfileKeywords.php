@@ -34,6 +34,7 @@ class ProfileKeywords
             'change_bank_info'=>trans('keywords.change_bank_info'),
             'account_number'=>trans('keywords.account_number'),
             'bank_info_document'=>trans('keywords.bank_info_document'),
+            'trade_licence'=>trans('keywords.trade_licence'),
             'change_brands_info'=>trans('keywords.change_brands_info'),
             'brands_dealing'=>trans('keywords.brands_dealing'),
 

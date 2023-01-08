@@ -17,9 +17,9 @@ class statistics_dashboard
                trans('keywords.username'),
                trans('keywords.email'),
                trans('keywords.phone'),
-               trans('keywords.address'),
-               trans('keywords.block'),
-               trans('keywords.user_products'),
+           //    trans('keywords.address'),
+            //   trans('keywords.block'),
+            //   trans('keywords.user_products'),
                trans('keywords.actions'),
            ],
            'data_model'=>[
@@ -27,14 +27,13 @@ class statistics_dashboard
                'email'=>trans('keywords.email'),
                'password'=>trans('keywords.password'),
                'phone'=>trans('keywords.phone'),
-               'address'=>trans('keywords.address'),
-               'block'=>trans('keywords.block'),
+             //  'address'=>trans('keywords.address'),
+             //  'block'=>trans('keywords.block'),
                'image'=>trans('keywords.image'),
            ],
-           'data'=>User::query()->with('country')->whereHas('role',function($e){
+           'data'=>User::query()->whereHas('role',function($e){
                     $e->where('name','!=','admin');
                 })->orderByDesc('id')->get(),
-           'countries'=>countries::selection()->get(),
         ];
     }
 }

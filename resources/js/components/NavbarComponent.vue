@@ -1,31 +1,31 @@
 <template>
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
         <div class="container">
-            <inertia-link class="navbar-brand" href="/">
+            <a class="navbar-brand" target="_blank" href="https://mkena.com/">
                 <img src="/images/logo.jpg">
-            </inertia-link>
+            </a>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
 
             <div class="collapse navbar-collapse  justify-content-between" id="navbarSupportedContent">
-                <form class="form-inline my-2 my-lg-0">
-                    <input class="form-control mr-sm-2 ml-sm-2" type="search"
-                           :placeholder="switchWord('part_number_of_part_name')" aria-label="Search">
-                    <button class="btn btn-outline-primary my-2 my-sm-0" type="submit">{{ switchWord('Search') }}</button>
-                </form>
-                <ul class="d-flex">
-                    <li class="nav-item dropdown d-flex align-items-center">
-                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            <i class="ri-global-line"></i>
-                        </a>
-                        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                            <a class="dropdown-item" href="/lang/ar">{{ switchWord('Arabic_Language') }}</a>
-                            <a class="dropdown-item" href="/lang/en">{{ switchWord('English_Language') }}</a>
-                            <a class="dropdown-item" href="/lang/tu">{{ switchWord('Turkish_Language') }}</a>
-                            <!--                            <div class="dropdown-divider"></div>-->
-                        </div>
+                <ul class="d-flex align-items-center">
+                    <li class="nav-item" v-if="user != null && user.role_id == 1">
+                        <inertia-link class="font-weight-bold nav-link" href="/dashboard">
+                            {{ switchWord('dashboard') }}
+                        </inertia-link>
                     </li>
+                    <li class="nav-item">
+                        <inertia-link v-if="$page.props.lang == 'en'" class="font-weight-bold d-inline-flex align-items-center" href="/lang/ar">
+                            <i class="ri-global-line"></i>
+                            {{ switchWord('Arabic_Language') }}
+                        </inertia-link>
+                        <inertia-link  v-else class="font-weight-bold d-inline-flex align-items-center" href="/lang/en">
+                            <i class="ri-global-line"></i>
+                            {{ switchWord('English_Language') }}
+                        </inertia-link>
+                    </li>
+
                     <li class="nav-item d-flex align-items-center">
                         <inertia-link href="#" class="nav-link">
                             <span>{{ switchWord('Help') }}?</span>
@@ -49,7 +49,7 @@
                                             {{ switchWord('sign_up') }}
                                         </inertia-link>
                                     </div>
-                                    <div class="p-4">
+                                    <div class="p-4" >
                                         <p>{{ switchWord('my_offers') }}</p>
                                         <p>{{ switchWord('get_best_offers') }}</p>
                                     </div>
@@ -58,7 +58,9 @@
                                     <div class="user_image">
                                         <img :src="'/images/users/'+user.image">
                                         <div>
-                                            <p>example@gmail.com</p>
+                                            <p>
+                                                {{ user.email }}
+                                            </p>
                                             <p>{{ switchWord('registered_from_date') }}
                                                 {{ new Date(user.created_at).toLocaleDateString() }}
                                             </p>
@@ -72,14 +74,14 @@
                                             </inertia-link>
                                         </p>
                                         <ul>
-                                            <li class="d-flex align-items-center justify-content-between">
+                                            <li class="d-flex align-items-center justify-content-between" v-if="false">
                                                 <p>
                                                     <span><i class="ri-heart-line"></i></span>
                                                     <span>{{ switchWord('my_favourite') }}</span>
                                                 </p>
                                                 <span>4</span>
                                             </li>
-                                            <li class="d-flex align-items-center justify-content-between">
+                                            <li class="d-flex align-items-center justify-content-between" v-if="false">
                                                 <p>
                                                     <span><i class="ri-file-line"></i></span>
                                                     <span>{{ switchWord('my_notes') }}</span>
@@ -89,26 +91,32 @@
                                             <li class="d-flex align-items-center justify-content-between">
                                                 <p>
                                                     <span><i class="ri-notification-line"></i></span>
-                                                    <span>{{ switchWord('notifications') }}</span>
+                                                    <span>
+                                                        <inertia-link href="/notifications">
+                                                            {{ switchWord('notifications') }}
+                                                        </inertia-link>
+                                                    </span>
                                                 </p>
-                                                <span>2</span>
+                                                <span v-if="$page.props.numberofnotifications > 0">
+                                                    {{ $page.props.numberofnotifications }}
+                                                </span>
                                             </li>
                                             <hr>
-                                            <li class="d-flex align-items-center justify-content-between">
+                                            <li class="d-flex align-items-center justify-content-between" v-if="false">
                                                 <p>
                                                     <span><i class="ri-building-line"></i></span>
                                                     <span>{{ switchWord('my_listings') }}</span>
                                                 </p>
                                                 <span>2</span>
                                             </li>
-                                            <li class="d-flex align-items-center justify-content-between">
+                                            <li class="d-flex align-items-center justify-content-between" v-if="false">
                                                 <p>
                                                     <span><i class="ri-bank-card-line"></i></span>
                                                     <span>{{ switchWord('my_balance') }}</span>
                                                 </p>
                                                 <span></span>
                                             </li>
-                                            <li class="d-flex align-items-center justify-content-between">
+                                            <li class="d-flex align-items-center justify-content-between" v-if="false">
                                                 <p>
                                                     <span><i class="ri-wallet-3-line"></i></span>
                                                     <span>{{ switchWord('charge_credit') }}</span>
@@ -333,6 +341,7 @@ nav {
             a:first-of-type {
                 color: white;
                 background-color: $main_color;
+                margin-bottom: 10px;
             }
 
             a:nth-of-type(2) {

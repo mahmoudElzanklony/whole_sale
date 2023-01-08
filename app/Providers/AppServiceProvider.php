@@ -22,7 +22,7 @@ class AppServiceProvider extends ServiceProvider
         //
         Inertia::share('user', function () {
             if (Auth::user()) {
-                return auth()->user();
+                return User::query()->with('role')->find(auth()->id());
             }
         });
         Inertia::share('lang', function () {
@@ -40,8 +40,10 @@ class AppServiceProvider extends ServiceProvider
         Inertia::share('numberofnotifications', function () {
 
             if (Auth::user()) {
-                if(auth()->user()->type == 'admin'){
-                    $admins_ids = User::query()->where('type','=','admin')->select('id')->get()->map(function($e){
+                if(session()->get('type') == 'admin'){
+                    $admins_ids = User::query()->whereHas('role',function ($e){
+                      $e->where('name','=','admin');
+                    })->select('id')->get()->map(function($e){
                         return $e['id'];
                     });
                     return notifications::whereIn('receiver_id',$admins_ids)

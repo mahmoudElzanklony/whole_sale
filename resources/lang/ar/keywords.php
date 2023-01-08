@@ -7,12 +7,12 @@ return [
    'and'=>'و',
    'know'=>'أعرف',
    'search'=>'أبحث',
-   'website_name'=>'منصة هوسيل التابعة لمكينة',
-   'website_word'=>'نوفر افضل قطع الغيار بأفضل الاسعار يصلك في اي مكان تريدة داخل و خارج المملكة العربية السعودية',
+   'website_name'=>'مكينة جملة',
+   'website_word'=>'نوفر افضل قطع الغيار بأفضل الاسعار',
    'active_brands'=>'الماركات المتاحة',
    'mobile_experience'=>'تجربة ممتازة علي الموبيل',
    'mobile_experience_info'=>'قمنا بتصميم افضل تجربة في الموبيل والتابلت لكي تمكن اي مستخدم يستخدم اي جهاز من افضل استخدام حيث انك لن تجد اي مشاكل في عملية  شراء المنتجات وتصفحها واضافتها الي السلة او المفضلة والكثير من المميزات',
-   'wholesale_features'=>'مميزات هولسيل',
+   'wholesale_features'=>'مميزات مكينة',
    'fast_transfer'=>'سرعة النقل',
    'fast_transfer_info'=>'لدينا فريق كامل في خدمتك حيث يقوم بتغليف الاوردرات التي تقوم بطلبها ويقوم بشحنها في الحال لكي تصلك في اسرع وقت ممكن حيث تستغرق عمليه التغليف و الشحن للوصول لك من خمس الي سبع ايام علي حسب المسافة و ما تطلبة',
    'wrap_goods'=>'تغليف الاوردرات',
@@ -22,6 +22,8 @@ return [
    'customer_support'=>'هل لديك اي مشكله واجهتك في شراء او بيع منتج ؟ هل تأخر عليك اوردر قمت بطلبه من قبل ؟ هل لديك استفسار لا تعرف اجابتة بعد ؟',
    'send_message'=>'أرسال رسالة',
    'call_us_by_phone'=>'الأتصال بنا هاتفيا',
+   'email_activation_successfully'=>'تم تفعيل الحساب الشخصي الخاص بك',
+   'email_not_activated_yet'=>'لم يتم تفعيل الحساب الشخصي بنجاح',
 
 
    // Auth page
@@ -51,6 +53,7 @@ return [
    'send'=>'أرسال',
    'make_new_password'=>'أنشاء كلمه مرور جديدة',
    'password_confirmed'=>'تأكيد كلمة المرور الجديدة',
+   'repeat_password'=>'تأكيد كلمة المرور',
 
 
 
@@ -77,6 +80,24 @@ return [
     'print_data_info'=>'تستطيع تحميل البيانات التي ف الجدول بالاسفل عن طريق الضغط علي زر طباعه او اكسل . ان اردت تحميل بيانات غير ذلك تستطيع البحث عما تريد للوصول الي ما تريد ثم الضغط علي طباعه او اكسل لتحميل البيانات المحددة',
 
     // end of profile quotations----------------------------------
+
+
+    // start of profile last made quotations----------------------------------
+    'last_made_quotations'=>'أحدث طلبات التسعير التي قمت بها',
+    'quotation_number'=>'رقم التسعيرة',
+    'reply_from_admin'=>'تم الرد من الأدارة',
+    'admin_reply'=>'رد الأداره',
+    'excel_file'=>'ملف الاكسل',
+    'agree_request'=>'الموافقة علي الطلب',
+    'on_agree_request_condition'=>'عند الموافقة سيتعين عليك رفع ايصال المدفوعات لأرسالة للدارة',
+    'receipt_image'=>'صورة الايصال',
+    'you_can_change_receipt'=>'تستطيع تغيير صورة الايصال اذا كنت تعتقد انه ليس صحيح',
+    'from'=>'من',
+    'to'=>'الي',
+    'upload_bank_document'=>'رفع وثيقه البنك',
+    'file'=>'ملف',
+
+    // end of profile last made quotations----------------------------------
 
 
 
@@ -121,6 +142,7 @@ return [
 
     // start of checkout -------------------------------------------------------
     'required'=>' حقل ادخال مطلوب ',
+    'not_exists'=>'غير موجود',
     'total_items'=>'مجموع القطع',
     'total_qty'=>'مجموع الكمية',
     'total'=>'المجموع الكلي',
@@ -171,7 +193,7 @@ return [
 
     'change_bank_info'=>'تعديل بيانات الحساب البنكي',
     'change_brands_info'=>'تعديل بيانات الماركات التي اتعامل معاه',
-    'you_can_choose_whether_to_file_your_query_from_both_options_below'=>'يمكنك طلب بضاعه عن طريق رفع الملف يدوي او ملئ البيانات يدويا',
+    'you_can_choose_whether_to_file_your_query_from_both_options_below'=>'يمكنك طلب تسعيره عن طريق تحميمل ملف بالقطع والكميات المطلوبة او ادخل البيانات يدويا',
     'you_can_press_here_to_download_file_to_know_correct_format_you_should_upload'=>'يمكنك الضغط هنا لتحميل الملف لرؤيه الفورمات الصحيح التي لابد ان تقوم برفع شئ مماثل لة',
     'enter_data'=>'ادخل البيانات',
     'upload_file'=>'تحميل الملف',
@@ -181,7 +203,7 @@ return [
     'part_no'=>'رقم القطعة',
     'brand'=>'الماركة',
     'quantity'=>'الكمية',
-    'wholesale-is-trying-to-get-the-best-deal-for-you-from-the-registered-vendors-this-process-may-take-few-moments'=>'يحاول هولسيل الحصول على أفضل صفقة لك من
+    'wholesale-is-trying-to-get-the-best-deal-for-you-from-the-registered-vendors-this-process-may-take-few-moments'=>'يحاول مكينة جمله الحصول على أفضل صفقة لك من
 البائعين المسجلين ، قد تستغرق هذه العملية بضع دقائق',
     // end of profile  ----------------------------------------------------
 
@@ -234,6 +256,7 @@ return [
     'thickness'=>'الارتفاع',
     'quantity_per_pallet_load'=>'الكمية لكل حمولة منصة نقالة',
     'add_specific_slab'=>'اضافه سعر مخصص',
+    'see_prices'=>'جميع الاسعار',
 
     // end of save product ----------------------------------------------------
 
@@ -266,8 +289,8 @@ return [
 
 
     // start of dashboard ----------------------------------------------------------
-    'wholesale_word'=>'هولسيل المنصة الاولي في مجال بيع قطع غيار السيارات بالجمله',
-    'wholesale_header_info'=>'من خلال هولسيل تستطيع رؤيه العلامات التجاريه و التحكم بها و رؤيه الطلبات و المبيعات و الارباح و انشاء تقارير لاتخاذ افضل قرار',
+    'wholesale_word'=>'مكينة جمله المنصة الاولي في مجال بيع قطع غيار السيارات بالجمله',
+    'wholesale_header_info'=>'من خلال مكينة جمله تستطيع رؤيه العلامات التجاريه و التحكم بها و رؤيه الطلبات و المبيعات و الارباح و انشاء تقارير لاتخاذ افضل قرار',
     'wholesale_bill_info'=>'شكرا علي تعاملكم معنا ونتمني ان نكون عند حسن ظنكم بنا',
     'bill_export_date'=>'تم اصدار الفاتورة بتاريخ ',
     'show_details'=>'عرض التفاصيل',
@@ -310,12 +333,28 @@ return [
     'see_more'=>'رؤية المزيد',
     // end of dashboard categories ----------------------------------------------------------
 
+    // start of dashboard quoations ----------------------------------------------------------
+    'is_completed_status'=>'حالة الاكتمال',
+    'date'=>'التاريخ',
+    'wait_to_send_file_quotation'=>'في انتظار ارسالك ملف الاكسل',
+    'file_send_and_wait_from_client_to_confirm_request'=>'في انتظار العميل بتأكيد الطلب',
+    'client_confirm_request'=>'قام العميل بتأكيد الطلب',
+    'click_here_to_finish_request'=>'اضغط هنا لانهاء الطلب بنجاح',
+    'complete_request_successfully'=>'تم الأكتمال بنجاح',
+    'confirm_request'=>'تأكيد الطلب',
+    'wait_client_to_confirm'=>'في انتظار العميل بتأكيد الطلب',
+    'order_confirmed'=>'تم تأكيد الطلب',
+    'tax_title'=>'الضريبة',
+
+    // end of dashboard quoations ----------------------------------------------------------
+
     // start of dashboard statistics ----------------------------------------------------------
 
-    'wholesale_statistics'=>'احصائيات هولسيل',
+    'wholesale_statistics'=>'احصائيات مكينة جمله',
     'products'=>'المنتجات',
     'sales'=>'المبيعات',
-
+    'download_current_version'=>'تحميل النسخة الحالية',
+    'upload_files'=>'تحميل الملفات التابعه لهول سيل',
 
     // end of dashboard statistics ----------------------------------------------------------
 
@@ -380,6 +419,7 @@ return [
     'april'=>'أبريل',
     'may'=>'مايو',
     'june'=>'يونيو',
+    'july'=>'يوليو',
     'august'=>'أغسطس',
     'september'=>'سبتمبر',
     'october'=>'أكتوبر',
@@ -392,6 +432,7 @@ return [
 
     // some success messages
     'payment_success'=>'تم عمليه الدفع بنجاح',
+    'operation_type'=>'نوع العملية',
 
 
 

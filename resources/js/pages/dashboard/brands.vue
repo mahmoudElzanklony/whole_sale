@@ -20,18 +20,18 @@
                         </tr>
                         </thead>
                         <tbody>
-                        <tr v-for="(i,index) in 6"
-                            :key="index" >
-                            <td><img src="/images/brands/toyta.png"></td>
-                            <td>تويتا</td>
-                            <td>Toyta</td>
+                        <tr v-for="(i,index) in vuex_data"
+                            :key="index" :class="'row_'+index">
+                            <td><img :src="'/images/brands/'+i['image']"></td>
+                            <td>{{ i['ar_name'] }}</td>
+                            <td>{{ i['en_name'] }}</td>
                             <td class="actions">
                                 <span>
-                                    <i data-toggle="modal" data-target="#update_box"
+                                    <i data-toggle="modal" @click="update_item(i)" data-target="#update_box"
                                          class="ri-edit-line">
                                     </i>
                                 </span>
-                                <span class="delete"><i class="ri-close-line"></i></span>
+                                <span class="delete" @click="delete_item('brands',i['id'],'.row_'+index)"><i class="ri-close-line"></i></span>
                             </td>
                         </tr>
                         </tbody>
@@ -50,13 +50,13 @@
                         </button>
                     </div>
                     <div class="modal-body">
-                        <form method="post" @submit.prevent="save_category">
+                        <form method="post" @submit.prevent="save_brand">
                             <input v-if="item != null" type="hidden" name="id" :value="item.id">
                             <div class="form-group">
                                 <img class="box-image" v-if="item == null"
-                                     src="/images/users/default.png">
+                                     src="/images/preview.png">
                                 <img class="box-image" v-else
-                                     :src="'/images/categories/'+item['image']">
+                                     :src="'/images/brands/'+item['image']">
 
                             </div>
                             <div class="form-group"
@@ -70,6 +70,7 @@
                                 <div class="drag-drop-files">
                                     <input type="file" class="preview-image" name="image" accept="image/*"
                                            selector=".modal-dialog img.box-image">
+                                    <p class="alert alert-danger"></p>
                                     <button type="button" class="btn btn-primary">
                                         <span>{{ switchWord('upload_image') }}</span>
                                         <span><i class="ri-add-line"></i></span>
@@ -112,23 +113,20 @@ export default {
     },
     computed:{
         ...mapGetters({
-            'vuex_data':'categories_dash/get_data',
+            'vuex_data':'brands_dash/get_data',
         }),
     },
     methods:{
         ...mapActions({
-            'save_category':'categories_dash/save_category'
+            'save_brand':'brands_dash/save_brand'
         }),
         ...mapMutations({
-            'update_data':'categories_dash/update_data',
-            'inilaize_data':'categories_dash/inilalize_data',
+            'update_data':'brands_dash/update_data',
+            'inilaize_data':'brands_dash/inilalize_data',
         }),
-        initalize_data:function (){
-            this.inilaize_data(this.handling_data['data']);
-        },
     },
     created() {
-        this.initalize_data();
+        this.inilaize_data(this.handling_data['data'])
         this.modal_data = Object.keys(this.handling_data['data_model']);
     },
     components: {SideNavbarComponent}

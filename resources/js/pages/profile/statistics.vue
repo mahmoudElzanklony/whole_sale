@@ -8,9 +8,9 @@
                     <h2 class="mb-4 main-title">
                         <span>{{ keywords.statistics }}</span>
                     </h2>
-                    <form>
+                    <form method="post" @submit.prevent="search_quotations">
                         <div class="row">
-                            <div class="col-md-3 col-6">
+                            <div class="col-md-3 col-6" v-if="false">
                                 <div class="form-group">
                                     <select class="form-control" name="process_type">
                                         <option value="">{{ keywords.select_process_type }}</option>
@@ -21,26 +21,20 @@
                             </div>
                             <div class="col-md-3 col-6">
                                 <div class="form-group">
-                                    <select class="form-control" name="process_type">
+                                    <select class="form-control" name="brand_id">
                                         <option value="">{{ keywords.select_brand }}</option>
-                                        <option value="toyta">Toyta</option>
-                                        <option value="bmw">Bmw</option>
+                                        <option v-for="(b,index) in brands" :id="index" :value="b['id']">{{ b['name'] }}</option>
                                     </select>
                                 </div>
                             </div>
                             <div class="col-md-3 col-6">
                                 <div class="form-group">
-                                    <select class="form-control" name="process_type">
-                                        <option value="">{{ keywords.part_no }}</option>
-                                        <option value="toyta">2</option>
-                                        <option value="bmw">211</option>
-                                    </select>
+                                    <input class="form-control" name="part_number" :placeholder="keywords.part_no">
                                 </div>
                             </div>
-
                             <div class="col-md-3 col-6">
                                 <div class="form-group">
-                                    <select class="form-control" name="process_type">
+                                    <select class="form-control" name="created_at">
                                         <option value="">{{ keywords.select_year }}</option>
                                         <option v-for="(i,index) in 15" :key="index"
                                                 :value="new Date().getFullYear() - index">
@@ -49,9 +43,12 @@
                                     </select>
                                 </div>
                             </div>
-                        </div>
+                            <div class="col-md-3 col-6">
+                                <input type="submit" class="btn btn-primary w-100 d-block" :value="keywords.search">
+                            </div>
+                          </div>
                     </form>
-                    <line-chart   :chart_data="chart_data" :labels_data="labels"></line-chart>
+                    <line-chart   :chart_data="data_statics" :labels_data="labels"></line-chart>
 
                 </div>
             </div>
@@ -64,27 +61,31 @@
 import NavbarComponent from "../../components/NavbarComponent";
 import FooterComponent from "../../components/FooterComponent";
 import ProfileNavComponent from "../../components/ProfileNavComponent";
+import {mapActions,mapGetters,mapMutations} from "vuex";
 export default {
     name: "statistics",
-    props:['keywords','data_statistics'],
+    props:['keywords','data_statistics','brands','months'],
     data:function(){
         return {
             chart_data:this.data_statistics,
-            labels:[
-                "يناير",
-                "يناير",
-                "مارس",
-                "ابريل",
-                "مايو",
-                "يونيو",
-                "يوليو",
-                "اغسطس",
-                "سبتمر",
-                "اكتوبر",
-                "نوفمبر",
-                "ديسمبر"
-            ],
+            labels:this.months,
         }
+    },
+    created() {
+        this.set_data_statics(this.chart_data);
+    },
+    computed:{
+        ...mapGetters({
+            'data_statics':'quotations_dash/get_statistics',
+        })
+    },
+    methods:{
+       ...mapActions({
+           'search_quotations':'quotations_dash/search',
+       }),
+      ...mapMutations({
+          'set_data_statics':'quotations_dash/update_statistics',
+      })
     },
     components: { ProfileNavComponent, FooterComponent, NavbarComponent}
 }

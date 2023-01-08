@@ -10,7 +10,9 @@
                 <div class="row">
                     <div class="col-md-6">
                         <form method="post" @submit.prevent="store_local_data">
-                            <div class="progress-form" data-aos="fade-down">
+                            <h2 class="mb-3">{{ keywords.sign_up }}</h2>
+                            <!-- not shown this section at this moment -->
+                            <div class="progress-form" data-aos="fade-down" v-if="false">
                                 <span class="active"><i class="ri-check-line"></i></span>
                                 <p>{{ keywords.personal_info }}</p>
                                 <span><i class="ri-check-line"></i></span>
@@ -19,36 +21,41 @@
                                 <p>{{ keywords.brands_dealing }}</p>
                                 <span><i class="ri-check-line"></i></span>
                             </div>
-                            <div class="form-group" data-aos="fade-up" data-aos-delay="500">
-                                <label>{{ keywords.username }}</label>
-                                <input name="username" type="text" class="form-control"
-                                       :value="stored_info != null ? stored_info['username']:''"
-                                       required>
-                                <p class="alert alert-danger"></p>
-                            </div>
-                            <div class="form-group" data-aos="fade-up" data-aos-delay="1000">
+                            <input type="hidden" name="username" value="">
+                            <div class="form-group input-icon" data-aos="fade-up" data-aos-delay="1000">
                                 <label>{{ keywords.email }}</label>
                                 <input name="email" type="email" class="form-control"
                                        :value="stored_info != null ? stored_info['email']:''"
                                        required>
                                 <p class="alert alert-danger"></p>
+                                <span class="required"><i class="ri-asterisk"></i></span>
                             </div>
-                            <div class="form-group" data-aos="fade-up" data-aos-delay="1500">
+                            <div class="form-group input-icon" data-aos="fade-up" data-aos-delay="1500">
                                 <label>{{ keywords.password }}</label>
                                 <input name="password" type="password" class="form-control"
                                        :value="stored_info != null ? stored_info['password']:''"
                                        required>
                                 <p class="alert alert-danger"></p>
+                                <span class="required"><i class="ri-asterisk"></i></span>
                             </div>
-                            <div class="form-group" data-aos="fade-up" data-aos-delay="2000">
+                            <div class="form-group input-icon" data-aos="fade-up" data-aos-delay="1500">
+                                <label>{{ keywords.repeat_password }}</label>
+                                <input name="password_confirmation" type="password" class="form-control"
+                                       :value="stored_info != null ? stored_info['password_confirmation']:''"
+                                       required>
+                                <p class="alert alert-danger"></p>
+                                <span class="required"><i class="ri-asterisk"></i></span>
+                            </div>
+                            <div class="form-group input-icon" data-aos="fade-up" data-aos-delay="2000">
                                 <label>{{ keywords.phone }}</label>
                                 <input name="phone" type="number" min="0" pattern=".{7,}"
                                        :value="stored_info != null ? stored_info['phone']:''"
                                        class="form-control" required>
                                 <p class="alert alert-danger"></p>
+                                <span class="required"><i class="ri-asterisk"></i></span>
                             </div>
 
-                            <div class="form-group" data-aos="fade-up" data-aos-delay="2500">
+                            <div class="form-group" v-if="false" data-aos="fade-up" data-aos-delay="2500">
                                 <label>{{ keywords.user_type }}</label>
                                 <select name="role_id"  class="form-control" @change="change_role" required>
                                     <option value="seller" v-for="(i,index) in data"
@@ -58,6 +65,7 @@
                                 </select>
                                 <p class="alert alert-danger"></p>
                             </div>
+                            <input type="hidden" name="role_id" :value="data.find((e)=>{return e['name'] == 'buyer' })['id']">
                             <div class="form-group" data-aos="fade-up" data-aos-delay="3000">
                                 <input type="submit" name="send"
                                        class="btn btn-primary"

@@ -1,0 +1,31 @@
+1 - wholesale replaced to مكينة جمله and english makena wholesale
+
+2 - confirmation password at register
+
+3 - login , register put red mark as it mandaotory
+
+4 - at last quotations page make order with background and make complete order with anoter background
+
+5 - preview excel quotation when upload before inserting it
+
+6 - when admin click on see details client prevent from update or delete quotation request but when admin reply he can do whatever he do 
+
+7 - pop up messages make it at center of page
+
+8 - pop up message make close button to close it
+
+9 - tax put at admin to change it 
+
+10 - bill format changed
+
+11 - when client confrim order he must upload photo of bill bank 
+
+12 - admin maybe upload a photo of bill bank for specific client
+
+13 - admin upload document pdf or image for reposit money at bank
+
+14 - at last quotations search inputs put icon of search
+
+15 - at last quotations search from date to date 
+
+16 - export outside button should export client quotations at one file

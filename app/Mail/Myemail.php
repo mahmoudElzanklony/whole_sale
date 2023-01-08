@@ -30,7 +30,7 @@ class Myemail extends Mailable
      */
     public function build()
     {
-        return $this->subject('reset password from mall14.com')
-            ->view('emails.reset')->with('details',$this->details);
+        return $this->subject($this->details['title'])
+            ->view('emails.email')->with('details',$this->details);
     }
 }

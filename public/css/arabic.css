@@ -129,4 +129,19 @@ nav .dropdown-menu a span:first-of-type {
   padding-left: 35px;
 }
 
+.filters form p {
+  margin-left: 15px;
+}
+.filters form p input {
+  margin-left: 5px;
+}
+
 /*-------------------------------------------end of dashboard -------------------------------------*/
+.toast_fire_style {
+  left: 0px;
+}
+
+table tr td input + span {
+  left: 18px !important;
+  bottom: 16px !important;
+}

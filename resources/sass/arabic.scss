@@ -176,6 +176,28 @@ nav {
 .answers .inner .row{
     padding-left: 35px;
 }
+.filters{
+    form{
+        p{
+            margin-left: 15px;
+            input{
+                margin-left: 5px;
+            }
+        }
+    }
+}
 
 /*-------------------------------------------end of dashboard -------------------------------------*/
-
+.toast_fire_style{
+    left: 0px;
+}
+table{
+    tr{
+        td{
+            input + span{
+                left: 18px !important;
+                bottom:16px !important;
+            }
+        }
+    }
+}

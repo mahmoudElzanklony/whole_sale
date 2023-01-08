@@ -7,6 +7,7 @@ use App\Http\Requests\usersFormRequest;
 use App\Keywords\AuthKeywords;
 use App\Models\brands;
 use App\Models\roles;
+use App\Models\User;
 use App\Services\auth\register_service;
 use Illuminate\Http\Request;
 use Inertia\Inertia;

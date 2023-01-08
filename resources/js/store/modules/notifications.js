@@ -48,8 +48,7 @@ export default {
                 return e['label'] == state.page;
             })
             if(obj_page != undefined){
-                document.querySelector('body').style.overflow = 'hidden';
-                document.querySelector('.loading').style.display = 'flex';
+
                 axios.post('/paginate-notifications?page='+obj_page.label,{
                     type
                 }).then((e)=>{
@@ -58,8 +57,6 @@ export default {
                     }
                 });
                 commit('update_page');
-                document.querySelector('body').style.overflow = 'auto';
-                document.querySelector('.loading').style.display = 'none';
 
             }
         }

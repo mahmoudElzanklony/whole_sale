@@ -25,13 +25,19 @@
                        <span>{{ switchWord('statistics') }}</span>
                      </inertia-link>
                    </li>
-                    <li>
+                    <li v-if="false">
                         <inertia-link href="/profile/orders">
                             <span><i class="ri-shopping-cart-line"></i></span>
                             <span>{{ switchWord('my_orders') }}</span>
                         </inertia-link>
                     </li>
-                    <li>
+                    <li v-if="$page.props.user.role.name == 'buyer'">
+                        <inertia-link href="/profile/last-quotations">
+                            <span><i class="ri-shopping-cart-line"></i></span>
+                            <span>{{ switchWord('last_quotations') }}</span>
+                        </inertia-link>
+                    </li>
+                    <li v-if="$page.props.user.role.name == 'seller' || $page.props.user.role.name == 'buyer_seller'">
                         <inertia-link href="/profile/sales">
                             <span><i class="ri-money-dollar-circle-line"></i></span>
                             <span>{{ switchWord('my_sales') }}</span>

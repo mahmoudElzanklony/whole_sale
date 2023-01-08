@@ -26,6 +26,7 @@ class AuthKeywords
             'account_number'=>trans('keywords.account_number'),
             'trade_licence'=>trans('keywords.trade_licence'),
             'bank_info_document'=>trans('keywords.bank_info_document'),
+            'repeat_password'=>trans('keywords.repeat_password'),
             'user_type'=>trans('keywords.user_type'),
             'have_already_account'=>trans('keywords.have_already_account'),
             'forget_password'=>trans('keywords.forget_password'),

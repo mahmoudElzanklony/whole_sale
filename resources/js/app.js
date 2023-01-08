@@ -3,8 +3,12 @@ require('./bootstrap');
 const Toast = Swal.mixin({
     toast: true,
     position: 'top-left',
-    showConfirmButton: false,
-    timer: 5000,
+    showConfirmButton: true,
+    customClass: {
+        confirmButton: "swal2-confirm swal2-styled toast_fire_style"
+    },
+    confirmButtonText:'<i class="ri-close-line exit-box"></i>',
+   // timer: 5000,
     timerProgressBar: true,
     didOpen: (toast) => {
         toast.addEventListener('mouseenter', Swal.stopTimer)

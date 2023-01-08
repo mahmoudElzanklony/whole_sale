@@ -38,6 +38,14 @@ $(document).ready(function (){
                     }
                 }else {
                     target.parent().parent().remove();
+                    if(document.URL.indexOf('profile/quotations') > 0){
+                        // this is quotation request page
+                        var count = 1;
+                        for(let inp of document.querySelectorAll('input[disabled="disabled"]')){
+                            inp.value = count;
+                            count++;
+                        }
+                    }
                 }
                 Toast.fire({
                     icon:'success',
@@ -91,6 +99,19 @@ $(document).ready(function (){
             $(this).removeClass('ri-arrow-up-s-line').addClass('ri-arrow-down-s-line')
         }
     });
+
+    // click on table input when key up
+    $('.content').on('keyup','.myTableServer thead tr td input',function (){
+        $('.myTableServer thead tr td input').eq(0).click();
+    })
+
+    // filter at last quotation filter
+    $('.content').on('change','.last-quotations-filter form input',function (){
+        if(event.target.getAttribute('name') == 'is_completed') {
+            $('table thead tr td input[name="is_completed"]').val($(this).val());
+        }
+        $('.myTableServer thead tr td input').eq(0).click();
+    })
 
 
 });

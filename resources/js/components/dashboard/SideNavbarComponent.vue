@@ -79,13 +79,19 @@
                     <span>{{ switchWord('timer') }}</span>
                 </inertia-link>
             </li>
+            <li custom="upload">
+                <inertia-link  href="/dashboard/upload">
+                    <span><i class="ri-file-line"></i></span>
+                    <span>{{ switchWord('upload_files') }}</span>
+                </inertia-link>
+            </li>
             <li custom="reports">
                 <inertia-link href="/dashboard/reports">
                     <span><i class="ri-file-list-3-line"></i></span>
                     <span>{{ switchWord('reports') }}</span>
                 </inertia-link>
             </li>
-            <li custom="support">
+            <li custom="support" class="mb-3">
                 <inertia-link href="/dashboard/support">
                     <span><i class="ri-headphone-line"></i></span>
                     <span>{{ switchWord('client_support') }}</span>

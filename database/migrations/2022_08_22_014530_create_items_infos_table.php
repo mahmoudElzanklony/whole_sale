@@ -18,6 +18,8 @@ class CreateItemsInfosTable extends Migration
             $table->bigInteger('part_number');
             $table->foreignId('brand_id')->constrained()
                 ->onUpdate('cascade')->onDelete('cascade');
+            $table->foreignId('quotation_order_id')->constrained('quotation_orders')
+                ->onUpdate('cascade')->onDelete('cascade');
             $table->string('ar_part_name');
             $table->string('en_part_name');
             $table->string('ar_part_description');

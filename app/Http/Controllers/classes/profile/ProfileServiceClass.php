@@ -13,7 +13,9 @@ use App\Http\traits\upload_image;
 use App\Imports\countriesImportCSV;
 use App\Imports\QuotationImportCSV;
 use App\Models\listings_notes;
+use App\Models\quotation_orders;
 use App\Models\quotations;
+use App\Models\tax_money;
 use App\Models\User;
 use App\Models\user_company_info;
 use App\Models\user_info;
@@ -25,8 +27,10 @@ class ProfileServiceClass extends Controller
     public function update_email_image(usersFormRequest $request){
         // check if i had a persoanl image
         $email = request('email');
+        $phone = request('phone');
         $data = [
-            'email'=>$email
+            'email'=>$email,
+            'phone'=>$phone
         ];
         if(request()->hasFile('profile_picture')){
             $image_name = $this->upload(request()->file('profile_picture'),'users');
@@ -69,16 +73,39 @@ class ProfileServiceClass extends Controller
     }
 
     public function send_quotation(QuotationFormRequest $request){
+
+        // create new quotation bill
+        $qutation_bill = quotation_orders::query()->create([
+           'user_id'=>auth()->id() ,
+           'is_completed'=>0,
+           'tax'=>tax_money::query()->first() != null ? tax_money::query()->first()->tax:0,
+        ]);
+
         for($i = 0; $i < sizeof($request->validated()['brand_id']); $i++){
             $inserted_data = [];
-            $inserted_data['user_id'] = auth()->id();
+            $inserted_data['quotation_order_id'] = $qutation_bill->id;
             $inserted_data['brand_id'] = $request->validated()['brand_id'][$i];
             $inserted_data['quantity'] = $request->validated()['quantity'][$i];
-            $inserted_data['serial'] = $request->validated()['serial'][$i];
             $inserted_data['part_number'] = $request->validated()['part_number'][$i];
+
             quotations::query()->create($inserted_data);
         }
         return messages::success_output([trans('messages.saved_successfully')]);
+    }
+
+    public function preview_request(){
+        $file = request()->file('file');
+        $data = file($file);
+        $headers = explode(',',trim(preg_replace('/\s\s+/', ' ', $data[0])));
+        unset($data[0]);
+
+        $result = [];
+        foreach($data as $item){
+            $item = explode(',',trim(preg_replace('/\s\s+/', ' ', $item)));
+            array_push($result,array_combine($headers,$item));
+
+        }
+        return messages::success_output('',$result);
     }
 
     public function send_quotation_excel(){
@@ -87,12 +114,19 @@ class ProfileServiceClass extends Controller
         $file_name = time().rand(0,9999999999999). '_excel.' .$exten;
 
         try {
-            Excel::import(new QuotationImportCSV,
+            // create new quotation bill
+            $qutation_bill = quotation_orders::query()->create([
+                'user_id'=>auth()->id() ,
+                'is_completed'=>0,
+                'tax'=>tax_money::query()->first() != null ? tax_money::query()->first()->tax:0,
+
+            ]);
+            Excel::import(new QuotationImportCSV($qutation_bill),
                 request()->file('file')
             );
         } catch (\Maatwebsite\Excel\Validators\ValidationException $e) {
             $failures = $e->failures();
-
+            $qutation_bill->delete();
             return messages::error_output($failures[0]->errors());
 
         }

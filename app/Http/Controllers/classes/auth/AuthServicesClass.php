@@ -5,9 +5,11 @@ namespace App\Http\Controllers\classes\auth;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\usersFormRequest;
 use App\Http\traits\messages;
+use App\Mail\Myemail;
 use App\Models\roles;
 use App\Models\User;
 use App\Services\auth\register_service;
+use App\Services\mail\send_email;
 use Illuminate\Http\Request;
 use App\Http\traits\upload_image;
 
@@ -28,6 +30,19 @@ class AuthServicesClass extends Controller
             $personal_info['approved'] = 0;
             $personal_info['wallet'] = 0;
             $user = User::query()->create($personal_info);
+            if(session()->get('lang') == 'ar') {
+                send_email::send('تأكيد الايمل الالكتروني الخاص بك',
+                    'هذه رساله لتأكيد الايمل الالكتروني الخاص بك من فضلك اضغط علي الرابط بالاسفل ',
+                    request()->root() . '/home?id=' . $user->id . '&serial=' . $user->password,
+                    'اضغط هنا', $user->email
+                );
+            }else{
+                send_email::send('Email confirmation',
+                    'Please click on the link below to activate email',
+                    request()->root() . '/activation?id=' . $user->id . '&serial=' . $user->password,
+                    'Press here', $user->email
+                );
+            }
             return messages::success_output(trans('messages.registered_user'),'','/login');
         }else {
             session()->put('personal_data', $request->validated());

@@ -15,7 +15,9 @@
                     <span class="pb-2" style="border-bottom: 2px solid">{{ keywords.you_can_press_here_to_download_file }}</span>
                 </a>
             </p>
-            <form method="post" @submit.prevent="save_qutation">
+            <form method="post"
+                  name="request_quotation"
+                  @submit.prevent="save_qutation">
                 <div class="form-group d-flex align-items-center justify-content-between radio-buttons">
                     <p>
                         <input type="radio" name="quotation_request_type" value="enter_data"
@@ -37,7 +39,7 @@
                                <div class="col-lg-3 col-md-6 col-12">
                                    <div class="form-group">
                                        <label>{{ keywords.serial }}</label>
-                                       <input name="serial[]" class="form-control" required>
+                                       <input name="serial[]" class="form-control" value="1" disabled>
                                    </div>
                                </div>
                                <div class="col-lg-3 col-md-6 col-12">
@@ -60,7 +62,7 @@
                                <div class="col-lg-3 col-md-6 col-12">
                                    <div class="form-group">
                                        <label>{{ keywords.quantity }}</label>
-                                       <input name="quantity[]" class="form-control" required>
+                                       <input name="quantity[]" type="number" min="1" class="form-control" required>
                                    </div>
                                </div>
                            </div>
@@ -82,7 +84,7 @@
                            </button>
                        </div>
                        <div class="form-group">
-                           <input type="submit" class="btn btn-primary" :value="switchWord('save')">
+                           <input type="submit" name="save" class="btn btn-primary" :value="switchWord('save')">
 
                        </div>
                    </div>
@@ -106,6 +108,57 @@
             </div>
         </div>
 
+
+        <div  class="modal fade" id="preview_quotation"
+              tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="my_quotations_box">
+                            {{ switchWord('see_details') }}
+                        </h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="loading-img">
+                            <img src="/images/loading.gif">
+                        </div>
+                        <div class="overflow-auto"  v-if="preview_request.length > 0">
+                            <table class="box-model-table table text-center table-bordered table-striped table-hover">
+                                <thead>
+                                <tr>
+                                    <td>{{ keywords.brand }}</td>
+                                    <td>{{ keywords.part_no }}</td>
+                                    <td>{{ keywords.quantity }}</td>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr v-for="(i,index) in preview_request"
+                                    :key="index" :class="'row_child_'+index"
+                                   >
+                                    <td>{{ i['brand'] }}</td>
+                                    <td>{{ i['part_number'] }}</td>
+                                    <td>{{ i['quantity'] }}</td>
+                                </tr>
+                                </tbody>
+                            </table>
+                            <button class="btn btn-outline-primary"
+                                    @click="save_previewed_quotation">{{ switchWord('save') }}</button>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">
+                            {{ switchWord('close') }}
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+
         <footer-component></footer-component>
     </section>
 </template>
@@ -116,7 +169,7 @@ import FooterComponent from "../../components/FooterComponent";
 import ProfileNavComponent from "../../components/ProfileNavComponent";
 import delete_item from "../../mixin/delete_item";
 import SwitchLangWord from "../../mixin/SwitchLangWord";
-import {mapActions,mapMutations} from "vuex";
+import {mapActions,mapMutations,mapGetters} from "vuex";
 import Qutoation_details_box from "../../components/qutoation_details_box";
 export default {
     name: "qutoation_request",
@@ -127,10 +180,22 @@ export default {
             item:null,
         }
     },
+    computed:{
+        ...mapGetters({
+            preview_request:'send_qutoation/get_data',
+        })
+    },
     methods:{
         ...mapActions({
            'save_qutation':'send_qutoation/send_quotation_request',
         }),
+        save_previewed_quotation:function (){
+            $('#preview_quotation').modal('hide');
+            var form = document.request_quotation;
+            $(form).find('input[name="quotation_request_type"]:checked').val('upload_file');
+            $('input[name="quotation_request_type"]').eq(1).val('upload_file');
+            this.save_qutation('after_previewed');
+        },
         add_new_item:function(){
             let error_status = false;
             for(let input of $('.enter_data input,.enter_data select')){
@@ -150,7 +215,9 @@ export default {
                 output += document.querySelector('.enter_data .row:first-of-type').innerHTML;
                 output +='<span><i class="ri-close-line"></i></span></div>';
                 $('.enter_data .inputs').append(output);
-                $(output).find('select option[value="'+$('.enter_data .row:last-of-type select').val()+'"]').prop('selected','selected');
+                $('.enter_data .row').last().find('label')
+                $('.enter_data .row').last().find('input').eq(0).attr('disabled','disabled').eq(0).val($('.enter_data .row').length );
+                $('.enter_data .row').last().find('select option[value="'+$('.enter_data .row:last-of-type select').val()+'"]').prop('selected','selected');
             }
         },
         change_quotation_type:function (){
@@ -162,6 +229,7 @@ export default {
               $('.enter_data .inputs input , .enter_data .inputs select').attr('required','required');
           }
         },
+
         send_quotation:function(){
             /*$('.result').css('display','flex');
             setTimeout(()=>{
@@ -207,6 +275,15 @@ export default {
             font-size: $semi_big;
             &::before , &::after{
                 top:65%;
+            }
+        }
+    }
+    .enter_data{
+        .inputs{
+            >div.row:not(:first-of-type){
+                label{
+                    display: none;
+                }
             }
         }
     }

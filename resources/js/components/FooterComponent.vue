@@ -36,10 +36,10 @@
                             </li>
                         </ul>
                         <div class="downloads">
-                            <inertia-link href="#">
+                            <inertia-link href="#" style="display: none">
                                 <img src="/images/icons/google.svg">
                             </inertia-link>
-                            <inertia-link href="#">
+                            <inertia-link href="#" style="display: none">
                                 <img src="/images/icons/IOS.svg">
                             </inertia-link>
                             <inertia-link href="#" style="display: none">

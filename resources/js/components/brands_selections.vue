@@ -71,7 +71,7 @@ export default {
         }
         span{
           position: relative;
-          top:-5px;
+          top:-2px;
         }
     }
 }

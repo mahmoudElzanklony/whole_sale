@@ -7,10 +7,10 @@
                     <h2 class="text-center">{{ keywords.website_name }}</h2>
                     <p class="text-center">{{ keywords.website_word }}</p>
                     <div class="text-center">
-                        <inertia-link href="#" class="btn btn-main-color">
+                        <inertia-link href="/login" class="btn btn-main-color">
                             {{ keywords.login }}
                         </inertia-link>
-                        <inertia-link href="#" class="btn btn-main-color-outline">
+                        <inertia-link href="/register" class="btn btn-main-color-outline">
                             {{ keywords.register }}
                         </inertia-link>
                     </div>
@@ -20,7 +20,7 @@
                                 <span>10000</span>
                                 <span>{{  }}</span>
                             </p>
-                            <p>
+                            <p v-if="$page.props.user == null">
                                 <span>{{ keywords.for }}</span>
                                 <inertia-link href="#">
                                     {{ keywords.sale }}
@@ -45,12 +45,14 @@
                     <div class="col-xl-3 col-lg-4 col-md-6 col-12"
                          data-aos="fade-left"
                          :data-aos-delay="100 * index"
-                         v-for="(i,index) in 10" :key="index">
+                         v-for="(i,index) in brands" :key="index">
                         <div class="brand mb-2 rounded">
                             <div class="image">
-                                <img src="/images/brands/toyta.png">
+                                <img :src="'/images/brands/'+i['image']">
                             </div>
-                            <p class="bold p-2 text-center">تويتا</p>
+                            <p class="bold p-2 text-center">
+                                {{ i['name'] }}
+                            </p>
                         </div>
                     </div>
                 </div>
@@ -130,8 +132,8 @@
             <div class="layer">
                 <div class="container text-center">
                     <p>{{ keywords.customer_support }}</p>
-                    <inertia-link href="#" class="btn btn-primary">{{ keywords.send_message }}</inertia-link>
-                    <a tel="+201152296646" class="btn btn-outline-primary">{{ keywords.call_us_by_phone }}</a>
+                    <a href="mailto:info@wholesale.net" class="btn btn-primary">{{ keywords.send_message }}</a>
+                    <a href="tel:+201152296646" class="btn btn-outline-primary">{{ keywords.call_us_by_phone }}</a>
                 </div>
             </div>
         </section>
@@ -148,13 +150,19 @@ import switchLang from "../mixin/SwitchLangWord";
 import FooterComponent from "../components/FooterComponent";
 export default {
     name: "home",
-    props:['keywords'],
+    props:['keywords','brands','approved_status'],
     mixins:[switchLang],
     components: {FooterComponent, NavbarComponent},
     mounted() {
         // change arrow direction at english page
         if(this.$inertia.page.props.lang == 'en'){
             $('i.ri-arrow-drop-left-line').removeClass('ri-arrow-drop-left-line').addClass('ri-arrow-drop-right-line');
+        }
+        if(this.approved_status != ''){
+            Toast.fire({
+                icon:this.approved_status[0],
+                title:this.approved_status[1]
+            })
         }
     },
     methods:{

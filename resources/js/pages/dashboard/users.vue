@@ -19,24 +19,11 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <tr v-for="(i,index) in 8" :key="index" :class="'tr_'+i['id']">
-                                <td><img src="/images/users/default.png"></td>
-                                <td>ahmed ali</td>
-                                <td>ahmed_ali@yahoo.com</td>
-                                <td>03123123</td>
-                                <td>egypt , sharkia</td>
-                                <td>{{ i['block'] == 1 ? switchWord('yes'):switchWord('no') }}</td>
-                                <td>
-                                    <a target="_blank" :href="'/dashboard/buildings?id='+i['id']">
-                                        {{ switchWord('press_here') }}
-                                    </a>
-                                </td>
-                                <td v-if="false">
-                                    <input name="toggle" type="checkbox" class="toggle-checkbox-status">
-                                </td>
-                                <td v-if="false">
-                                    <input name="toggle" type="checkbox" class="toggle-checkbox-status" checked>
-                                </td>
+                            <tr v-for="(i,index) in handling_data['data']" :key="index" :class="'tr_'+i['id']">
+                                <td><img :src="'/images/users/'+i['image']"></td>
+                                <td>{{ i['username'] }}</td>
+                                <td>{{ i['email'] }}</td>
+                                <td>{{ i['phone'] }}</td>
                                 <td class="actions">
                                     <span><i data-toggle="modal"
                                              data-target="#update_users"
@@ -82,19 +69,6 @@
                                 <span v-if="input == 'password'">
                                     <i class="ri-eye-line show_password cursor-pointer"></i>
                                 </span>
-                                <p class="alert alert-danger"></p>
-                            </div>
-                            <div class="form-group" v-else-if="input == 'country_id'">
-                                <label>{{ switchWord('select_country') }}</label>
-                                <select :name="input"
-                                       :value="item != null ? item[input]:''"
-                                        class="form-control" required>
-                                    <option value="">{{ switchWord('select_country') }}</option>
-                                    <option v-for="(co,index) in handling_data['countries']"
-                                            :key="index" :value="co['id']">
-                                        {{ co['name'] }}
-                                    </option>
-                                </select>
                                 <p class="alert alert-danger"></p>
                             </div>
                             <div v-else>

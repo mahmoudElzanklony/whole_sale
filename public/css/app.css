@@ -10055,6 +10055,11 @@ nav + header {
   display: flex;
 }
 
+@media (min-width: 992px) {
+  .navbar-expand-lg .navbar-collapse {
+    flex-direction: row-reverse;
+  }
+}
 @media (max-width: 900px) {
   .navbar-expand-lg > .container {
     padding-right: 10px !important;
@@ -10258,6 +10263,24 @@ input:focus {
   text-align: center;
 }
 
+.modal-body .loading-img {
+  position: absolute;
+  top: 0px;
+  right: 0px;
+  left: 0px;
+  bottom: 0px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: white;
+  height: 400px;
+  width: 100%;
+  text-align: center;
+}
+.modal-body .loading-img img {
+  width: 300px;
+}
+
 .big-button, .btn-main-color-outline, .btn-main-color {
   width: 165px !important;
   border-radius: 50px !important;
@@ -10300,6 +10323,13 @@ input:focus {
   position: absolute;
   color: #035397;
   bottom: 0px;
+}
+.input-icon span.required {
+  bottom: 7px;
+  color: #9D0208;
+}
+.input-icon span.required i {
+  font-size: 10px;
 }
 
 .small_line_heading {
@@ -10516,8 +10546,8 @@ input:focus {
   -webkit-appearance: none;
      -moz-appearance: none;
           appearance: none;
-  width: 60px;
-  height: 30px;
+  width: 60px !important;
+  height: 30px !important;
   background-color: #c9cacf;
   border-radius: 30px;
   top: 3px;
@@ -10525,7 +10555,7 @@ input:focus {
 }
 
 .toggle-checkbox-status:checked {
-  background-color: #bdbdbd !important;
+  background-color: #035397 !important;
 }
 
 .toggle-checkbox-status::before {
@@ -10621,6 +10651,9 @@ input:focus {
 .dashboard .content {
   margin-top: 0px;
 }
+.dashboard table tr td button {
+  font-size: 13px;
+}
 .dashboard .products-dashboard .dataTables_wrapper {
   flex-direction: row !important;
 }
@@ -10643,8 +10676,29 @@ input:focus {
   order: 5;
 }
 
+.filters form {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.filters form p {
+  display: flex;
+  align-items: center;
+}
+.filters form p span {
+  font-weight: bold;
+}
+.filters form p input {
+  width: 17px;
+  height: 17px;
+}
+
 /*--------------end of dashboard----------------*/
 /*--------------start of data table----------------*/
+.myTableServer tbody tr td {
+  text-align: center;
+}
+
 .dataTables_wrapper {
   margin: 25px 0px;
   display: flex;
@@ -10658,6 +10712,9 @@ input:focus {
   width: 100% !important;
   max-width: 100%;
   margin-top: 20px;
+}
+.dataTables_wrapper table .active {
+  background-image: linear-gradient(184deg, #06529994, transparent);
 }
 .dataTables_wrapper table td {
   vertical-align: middle;
@@ -10883,9 +10940,13 @@ table .actions span.accept {
   color: #6bb66b !important;
   background-color: #0080001c !important;
 }
+table .actions span.repositry_upload {
+  background-color: #3f51b538;
+  color: #3f51b5e6;
+}
 table .actions span.print {
   background-color: #d4ae3726;
-  color: #D4AE37;
+  color: #D4AE37 !important;
 }
 table .table-item-span {
   border: 1px solid #035397;
@@ -10923,10 +10984,24 @@ table .table-item-span:hover {
 
 table.text-center tr td {
   text-align: center;
+  vertical-align: middle;
 }
 
 .swal2-html-container {
   text-align: center;
+}
+
+.toast_fire_style {
+  width: 30px;
+  height: 30px;
+  display: flex !important;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50% !important;
+  background-color: transparent !important;
+  color: #9D0208 !important;
+  position: absolute;
+  top: 0px;
 }
 
 .dataTables_wrapper .dataTables_filter input {
@@ -10940,6 +11015,10 @@ select[name=DataTables_Table_0_length] {
   padding: 2px 5px;
   border-radius: 2px;
   outline: none;
+}
+
+#update_quotations .dataTables_empty {
+  display: none;
 }
 
 body.swal2-toast-shown .swal2-container {

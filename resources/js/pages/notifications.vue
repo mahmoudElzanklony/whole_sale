@@ -12,21 +12,21 @@
                 </p>
                 <div class="inner">
                     <div class="notification d-flex align-items-center justify-content-between"
-                         v-for="(i,index) in 10" :key="index"
+                         v-for="(i,index) in vuex_data" :key="index"
                     >
                         <div class="data d-flex align-items-center">
-                            <img src="/images/users/default.png">
+                            <img :src="'/images/users/'+i['receiver']['image']">
                             <div class="text">
                                 <p>
-                                    <strong>ahmed ali</strong>
+                                    <strong>{{ i['receiver']['role']['name'] == 'admin' ? 'Admin':i['receiver']['role']['name'] }}</strong>
                                 </p>
                                 <p>
-                                    قام بشراء قطعه رقم 1003
+                                    {{ i['info'] }}
                                 </p>
                             </div>
                         </div>
                         <p class="d-flex align-items-center">
-                            <span>{{ new Date().toLocaleDateString() }}</span>
+                            <span>{{ new Date(i['created_at']).toLocaleDateString() }}</span>
                             <span><i class="ri-calendar-2-line"></i></span>
                         </p>
                     </div>
@@ -60,18 +60,18 @@ export default {
     },
     created() {
         var com = this;
+        var status_execute = 1;
         window.addEventListener("scroll", async function(e){
-            let bottomOfWindow = document.documentElement.scrollTop + window.innerHeight
-            if(bottomOfWindow % 1 != 0){
-                bottomOfWindow = Math.ceil(bottomOfWindow);
-            }
-            console.log(bottomOfWindow);
-            console.log(document.documentElement.offsetHeight);
-            let page_height = document.documentElement.offsetHeight;
-            if(bottomOfWindow === page_height || bottomOfWindow-page_height == 1 || bottomOfWindow-page_height == -1 ){
+            let current_position  = document.documentElement.scrollTop;
+            let notification_container_height = $('.outer-notification').outerHeight();
+            console.log(current_position);
+            console.log(notification_container_height / 2);
+            if((current_position >= (notification_container_height / 2)) && status_execute == 1){
+                status_execute = 0;
                 console.log(com);
                 await com.get_data_when_scroll();
             }
+            status_execute = 1;
         });
         this.inilalize_data(this.data);
         this.inilalize_type(this.type);

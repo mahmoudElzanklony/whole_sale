@@ -20,7 +20,7 @@ export default {
             var target = event.target;
             var data = new FormData(target);
             axios.post('/register/store-personal-data',data).then((e)=>{
-                if(e.data.hasOwnProperty('related') &&  e.data.related.length > 0){
+                if(e.data.hasOwnProperty('related') && e.data.related != null &&  e.data.related.length > 0){
                     validation(e.data, target, e.data.related);
                 }else {
                     validation(e.data, target, '/register?type=bank-info');

@@ -9,11 +9,11 @@ return [
     'search'=>'Search',
     'know_more'=>'Know more..',
     'active_brands'=>'Active Brands',
-    'website_name'=>'Wholesale related to mkena website',
-    'website_word'=>'We provide the best spare parts at the best prices, delivered to you anywhere you want inside and outside the Kingdom of Saudi Arabia',
+    'website_name'=>'makena wholesale',
+    'website_word'=>'We provide the best spare parts at the best prices',
     'mobile_experience'=>'Excellent mobile experience',
     'mobile_experience_info'=>'We designed the best mobile and tablet experience to enable any user who uses any device to have the best use, as you will not find any problems in the process of purchasing products, browsing them, adding them to the basket or favorites, and many more features',
-    'wholesale_features'=>'Wholesale Features',
+    'wholesale_features'=>'Makena wholesale Features',
     'fast_transfer'=>'Fast Transfer',
     'fast_transfer_info'=>'We have a full team at your service, as it packages the orders that you order and ships them immediately in order to reach you as soon as possible, as the packaging and shipping process takes to reach you from five to seven days, depending on the distance and what you require',
     'wrap_goods'=>'Goods packaging',
@@ -23,6 +23,10 @@ return [
     'customer_support'=>'Do you have any problem you faced in buying or selling a product? Are you late for an order that you ordered before? Do you have a question that you d not know the answer to yet?',
     'send_message'=>'Send message',
     'call_us_by_phone'=>'Call us using phone',
+    'email_activation_successfully'=>'Account has been activated successfully',
+    'email_not_activated_yet'=>'Account not activated yet successfully',
+
+
 
     // Auth page
     'sign_up'=>'Sign up',
@@ -52,6 +56,7 @@ return [
     'send'=>'Send',
     'make_new_password'=>'Make new Password',
     'password_confirmed'=>'Password Confirmed',
+    'repeat_password'=>'Password confirmation',
 
 
 
@@ -86,7 +91,7 @@ return [
 
     'change_bank_info'=>'Change bank info',
     'change_brands_info'=>'Change brands i deal with',
-    'you_can_choose_whether_to_file_your_query_from_both_options_below'=>'you can choose whether to file your query quotation from both options below',
+    'you_can_choose_whether_to_file_your_query_from_both_options_below'=>'You can request a quote by uploading a file with the required pieces and quantities, or enter the data manually',
     'you_can_press_here_to_download_file_to_know_correct_format_you_should_upload'=>'you can press here to download file to know correct format you should upload',
     'enter_data'=>'Enter data',
     'upload_file'=>'Upload file',
@@ -96,7 +101,7 @@ return [
     'brand'=>'Brand',
     'select_brand'=>'Select brand',
     'quantity'=>'Quantity',
-    'wholesale-is-trying-to-get-the-best-deal-for-you-from-the-registered-vendors-this-process-may-take-few-moments'=>'Wholesale is trying to get the best deal for you from the
+    'wholesale-is-trying-to-get-the-best-deal-for-you-from-the-registered-vendors-this-process-may-take-few-moments'=>'makena wholesale is trying to get the best deal for you from the
 registered vendors, this process may take few moments',
 
     'seq'=>'Seq',
@@ -132,6 +137,25 @@ registered vendors, this process may take few moments',
     // end of profile statistics ------------------------------------
 
 
+    // start of profile last made quotations----------------------------------
+    'last_made_quotations'=>'Last quotations made by me',
+    'quotation_number'=>'Quotation number',
+    'reply_from_admin'=>'Admin reply',
+    'admin_reply'=>'Admin reply',
+    'excel_file'=>'Excel File',
+    'agree_request'=>'Agree on quotation',
+    'on_agree_request_condition'=>'Upon approval, you will have to upload the payment receipt to the department',
+    'receipt_image'=>'Receipt image',
+    'you_can_change_receipt'=>'You can change your receipt image if you think its not correct',
+    'from'=>'from',
+    'to'=>'to',
+    'upload_bank_document'=>'Upload bank document',
+    'file'=>'File',
+
+    // end of profile last made quotations----------------------------------
+
+
+
     // start of profile sales ----------------------------------------------------
     'my_current_sales'=>'My current sales',
     'my_current_orders'=>'My current orders',
@@ -157,6 +181,7 @@ registered vendors, this process may take few moments',
     'thickness'=>'Thickness',
     'quantity_per_pallet_load'=>'Quantity per pallet load',
     'add_specific_slab'=>'Add specific slab',
+    'see_prices'=>'all prices',
     // end of save product ----------------------------------------------------
 
     // start of my products --------------------------------------------------
@@ -194,6 +219,7 @@ registered vendors, this process may take few moments',
 
     // start of checkout -------------------------------------------------------
     'required'=>' input is required ',
+    'not_exists'=>'input not exists',
     'total'=>'Total',
     'total_items'=>'Total Items',
     'total_qty'=>'Total Quantity',
@@ -222,7 +248,7 @@ registered vendors, this process may take few moments',
 
 
     // start of dashboard ----------------------------------------------------------
-    'wholesale_word'=>'wholesale is the best platform for selling parts of cars',
+    'wholesale_word'=>'makena wholesale is the best platform for selling parts of cars',
     'wholesale_header_info'=>'You can manage real estate, qutations and sales and know the latest news and reports to make the best decisions',
     'wholesale_bill_info'=>'Thank you for your dealings with us, and we hope to be at your best',
     'bill_export_date'=>'Bill exported at date ',
@@ -255,11 +281,31 @@ registered vendors, this process may take few moments',
 
 
     // start of dashboard statistics ----------------------------------------------------------
-    'wholesale_statistics'=>'Wholesale Statistics',
+    'wholesale_statistics'=>'makena wholesale Statistics',
     'products'=>'Products',
     'sales'=>'Sales',
+    'download_current_version'=>'Download current version',
+    'upload_files'=>'Upload files related to makena wholesale',
 
     // end of dashboard statistics ----------------------------------------------------------
+
+    // start of dashboard quoations ----------------------------------------------------------
+    'is_completed_status'=>'Complete status',
+    'date'=>'Date',
+    'wait_to_send_file_quotation'=>'Waiting you to send excel file',
+    'file_send_and_wait_from_client_to_confirm_request'=>'Waiting client to confirm request',
+    'client_confirm_request'=>'Client confirm request',
+    'click_here_to_finish_request'=>'Click here to finish request',
+    'complete_request_successfully'=>'request completed successfully',
+    'confirm_request'=>'Confirm Request',
+    'wait_client_to_confirm'=>'Waiting client to confirm request',
+    'order_confirmed'=>'Order Confirmed',
+    'tax_title'=>'Tax',
+
+
+
+
+    // end of dashboard quoations ----------------------------------------------------------
 
 
 
@@ -304,6 +350,7 @@ registered vendors, this process may take few moments',
     'april'=>'April',
     'may'=>'May',
     'june'=>'June',
+    'july'=>'July',
     'august'=>'August',
     'september'=>'September',
     'october'=>'October',
@@ -317,6 +364,7 @@ registered vendors, this process may take few moments',
 
     // some success messages
     'payment_success'=>'Payment has been success',
+    'operation_type'=>'Operation Type',
 
 
 

@@ -30,13 +30,13 @@ export default {
                  tu:'',
               },
               Arabic_Language:{
-                  ar:'اللغة العربية',
-                  en:'Arabic Language',
+                  ar:'Arabic',
+                  en:'اللغة العربية',
                   tu:'',
               },
               English_Language:{
-                  ar:'اللغة الأنجليزية',
-                  en:'English Language',
+                  ar:'English',
+                  en:'اللغة الأنجليزية',
                   tu:'',
               },
               Turkish_Language:{
@@ -85,14 +85,14 @@ export default {
                   tu:'',
               },
               get_best_offers:{
-                  ar:'احصل على أفضل عروض برنداتك المفضلة  من مكان واحد ، فقط لعملاء هولسيل',
-                  en:'Get deals from your favorite brands, all at one place only for wholesale customers',
+                  ar:'احصل على أفضل عروض برنداتك المفضلة  من مكان واحد ، فقط لعملاء مكينة جملة',
+                  en:'Get deals from your favorite brands, all at one place only for makena wholesale customers',
                   tu:'',
               },
               // footer words
               website:{
-                  ar:'هولسيل',
-                  en:'Wholesale',
+                  ar:'مكينة جملة',
+                  en:'Makena wholesale',
                   tu:'',
               },
               footer_info:{
@@ -227,14 +227,19 @@ export default {
                 en:'Orders',
                 tu:'',
               },
+              last_quotations:{
+                 ar:'طلباتي السابقة',
+                 en:'Last quotations',
+                 tu:'',
+              },
               my_sales:{
                 ar:'مبيعاتي',
                 en:'Sales',
                 tu:'',
               },
               quotations:{
-                ar:'الكوتيشن',
-                en:'quotations',
+                ar:'طلبات التسعير',
+                en:'Pricing requests',
                 tu:'',
               },
               my_notes:{
@@ -292,6 +297,10 @@ export default {
                   tu:'',
               },
               // dashboard words
+              dashboard:{
+                  ar:'الاداره',
+                  en:'Dashboard',
+              },
               users:{
                   ar:'المستخدمين',
                   en:'Users',
@@ -358,6 +367,11 @@ export default {
                   en:'See Statics',
                   tu:'',
               },
+              see_details:{
+                  ar:'رؤيه التفصايل',
+                  en:'See Details',
+                  tu:'',
+              },
               are_you_sure_about_approve:{
                   ar:'هل انت متأكد من عملية الموافقة',
                   en:'Are you sure from approving this request',
@@ -418,9 +432,29 @@ export default {
                   en:'update info of',
                   tu:'',
               },
+              delete_item:{
+                 ar:'مسح',
+                 en:'delete',
+                 tu:'',
+              },
               upload_image:{
                   ar:'أرفع صورة',
                   en:'upload image',
+                  tu:'',
+              },
+              upload_files:{
+                 ar:'رفع الملفات',
+                 en:'upload files',
+                 tu:'',
+              },
+              upload_quotation_file:{
+                 ar:'ارفع ملف الكوتيشن',
+                 en:'upload quotation file',
+                 tu:'',
+              },
+              upload_product_file:{
+                  ar:'ارفع ملف اضافه المنتجات',
+                  en:'upload file of upload products',
                   tu:'',
               },
               upload_images:{
@@ -627,7 +661,46 @@ export default {
                   ar:'من فضلك انتظر حتي يتم اكتمال التحميل',
                   en:'please wait until finish processing',
                   tu:'',
-              }
+              },
+              order_confirmed:{
+                  ar:'تم انهاء الطلب بنجاح',
+                  en:'order has been done successfully',
+                  tu:'',
+              },
+              sent_to_admin:{
+                  ar:'تم الارسال للادراة',
+                  en:'has been sent to admin',
+                  tu:'',
+              },
+              see_edits:{
+                  ar:'رؤيه سجل التعديلات',
+                  en:'See old update',
+                  tu:'',
+              },
+              no_edits_history:{
+                  ar:'لا يوجد سجل تعديلات',
+                  en:'no update history',
+              },
+              agree_request:{
+                  ar:'الموافقه علي الطلب',
+                  en:'agree request',
+                  tu:'',
+              },
+              sent_agreement:{
+                  ar:'تم ارسال الموافقة',
+                  en:'agreement sent',
+                  tu:'',
+              },
+              parts_from:{
+                  ar:'قطع من ',
+                  en:'Parts from ',
+                  tu:'',
+              },
+              basic_value:{
+                  ar:'القيمة الاساسية',
+                  en:'Basic value',
+                  tu:''
+              },
 
 
 

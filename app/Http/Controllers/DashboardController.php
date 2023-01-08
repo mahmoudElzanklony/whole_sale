@@ -18,9 +18,11 @@ use App\Keywords\dashboard\ProductsKeywords;
 use App\Keywords\dashboard\StatisticsKeywords;
 use App\Keywords\DaysKeywords;
 use App\Keywords\MonthsKeywords;
+use App\Keywords\Profile\ProfileLasttQuotations;
 use App\Models\categories;
 use App\Models\countries;
 use App\Models\notifications;
+use App\Models\tax_money;
 use App\Models\User;
 use App\Services\notifications\pagiante_notifications;
 use App\Services\statistics\filter_statistics_admin;
@@ -82,6 +84,17 @@ class DashboardController extends DashboardServiceClass
         return Inertia::render('dashboard/brands',[
             'main_title'=>trans('keywords.brands'),
             'handling_data'=>brands_dashboard::handle_data(),
+        ]);
+    }
+
+    public function upload_files(){
+        return Inertia::render('dashboard/upload_files',[
+            'main_title'=>trans('keywords.upload_files'),
+            'handling_data'=>[
+                'keywords'=>[
+                    'download_current_version'=>trans('keywords.download_current_version'),
+                ]
+            ],
         ]);
     }
 
@@ -207,6 +220,8 @@ class DashboardController extends DashboardServiceClass
         return Inertia::render('dashboard/quotations',[
             'main_title'=>trans('keywords.last_quotations_out'),
             'handling_data' => quotations_dashboard::handle_data(),
+            'keywords'=>ProfileLasttQuotations::get_keywords(),
+            'tax_val'=>tax_money::query()->first() != null ? tax_money::query()->first()->tax : null,
         ]);
     }
 }

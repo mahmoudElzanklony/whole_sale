@@ -1,5 +1,8 @@
 @import '~bootstrap';
 @import "variables";
+
+
+
 @media (max-width: 767px) {
     html,body{
         overflow-x: hidden;
@@ -48,6 +51,11 @@ nav + header{
 }
 .navbar-collapse{
     display: flex;
+}
+@media (min-width: 992px) {
+    .navbar-expand-lg .navbar-collapse{
+        flex-direction: row-reverse;
+    }
 }
 @media (max-width: 900px) {
     .navbar-expand-lg > .container{
@@ -238,6 +246,27 @@ input:focus{
         text-align: center;
     }
 }
+
+
+.modal-body{
+    .loading-img{
+        position: absolute;
+        top:0px;
+        right: 0px;
+        left: 0px;
+        bottom: 0px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background-color: white;
+        height: 400px;
+        width: 100%;
+        text-align: center;
+        img{
+            width: 300px;
+        }
+    }
+}
 .big-button{
     width: 165px !important;
     border-radius: 50px !important;
@@ -277,6 +306,13 @@ input:focus{
         position: absolute;
         color:$main_color;
         bottom: 0px;
+    }
+    span.required{
+        bottom: 7px;
+        color:$red;
+        i{
+            font-size: 10px;
+        }
     }
 }
 
@@ -493,15 +529,15 @@ input:focus{
 .toggle-checkbox-status{
     position: relative;
     appearance: none;
-    width: 60px;
-    height: 30px;
+    width: 60px !important;
+    height: 30px !important;
     background-color: $gray;
     border-radius: 30px;
     top: 3px;
     transition: 0.5s all;
 }
 .toggle-checkbox-status:checked{
-    background-color: $sub_main_color !important;
+    background-color: $main_color !important;
 }
 .toggle-checkbox-status::before{
     content: '';
@@ -607,6 +643,15 @@ input:focus{
     .content{
         margin-top: 0px;
     }
+    table{
+        tr{
+            td{
+                button{
+                    font-size: 13px;
+                }
+            }
+        }
+    }
     .products-dashboard{
         .dataTables_wrapper{
             flex-direction: row !important;
@@ -631,10 +676,38 @@ input:focus{
         }
     }
 }
+
+.filters{
+    form{
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        p{
+            display: flex;
+            align-items: center;
+            span{
+                font-weight: bold;
+            }
+            input{
+                width: 17px;
+                height: 17px;
+            }
+        }
+    }
+}
 /*--------------end of dashboard----------------*/
 
 
 /*--------------start of data table----------------*/
+.myTableServer{
+    tbody{
+        tr{
+            td{
+                text-align: center;
+            }
+        }
+    }
+}
 .dataTables_wrapper{
     margin: 25px 0px;
     display: flex;
@@ -647,6 +720,9 @@ input:focus{
         width: 100% !important;
         max-width: 100%;
         margin-top: 20px;
+        .active{
+            background-image: linear-gradient(184deg, #06529994, transparent);
+        }
         td {
             vertical-align: middle;
             input[type="checkbox"] {
@@ -867,9 +943,13 @@ table{
             color: $green !important;
             background-color: #0080001c !important;
         }
+        span.repositry_upload{
+            background-color: #3f51b538;
+            color: #3f51b5e6;
+        }
         span.print{
             background-color: #d4ae3726;
-            color: #D4AE37;
+            color: #D4AE37 !important;
         }
     }
     .table-item-span{
@@ -910,12 +990,25 @@ table.text-center{
     tr{
         td{
             text-align: center;
+            vertical-align: middle;
 
         }
     }
 }
 .swal2-html-container{
     text-align: center;
+}
+.toast_fire_style{
+    width: 30px;
+    height: 30px;
+    display: flex !important;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50% !important;
+    background-color: transparent !important;
+    color: $red !important;
+    position: absolute;
+    top: 0px;
 }
 .dataTables_wrapper .dataTables_filter input{
     border: 1px solid #ddd;
@@ -927,6 +1020,9 @@ select[name="DataTables_Table_0_length"]{
     padding: 2px 5px;
     border-radius: 2px;
     outline: none;
+}
+#update_quotations .dataTables_empty{
+    display: none;
 }
 
 
