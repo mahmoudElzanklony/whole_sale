@@ -62,6 +62,9 @@ export default {
 .alert-danger{
     display: none;
 }
+.auth{
+    margin-top: 100px;
+}
 .image {
     background-image: url("/images/auth/register.jpg");
     height: 100%;
@@ -70,9 +73,10 @@ export default {
     border-radius: 5px;
     overflow: hidden;
     .layer{
-        background-color: #ff6a1529;
+        background-color: #0452991f;
         width: 100%;
         height: 100%;
     }
 }
 </style>
+
