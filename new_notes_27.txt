@@ -1,0 +1,115 @@
+1 - wholesale replaced to مكينة جمله and english mkena wholesale
+
+2 - confirmation password at register
+
+3 - login , register put red mark as it mandaotory
+
+4 - at last quotations page make order with background and make complete order with anoter background
+
+5 - preview excel quotation when upload before inserting it
+
+6 - when admin click on see details client prevent from update or delete quotation request but when admin reply he can do whatever he do ==> this is made like when client preview then send request he cant update one admin reply with file he can update or delete
+
+7 - pop up messages make it at center of page-------------------------->
+
+8 - pop up message make close button to close it
+
+9 - tax put at admin to change it 
+
+10 - bill format changed
+
+11 - when client confrim order he must upload photo of bill bank 
+
+12 - admin maybe upload a photo of bill bank for specific client
+
+13 - admin upload document pdf or image for reposit money at bank
+
+14 - at last quotations search inputs put icon of search
+
+15 - at last quotations search from date to date 
+
+16 - export outside button should export client quotations at one file
+
+
+
+
+_____________
+background of complete ==> #0652993d
+
+put tax at settings of admin
+
+quotation in arabic تسعيرة
+
+actions buttons add title caption when mouse hover it
+
+money bill from user upload may be pdf 
+
+any action at quotations happen sent email 
+
+size of file upload image of pdf 20 mega byte
+
+استيراد المحدد ==> الحصول علي ملف بصيغة اكسل
+
+لازم اكتب في الفاتوره نسبه 15%
+
+
+
+
+___________________________
+
+pop up widnow be center horizetanl and vertical == > make border gray or blue
+
+mkena spelling at home page
+
+البريد الالكتروني مأخوذ بالفعل يتم تغييرها الي البريد الالكتروني مستخدم سابقا برجاء ادخال ايمل اخ
+
+when change email at profile send verfication again to user email----
+
+create new page at admin called profile contain admin personal info
+
+super admin create admins with privilalges for specific pages
+
+احمد علي في صفحه البروفايل يتم تغييرها الي اسم المستخدم
+
+export excell if prices are found export them
+
+when new request of quotatin sent to admin send id of request at message 
+
+رؤيه التفاصيل يتم تغيريها لعرض التفاصيل
+
+when see details of new request pop up window of error appear
+
+when upload file at send new quotation tell user upload is ended you can save it now
+
+help at navbar deliver user to send message using email
+
+common questions will be at footer at page 
+
+at admin create page to control common questions
+
+_________________
+اي مكان تريدة تكون اي مكان تريده
+
+
+
+
+_____________
+02/03/2023
+
+1- send again revervfication email 
+
+2- add logo of mkena and enter below logo of wholesale
+
+3- remove twitter
+
+4- add linkin link
+
+5- add link to home page
+
+6 -  when  client login in go to profile
+
+7- review all  mobile pages
+
+8- حسابي تكون اخر واحده بالاضافه الي ضفحه عروض  ف البروفايل
+
+9- صفحه العروض تكون جواها لا يوجد عروض في الوقت الحالي سوف نقوم بابلاغكم في حاله توفر العروض القادمه

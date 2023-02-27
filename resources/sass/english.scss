@@ -1,0 +1,226 @@
+@import "variables";
+*:not(i){
+    text-align: left;
+    color:$black;
+    direction:ltr;
+}
+
+
+.form-control{
+    text-align: left;
+}
+
+
+.up-page{
+    bottom: 15px;
+    left: 15px;
+    i{
+        left: 8px;
+        top: 2px;
+    }
+}
+nav {
+    .dropdown-menu{
+        a{
+            span:first-of-type{
+                margin-right: 10px;
+            }
+        }
+
+    }
+}
+.input-icon{
+    span{
+        right: 10px;
+    }
+}
+
+.input-radius-radio{
+    margin-right: 10px;
+}
+
+
+.progress-form{
+    span:nth-of-type(1)::before{
+        width:109px;
+    }
+    span:nth-of-type(2)::before{
+        width:106px;
+    }
+    span:not(:last-of-type)::before{
+        content: '';
+        left: 34px;
+    }
+    span:nth-of-type(3)::before{
+        left: 36px;
+        width:130px;
+    }
+}
+@media (max-width: 567px) {
+    .progress-form{
+        p {
+            font-size: 11px;
+        }
+        span:nth-of-type(1)::before{
+            width:72px;
+        }
+        span:nth-of-type(2)::before{
+            width:69px;
+        }
+        span:nth-of-type(3)::before{
+            width:85px;
+        }
+    }
+}
+
+.toggle-checkbox-status::before{
+    right:4px;
+}
+.toggle-checkbox-status:checked::before{
+    right:unset;
+    left: 4px;
+}
+
+
+.preview-uploaded-images,.uploaded_images_before{
+    .image{
+        margin-left: 15px;
+    }
+}
+
+.radio-buttons{
+    p{
+        input{
+            margin-right: 5px;
+        }
+    }
+}
+
+.delete-icon-input{
+    right:15px;
+}
+.input-has-delete{
+    position: relative;
+    >span{
+        @extend .delete-icon-input;
+    }
+}
+
+
+/*---------------------------------------------end of public classes-----------------------------------------*/
+
+
+/*---------------------------------------------start of home page-----------------------------------------*/
+.sub-data {
+    .sub {
+        a {
+            >span:first-of-type {
+                margin-right: 20px;
+            }
+            div{
+                p:first-of-type{
+                    span:nth-of-type(2){
+                        margin-right: 5px;
+                    }
+                }
+            }
+            >span:last-of-type{
+                right:10px;
+            }
+        }
+    }
+}
+
+/*---------------------------------------------end of home page-----------------------------------------*/
+
+/*---------------------------------------------start of filter page-----------------------------------------*/
+.special_radio_container {
+    .special_radio {
+        input{
+            margin-left: 0px;
+        }
+        input.active{
+            margin-left: 0px;
+        }
+    }
+}
+/*---------------------------------------------end of filter page-----------------------------------------*/
+
+
+
+/*---------------------------------------------start of save product page------------------------------------*/
+.pages{
+    span , a{
+        margin-right: 10px;
+    }
+}
+
+.save_product{
+    .input-has-delete{
+        span{
+            right: 0px !important;
+            i{
+                right: 0px !important;
+            }
+        }
+    }
+}
+
+
+/*---------------------------------------------end of save product page------------------------------------*/
+/*---------------------------------------------start of table ------------------------------------*/
+.table-item-span{
+    margin-right: 10px;
+    span{
+        right: -6px;
+    }
+    &:hover{
+        background-color: $main_color;
+        color:white;
+    }
+}
+/*---------------------------------------------end of table ------------------------------------*/
+
+
+
+/*-------------------------------------------start of dashboard -------------------------------------*/
+.dashboard{
+    .content{
+        margin-left: auto;
+    }
+    .inserted_questions{
+        >div:not(:first-of-type){
+            padding-right: 35px;
+        }
+    }
+}
+
+.answers .inner .row{
+    padding-right: 35px;
+}
+
+.filters{
+    form{
+        p{
+            margin-right: 15px;
+            input{
+                margin-right: 5px;
+            }
+        }
+    }
+}
+
+/*-------------------------------------------end of dashboard -------------------------------------*/
+.toast_fire_style{
+    right: 0px;
+}
+table{
+    tr{
+        td{
+            input + span{
+                right: 18px !important;
+                bottom:12px !important;
+            }
+        }
+    }
+}

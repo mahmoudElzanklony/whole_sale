@@ -1,0 +1,11 @@
+// export by checkbox at sales , orders
+
+
+
+// what is the mean of number of qutation 
+// does we make qutation table or when he make qutoation and submit order then make table 
+   for this order
+
+// unit price at word module of wholesale at qutoation processing
+// at checkout user give him address from map or write it to deliver orders to hime
+   and if he want to take it in this case locations of delivery will show to him ?
