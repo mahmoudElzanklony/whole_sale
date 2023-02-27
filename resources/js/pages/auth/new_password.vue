@@ -12,7 +12,7 @@
                             <div class="form-group input-icon">
                                 <label>{{ keywords.password }}</label>
                                 <input name="password" type="password" class="form-control" required>
-                                <span class="required"><i class="ri-asterisk"></i></span>
+                                <span class="required"> <i class="ri-asterisk"></i></span>
                                 <p class="alert alert-danger"></p>
                             </div>
                             <div class="form-group input-icon">
