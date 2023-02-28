@@ -209,11 +209,12 @@ class DashboardController extends DashboardServiceClass
     public function personal_info(){
         return Inertia::render('dashboard/personal_info',[
             'main_title'=>trans('keywords.update_main_info'),
+            'countries'=>countries::selection()->get(),
             'keywords'=>[
                 'username'=>trans('keywords.username'),
                 'email'=>trans('keywords.email'),
                 'password'=>trans('keywords.password'),
-                'address'=>trans('keywords.address'),
+                'country_id'=>trans('keywords.country'),
                 'phone'=>trans('keywords.phone'),
             ]
         ]);

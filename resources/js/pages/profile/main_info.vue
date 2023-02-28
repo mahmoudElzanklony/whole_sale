@@ -55,6 +55,27 @@
                                         <p class="alert alert-danger"></p>
                                         <span class="required"><i class="ri-asterisk"></i></span>
                                     </div>
+                                    <div class="form-group input-icon">
+                                        <label>{{ keywords.country }}</label>
+                                        <select class="form-control" name="country_id" required>
+                                            <option value="">{{ switchWord('select_best_choice') }}</option>
+                                            <option v-for="(c,index)  in data['countries']" :key="index"
+                                                    :value="c['id']" :selected="$page.props.user.country_id == c['id']">
+                                                {{ c['name'] }}
+                                            </option>
+                                        </select>
+                                        <p class="alert alert-danger"></p>
+                                        <span class="required"><i class="ri-asterisk"></i></span>
+                                    </div>
+                                    <div class="form-group input-icon" v-if="role == 'buyer'">
+                                        <label>{{ keywords.vat }}</label>
+                                        <input class="form-control"
+                                               :value="$page.props.user.VAT"
+                                               name="vat"
+                                               required>
+                                        <p class="alert alert-danger"></p>
+                                        <span class="required"><i class="ri-asterisk"></i></span>
+                                    </div>
                                     <div class="form-group">
                                         <input type="submit" name="save" class="btn btn-primary" :value="keywords.save">
                                     </div>

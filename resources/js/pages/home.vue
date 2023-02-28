@@ -175,7 +175,8 @@ export default {
             Toast.fire({
                 icon:this.approved_status[0],
                 title:this.approved_status[1]
-            })
+            });
+            this.$inertia.visit('/profile/quotations')
         }
     },
     methods:{

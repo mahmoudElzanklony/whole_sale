@@ -35,7 +35,7 @@ class AuthController extends AuthServicesClass
                 'data'=>$roles,
                 'countries'=>countries::selection()->get(),
                 'stored_info'=>session()->get('personal_data') ?? null,
-                'user_type_id'=>(request()->has('user_type') && request('user_type') == 'seller') ? 'yes' :null
+                'user_type_id'=>(request()->has('user_type') && request('user_type') == 'seller') ? 'yes' :null,
             ]);
         }
     }

@@ -33,6 +33,7 @@ return [
     'sign_in'=>'Sign in',
     'logout'=>'Logout',
     'email'=>'Email',
+    'vat'=>'Vat',
     'password'=>'Password',
     'current_password'=>'Current Password is not correct',
     'username'=>'Username',

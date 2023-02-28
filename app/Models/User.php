@@ -43,6 +43,7 @@ class User extends Authenticatable implements JWTSubject
         'block',
         'role_id',
         'country_id',
+        'vat',
         'total_points',
         'trade_licence',
         'bank_info',

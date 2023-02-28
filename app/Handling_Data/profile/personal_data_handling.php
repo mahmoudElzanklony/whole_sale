@@ -5,6 +5,7 @@ namespace App\Handling_Data\profile;
 
 
 use App\Models\brands;
+use App\Models\countries;
 use App\Models\User;
 use App\Models\user_company_info;
 use App\Models\user_info;
@@ -20,6 +21,7 @@ class personal_data_handling
             'brands_info'=>(session('type') == 'seller' || session('type') == 'buyer_seller') ?
                 users_brands::query()->where('user_id','=',auth()->id())->get():null,*/
             'all_brands'=>brands::selection()->get(),
+            'countries'=>countries::selection()->get(),
         ];
 
     }

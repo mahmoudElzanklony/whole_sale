@@ -21,6 +21,8 @@ class ProfileKeywords
             'change_your_info'=>trans('keywords.change_your_info'),
             'profile_picture'=>trans('keywords.profile_picture'),
             'email'=>trans('keywords.email'),
+            'country'=>trans('keywords.country'),
+            'vat'=>trans('keywords.vat'),
             'current_password'=>trans('keywords.current_password'),
             'change_password'=>trans('keywords.change_password'),
             'password'=>trans('keywords.password'),

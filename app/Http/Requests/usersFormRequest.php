@@ -52,6 +52,7 @@ class usersFormRequest extends FormRequest
             'email'=>'required|email|max:191|unique:users,email',
             'password'=>'required|min:7|max:191|confirmed',
             'phone'=>'required|min:7',
+            'vat'=>'nullable|digits:15',
             'country_id'=>'required|exists:countries,id',
             'role_id'=>'required|exists:roles,id',
         ];
@@ -83,6 +84,8 @@ class usersFormRequest extends FormRequest
             'email'=>'required|max:191|email|unique:users,email,'.auth()->user()->id,
             'phone'=>'required|max:191',
             'username'=>'required|max:191',
+            'country_id'=>'required|exists:countries,id',
+            'vat'=>'nullable|digits:15',
             'profile_picture'=>'nullable|mimes:jpg,jpeg,png,gif',
         ];
     }
@@ -154,6 +157,8 @@ class usersFormRequest extends FormRequest
             'full_name'=>trans('keywords.full_name'),
             'email'=>trans('keywords.email'),
             'password'=>trans('keywords.password'),
+            'country_id'=>trans('keywords.country'),
+            'phone'=>trans('keywords.phone'),
             'current_password'=>trans('keywords.current_password'),
             'image'=>trans('keywords.image'),
             'block'=>trans('keywords.block'),

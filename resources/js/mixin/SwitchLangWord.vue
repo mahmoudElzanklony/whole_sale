@@ -608,8 +608,8 @@ export default {
                   tu:'',
               },
               select_best_choice:{
-                  ar:'أختر ما يناسبك',
-                  en:'Select best choice',
+                  ar:'أختر من القائمة',
+                  en:'please select',
                   tu:'',
               },
               search_for_you_best:{

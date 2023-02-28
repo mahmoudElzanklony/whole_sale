@@ -10,7 +10,13 @@
                         <div class="col-6" v-for="(i,index) in Object.keys(keywords)" :key="index">
                             <div class="form-group input-icon">
                                 <label>{{ keywords[i] }}</label>
-                                <input  :name="i" :type="i == 'password'?'password':'text'"
+                                <select class="form-control" :name="i" v-if="i == 'country_id'">
+                                    <option value="">{{ switchWord('select_best_choice') }}</option>
+                                    <option v-for="(c,index) in countries"
+                                            :key="index" :value="c['id']"
+                                            :selected="c['id'] == $page.props.user.country_id">{{ c['name'] }}</option>
+                                </select>
+                                <input v-else :name="i" :type="i == 'password'?'password':'text'"
                                         :value="$page.props.user[i]"
                                         :required="i != 'password'"
                                         :placeholder="i == 'password'?switchWord('leave_password'):''"

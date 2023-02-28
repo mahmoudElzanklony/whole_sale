@@ -6,12 +6,14 @@
     </title>
 </head>
 <body>
-<img  style="margin:20px auto; height: 80px;" src="http://wholesale.first-meeting.net/images/logo.jpg">
-<h1 style="text-align:center">{!!html_entity_decode($details['title'])!!}</h1>
-<p>{{ $details['body'] }}</p>
-@if($details['link'] != '')
-    <a href="{{ $details['link']  }}">{{  $details['link_msg'] }}</a>
-@endif
-<p>{{  trans('keywords.thank_you') }}</p>
+<div style="padding: 10px; border: 1px solid #ddd; border-radius: 8px;">
+    <img  style="margin:20px auto; height: 80px;" src="http://wholesale.first-meeting.net/images/logo.jpg">
+    <h1 style="text-align:center; margin-bottom: 20px">{!!html_entity_decode($details['title'])!!}</h1>
+    <p>{{ $details['body'] }}</p>
+    @if($details['link'] != '')
+        <a href="{{ $details['link']  }}">{{  $details['link_msg'] }}</a>
+    @endif
+    <p>{{  trans('keywords.thank_you') }}</p>
+</div>
 </body>
 </html>

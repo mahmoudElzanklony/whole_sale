@@ -25,6 +25,7 @@
                             <td>{{ i['username'] }}</td>
                             <td>{{ i['email'] }}</td>
                             <td>{{ i['phone'] }}</td>
+                            <td>{{ i['country']['name'] }}</td>
                             <td>
                                 <span class="priv" v-for="(p,index) in i['privileges']" :key="index">
                                     {{ p[$page.props.lang+'_name'] }}
@@ -49,7 +50,10 @@
                 <div class="modal-content">
                     <div class="modal-header">
                         <h5 class="modal-title" id="update_users_box" v-if="item != null">
-                            {{ keywords.update_user + item['username'] }}
+                            {{ keywords.update_user +' '+ item['username'] }}
+                        </h5>
+                        <h5 class="modal-title" id="update_users_box_" v-else>
+                            {{ switchWord('add_new_item') }}
                         </h5>
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                             <span aria-hidden="true">&times;</span>
@@ -66,7 +70,13 @@
                                  v-for="input in modal_data"
                                  :key="input">
                                 <label>{{ handling_data['data_model'][input] }}</label>
-                                <input :name="input"  v-if="input != 'privileges'"
+                                <select :name="input" v-if="input == 'country_id'" class="form-control">
+                                    <option value="">{{ switchWord('select_best_choice') }}</option>
+                                    <option v-for="(c,index) in handling_data['countries']"
+                                            :selected="item != null && item[input] == c['id']"
+                                            :key="index" :value="c['id']">{{ c['name'] }}</option>
+                                </select>
+                                <input :name="input"  v-else-if="input != 'privileges'"
                                        :type="input == 'password' ? 'password':'text'"
                                        :placeholder="input == 'password' ? switchWord('leave_password'):''"
                                        :value="item != null ? item[input]:''"

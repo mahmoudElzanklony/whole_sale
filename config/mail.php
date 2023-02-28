@@ -85,7 +85,7 @@ return [
 
     'from' => [
         'address' => env('MAIL_FROM_ADDRESS', 'wholesale@mkena.com'),
-        'name' => env('MAIL_FROM_NAME', 'wholesale info'),
+        'name' => env('MAIL_FROM_NAME', 'Mkena WholeSale Info '),
     ],
 
     /*

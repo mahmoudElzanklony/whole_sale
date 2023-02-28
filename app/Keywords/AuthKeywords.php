@@ -11,6 +11,7 @@ class AuthKeywords
             'email'=>trans('keywords.email'),
             'password'=>trans('keywords.password'),
             'username'=>trans('keywords.username'),
+            'vat'=>trans('keywords.vat'),
             'phone'=>trans('keywords.phone'),
             'address'=>trans('keywords.address'),
             'country'=>trans('keywords.country'),

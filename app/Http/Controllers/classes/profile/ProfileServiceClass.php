@@ -57,7 +57,9 @@ class ProfileServiceClass extends Controller
         $data = [
             'email'=>$email,
             'phone'=>$phone,
+            'vat'=>request('vat'),
             'username'=>$username,
+            'country_id'=>request('country_id')
         ];
         if(request()->hasFile('profile_picture')){
             $image_name = $this->upload(request()->file('profile_picture'),'users');

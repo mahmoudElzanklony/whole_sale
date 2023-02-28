@@ -24,12 +24,11 @@ class AuthServicesClass extends Controller
         $role = roles::query()->find(request('role_id'));
         if($role->name == 'buyer' || $role->name == 'seller'){
             $personal_info = $request->validated();
-            $personal_info['serial'] = rand(0,9999999999999999);
             $personal_info['password'] = bcrypt($personal_info['password']);
             $personal_info['image'] = 'default.png';
             $personal_info['approved'] = 0;
             $personal_info['wallet'] = 0;
-            $user_info['serial_number'] = time();
+            $personal_info['serial_number'] = time();
             $user = User::query()->create($personal_info);
             if(session()->get('lang') == 'ar') {
                 send_email::send('تأكيد الايمل الالكتروني الخاص بك',
