@@ -98,13 +98,13 @@ class AuthServicesClass extends Controller
             $user = User::query()->where('email','=',request('email'))->first();
             if($user != null){
                 if(session()->get('lang') == 'ar') {
-                    send_email::send('استرجاع كلمة المرور لموقع اعلانات',
+                    send_email::send('استرجاع كلمة المرور',
                         'من فضلك اضغط علي الرابط بالاسفل لادخال كلمة مرور جديده',
                         request()->root() . '/new-password?id=' . $user->id . '&serial=' . $user->serial_number,
                         'اضغط هنا', $user->email
                     );
                 }else{
-                    send_email::send('Reset password of reklamlarım website',
+                    send_email::send('Reset password',
                         'Please click on the link below to enter a new password on the site',
                         request()->root() . '/new-password?id=' . $user->id . '&serial=' . $user->serial_number,
                         'Press here', $user->email
