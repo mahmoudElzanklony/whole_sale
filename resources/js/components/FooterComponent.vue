@@ -34,11 +34,6 @@
                                     {{ switchWord('conditions') }}
                                 </inertia-link>
                             </li>
-                            <li>
-                                <inertia-link href="#">
-                                    {{ switchWord('searches') }}
-                                </inertia-link>
-                            </li>
                         </ul>
                         <div class="downloads">
                             <inertia-link href="#" style="display: none">
@@ -70,6 +65,11 @@
                             <a href="https://www.youtube.com/@mkenaautoparts6282" target="_blank">
                                 <span>
                                     <i class="ri-youtube-line"></i>
+                                </span>
+                            </a>
+                            <a href="https://api.whatsapp.com/send?phone=966541006608" target="_blank">
+                                <span>
+                                    <i class="ri-whatsapp-line"></i>
                                 </span>
                             </a>
                         </div>

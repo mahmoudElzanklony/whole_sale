@@ -1,9 +1,9 @@
 <template>
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
         <div class="container">
-            <a class="navbar-brand" target="_blank" href="https://mkena.com/">
-                <img src="/images/logo.jpg">
-            </a>
+            <inertia-link class="navbar-brand"  href="/">
+                <img src="/images/logo.png">
+            </inertia-link>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
@@ -11,9 +11,9 @@
             <div class="collapse navbar-collapse  justify-content-between" id="navbarSupportedContent">
                 <ul class="d-flex align-items-center">
                     <li class="nav-item">
-                        <inertia-link class="nav-link" href="/">
-                            {{ switchWord('Home') }}
-                        </inertia-link>
+                        <a class="nav-link" href="https://mkena.com/" target="_blank">
+                            {{ switchWord('visit_mkena') }}
+                        </a>
                     </li>
                     <li class="nav-item" v-if="$page.props.user == null">
                         <inertia-link class="nav-link" href="/register?user_type=seller">

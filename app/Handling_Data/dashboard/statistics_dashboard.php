@@ -18,6 +18,7 @@ class statistics_dashboard
                trans('keywords.email'),
                trans('keywords.phone'),
                trans('keywords.country'),
+               trans('keywords.user_type'),
            //    trans('keywords.address'),
             //   trans('keywords.block'),
             //   trans('keywords.user_products'),
@@ -35,7 +36,7 @@ class statistics_dashboard
            ],
            'data'=>User::query()->with('country',function($e){
                $e->select('id',app()->getLocale().'_name as name');
-           })->whereHas('role',function($e){
+           })->with('role')->whereHas('role',function($e){
                     $e->where('name','!=','admin');
                 })->orderByDesc('id')->get(),
            'countries'=>countries::selection()->get(),

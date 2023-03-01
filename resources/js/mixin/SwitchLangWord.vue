@@ -31,12 +31,12 @@ export default {
               },
               Arabic_Language:{
                   ar:'Arabic',
-                  en:'اللغة العربية',
+                  en:'عربي',
                   tu:'',
               },
               English_Language:{
                   ar:'English',
-                  en:'اللغة الأنجليزية',
+                  en:'انجليزي',
                   tu:'',
               },
               Turkish_Language:{
@@ -797,6 +797,22 @@ export default {
               in_progress:{
                   ar:'قيد التنفيذ',
                   en:'In progress'
+              },
+              supervisor:{
+                  ar:'مشرف',
+                  en:'Supervisor',
+              },
+              buyer:{
+                  ar:'مشتري',
+                  en:'Buyer',
+              },
+              seller:{
+                  ar:'بائع',
+                  en:'Seller',
+              },
+              visit_mkena:{
+                  ar:'زيارة مكينة',
+                  en:'Visit mkena',
               }
 
 

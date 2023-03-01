@@ -25,6 +25,7 @@
                                 <td>{{ i['email'] }}</td>
                                 <td>{{ i['phone'] }}</td>
                                 <td>{{ i['country']['name'] }}</td>
+                                <td>{{ switchWord(i['role']['name']) }}</td>
                                 <td class="actions">
                                     <span><i data-toggle="modal"
                                              data-target="#update_users"

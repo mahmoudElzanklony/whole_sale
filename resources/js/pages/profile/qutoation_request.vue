@@ -12,7 +12,7 @@
                 <span v-else>{{ keywords.you_can_upload_file_of_prices }}</span>
             </h2>
             <p v-if="$page.props.user.approved == 1 && $page.props.user.role.name != 'seller'">
-                <a href="/excels/template.csv"
+                <a href="/excels/quotation_template.csv"
                    v-if="$page.props.user.role.name != 'seller'"
                    download>
                     <span class="pb-2 mobile-line-height-40"
