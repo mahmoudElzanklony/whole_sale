@@ -125,6 +125,39 @@
                             <img class="img-thumbnail" src="images/home/support.jpg">
                         </div>
                     </div>
+                    <div class="col-md-6 col-12" data-aos="fade-right">
+                        <div class="image mb-2">
+                            <img class="img-thumbnail" src="images/home/best_prices.jpg">
+                        </div>
+                    </div>
+                    <div class="col-md-6 col-12" data-aos="fade-left">
+                        <div class="content mb-2" >
+                            <h2 class="mb-3 small_line_heading">{{ keywords.best_prices }}</h2>
+                            <p>{{keywords.best_prices_info}}</p>
+                        </div>
+                    </div>
+                    <div class="col-md-6 col-12" data-aos="fade-left">
+                        <div class="content mb-2" >
+                            <h2 class="mb-3 small_line_heading">{{ keywords.special_account }}</h2>
+                            <p>{{keywords.special_account_info}}</p>
+                        </div>
+                    </div>
+                    <div class="col-md-6 col-12" data-aos="fade-right">
+                        <div class="image mb-2">
+                            <img class="img-thumbnail" src="images/home/special_user.jpg">
+                        </div>
+                    </div>
+                    <div class="col-md-6 col-12" data-aos="fade-right">
+                        <div class="image mb-2">
+                            <img class="img-thumbnail" src="images/home/easy_to_use.jpg">
+                        </div>
+                    </div>
+                    <div class="col-md-6 col-12" data-aos="fade-left">
+                        <div class="content mb-2" >
+                            <h2 class="mb-3 small_line_heading">{{ keywords.easy_to_use }}</h2>
+                            <p>{{keywords.easy_to_use_info}}</p>
+                        </div>
+                    </div>
                 </div>
             </div>
         </section>
