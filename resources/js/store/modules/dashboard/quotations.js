@@ -4,7 +4,7 @@ export default {
     namespaced:true,
     state(){
         return {
-            data:null,
+            data:[],
             quotation_data:[],
             quotation_data_admin:[],
             statistics:[],
@@ -151,7 +151,7 @@ export default {
         },
 
         get_info_about_quotation_reply_admin: async function({commit,getters,state},payload_id){
-            $('.box-model-table').DataTable().destroy();
+            // $('.box-model-table').DataTable().destroy();
             document.querySelector('#admin_quotation_data .loading-img').style.display='block';
             await axios.post('/quotations/get-quotations-info-admin',{
                 'quotation_id':payload_id
@@ -163,6 +163,7 @@ export default {
                 });*/
                 commit('update_qotation_admin_data',e.data.data)
             }).finally(function (){
+                /*
                 if(window.vm.$inertia.page.props.lang == 'ar'){
                     var url = 'https://cdn.datatables.net/plug-ins/1.11.4/i18n/ar.json';
                     var export_selected = 'استيراد المحدد';
@@ -189,20 +190,27 @@ export default {
                         }
                     ]
                 } );
+                */
+                document.querySelector('#admin_quotation_data .loading-img').style.display='none';
             });
         },
 
         upload_file:function ({commit}){
             var target = event.target;
             var data = new FormData(target);
+            Toast.fire({
+                title:window.vm.$inertia.page.props.lang == 'en' ?'please wait until finish uploading excel file':'من فضلك انتظر حتي يتم اكتمال التحميل',
+                icon:'info'
+            })
+            $(target).find('input[type="submit"]').attr('disabled','disabled');
             axios.post('/quotations/upload-excel-admin',data).then((e)=>{
                 validation(e.data,target,'',true);
-                if(window.vm.$inertia.page.props.user.role.name == 'seller'){
-                    window.vm.$inertia.visit(document.URL);
-                }
+                window.vm.$inertia.visit(document.URL);
                 // check if there is no error
+                $(target).find('input[type="submit"]').removeAttr('disabled');
                 commit('update_index_data',e.data.data);
                 $('#update_current_quotation').modal('hide');
+
             });
         },
 
@@ -257,10 +265,13 @@ export default {
                 }else {
                     Toast.fire({
                         icon: 'success',
-                        title: window.vm.$inertia.page.props.lang == 'ar' ? 'تم ارسال الايصال بنجاح وسيتم التواصل معك قريبا' :
-                            'The receipt has been confirmed successfully and we will contact you soon'
+                        title: window.vm.$inertia.page.props.lang == 'ar' ? 'تم الارسال بنجاح وسيتم التواصل معك قريبا' :
+                            'operation confirmed successfully and we will contact you soon'
                     })
                 }
+                setTimeout(()=>{
+                    window.location = document.URL
+                },2000);
                 $('#agree_quotation_and_upload_bill').modal('hide');
             });
             /*if(window.vm.$inertia.page.props.lang == 'ar'){

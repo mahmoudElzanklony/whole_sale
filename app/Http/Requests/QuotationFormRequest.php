@@ -24,7 +24,7 @@ class QuotationFormRequest extends FormRequest
     public function general_rules(){
         return [
             'brand_id'=>'required|array',
-            'brand_id.*'=>'required|exists:brands,id',
+            'brand_id.*'=>'required',
             'part_number'=>'required|array',
             'part_number.*'=>'required',
             'quantity'=>'required|array',
@@ -42,7 +42,7 @@ class QuotationFormRequest extends FormRequest
 
     public function save_at_draft_rules(){
         return [
-            'brand_id'=>'required|exists:brands,id',
+            'brand_id'=>'required',
             'part_number'=>'required',
             'quantity'=>'required|numeric',
         ];

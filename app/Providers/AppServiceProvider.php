@@ -22,7 +22,7 @@ class AppServiceProvider extends ServiceProvider
         //
         Inertia::share('user', function () {
             if (Auth::user()) {
-                return User::query()->with('role')->find(auth()->id());
+                return User::query()->with(['role','country'])->find(auth()->id());
             }
         });
         Inertia::share('lang', function () {

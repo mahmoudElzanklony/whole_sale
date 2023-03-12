@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Exports\intial_template_client_export;
+use App\Exports\items_info_export;
 use App\Handling_Data\profile\listing_dashboard;
 use App\Handling_Data\profile\personal_data_handling;
 use App\Handling_Data\profile\statistics_profile_handling;
@@ -28,6 +30,7 @@ use App\Services\users\all_listings_notes;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Inertia\Inertia;
+use Maatwebsite\Excel\Facades\Excel;
 
 
 class ProfileController extends ProfileServiceClass
@@ -95,6 +98,11 @@ class ProfileController extends ProfileServiceClass
             'data'=>$data,
             'keywords'=>ProfileOffersKeywords::get_keywords(),
         ]);
+    }
+
+    public function client_template(){
+        return Excel::download(new intial_template_client_export, 'template.xlsx');
+
     }
 
 

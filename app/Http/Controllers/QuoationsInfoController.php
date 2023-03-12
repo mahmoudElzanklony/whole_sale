@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Exports\items_info_export;
 use App\Exports\items_offers_export;
 use App\Exports\quotations_orders_export;
 use App\Http\Requests\QuotationFormRequest;
@@ -76,14 +77,16 @@ class QuoationsInfoController extends Controller
 
         try {
             if(session()->get('type') == 'seller') {
-                $data_to_delete = items_info::query()
+                items_info::query()
                     ->where('user_id','=',auth()->id())
                     ->where('quotation_order_id', request('quotation_order_id'))->delete();
             }else{
                 // admin or supervisor
-                $data_to_delete = items_info::query()
-                    ->whereHas('role',function ($e){
-                        $e->where('name','!=','seller');
+                items_info::query()
+                    ->whereHas('user',function ($e){
+                        $e->whereHas('role',function ($q){
+                            $q->where('name','!=','seller');
+                        });
                     })
                     ->where('quotation_order_id', request('quotation_order_id'))->delete();
             }
@@ -154,13 +157,13 @@ class QuoationsInfoController extends Controller
 
         $email = get_first_admin::get_admin()->email;
         if(session()->get('lang') == 'ar') {
-            send_email::send('تم ارسال ايصال الفاتورة',
+            send_email::send('تم الموافقة علي الطلب',
                 'تم ايصال صوره من الايصال رقم '.request('id').' يمكنك رؤيه التفاصيل من خلال لوحه التحكم ',
                 request()->root() .'/dashboard/pricing-requests',
                 'Press here', $email
             );
         }else{
-            send_email::send('Bill file has been received',
+            send_email::send('order accepted from client',
                 'Bill file from '.request('id').' has been received you can check from admin panel',
                 request()->root() .'/dashboard/pricing-requests',
                 'Press here', $email
@@ -275,15 +278,23 @@ class QuoationsInfoController extends Controller
 
     public function export_file(){
         $ids = explode(',',request('ids'));
-
+        $user_id = request('user_id') ?? null;
         $data = quotation_orders::query()
             ->whereIn('id',$ids)
             ->with(['quotations'=>function($e) {
-            $e->with('brand:id,' . app()->getLocale() . '_name as name');
-        },'items'=>function($e){
-                $e->with('prices');
+            $e->with('brand:id,en_name as name');
+        },'items'=>function($e) use ($user_id){
+                $e->when($user_id != null,function($q) use ($user_id){
+                    $q->where('user_id','=',$user_id);
+                })->when($user_id == null,function($query){
+                    $query->whereHas('user',function ($u){
+                       $u->whereHas('role',function($r){
+                           $r->where('name','!=','seller');
+                       });
+                    });
+                })->with('prices');
             }])->get();
-        return Excel::download(new quotations_orders_export($data), 'quotations.xlsx');
+        return Excel::download(new items_info_export($data), request('ids').'.xlsx');
 
     }
 

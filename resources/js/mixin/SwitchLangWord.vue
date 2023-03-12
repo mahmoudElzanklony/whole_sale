@@ -557,6 +557,11 @@ export default {
                   en:'Save',
                   tu:'',
               },
+              send:{
+                  ar:'ارسال',
+                  en:'Send',
+                  tu:'',
+              },
               name:{
                   ar:'الأسم',
                   en:'Name',
@@ -606,6 +611,10 @@ export default {
                   ar:'أضغط هنا',
                   en:'Press Here',
                   tu:'',
+              },
+              press_here_to_preview_bill:{
+                  ar:'اضغط هنا لعرض الايصال',
+                  en:'press here to preview bill',
               },
               select_best_choice:{
                   ar:'أختر من القائمة',
@@ -752,8 +761,12 @@ export default {
                 tu:'',
               },
               tax_percentage:{
-                ar:'قيمة الضريبة هي 15%',
+                ar:'ضريبه القيمه المضافه (15%)',
                 en:'tax percentage is 15% ',
+              },
+              tax_number:{
+                ar:'الرقم الضريبي',
+                en:'VAT number',
               },
               receipt_photo:{
                 ar:'صورة الايصال',
@@ -813,6 +826,22 @@ export default {
               visit_mkena:{
                   ar:'زيارة مكينة',
                   en:'Visit mkena',
+              },
+              error_in_price:{
+                  ar:'هناك خطأ في تحديد السعر حيث انك قمت بطلب كميه اقل من الحد المسموح له',
+                  en:'There is an error in determining the price as you have ordered less than the allowable amount',
+              },
+              edit_my_quantity:{
+                  ar:'تعديل الكمية الخاصه بي',
+                  en:'update my quantity',
+              },
+              there_are_error_at_quantity_of_part_numbers:{
+                  ar:'هناك خطأ في الكمية التي طلبتها حيث انها اقل من الحد الادني المسموح به لدي القطع الاتيه ',
+                  en:'There is an error in the quantity you ordered as it is less than the minimum allowed for the following part numbers ',
+              },
+              initial_bill:{
+                  ar:'فاتورة مبندئية',
+                  en:'proforma invoice',
               }
 
 

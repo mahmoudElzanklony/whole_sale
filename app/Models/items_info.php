@@ -32,15 +32,19 @@ class items_info extends Model
     }
 
     public function role(){
-        return $this->hasOneThrough(roles::class,User::class,'id','id');
+        return $this->hasOneThrough(roles::class,User::class,'role_id','id');
     }
 
     public function quotation(){
         return $this->belongsTo(quotation_orders::class,'quotation_order_id');
     }
 
+    public function supplied_part_number(){
+        return $this->hasOne(items_infos_supplied_part_number::class,'item_id');
+    }
+
     public function prices(){
-        return $this->hasMany(items_infos_prices::class,'item_id');
+        return $this->hasMany(items_infos_prices::class,'item_id')->orderBy('min_quantity','DESC');
     }
 
     public function vendor(){

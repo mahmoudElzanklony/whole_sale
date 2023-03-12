@@ -32,6 +32,7 @@ class quoations_services
             })
             ->with('brand:id,'.app()->getLocale().'_name as name')
             ->with('prices')
+            ->with('supplied_part_number')
             ->get();
     }
 

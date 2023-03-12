@@ -16,8 +16,7 @@ class CreateItemsInfosTable extends Migration
         Schema::create('items_infos', function (Blueprint $table) {
             $table->id();
             $table->bigInteger('part_number');
-            $table->foreignId('brand_id')->constrained()
-                ->onUpdate('cascade')->onDelete('cascade');
+            $table->string('brand_id')->nullable();
             $table->foreignId('quotation_order_id')->constrained('quotation_orders')
                 ->onUpdate('cascade')->onDelete('cascade');
             $table->string('ar_part_name');

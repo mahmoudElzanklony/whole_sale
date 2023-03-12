@@ -14,6 +14,7 @@ class ProfileLasttQuotations
             'quotation_number'=>trans('keywords.quotation_number'),
             'reply_from_admin'=>trans('keywords.reply_from_admin'),
             'show_details'=>trans('keywords.show_details'),
+            'order_that_client_made'=>trans('keywords.order_that_client_made'),
             'status'=>trans('keywords.status'),
             'print_data_info'=>trans('keywords.print_data_info'),
             'you_can_press_here_to_download_file'=>trans('keywords.you_can_press_here_to_download_file_to_know_correct_format_you_should_upload'),
@@ -67,6 +68,7 @@ class ProfileLasttQuotations
             'add_vendor'=>trans('keywords.add_vendor'),
             'vendor_name'=>trans('keywords.vendor_name'),
             'vendor_file'=>trans('keywords.vendor_file'),
+            'change_request_status'=>trans('keywords.change_request_status'),
 
         ];
     }

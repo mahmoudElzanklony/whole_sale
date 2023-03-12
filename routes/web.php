@@ -92,4 +92,6 @@ Route::group(['middleware'=>'changeLang'],function (){
     Route::get('/sendmail',[\App\Http\Controllers\MailController::class,'basic_email']);
 
     // export file at actions
+    Route::get('/template-excel',[ProfileController::class,'client_template']);
+
 });

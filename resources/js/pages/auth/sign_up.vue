@@ -21,7 +21,14 @@
                                 <p>{{ keywords.brands_dealing }}</p>
                                 <span><i class="ri-check-line"></i></span>
                             </div>
-                            <input type="hidden" name="username" value="">
+                            <div class="form-group input-icon">
+                                <label>{{ keywords.username }}</label>
+                                <input name="username" class="form-control"
+                                       :value="stored_info != null ? stored_info['username']:''"
+                                       required>
+                                <p class="alert alert-danger"></p>
+                                <span class="required"><i class="ri-asterisk"></i></span>
+                            </div>
                             <div class="form-group input-icon">
                                 <label>{{ keywords.email }}</label>
                                 <input name="email" type="email" class="form-control"
@@ -54,20 +61,20 @@
                                 <p class="alert alert-danger"></p>
                                 <span class="required"><i class="ri-asterisk"></i></span>
                             </div>
-                            <div class="form-group input-icon" v-if="user_type_id == null">
+                            <div class="form-group input-icon">
+                                <label>{{ keywords.country }}</label>
+                                <select class="form-control" name="country_id" @change="change_country" required>
+                                    <option value="">{{ switchWord('select_best_choice') }}</option>
+                                    <option v-for="(i,index) in countries" :key="index" :value="i['id']">{{ i['name'] }}</option>
+                                </select>
+                                <p class="alert alert-danger"></p>
+                                <span class="required"><i class="ri-asterisk"></i></span>
+                            </div>
+                            <div class="form-group input-icon vat">
                                 <label>{{ keywords.vat }}</label>
                                 <input name="vat" type="number" min="0"
                                        :value="stored_info != null ? stored_info['vat']:''"
                                        class="form-control" required>
-                                <p class="alert alert-danger"></p>
-                                <span class="required"><i class="ri-asterisk"></i></span>
-                            </div>
-                            <div class="form-group input-icon">
-                                <label>{{ keywords.country }}</label>
-                                <select class="form-control" name="country_id" required>
-                                    <option value="">{{ switchWord('select_best_choice') }}</option>
-                                    <option v-for="(i,index) in countries" :key="index" :value="i['id']">{{ i['name'] }}</option>
-                                </select>
                                 <p class="alert alert-danger"></p>
                                 <span class="required"><i class="ri-asterisk"></i></span>
                             </div>
@@ -112,10 +119,11 @@
 import NavbarComponent from "../../components/NavbarComponent";
 import FooterComponent from "../../components/FooterComponent";
 import SwitchLangWord from "../../mixin/SwitchLangWord";
+import sudia_vat from "../../mixin/sudia_vat";
 import {mapActions} from "vuex";
 export default {
     name: "sign_up",
-    mixins:[SwitchLangWord],
+    mixins:[SwitchLangWord,sudia_vat],
     props:['keywords','data','stored_info','user_type_id','countries'],
     methods:{
       ...mapActions({
@@ -166,5 +174,8 @@ form{
         }
 
     }
+}
+.vat{
+    display:none;
 }
 </style>

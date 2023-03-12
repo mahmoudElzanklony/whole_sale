@@ -67,7 +67,7 @@
                                         <p class="alert alert-danger"></p>
                                         <span class="required"><i class="ri-asterisk"></i></span>
                                     </div>
-                                    <div class="form-group input-icon" v-if="role == 'buyer'">
+                                    <div class="form-group input-icon" v-if="$page.props.user.country['id'] == 2">
                                         <label>{{ keywords.vat }}</label>
                                         <input class="form-control"
                                                :value="$page.props.user.VAT"

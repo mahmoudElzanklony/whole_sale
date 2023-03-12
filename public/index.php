@@ -1,6 +1,7 @@
 <?php
 
 // ob_start();
+//header('Content-Type: text/plain; charset=utf-8');
 
 use Illuminate\Contracts\Http\Kernel;
 use Illuminate\Http\Request;

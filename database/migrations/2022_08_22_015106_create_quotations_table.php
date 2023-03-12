@@ -17,7 +17,7 @@ class CreateQuotationsTable extends Migration
             $table->id();
             $table->foreignId('quotation_order_id')->constrained('quotation_orders')
                 ->onUpdate('cascade')->onDelete('cascade');
-            $table->foreignId('brand_id')->constrained()->onUpdate('cascade')->onDelete('cascade');
+            $table->string('brand_id')->nullable();
             $table->string('part_number');
             $table->integer('quantity');
             $table->softDeletes();

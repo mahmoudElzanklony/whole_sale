@@ -21,6 +21,8 @@ use App\Models\user_company_info;
 use App\Models\user_info;
 use App\Services\get_first_admin;
 use App\Services\mail\send_email;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Str;
 use Maatwebsite\Excel\Facades\Excel;
 
 class ProfileServiceClass extends Controller
@@ -157,24 +159,27 @@ class ProfileServiceClass extends Controller
 
     public function preview_request(){
         $file = request()->file('file');
-        $data = file($file);
-        $headers = explode(',',trim(preg_replace('/\s\s+/', ' ', $data[0])));
+        $import = new QuotationImportCSV;
+        Excel::import($import, $file);
+        /*$data = file($file);
+        $headers = explode(',',Str::lower(trim(preg_replace('/\s\s+/', ' ', $data[0]))));
         unset($data[0]);
-
+      //  dd($headers);
         $result = [];
         foreach($data as $item){
             $item = explode(',',trim(preg_replace('/\s\s+/', ' ', $item)));
+            dd($headers,$item);
             array_push($result,array_combine($headers,$item));
 
-        }
-        return messages::success_output('',$result);
+        }*/
+        return messages::success_output('',$import->data);
     }
 
     public function send_quotation_excel(){
         $file = request()->file('file');
         $exten = $file->getClientOriginalExtension();
         $file_name = time().rand(0,9999999999999). '_excel.' .$exten;
-
+        DB::beginTransaction();
         try {
             // create new quotation bill
             $qutation_bill = quotation_orders::query()->create([
@@ -192,7 +197,7 @@ class ProfileServiceClass extends Controller
             return messages::error_output($failures[0]->errors());
 
         }
-
+        DB::commit();
         $email = get_first_admin::get_admin()->email;
         if(session()->get('lang') == 'ar') {
             send_email::send('طلب تسعير جديد',

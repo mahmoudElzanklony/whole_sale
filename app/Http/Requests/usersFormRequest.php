@@ -48,7 +48,7 @@ class usersFormRequest extends FormRequest
     public function register(){
         return [
             //
-            'username'=>'nullable',
+            'username'=>'required',
             'email'=>'required|email|max:191|unique:users,email',
             'password'=>'required|min:7|max:191|confirmed',
             'phone'=>'required|min:7',

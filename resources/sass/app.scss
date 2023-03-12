@@ -613,7 +613,11 @@ input:focus{
         }
     }
 }
-
+.hide-buttons{
+    .dt-buttons{
+        display: none !important;
+    }
+}
 .main-title{
     text-align: center;
     margin-bottom: 20px;
@@ -1111,4 +1115,7 @@ body.swal2-toast-shown .swal2-container{
     .swal2-container{
         width: max-content;
     }
+}
+.modal{
+    z-index: 9999;
 }

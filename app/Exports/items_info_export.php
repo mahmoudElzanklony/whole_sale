@@ -1,0 +1,171 @@
+<?php
+
+namespace App\Exports;
+
+use App\Models\items_infos_supplied_part_number;
+use App\Models\quotation_orders;
+use Illuminate\Database\Eloquent\Builder as EloquentBuilder;
+use Illuminate\Database\Eloquent\Relations\Relation;
+use Illuminate\Database\Query\Builder;
+use Illuminate\Support\Collection;
+use Maatwebsite\Excel\Concerns\Exportable;
+use Maatwebsite\Excel\Concerns\FromCollection;
+use Maatwebsite\Excel\Concerns\FromQuery;
+use Maatwebsite\Excel\Concerns\WithHeadings;
+use Maatwebsite\Excel\Concerns\WithMapping;
+use Maatwebsite\Excel\Concerns\WithEvents;
+use Maatwebsite\Excel\Events\AfterSheet;
+
+
+class items_info_export implements FromCollection ,WithHeadings,WithMapping,WithEvents
+{
+    /**
+     * @return \Illuminate\Support\Collection
+     */
+    use Exportable;
+
+    private $payments;
+    public function __construct(Collection $collection){
+        $this->payments = $collection;
+    }
+
+
+    public function collection()
+    {
+        return $this->payments;
+    }
+
+    public function registerEvents(): array
+    {
+        return [
+            AfterSheet::class    => function(AfterSheet $event) {
+
+                $event->sheet->getDelegate()->getColumnDimension('A')->setWidth(15);
+                $event->sheet->getDelegate()->getColumnDimension('B')->setWidth(15);
+                $event->sheet->getDelegate()->getColumnDimension('C')->setWidth(25);
+                $event->sheet->getDelegate()->getColumnDimension('D')->setWidth(15);
+                $event->sheet->getDelegate()->getColumnDimension('E')->setWidth(22);
+                $event->sheet->getDelegate()->getColumnDimension('F')->setWidth(22);
+                $event->sheet->getDelegate()->getColumnDimension('G')->setWidth(22);
+                $event->sheet->getDelegate()->getColumnDimension('H')->setWidth(22);
+                $event->sheet->getDelegate()->getColumnDimension('I')->setWidth(22);
+                $event->sheet->getDelegate()->getColumnDimension('J')->setWidth(25);
+                $event->sheet->getDelegate()->getColumnDimension('K')->setWidth(25);
+                $event->sheet->getDelegate()->getColumnDimension('L')->setWidth(20);
+                $event->sheet->getDelegate()->getColumnDimension('M')->setWidth(20);
+                $event->sheet->getDelegate()->getColumnDimension('N')->setWidth(20);
+                $event->sheet->getDelegate()->getColumnDimension('O')->setWidth(13);
+                $event->sheet->getDelegate()->getColumnDimension('P')->setWidth(13);
+                $event->sheet->getDelegate()->getColumnDimension('Q')->setWidth(23);
+                $event->sheet->getDelegate()->getColumnDimension('R')->setWidth(23);
+                $event->sheet->getDelegate()->getColumnDimension('S')->setWidth(23);
+                $event->sheet->getDelegate()->getColumnDimension('T')->setWidth(23);
+                $event->sheet->getDelegate()->getColumnDimension('U')->setWidth(23);
+                $event->sheet->getDelegate()->getColumnDimension('V')->setWidth(23);
+                $event->sheet->getDelegate()->getColumnDimension('W')->setWidth(23);
+
+            },
+        ];
+    }
+
+    public function headings(): array
+    {
+        $full_columns = [
+            trans('keywords.id'),trans("keywords.part_number"),
+            trans("keywords.supplied_part_number"),
+            trans("keywords.brand"),trans("keywords.quantity"),
+            trans("keywords.ar_part_name"),trans("keywords.en_part_name"),
+            trans("keywords.ar_part_description"),trans("keywords.en_part_description"),
+            trans("keywords.offered_stock"),trans("keywords.min_quantity_per_transaction"),
+            trans("keywords.max_quantity_per_transaction"),
+            trans("keywords.unit_of_packing"),trans("keywords.quantity_per_pallet"),
+            trans("keywords.width"),trans("keywords.length"),trans("keywords.thickness"),
+            trans("keywords.s1_min"),trans("keywords.s1_price"),trans("keywords.s2_min"),
+            trans("keywords.s2_price"),trans("keywords.s3_min"),trans("keywords.s3_price")
+        ];
+        return $full_columns;
+        /*if(session()->has('type')){
+            if(session()->get('type') == 'buyer'){
+                return ["id","part_number","brand","quantity"];
+            }else{
+                return $full_columns;
+            }
+        }else{
+            return $full_columns;
+        }*/
+    }
+
+    public function map($row): array
+    {
+        $output = [];
+        $prices_output = [];
+        $final_output = [];
+        if(sizeof($row->quotations) > 0){
+            foreach ($row->quotations as $quotation){
+                if($row->is_completed == 0){
+                    $status = trans('keywords.sent_to_admin');
+                }else if( $row->is_completed == 1 ){
+                    $status = trans('keywords.reply_from_admin');
+                } else if( $row->is_completed == 2 ){
+                    $status = trans('keywords.client_confirm_request');
+                }else{
+                    $status = trans('keywords.complete_request_successfully');
+                }
+                if(sizeof($row->items) > 0){
+                    // get item prices that part_number equal to quotation part number
+                    $item = collect($row->items)->filter(function ($e) use ($quotation){
+                        return $e->part_number == $quotation->part_number;
+                    })->first();
+                    if(sizeof($item->prices) > 0){
+                        // there are prices
+                        foreach($item->prices as $price){
+                            array_push($prices_output,$price->min_quantity);
+                            array_push($prices_output,$price->price);
+                        }
+                    }
+                    array_push($output,[
+                        $row->id,
+                        //   $status,
+                        $quotation->part_number,
+                        items_infos_supplied_part_number::query()->where('item_id',$item->id)->first()->part_number??'',
+                        $quotation->brand->name ?? $quotation->brand_id,
+                        $quotation->quantity,
+                        $item->ar_part_name,
+                        $item->en_part_name,
+                        $item->ar_part_description,
+                        $item->en_part_description,
+                        $item->offered_stock,
+                        $item->min_quantity_per_transaction,
+                        $item->max_quantity_per_transaction,
+                        $item->unit_of_packing,
+                        $item->quantity_per_pallet,
+                        $item->width,
+                        $item->length,
+                        $item->thickness,
+                    ]);
+                    $final_output[] = (array_merge($output[0],$prices_output));
+                    $prices_output = [];
+                    $output =  [];
+                }else{
+                    $item = collect($row->items)->filter(function ($e) use ($quotation){
+                        return $e->part_number == $quotation->part_number;
+                    })->first();
+                    array_push($output,[
+                        $row->id,
+                        //   $status,
+                        $quotation->part_number,
+                        $item != null ? (items_infos_supplied_part_number::query()->where('item_id',$item->id)->first()->part_number??''):'',
+                        $quotation->brand->name ?? $quotation->brand_id,
+                        $quotation->quantity,
+                    ]);
+                    $final_output[] = $output[0];
+                }
+                array_pop($output);
+
+            }
+        }
+        return $final_output;
+    }
+
+
+}

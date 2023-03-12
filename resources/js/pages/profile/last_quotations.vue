@@ -59,7 +59,7 @@
                                     <td>{{ keywords.seq }}</td>
                                     <td name="id">{{ keywords.quotation_number }}</td>
                                     <td name="is_completed">{{ keywords.status }}</td>
-                                    <td>{{ keywords.show_details }}</td>
+                                    <td>{{ keywords.order_that_client_made }}</td>
                                     <td v-if="$page.props.user.role.name !='seller'">{{ keywords.reply_from_admin }}</td>
                                     <td v-else>{{ keywords.excel_file }}</td>
                                     <td>{{ keywords.actions }}</td>
@@ -90,7 +90,12 @@
                         <div class="loading-img">
                             <img src="/images/loading.gif">
                         </div>
-                        <div class="overflow-auto"  v-if="get_my_quotation.length > 0">
+                        <div class="overflow-auto hide-buttons"  v-if="get_my_quotation.length > 0">
+                            <a v-if="item != null && $page.props.user.role.name =='seller'"
+                               class="btn btn-primary"
+                               :href="'/quotations/export-file?user_id='+$page.props.user.id+'&ids='+item['id']" target="_blank">
+                                {{ switchWord('export_selected') }}
+                            </a>
                             <table class="myTable box-model-table table text-center table-bordered table-striped table-hover">
                                 <thead>
                                 <tr>
@@ -108,8 +113,13 @@
                                     <td>
                                         <input type="checkbox" @click="detect_row_to_export">
                                     </td>
-                                    <td>{{ i['last_draft'] == null ? i['brand']['name']:
-                                            i['last_draft']['brand']['name'] }}
+                                    <td>{{
+                                            i['last_draft'] == null ?
+                                        (i['brand'] !=null ? i['brand']['name']:i['brand_id']):
+                                        (
+                                            i['last_draft']['brand'] != null ?
+                                            i['last_draft']['brand']['name']:i['last_draft']['brand_id'])
+                                        }}
                                     </td>
                                     <td>{{ i['last_draft'] == null ? i['part_number']:
                                         i['last_draft']['part_number'] }}</td>
@@ -188,7 +198,9 @@
                             </div>
                             <div class="form-group">
                                 <label>{{ keywords.brand }}</label>
-                                <select class="form-control" name="brand_id" required>
+                                <input class="form-control" name="brand_id"
+                                       :value="(sub_quotation['last_draft'] == null ? sub_quotation['brand_id']:sub_quotation['last_draft']['brand_id'])" required>
+                                <select v-if="false" class="form-control" name="brand_id" required>
                                     <option value="">{{ switchWord('select_best_for_you') }}</option>
                                     <option v-for="(i,index) in all_brands" :key="index"
                                             :value="i['id']"
@@ -242,8 +254,13 @@
                         <div class="loading-img">
                             <img src="/images/loading.gif">
                         </div>
-                        <div class="overflow-auto" v-if="admin_quotation.length > 0">
-                            <table class="myTable box-model-table table text-center table-bordered table-striped table-hover">
+                        <div class="overflow-auto hide-buttons" v-if="admin_quotation.length > 0">
+                            <a v-if="item != null"
+                               class="btn btn-primary mb-3"
+                               :href="'/quotations/export-file?ids='+item['id']" target="_blank">
+                                {{ switchWord('export_selected') }}
+                            </a>
+                            <table class="table text-center table-bordered table-striped table-hover">
                                 <thead>
                                 <tr>
                                     <td></td>
@@ -266,13 +283,13 @@
                                     </td>
                                     <td>{{ index + 1 }}</td>
                                     <td>{{ i['part_number'] }}</td>
-                                    <td>{{ i['brand']['name'] }}</td>
+                                    <td>{{ i['brand'] != null ? i['brand']['name']:i['brand_id'] }}</td>
                                     <td>{{ i['offered_stock'] }}</td>
                                     <td>{{ i['min_quantity_per_transaction'] }}</td>
                                     <td>{{ i['max_quantity_per_transaction'] }}</td>
                                     <td>{{ i['prices'][0]['price'] }}</td>
                                     <td>3</td>
-                                    <td v-if="i['prices'].length >= 2">
+                                    <td v-if="i['prices'].length >= 1">
                                         <button class="btn btn-outline-primary"
                                         @click="current_admin_quotation = i"
                                         data-toggle="modal"
@@ -310,7 +327,13 @@
                         </button>
                     </div>
                     <div class="modal-body">
-                        <div class="overflow-auto">
+                        <div class="overflow-auto hide-buttons">
+                            <button class="btn btn-outline-primary mb-2 "
+                                @click="update_current_quotation_open_box(get_my_quotation.find((e)=>{
+                                    return e['part_number'] == current_admin_quotation['part_number']
+                                }))">
+                                            {{ switchWord('edit_my_quantity') }}
+                                        </button>
                             <table class="box-model-table table text-center table-bordered table-striped table-hover">
                                 <thead>
                                 <tr>
@@ -359,9 +382,12 @@
                         <div class="receipt">
                             <div class="d-flex align-items-center justify-content-between mb-5">
                                 <div>
-                                    <img class="d-block m-auto" src="/images/logo.png">
+                                    <img class="d-block m-auto" style="width: 150px;" src="/images/logo.png">
                                     <p class="mt-3 font-weight-bold">{{ keywords.invoice_number }}
-                                        #{{ item.id }}
+                                        #W{{ ("0" + (new Date(item.created_at).getFullYear())).slice(-2) }}{{ ("0" + (new Date(item.created_at).getMonth() + 1)).slice(-2) }}{{ item.id }}
+                                    </p>
+                                    <p>
+                                        <span class="font-weight-bold">{{ switchWord('tax_number') }}</span> : <span class="font-weight-bold">310188508400003</span>
                                     </p>
                                 </div>
                                 <div>
@@ -382,29 +408,30 @@
                                     :key="index">
                                     <td>
                                         {{
-                                            i['last_draft'] == null ? i['part_number']:
-                                                i['last_draft']['part_number']
+                                            i['last_draft'] == null ? detect_supplied_part_name(i['part_number']):
+                                                detect_supplied_part_name(i['last_draft']['part_number'])
                                         }}
                                    </td>
+                                    <td>{{  i['last_draft'] == null ?
+                                        (i['brand'] != null ? i['brand']['name']:i['brand_id'])
+                                        :
+                                        (i['last_draft']['brand'] != null ?
+                                            i['last_draft']['brand']['name']:i['last_draft']['brand_id'])
+                                        }}</td>
                                     <td>
                                         {{
                                             i['last_draft'] == null ? i['quantity']:i['last_draft']['quantity']
                                         }}
                                     </td>
-                                    <td>{{  i['last_draft'] == null ? i['brand']['name']:
-                                        i['last_draft']['brand']['name']
-                                        }}</td>
+
                                     <td>
-                                        {{ admin_quotation.find((e)=>{return e['part_number'] == (i['last_draft'] == null ? i['part_number']:
-                                        i['last_draft']['part_number']) })['prices'].find((p)=>
-                                        {return (i['last_draft'] == null ? i['quantity']:i['last_draft']['quantity']) >=                                                          p['min_quantity']}
-                                    )['price']  }}
+                                        {{
+                                            detect_right_price(i)
+                                        }}
                                     </td>
                                     <td>
-                                        {{ admin_quotation.find((e)=>{return e['part_number'] == (i['last_draft'] == null ? i['part_number']:
-                                        i['last_draft']['part_number']) })['prices'].find((p)=>
-                                    {return (i['last_draft'] == null ? i['quantity']:i['last_draft']['quantity']) >=                                                          p['min_quantity']}
-                                    )['price'] *  (i['last_draft'] == null ? i['quantity']:i['last_draft']['quantity']).toFixed() }}
+                                        {{ isNaN(detect_right_price(i))? detect_right_price(i):
+                                        detect_right_price(i) *  (i['last_draft'] == null ? i['quantity']:i['last_draft']['quantity']).toFixed() }}
                                     </td>
                                 </tr>
                                 <tr class="tax_row tax">
@@ -456,7 +483,9 @@
                             <div class="form-group">
                                 <div class="drag-drop-files mb-3" data-aos="fade-up" data-aos-delay="2000">
                                     <input type="file" name="excel_file"
+                                           @change="change_file"
                                     >
+                                    <span class="ml-2 mr-2"></span>
                                     <button type="button" class="btn btn-primary">
                                         <span>{{ keywords.excel_file }}</span>
                                         <span><i class="ri-add-line"></i></span>
@@ -490,7 +519,7 @@
                 <div class="modal-content">
                     <div class="modal-header">
                         <h5 class="modal-title" id="agree_quotation_and_upload_bill_box">
-                            {{ keywords.agree_request }}
+                            {{ keywords.change_request_status }}
                         </h5>
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                             <span aria-hidden="true">&times;</span>
@@ -504,14 +533,22 @@
                              class="d-block m-auto w-100"
                              style="max-height: 300px; object-fit: contain;"
                              :src="'/images/receipts/'+get_receipt['image']">
-                        <a v-else :href="'/pdfs/receipts/'+get_receipt['image']" target="_blank">{{ switchWord('press_here') }}</a>
+                        <a v-else-if="get_receipt.hasOwnProperty('image')"
+                           :href="'/pdfs/receipts/'+get_receipt['image']" target="_blank">
+                            {{ switchWord('press_here_to_preview_bill') }}
+                        </a>
+                        <button class="btn btn-outline-primary mb-3"
+                                @click="print_bill(item)"
+                                data-toggle="modal" data-target="#print_box">
+                            {{ switchWord('initial_bill') }}
+                        </button>
                         <form  @submit.prevent="send_agreement_to_admin(item)">
                             <div class="form-group">
                                 <label>{{ keywords.receipt_image }}</label>
-                                <input type="file" class="form-control" name="receipt" required>
+                                <input type="file" class="form-control" name="receipt">
                             </div>
                             <div class="form-group">
-                                <input type="submit" class="btn btn-primary" :value="switchWord('save')">
+                                <input type="submit" class="btn btn-primary" :value="switchWord('send')">
                             </div>
                         </form>
                     </div>
@@ -538,11 +575,12 @@ import tableDataServer from "../../mixin/tableDataServer";
 import SwitchLangWord from "../../mixin/SwitchLangWord";
 import update_item from "../../mixin/update_item";
 import delete_item from "../../mixin/delete_item";
+import detect_right_part_number from "../../mixin/detect_right_part_number";
 import {mapActions, mapGetters} from "vuex";
 export default {
     name: "orders",
     props:['keywords','quotations'],
-    mixins:[tableData,tableDataServer,SwitchLangWord,delete_item,update_item],
+    mixins:[tableData,tableDataServer,SwitchLangWord,delete_item,update_item,detect_right_part_number],
     data:function (){
         return {
             sub_quotation:null,
@@ -637,6 +675,8 @@ export default {
         $('.content').on('click','.data table tbody tr td:nth-of-type(6) button',async function (){
             var item = component.get_obj_wanted($(this).attr('el_id'));
             await component.get_data_admin_of_quotation($(this).attr('el_id'));
+            await component.get_data_of_quotation($(this).attr('el_id'));
+
             await component.update_item(item);
             $('#admin_quotation_data').modal('show');
         });
@@ -645,10 +685,40 @@ export default {
             var item = component.get_obj_wanted($(this).attr('el_id'));
             //await component.send_agreement_to_admin(item);
             await component.update_item(item);
-            if(item['is_completed'] >= 2){
-                await component.get_receipt_action(item);
-            }
-            $('.modal#agree_quotation_and_upload_bill').modal('show');
+            await component.get_data_admin_of_quotation($(this).attr('el_id'));
+            await component.get_data_of_quotation($(this).attr('el_id'));
+            // this error for if you take quantity min than  admin give you
+            var error = 0,
+                part_numbers = [];
+            var interval = setInterval(async ()=>{
+                if(component.get_my_quotation.length > 0){
+                    for(let quot of component.get_my_quotation){
+                        if(isNaN(component.detect_right_price(quot))){
+                            part_numbers.push(quot['part_number']);
+                            error++;
+                        }
+                    }
+                    if(error > 0){
+                        // you should edit quantity for quantity
+                        Toast.fire({
+                            icon:'error',
+                            title:component.switchWord('there_are_error_at_quantity_of_part_numbers')+part_numbers.toString(),
+                        })
+                    }else {
+                        if (item['is_completed'] >= 2) {
+                            await component.get_receipt_action(item);
+                        }
+                        $('.modal#agree_quotation_and_upload_bill').modal('show');
+                    }
+                    clearInterval(interval);
+                }
+            },1000);
+
+
+            /*for(let quot of component.get_my_quotation){
+                console.log(this.detect_right_price(quot));
+            }*/
+            // $('.modal#agree_quotation_and_upload_bill').modal('show');
         });
         // print bill
         $('.content').on('click','.data table tbody tr td.actions span.print',async function (){
@@ -695,6 +765,25 @@ export default {
             'get_info_to_print_bill':'quotations_dash/get_info_to_print_bill',
             'get_receipt_action':'quotations_dash/get_receipt_action',
         }),
+        change_file:function (){
+            event.target.nextElementSibling.innerHTML = event.target.files[0].name;
+        },
+        detect_right_price:function (i){
+            var d =  this.admin_quotation.find((e)=>{
+                return e['part_number'] == (i['last_draft'] == null ? i['part_number']:
+                i['last_draft']['part_number'])
+            });
+            if(d != undefined){
+             d = d['prices'].find((p)=>
+                    {return (i['last_draft'] == null ? i['quantity']:i['last_draft']['quantity']) >=                                                          p['min_quantity']}
+                );
+            }
+            if(d == undefined){
+                return this.switchWord('error_in_price')
+            }else{
+                return d['price']
+            }
+        },
         pass_data_to_export:function (){
             let arr = [];
             let checked = $('table tr td input:checked');
@@ -721,8 +810,11 @@ export default {
           this.sub_quotation = item;
         },
         update_current_quotation_open_box:async function (i){
+            console.log(i);
             this.update_sub_quotation(i);
             await this.get_data_admin_of_quotation(this.item['id']);
+
+            $('#see_prices').modal('hide');
             $('#update_current_quotation').modal('show');
         },
         print_bill:async function (i){
@@ -822,5 +914,11 @@ export default {
             }
         }
     }
+}
+#update_current_quotation{
+    z-index: 99999999 !important;
+}
+#admin_quotation_data,my_quotations{
+    z-index: 9999 !important;
 }
 </style>

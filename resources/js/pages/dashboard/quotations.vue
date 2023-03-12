@@ -137,7 +137,12 @@
                         <div class="loading-img">
                             <img src="/images/loading.gif">
                         </div>
-                        <div class="overflow-auto">
+                        <div class="overflow-auto hide-buttons">
+                            <a v-if="item != null"
+                               class="btn btn-primary"
+                               :href="'/quotations/export-file?ids='+item['id']" target="_blank">
+                                {{ switchWord('export_selected') }}
+                            </a>
                             <table class="myTable box-model-table table text-center table-bordered table-striped table-hover">
                                 <thead>
                                 <tr>
@@ -156,8 +161,11 @@
                                     <td>
                                         <input type="checkbox" @click="detect_row_to_export">
                                     </td>
-                                    <td>{{ i['last_draft'].length == 0 ? i['brand']['name']:
-                                        i['last_draft'][0]['brand']['name'] }}
+                                    <td>{{
+                                            i['last_draft'].length == 0 ?
+                                        (i['brand'] !=null ? i['brand']['name']:i['brand_id']):
+                                        (i['last_draft'][0]['brand'] != null ? i['last_draft'][0]['brand']['name']:i['last_draft'][0]['brand_id'] )
+                                        }}
                                     </td>
                                     <td>{{ i['last_draft'].length == 0 ? i['part_number']:
                                         i['last_draft'][0]['part_number'] }}</td>
@@ -202,8 +210,12 @@
                         <div class="loading-img">
                             <img src="/images/loading.gif">
                         </div>
-                        <div class="overflow-auto">
-                            <table class="myTable box-model-table table text-center table-bordered table-striped table-hover">
+                        <a class="btn btn-primary mb-3"
+                            v-if="item != null"
+                            :href="'/quotations/export-file?ids='+item['id']"
+                           download>{{ switchWord('download_file') }}</a>
+                        <div class="overflow-auto hide-buttons">
+                            <table class="box-model-table table text-center table-bordered table-striped table-hover">
                                 <thead>
                                 <tr>
                                     <td></td>
@@ -226,7 +238,7 @@
                                     </td>
                                     <td>{{ index + 1 }}</td>
                                     <td>{{ i['part_number'] }}</td>
-                                    <td>{{ i['brand']['name'] }}</td>
+                                    <td>{{ i['brand'] != null ? i['brand']['name']:i['brand_id'] }}</td>
                                     <td>{{ i['offered_stock'] }}</td>
                                     <td>{{ i['min_quantity_per_transaction'] }}</td>
                                     <td>{{ i['max_quantity_per_transaction'] }}</td>
@@ -318,7 +330,9 @@
                             <div class="form-group">
                                 <div class="drag-drop-files mb-3" data-aos="fade-up" data-aos-delay="2000">
                                     <input type="file" name="excel_file"
+                                           @change="change_file"
                                           >
+                                    <span class="ml-2 mr-2"></span>
                                     <p class="alert alert-danger"></p>
                                     <button type="button" class="btn btn-primary">
                                         <span>{{ keywords.excel_file }}</span>
@@ -371,7 +385,7 @@
                                         <tbody>
                                         <tr v-for="(i,index) in item['last_draft']"
                                             :key="index" :class="'row_child_'+index">
-                                            <td>{{ i['brand']['name'] }}</td>
+                                            <td>{{ i['brand'] != null ? i['brand']['name']:i['brand_id'] }}</td>
                                             <td>{{ i['part_number'] }}</td>
                                             <td>{{ i['quantity'] }}</td>
                                             <td>{{ new Date(i['created_at']).toLocaleString() }}</td>
@@ -379,7 +393,7 @@
                                                 switchWord('delete_item'):switchWord('update_new_item') }}</td>
                                         </tr>
                                         <tr v-if="item.hasOwnProperty('last_draft') && item['last_draft'].length > 0">
-                                            <td>{{ item['last_draft'][0]['brand']['name'] }}</td>
+                                            <td>{{ item['last_draft'][0]['brand'] != null ? item['last_draft'][0]['brand']['name']:item['last_draft'][0]['brand_id'] }}</td>
                                             <td>{{ item['last_draft'][0]['part_number'] }}</td>
                                             <td>{{ item['quantity'] }}</td>
                                             <td>{{ new Date(item['created_at']).toLocaleString() }}</td>
@@ -421,7 +435,15 @@
                              class="d-block m-auto w-100"
                              style="max-height: 300px; object-fit: contain;"
                              :src="'/images/receipts/'+get_receipt['image']">
-                        <a v-if="get_receipt.hasOwnProperty('image')" :href="'/pdfs/receipts/'+get_receipt['image']" target="_blank">{{ switchWord('press_here') }}</a>
+                        <a v-if="get_receipt.hasOwnProperty('image') && get_receipt['image'].indexOf('pdf') == -1"
+                           :href="'/images/receipts/'+get_receipt['image']"
+                           target="_blank">{{ switchWord('press_here') }}
+                        </a>
+                        <a v-else-if="get_receipt.hasOwnProperty('image') &&
+                        get_receipt['image'].indexOf('pdf') != -1"
+                           :href="'/pdf/receipts/'+get_receipt['image']"
+                           target="_blank">{{ switchWord('press_here') }}
+                        </a>
                         <form  @submit.prevent="send_agreement_to_admin(item)">
                             <div class="form-group">
                                 <label>{{ keywords.receipt_image }}</label>
@@ -457,7 +479,20 @@
                     </div>
                     <div class="modal-body">
                         <div class="receipt">
-                            <img class="d-block m-auto" style="margin-bottom: 20px !important;" src="/images/logo.png">
+                            <div class="d-flex align-items-center justify-content-between mb-5">
+                                <div>
+                                    <img class="d-block m-auto" style="width: 150px;" src="/images/logo.png">
+                                    <p class="mt-3 font-weight-bold">{{ keywords.invoice_number }}
+                                        #W
+                                        {{ ("0" + (new Date(item.created_at).getFullYear())).slice(-2) }}
+                                        {{ ("0" + (new Date(item.created_at).getMonth() + 1)).slice(-2) }}
+                                        {{ item.id }}
+                                    </p>
+                                </div>
+                                <div>
+                                    <img class="qr_code" style="max-height: 130px;" src="/images/qr.png">
+                                </div>
+                            </div>
                             <table class="table table-bordered table-hover table-striped">
                                 <tbody>
                                 <tr>
@@ -472,12 +507,20 @@
                                     :key="index">
                                     <td>
                                         {{
-                                            i['last_draft'].length == 0 ? i['part_number']:i['last_draft'][0]['part_number']
+                                            i['last_draft'].length == 0 ?
+                                                detect_supplied_part_name(i['part_number'])
+                                                :detect_supplied_part_name(i['last_draft'][0]['part_number'])
                                         }}
                                     </td>
                                     <td>
                                         {{
-                                            i['last_draft'].length == 0 ? i['brand']['name']:i['last_draft'][0]['brand']['name']
+                                            i['last_draft'].length == 0 ?
+                                                (i['brand'] != null ? i['brand']['name']:i['brand_id']):
+                                                (
+                                                    i['last_draft'][0]['brand'] != null ?
+                                                    i['last_draft'][0]['brand']['name']:
+                                                    i['last_draft'][0]['brand_id']
+                                                )
                                         }}
                                     </td>
                                     <td>
@@ -486,18 +529,11 @@
                                         }}
                                     </td>
                                     <td>
-                                        {{ admin_quotation.find((e)=>{
-                                        return e['part_number'] == (i['last_draft'].length == 0 ? i['part_number']:
-                                        i['last_draft'][0]['part_number']) })['prices'].find((p)=>
-                                        {return (i['last_draft'].length == 0 ? i['quantity']:i['last_draft'][0]['quantity']) >=                                                          p['min_quantity']}
-                                    )['price'] }}
+                                        {{  detect_right_price(i) }}
                                     </td>
                                     <td>
-                                        {{ admin_quotation.find((e)=>{
-                                        return e['part_number'] == (i['last_draft'].length == 0 ? i['part_number']:
-                                            i['last_draft'][0]['part_number']) })['prices'].find((p)=>
-                                        {return (i['last_draft'].length == 0 ? i['quantity']:i['last_draft'][0]['quantity']) >=                                                          p['min_quantity']}
-                                    )['price'] *  (i['last_draft'].length == 0 ? i['quantity']:i['last_draft'][0]['quantity']).toFixed() }}
+                                        {{ isNaN(detect_right_price(i))? detect_right_price(i):
+                                        detect_right_price(i) *  (i['last_draft'] == null ? i['quantity']:i['last_draft']['quantity']).toFixed() }}
                                     </td>
                                 </tr>
                                 <tr class="tax_row">
@@ -623,7 +659,7 @@
                                     <td>{{ i['user']['username'] }}</td>
                                     <td>
                                         <a v-if="i['check_user_from_vendor_at_items_count'] > 0" target="_blank"
-                                           :href="'/quotations/export-vendor-file?id='+i['quotation_order_id']"
+                                           :href="'/quotations/export-file?user_id='+i['user']['id']+'&ids='+i['quotation_order_id']"
                                            download>{{ switchWord('download_file') }}</a>
                                         <span v-else>{{ switchWord('not_reply_yet') }}</span>
                                     </td>
@@ -659,11 +695,13 @@ import SwitchLangWord from "../../mixin/SwitchLangWord";
 import delete_item from "../../mixin/delete_item";
 import update_item from "../../mixin/update_item";
 import detect_row_for_export from "../../mixin/detect_row_for_export";
+import detect_right_part_number from "../../mixin/detect_right_part_number";
+
 import {mapState,mapActions , mapGetters , mapMutations} from "vuex";
 import TableData from "../../mixin/tableData";
 export default {
     name: "quotations",
-    mixins:[tableData,SwitchLangWord,update_item,delete_item,detect_row_for_export,tableDataServer],
+    mixins:[tableData,SwitchLangWord,update_item,delete_item,detect_row_for_export,tableDataServer,detect_right_part_number],
     props:['main_title','handling_data','keywords'],
     data:function(){
         return {
@@ -698,9 +736,11 @@ export default {
             console.log(input);
             input.innerHTML = '<input class="form-control" name="' + input.parentElement.getAttribute('name') + '" placeholder="' + input.textContent.trim() + '">';
         }
+        setTimeout(()=>{
+            this.inlize_data(this.page_data);
+        },2500);
     },
     created() {
-        this.inlize_data(this.handling_data['data']);
         this.update_qotation_data([]);
         var component = this;
         this.table_columns = [
@@ -741,7 +781,7 @@ export default {
             { "data": "is_completed",
                 "render":function(data,type,row){
 
-                    if(row['is_completed'] >= 1){
+                    if(row['is_completed'] >= 1 && row['is_completed'] != 11){
                         return '<button class="admin_response btn btn-outline-primary" el_id="'+row['id']+'" >'+component.switchWord('see_details')+'</button>'
                     }else{
                         return '';
@@ -782,6 +822,8 @@ export default {
         // get admin file data reply
         $('.content').on('click','.data table tbody tr td button.admin_response',async function (){
             console.log($(this));
+            var item = component.get_obj_wanted($(this).attr('el_id'));
+            await component.update_item(item);
             await component.get_data_admin_of_quotation($(this).attr('el_id'));
             $('#admin_quotation_data').modal('show');
         });
@@ -829,7 +871,9 @@ export default {
         });
     },
     methods:{
-
+        change_file:function (){
+            event.target.nextElementSibling.innerHTML = event.target.files[0].name;
+        },
         ...mapActions({
             'get_info_about_quotation':'quotations_dash/get_info_about_quotation',
             'get_info_about_quotation_admin':'quotations_dash/get_info_about_quotation_reply_admin',
@@ -855,6 +899,22 @@ export default {
         },
         update_sub_quotation:function (item){
             this.sub_quotation = item;
+        },
+        detect_right_price:function (i){
+            var d =  this.admin_quotation.find((e)=>{
+                return e['part_number'] == (i['last_draft'] == null ? i['part_number']:
+                    i['last_draft']['part_number'])
+            });
+            if(d != undefined){
+                d = d['prices'].find((p)=>
+                    {return (i['last_draft'] == null ? i['quantity']:i['last_draft']['quantity']) >=                                                          p['min_quantity']}
+                );
+            }
+            if(d == undefined){
+                return this.switchWord('error_in_price')
+            }else{
+                return d['price']
+            }
         },
         print_bill:async function (i){
             this.item = i;
