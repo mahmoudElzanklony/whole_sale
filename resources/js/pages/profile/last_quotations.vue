@@ -164,7 +164,7 @@
                             <span aria-hidden="true">&times;</span>
                         </button>
                     </div>
-                    <div class="modal-body" >
+                    <div class="modal-body" v-if="$page.props.user.role.name != 'seller'">
                         <form method="post" @submit.prevent="update_quotation_at_draft">
                             <input type="hidden" name="quotation_id" :value="sub_quotation['id']">
                             <input class="form-control" name="part_number"
@@ -328,7 +328,7 @@
                     </div>
                     <div class="modal-body">
                         <div class="overflow-auto hide-buttons">
-                            <button class="btn btn-outline-primary mb-2 "
+                            <button class="btn btn-outline-primary mb-2 " v-if="$page.props.user.role.name != 'seller'"
                                 @click="update_current_quotation_open_box(get_my_quotation.find((e)=>{
                                     return e['part_number'] == current_admin_quotation['part_number']
                                 }))">

@@ -13,8 +13,8 @@
     <meta property="og:type" content="website">
     <meta property="og:url" content="wholesale.mkena.com">
     <meta property="og:title" content="Wholesale">
-<!--    <meta property="og:image" content="https://bneksy.com/public/images/logo.png">
-    <meta property="og:description" content=" موقع متخصص فى بيع العقارات وتأجيرها بأفضل الاسعار ">-->
+    <meta property="og:image" content="https://wholesale.mkena.com/images/logo.png">
+    <meta property="og:description" content="مكينه للبيع الجمله لبيع كل ما تحتاجه من قطع السيارات بافضل الاسعار">
 
     <script src="https://code.jquery.com/jquery-3.2.1.min.js" ></script>
 
@@ -52,7 +52,7 @@
 
 
 
-    <script src="{{ mix('/js/app.js') }}" defer></script>
+    <script src="{{ mix('/js/app.js') }}?v=11.42" defer></script>
     <style>
         /*body{
             overflow: hidden;
