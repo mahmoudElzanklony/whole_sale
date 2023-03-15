@@ -71,7 +71,7 @@ class usersFormRequest extends FormRequest
         return [
             //
             'username'=>'required|max:191',
-            'email'=>'required|email|max:191|unique:users,email,'.auth()->user()->id,
+            'email'=>'required|email|max:191|unique:users,email,'.(auth()->id() == request('id') ? auth()->id():request('id')),
             'phone'=>'required|min:7',
             'country_id'=>'required|exists:countries,id',
             'image'=>'nullable|image|mimes:jpg,jpeg,png,gif',

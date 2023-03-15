@@ -1,7 +1,10 @@
 <template>
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
         <div class="container">
-            <inertia-link class="navbar-brand"  href="/">
+            <inertia-link class="navbar-brand"  href="/profile/quotations" v-if="user != null && user.role.name == 'buyer'">
+                <img src="/images/logo.png">
+            </inertia-link>
+            <inertia-link class="navbar-brand"  href="/" v-else>
                 <img src="/images/logo.png">
             </inertia-link>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -26,7 +29,7 @@
                         </inertia-link>
                     </li>
                     <li class="nav-item d-flex align-items-center">
-                        <a :href="'mailto:info@'+link" class="nav-link">
+                        <a :href="'mailto:mailto:wholesale@mkena.com'" class="nav-link">
                             <span>{{ switchWord('Help') }}?</span>
                         </a>
                     </li>
@@ -38,6 +41,13 @@
                         <a  v-else class="font-weight-bold d-inline-flex align-items-center" href="/lang/en">
                             <i class="ri-global-line"></i>
                             {{ switchWord('English_Language') }}
+                        </a>
+                    </li>
+                    <li class="nav-item mrl-1">
+                        <a href="https://api.whatsapp.com/send?phone=966541006608" target="_blank">
+                                <span style="color:green">
+                                    <i class="ri-whatsapp-line"></i>
+                                </span>
                         </a>
                     </li>
                     <li class="nav-item dropdown">
@@ -203,7 +213,9 @@ export default {
             margin-left: 5px;
         }
     }
-
+    .mrl-1{
+        margin-right: 10px;
+    }
     .nav-link{
         >span:first-of-type{
             margin-left: 7px;
@@ -236,6 +248,9 @@ export default {
     .dropdown-menu{
         right: 0px;
         left: unset;
+    }
+    .mrl-1{
+        margin-left: 10px;
     }
     .dropdown-menu{
         img{

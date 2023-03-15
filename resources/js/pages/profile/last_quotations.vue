@@ -19,6 +19,10 @@
                         <form class="justify-content-between flex-wrap">
                             <div class="d-flex align-items-center justify-content-between flex-wrap">
                                 <p>
+                                    <input type="radio" name="is_completed" :value="switchWord('all')">
+                                    <span>{{ switchWord('all') }}</span>
+                                </p>
+                                <p>
                                     <input type="radio" name="is_completed" :value="switchWord('sent_to_admin')">
                                     <span>{{ switchWord('sent_to_admin') }}</span>
                                 </p>
@@ -482,7 +486,7 @@
                             <input v-if="item != null" type="hidden" name="quotation_order_id" :value="item.id">
                             <div class="form-group">
                                 <div class="drag-drop-files mb-3" data-aos="fade-up" data-aos-delay="2000">
-                                    <input type="file" name="excel_file"
+                                    <input type="file" name="excel_file" required
                                            @change="change_file"
                                     >
                                     <span class="ml-2 mr-2"></span>

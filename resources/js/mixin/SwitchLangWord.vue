@@ -248,8 +248,8 @@ export default {
                 tu:'',
               },
               quotations:{
-                ar:'طلبات التسعير',
-                en:'Pricing requests',
+                ar:'طلب تسعير جديد',
+                en:'new quotation',
                 tu:'',
               },
              vendor_pricing:{
@@ -553,8 +553,8 @@ export default {
                   tu:'',
               },
               save:{
-                  ar:'حفظ',
-                  en:'Save',
+                  ar:'ارسال',
+                  en:'Send',
                   tu:'',
               },
               send:{
@@ -706,6 +706,11 @@ export default {
                   en:'order has been done successfully',
                   tu:'',
               },
+              all:{
+                  ar:'الجميع',
+                  en:'All',
+                  tu:'',
+              },
               sent_to_admin:{
                   ar:'تم الارسال للادراة',
                   en:'has been sent to admin',
@@ -824,8 +829,8 @@ export default {
                   en:'Seller',
               },
               visit_mkena:{
-                  ar:'زيارة مكينة',
-                  en:'Visit mkena',
+                  ar:'موقع مكينة للتجزئة',
+                  en:'mkena retail',
               },
               error_in_price:{
                   ar:'هناك خطأ في تحديد السعر حيث انك قمت بطلب كميه اقل من الحد المسموح له',

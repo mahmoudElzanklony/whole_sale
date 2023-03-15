@@ -302,7 +302,8 @@ registered vendors, this process may take few moments',
     'auto_publish'=>'Auto Publish',
 
     'users'=>'Users',
-    'users_statics'=>'Users Statistics',
+    'users_statics'=>'Users List',
+    'integer'=>'Integer number',
 
 
     'update_user'=>'Update user info',

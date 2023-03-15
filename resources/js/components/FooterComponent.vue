@@ -20,7 +20,7 @@
                                 </inertia-link>
                             </li>
                             <li>
-                                <inertia-link href="#">
+                                <inertia-link href="/home#contactus">
                                     {{ switchWord('contact_us') }}
                                 </inertia-link>
                             </li>
@@ -65,11 +65,6 @@
                             <a href="https://www.youtube.com/@mkenaautoparts6282" target="_blank">
                                 <span>
                                     <i class="ri-youtube-line"></i>
-                                </span>
-                            </a>
-                            <a href="https://api.whatsapp.com/send?phone=966541006608" target="_blank">
-                                <span>
-                                    <i class="ri-whatsapp-line"></i>
                                 </span>
                             </a>
                         </div>

@@ -18,7 +18,9 @@
                                 <label>{{ keywords.password }}</label>
                                 <input name="password" type="password" class="form-control" required>
                                 <p class="alert alert-danger"></p>
-                                <span class="required"><i class="ri-asterisk"></i></span>
+                                <span>
+                                    <i class="ri-eye-line show_password cursor-pointer"></i>
+                                </span>
                             </div>
                             <div class="form-group">
                                 <input type="submit" name="send"

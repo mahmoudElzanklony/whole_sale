@@ -30,7 +30,7 @@ HeadingRowFormatter::extend('custom', function($value, $key) {
 HeadingRowFormatter::default('custom');
 
 
-class AdminQuotationReplyCSV implements ToModel, WithHeadingRow
+class AdminQuotationReplyCSV implements ToModel, WithHeadingRow , WithValidation
 {
     use Importable;
 
@@ -123,6 +123,8 @@ class AdminQuotationReplyCSV implements ToModel, WithHeadingRow
             'offered_stock' => 'required',
             'min_quantity_per_transaction' => 'required',
             'max_quantity_per_transaction' => 'required',
+            's1_min' => 'required|integer',
+            's1_price' => 'required|integer',
         ];
     }
 
@@ -134,6 +136,10 @@ class AdminQuotationReplyCSV implements ToModel, WithHeadingRow
             'offered_stock.required' => trans('keywords.offered_stock').trans('keywords.required'),
             'min_quantity_per_transaction.required' => trans('keywords.min_quantity_per_transaction').trans('keywords.required'),
             'max_quantity_per_transaction.required' => trans('keywords.max_quantity_per_transaction').trans('keywords.required'),
+            's1_min.required' => trans('keywords.s1_min').trans('keywords.required'),
+            's1_min.numeric' => trans('keywords.s1_min').trans('keywords.integer'),
+            's1_price.required' => trans('keywords.s1_price').trans('keywords.required'),
+            's1_price.numeric' => trans('keywords.s1_price').trans('keywords.integer'),
         ];
     }
 

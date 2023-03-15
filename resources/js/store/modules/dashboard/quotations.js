@@ -204,13 +204,16 @@ export default {
             })
             $(target).find('input[type="submit"]').attr('disabled','disabled');
             axios.post('/quotations/upload-excel-admin',data).then((e)=>{
-                validation(e.data,target,'',true);
-                window.vm.$inertia.visit(document.URL);
+                validation(e.data,target,document.URL,true);
                 // check if there is no error
+                console.log(e.data.status);
+                if(e.data.status == 200){
+                    commit('update_index_data',e.data.data);
+                    $('#update_current_quotation').modal('hide');
+                }
                 $(target).find('input[type="submit"]').removeAttr('disabled');
-                commit('update_index_data',e.data.data);
-                $('#update_current_quotation').modal('hide');
-
+                target.reset();
+                $(target).find('input[type="file"]').next().html('');
             });
         },
 

@@ -80,7 +80,7 @@ class AuthServicesClass extends Controller
         if(auth()->attempt($request->validated())){
             $role_name = roles::query()->find(auth()->user()->role_id)->name;
             session()->put('type',$role_name);
-            if($role_name == 'admin' ){
+            if($role_name == 'admin' || $role_name == 'supervisor'){
                 $url = '/dashboard';
             }else if($role_name == 'buyer'){
                 $url = '/profile/quotations';

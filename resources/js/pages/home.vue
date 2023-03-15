@@ -166,12 +166,13 @@
 
 
         <!----------------------------start of support----------------------------------- -->
-        <section class="support_customer" data-aos="fade-down" data-aos-delay="500">
+        <section class="support_customer" id="contactus" data-aos="fade-down" data-aos-delay="500">
             <div class="layer">
                 <div class="container text-center">
                     <p>{{ keywords.customer_support }}</p>
-                    <a :href="'mailto:info@'+link" class="btn btn-primary">{{ keywords.send_message }}</a>
-                    <a href="tel:+201152296646" class="btn btn-outline-primary">{{ keywords.call_us_by_phone }}</a>
+                    <a :href="'mailto:wholesale@mkena.com'" class="btn btn-primary">{{ keywords.send_message }}</a>
+                    <a href="https://api.whatsapp.com/send?phone=966541006608" target="_blank"
+                       class="btn btn-outline-primary">{{ keywords.call_us_by_phone }}</a>
                 </div>
             </div>
         </section>
@@ -278,10 +279,6 @@ header{
                 height: 150px;
                 object-fit: contain;
                 transition: 1s all;
-
-                &:hover {
-                    transform: scale(2);
-                }
             }
         }
     }

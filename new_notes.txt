@@ -1,0 +1,48 @@
+last two images at home page replaced 
+
+اضاعه الجهد مكرره مرتين 
+
+زياره مكينه تغير الي موقع مكينة للتجزئة 
+وبالانجلش 
+mkena retail 
+
+لوجو الواتساب في اخر الصفحه يتم ازالته ويوضع ف اول الصفحه الشريط بللون الاخضر
+واتصل بنا هاتفيا يتم نقله الي الواتسب
+
+at /profile/quotations
+يمكنك تحميل هناك ميم زياده
+
+وادخال البيانات يدويا بدل من ادخل 
+
+المشرف ادويه ع طول بعد تسجيل الدخول الي لوحه الاداره
+
+في حاله انك مسجل دخول لو دخلت ع اللوجو يوديني ع طلبات التسعير
+
+طلبات التسعير تغير الي طلب تسعير جديد
+and english new quotation
+
+email at home page that send message changed to 
+wholesale@mkena.com
+
+contact us when clicked go to home page to section of contact
+
+in the future we delete restriction at email at register because 
+maybe one person have the diffenet accounts one for buyer and onther for seller with same email so when he login popup window appear to go as buyer or seller 
+
+حفظ تغير الي ارسال 
+
+في صفحه احدث الطلبات في الفلاتر اضافه واحده تسمي الجميع
+
+/profile/last-quotations 
+كلمه تحميل تغيير الي تنزيل
+
+when update user delete role of email 
+
+صفحه المستخدمين في الاداره العنوان يغير من احصائيات المستخدمين الي قائمه المستخدمين
+
+
+pop up window when appear prevent user to make any action until close this pop up
+
+remove animation from brands at home page
+
+eye at login 
