@@ -217,7 +217,7 @@ return [
     'serial'=>'الرقم',
     'bill_number'=>'رقم الفاتورة',
 
-    'part_no'=>'الرقم  التسلسلي القطعة',
+    'part_no'=>'رقم القطعة',
     'brand'=>'الماركة',
     'quantity'=>'الكمية',
     'wholesale-is-trying-to-get-the-best-deal-for-you-from-the-registered-vendors-this-process-may-take-few-moments'=>'يحاول مكينة جمله الحصول على أفضل صفقة لك من
@@ -268,7 +268,7 @@ return [
     'create_product_using_for_or_file'=>'انشاء قطعة جديدة عن طريق ادخال البيانات في فورم او رفع ملف',
     'create_product'=>'انشاء قطعة جديدة',
     'update_product'=>'تعديل بيانات',
-    'id'=>'الرقم التسلسلي',
+    'id'=>'رقم',
     'part_number'=>'رقم القطعة',
     'supplied_part_number'=>'رقم القطعه البديل الخاص بالبائع',
     'ar_part_name'=>'اسم القطعة بالعربي',

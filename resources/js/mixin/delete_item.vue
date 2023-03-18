@@ -6,6 +6,7 @@
 export default {
     name: "delete_item",
     methods:{
+
         delete_item:function (table,id, selector = '' ,closeall = false , url = false){
             if(window.vm.$inertia.page.props.lang == 'ar'){
                 var msg = 'هل أنت متأكد من عملية المسح';
@@ -55,7 +56,51 @@ export default {
 
                 }
             })
-        }
+        },
+        cancel_request:function (table,id, selector = '' ,closeall = false , url = false){
+            if(window.vm.$inertia.page.props.lang == 'ar'){
+                var msg = 'هل أنت متأكد من عملية الغاء الطلب';
+                var confirm = 'نعم أنا متأكد';
+                var cancel = 'إلغاء';
+            }else{
+                var msg = 'are you sure from cancel request';
+                var confirm = 'yes';
+                var cancel = 'cancel';
+
+            }
+            Swal.fire({
+                title: msg,
+                icon: 'info',
+                showCancelButton: true,
+                confirmButtonColor: '#035397',
+                cancelButtonColor: '#aaa',
+                confirmButtonText: confirm,
+                cancelButtonText:cancel,
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    axios.post('/quotations/cancel-request',{
+                        table:table,
+                        id:id,
+                    }).then((e)=>{
+                        /*if(table == 'listings_infos'){
+                            $(target).parent().parent().parent().parent().remove();
+                        }else {
+                            $(target).parent().parent().remove();
+                        }*/
+                        Toast.fire({
+                            icon:'success',
+                            title:e.data.message[0]
+                        });
+                        if(closeall == true){
+                            $('.modal').modal('hide')
+                        }
+                        window.vm.$inertia.visit(document.URL)
+
+                    });
+
+                }
+            })
+        },
     }
 }
 </script>

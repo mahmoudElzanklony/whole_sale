@@ -11,6 +11,7 @@ return [
     'added_to_fav_successfully'=>'adding to favourite has done successfully',
     'saved_new_user'=>'Saved new user successfully',
     'email_sent_successfully'=>'Your message has been  sent to your mail successfully',
+    'cancelled_successfully'=>'Request has been cancelled successfully',
 
 
 ];

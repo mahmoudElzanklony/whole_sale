@@ -32,6 +32,10 @@
                             <span>{{ keywords.order_confirmed }}</span>
                         </p>
                         <p>
+                            <input type="radio" name="is_completed" :value="switchWord('cancel_request')">
+                            <span>{{ switchWord('cancel_request') }}</span>
+                        </p>
+                        <p>
                             <input type="radio" name="is_completed" :value="switchWord('order_confirmed')">
                             <span>{{ switchWord('order_confirmed') }}</span>
                         </p>
@@ -769,6 +773,7 @@ export default {
                 "render":function(data,type,row){
                     return  row['is_completed'] == 0 ? component.switchWord('sent_to_admin')
                         :row['is_completed'] == 1 ? component.keywords.reply_from_admin
+                            :row['is_completed'] == -1 ? component.switchWord('cancel_done')
                             :row['is_completed'] == 11 ? component.switchWord('vendors_reply')
                             :row['is_completed'] == 2 ? '<button el_id="'+row['id']+'" class="confirm btn btn-outline-primary">'+component.keywords.click_here_to_finish_request+'</button>' : component.switchWord('order_confirmed');
                 }
@@ -795,7 +800,12 @@ export default {
                             output+= '<span class="print"  title="'+component.switchWord('print_bill')+'"  el_id="'+row['id']+'"><i class="ri-printer-line"></i></span>'
                         }
                         // <i class="ri-share-forward-line"></i>
-                    output+= '<span class="share"  title="'+component.switchWord('share')+'"  el_id="'+row['id']+'"><i class="ri-share-forward-line"></i></span>'
+                    output+= '<span class="share"  title="'+component.switchWord('share')+'"  el_id="'+row['id']+'"><i class="ri-share-forward-line"></i></span>';
+                        // cancel request
+                    if(!(row['is_completed'] == 3 || row['is_completed'] == -1)){
+                        output += '<span class="delete cancel_request" style="color:darkred;" title="'+component.switchWord('cancel_request')+'"  el_id="'+row['id']+'"><i class="ri-delete-back-line"></i></span>';
+                    }
+
                         output += '<span class="delete" title="'+component.switchWord('delete_item')+'"  el_id="'+row['id']+'"><i class="ri-close-line"></i></span>';
                         return output;
                     }
@@ -863,6 +873,11 @@ export default {
             var item = component.get_obj_wanted($(this).attr('el_id'));
             await component.update_item(item);
             $('#upload_excel').modal('show');
+        });
+        // cancel request
+        $('.content').on('click','.data table tbody tr td:last-of-type span.cancel_request',async function (){
+            var item = component.get_obj_wanted($(this).attr('el_id'));
+            await component.cancel_request('quotation_orders',$(this).attr('el_id'),$(this).parent().parent());
         });
         // delete
         $('.content').on('click','.data table tbody tr td:last-of-type span:last-of-type',async function (){

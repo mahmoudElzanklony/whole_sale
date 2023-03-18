@@ -3,7 +3,11 @@
         <navbar-component></navbar-component>
         <div class="inner-profile">
             <profile-nav-component></profile-nav-component>
-            <div class="sales">
+            <p v-if="$page.props.user.approved == 0" class="alert alert-danger d-block activation">
+                <span>{{ switchWord('active_email') }}</span>
+                <strong @click="send_activation">{{ switchWord('send_verfication') }}</strong>
+            </p>
+            <div v-else class="sales">
                 <div class="container">
                     <h2 class="text-center main-title" v-if="$page.props.user.role.name != 'seller'">
                         <span>{{ keywords.main_title }}</span>
@@ -768,6 +772,9 @@ export default {
             'send_agreement_to_admin':'quotations_dash/send_agreement_to_admin',
             'get_info_to_print_bill':'quotations_dash/get_info_to_print_bill',
             'get_receipt_action':'quotations_dash/get_receipt_action',
+            // activate email
+            'send_activation':'users_dash/send_activation',
+
         }),
         change_file:function (){
             event.target.nextElementSibling.innerHTML = event.target.files[0].name;

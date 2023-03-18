@@ -41,6 +41,14 @@ class QuoationsInfoController extends Controller
         return messages::success_output('',$data);
     }
 
+    public function cancel_request(){
+        quotation_orders::query()->find(request('id'))->update([
+            'is_completed'=>-1
+        ]);
+        return messages::success_output([trans('messages.cancelled_successfully')]);
+
+    }
+
     public function save_quotation_at_draft(QuotationFormRequest $request){
         $quotation = quotations::query()->find(request('quotation_id'));
         $validated = $request->validated();

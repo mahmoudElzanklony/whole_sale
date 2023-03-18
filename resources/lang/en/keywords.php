@@ -107,7 +107,7 @@ return [
     'upload_file'=>'Upload file',
     'serial'=>'Serial',
     'bill_number'=>'Bill Number',
-    'part_no'=>'Part serial number',
+    'part_no'=>'Part number',
     'brand'=>'Brand',
     'select_brand'=>'Select brand',
     'quantity'=>'Quantity',

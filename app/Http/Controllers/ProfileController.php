@@ -48,6 +48,7 @@ class ProfileController extends ProfileServiceClass
         $brands = brands::selection()->get();
         return Inertia::render('profile/qutoation_request',[
             'keywords'=>ProfileQutationsKeywords::get_keywords(),
+            'brands'=>brands::selection()->get(),
             'quotations'=>quotation_orders::query()
                 ->where('user_id','=',auth()->id())->get(),
         ]);

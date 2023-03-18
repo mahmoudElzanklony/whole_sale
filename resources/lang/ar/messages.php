@@ -11,4 +11,5 @@ return [
   'added_to_fav_successfully'=>'تمت الاضافة الي المفضلة بنجاح',
   'saved_new_user'=>'تمت تسجيل بياناتك بنجاح',
   'email_sent_successfully'=>'تم ارسال رساله الي البريدالالكتروني  بنجاح',
+  'cancelled_successfully'=>'تم الغاء الطلب بنجاح',
 ];

@@ -31,6 +31,9 @@ class server_data
                                 if (str_contains( 'تم الارسال للادراة',$value) == true || str_contains( 'has been sent to admin',$value) == true) {
                                     $e->orWhere($key, '=', 0);
                                 }
+                                if (str_contains( 'الغاء الطلب',$value) == true || str_contains( 'Cancel request',$value) == true) {
+                                    $e->orWhere($key, '=', -1);
+                                }
                                 if (str_contains( 'تم الرد من الأدارة',$value) == true || str_contains( 'admin reply',$value) == true) {
                                     $e->orWhere($key, '=', 1);
                                 }

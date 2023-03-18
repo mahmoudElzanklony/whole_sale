@@ -457,6 +457,16 @@ export default {
                  en:'delete',
                  tu:'',
               },
+              cancel_request:{
+                 ar:'الغاء الطلب',
+                 en:'Cancel request',
+                 tu:'',
+              },
+              cancel_done:{
+                  ar:'تم الغاء الطلب',
+                  en:'Cancel request has been done',
+                  tu:'',
+              },
               upload_image:{
                   ar:'أرفع صورة',
                   en:'upload image',

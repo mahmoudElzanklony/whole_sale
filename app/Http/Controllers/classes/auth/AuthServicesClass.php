@@ -85,7 +85,7 @@ class AuthServicesClass extends Controller
             }else if($role_name == 'buyer'){
                 $url = '/profile/quotations';
             }else{
-                $url = '/profile/edit';
+                $url = '/profile/pricing';
             }
             return messages::success_output(['message'=>'','user'=>auth()->user()]
                 ,'', $url);

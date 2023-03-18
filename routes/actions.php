@@ -79,6 +79,7 @@ Route::group(['middleware'=>'changeLang'],function (){
         Route::post('/send-file-money-to-admin',[QuoationsInfoController::class,'send_file_money_to_admin']);
         Route::post('/get-vendors-per-request',[QuoationsInfoController::class,'get_vendors_per_request']);
         Route::post('/add-vendors-per-request',[QuoationsInfoController::class,'add_vendors_per_request']);
+        Route::post('/cancel-request',[QuoationsInfoController::class,'cancel_request']);
         // statistics
         Route::post('/search-statics',[QuoationsInfoController::class,'search_statistics']);
     });
