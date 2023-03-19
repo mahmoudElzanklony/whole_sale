@@ -855,9 +855,24 @@ export default {
                   en:'There is an error in the quantity you ordered as it is less than the minimum allowed for the following part numbers ',
               },
               initial_bill:{
-                  ar:'فاتورة مبندئية',
+                  ar:'فاتورة مبدئية',
                   en:'proforma invoice',
-              }
+              },
+              tax_bill:{
+                  ar:'فاتورة ضريبية',
+                  en:'Tax invoice',
+              },
+              client_name:{
+                  ar:'اسم العميل',
+                  en:'Client name',
+                  tu:''
+              },
+              phone_number:{
+                  ar:'رقم الهاتف',
+                  en:'Phone number',
+                  tu:''
+              },
+
 
 
 

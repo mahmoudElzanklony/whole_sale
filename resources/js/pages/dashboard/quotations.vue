@@ -16,6 +16,10 @@
                 <div class="m-auto mb-3 filters last-quotations-filter">
                     <form>
                         <p>
+                            <input type="radio" name="is_completed" :value="switchWord('all')">
+                            <span>{{ switchWord('all') }}</span>
+                        </p>
+                        <p>
                             <input type="radio" name="is_completed" :value="switchWord('sent_to_admin')">
                             <span>{{ switchWord('sent_to_admin') }}</span>
                         </p>
@@ -484,7 +488,7 @@
                     <div class="modal-body">
                         <div class="receipt">
                             <div class="d-flex align-items-center justify-content-between mb-5">
-                                <div>
+                                <div v-if="item != null">
                                     <img class="d-block m-auto" style="width: 150px;" src="/images/logo.png">
                                     <p class="mt-3 font-weight-bold">{{ keywords.invoice_number }}
                                         #W

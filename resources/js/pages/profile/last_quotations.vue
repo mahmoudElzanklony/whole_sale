@@ -42,6 +42,10 @@
                                     <input type="radio" name="is_completed" :value="switchWord('order_confirmed')">
                                     <span>{{ switchWord('order_confirmed') }}</span>
                                 </p>
+                                <p>
+                                    <input type="radio" name="is_completed" :value="switchWord('cancel_request')">
+                                    <span>{{ switchWord('cancel_request') }}</span>
+                                </p>
                             </div>
                             <div class="d-flex align-items-center justify-content-between">
                                 <div class="mr-2 ml-2">
@@ -133,7 +137,7 @@
                                         i['last_draft']['part_number'] }}</td>
                                     <td>{{ i['last_draft'] == null ? i['quantity']:i['last_draft']['quantity'] }}</td>
                                     <td class="actions"
-                                        v-if="$page.props.user.role.name != 'seller' && item['is_completed'] == 1">
+                                        v-if="$page.props.user.role.name != 'seller' && item != null && item['is_completed'] == 1">
                                         <span
                                             @click="update_current_quotation_open_box(i)">
                                             <i class="ri-edit-line"></i>
@@ -275,11 +279,11 @@
                                     <td>{{ keywords.seq }}</td>
                                     <td>{{ keywords.part_no }}</td>
                                     <td>{{ keywords.brand }}</td>
+                                    <td>{{ keywords.quantity }}</td>
                                     <td>{{ keywords.offered_stock }}</td>
                                     <td>{{ keywords.min_quantity_per_transaction }}</td>
                                     <td>{{ keywords.max_quantity_per_transaction }}</td>
-                                    <td>{{ keywords.unit_price }}</td>
-                                    <td>{{ keywords.estimated_required_days_for_delivery }}</td>
+                                    <td v-if="false">{{ keywords.unit_price }}</td>
                                     <td>{{ keywords.actions }}</td>
                                 </tr>
                                 </thead>
@@ -292,11 +296,11 @@
                                     <td>{{ index + 1 }}</td>
                                     <td>{{ i['part_number'] }}</td>
                                     <td>{{ i['brand'] != null ? i['brand']['name']:i['brand_id'] }}</td>
+                                    <td v-if="get_my_quotation.length > 0">{{ get_quantity_data(i) }}</td>
                                     <td>{{ i['offered_stock'] }}</td>
                                     <td>{{ i['min_quantity_per_transaction'] }}</td>
                                     <td>{{ i['max_quantity_per_transaction'] }}</td>
-                                    <td>{{ i['prices'][0]['price'] }}</td>
-                                    <td>3</td>
+                                    <td v-if="false">{{ i['prices'][0]['price'] }}</td>
                                     <td v-if="i['prices'].length >= 1">
                                         <button class="btn btn-outline-primary"
                                         @click="current_admin_quotation = i"
@@ -379,8 +383,11 @@
             <div class="modal-dialog" role="document">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h5 class="modal-title" id="update_box_data">
-                            {{ switchWord('print_bill') }}
+                        <h5 class="modal-title"
+                            id="update_box_data">
+                            <span v-if="item['is_completed'] == 3">{{ switchWord('tax_bill') }}</span>
+                            <span v-else>{{ switchWord('initial_bill') }}</span>
+
                         </h5>
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                             <span aria-hidden="true">&times;</span>
@@ -396,6 +403,14 @@
                                     </p>
                                     <p>
                                         <span class="font-weight-bold">{{ switchWord('tax_number') }}</span> : <span class="font-weight-bold">310188508400003</span>
+                                    </p>
+                                    <p>
+                                        <span class="font-weight-bold">{{ switchWord('client_name') }}</span>:
+                                        <span>{{ $page.props.user.username }}</span>
+                                    </p>
+                                    <p v-if="$page.props.user.phone.length > 0">
+                                        <span class="font-weight-bold">{{ switchWord('phone_number') }}</span>:
+                                        <span>{{ $page.props.user.phone }}</span>
                                     </p>
                                 </div>
                                 <div>
@@ -534,7 +549,7 @@
                         </button>
                     </div>
                     <div class="modal-body" v-if="item != null">
-                        <p v-if="item.is_completed == 1"
+                        <p v-if="item != null && item.is_completed == 1"
                            class="alert alert-warning">{{ keywords.on_agree_request_condition }}</p>
                         <p v-else class="alert alert-warning">{{  keywords.you_can_change_receipt }}</p>
                         <img v-if="get_receipt.hasOwnProperty('image') && get_receipt['image'].indexOf('pdf') == -1"
@@ -619,6 +634,7 @@ export default {
                 "render":function(data,type,row){
                     return  row['is_completed'] == 0  ? component.switchWord('sent_to_admin')
                         :row['is_completed'] == 11 ? component.switchWord('in_progress')
+                        :row['is_completed'] == -1 ? component.switchWord('cancel_done')
                         :row['is_completed'] == 1 ? component.keywords.wait_client_to_confirm
                             :row['is_completed'] == 2 ? component.keywords.order_confirmed : component.keywords.complete_request_successfully;
                 }
@@ -776,6 +792,16 @@ export default {
             'send_activation':'users_dash/send_activation',
 
         }),
+        get_quantity_data(i){
+            var data =  this.get_my_quotation.find((q)=>{return q['part_number'] == i['part_number']});
+            console.log(data);
+            console.log(i);
+            if(data['last_draft'] != null){
+                return data['last_draft']['quantity'];
+            }else{
+                return data['quantity'];
+            }
+        },
         change_file:function (){
             event.target.nextElementSibling.innerHTML = event.target.files[0].name;
         },
@@ -792,7 +818,7 @@ export default {
             if(d == undefined){
                 return this.switchWord('error_in_price')
             }else{
-                return d['price']
+                return Number(d['price']).toFixed(2)
             }
         },
         pass_data_to_export:function (){
@@ -836,7 +862,7 @@ export default {
             for(let price of $('#print_box table tr:not(:first-of-type,:last-of-type,.tax_row) td:last-of-type')){
                 total += Number($(price).html());
             }
-            $('#print_box table tr.tax td:last-of-type').html(total * this.item.tax / 100);
+            Number($('#print_box table tr.tax td:last-of-type').html(total * this.item.tax / 100)).toFixed(2);
             total += (total * this.item.tax / 100 );
             $('#print_box table tr:last-of-type td:last-of-type').html(total);
 

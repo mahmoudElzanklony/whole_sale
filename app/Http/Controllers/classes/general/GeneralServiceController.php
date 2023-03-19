@@ -4,8 +4,11 @@ namespace App\Http\Controllers\classes\general;
 
 use App\Http\Controllers\Controller;
 use App\Http\traits\messages;
+use App\Models\items_info;
 use App\Models\listings_info;
+use App\Models\quotation_orders;
 use App\Models\quotations_draft;
+use App\Models\User;
 use App\Services\notifications\pagiante_notifications;
 use App\Services\gerneral_pagination\server_data;
 use Carbon\Carbon;
@@ -23,6 +26,21 @@ class GeneralServiceController extends Controller
             $l->type = 'deleted_at';
             $l->save();
             listings_info::query()->find($id)->delete();
+        }else if($table == 'users'){
+            $items = items_info::query()
+                ->where('user_id','=',$id)->orderBy('id','DESC')->count();
+
+            $orders = quotation_orders::query()
+                ->where('user_id','=',$id)->orderBy('id','DESC')->count();
+
+            if($items > 0 || $orders > 0){
+                return messages::success_output([trans('messages.cant_delete_user')],'info');
+            }else{
+                DB::table($table)->delete($id);
+                return messages::success_output([trans('messages.deleted_successfully')]);
+            }
+
+
         }else if($table == 'quotations-draft-user'){
             $quotation_draft = quotations_draft::query()
                 ->where('quotation_id','=',$id)->orderBy('id','DESC')->first();

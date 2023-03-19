@@ -37,8 +37,44 @@ class items_info_export implements FromCollection ,WithHeadings,WithMapping,With
 
     public function registerEvents(): array
     {
+
         return [
             AfterSheet::class    => function(AfterSheet $event) {
+
+                $style = [
+                    //Set border Style
+                    'borders' => [
+                        'outline' => [
+                            'borderStyle' => \PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THICK,
+                            'color' => ['argb' => 'EB2B02'],
+                            'width'=>'1px'
+                        ],
+
+                    ],
+
+                    //Set font style
+                    'font' => [
+                        'bold'      =>  true,
+                        'color' => ['argb' => 'EB2B02'],
+                    ],
+
+                    //Set background style
+                    'fill' => [
+                        'fillType' => \PhpOffice\PhpSpreadsheet\Style\Fill::FILL_SOLID,
+                        'startColor' => [
+                            'rgb' => 'dff0d8',
+                        ]
+                    ],
+
+                ];
+                $cells = ['B1','D1','E1','G1','H1','I1','J1','P1','Q1'];
+                for($i = 0; $i < sizeof($cells); $i++){
+                    $event->sheet->styleCells(
+                        $cells[$i],
+                        $style
+                    );
+                }
+
 
                 $event->sheet->getDelegate()->getColumnDimension('A')->setWidth(15);
                 $event->sheet->getDelegate()->getColumnDimension('B')->setWidth(15);
@@ -54,8 +90,8 @@ class items_info_export implements FromCollection ,WithHeadings,WithMapping,With
                 $event->sheet->getDelegate()->getColumnDimension('L')->setWidth(20);
                 $event->sheet->getDelegate()->getColumnDimension('M')->setWidth(20);
                 $event->sheet->getDelegate()->getColumnDimension('N')->setWidth(20);
-                $event->sheet->getDelegate()->getColumnDimension('O')->setWidth(13);
-                $event->sheet->getDelegate()->getColumnDimension('P')->setWidth(13);
+                $event->sheet->getDelegate()->getColumnDimension('O')->setWidth(23);
+                $event->sheet->getDelegate()->getColumnDimension('P')->setWidth(23);
                 $event->sheet->getDelegate()->getColumnDimension('Q')->setWidth(23);
                 $event->sheet->getDelegate()->getColumnDimension('R')->setWidth(23);
                 $event->sheet->getDelegate()->getColumnDimension('S')->setWidth(23);
@@ -75,7 +111,6 @@ class items_info_export implements FromCollection ,WithHeadings,WithMapping,With
             trans("keywords.supplied_part_number"),
             trans("keywords.brand"),trans("keywords.quantity"),
             trans("keywords.ar_part_name"),trans("keywords.en_part_name"),
-            trans("keywords.ar_part_description"),trans("keywords.en_part_description"),
             trans("keywords.offered_stock"),trans("keywords.min_quantity_per_transaction"),
             trans("keywords.max_quantity_per_transaction"),
             trans("keywords.unit_of_packing"),trans("keywords.quantity_per_pallet"),
@@ -100,6 +135,7 @@ class items_info_export implements FromCollection ,WithHeadings,WithMapping,With
         $output = [];
         $prices_output = [];
         $final_output = [];
+        $counter = 1;
         if(sizeof($row->quotations) > 0){
             foreach ($row->quotations as $quotation){
                 if($row->is_completed == 0){
@@ -124,7 +160,7 @@ class items_info_export implements FromCollection ,WithHeadings,WithMapping,With
                         }
                     }
                     array_push($output,[
-                        $row->id,
+                        $counter++,
                         //   $status,
                         $quotation->part_number,
                         items_infos_supplied_part_number::query()->where('item_id',$item->id)->first()->part_number??'',
@@ -132,8 +168,6 @@ class items_info_export implements FromCollection ,WithHeadings,WithMapping,With
                         $quotation->quantity,
                         $item->ar_part_name,
                         $item->en_part_name,
-                        $item->ar_part_description,
-                        $item->en_part_description,
                         $item->offered_stock,
                         $item->min_quantity_per_transaction,
                         $item->max_quantity_per_transaction,
@@ -151,7 +185,7 @@ class items_info_export implements FromCollection ,WithHeadings,WithMapping,With
                         return $e->part_number == $quotation->part_number;
                     })->first();
                     array_push($output,[
-                        $row->id,
+                        $counter++,
                         //   $status,
                         $quotation->part_number,
                         $item != null ? (items_infos_supplied_part_number::query()->where('item_id',$item->id)->first()->part_number??''):'',
@@ -160,8 +194,8 @@ class items_info_export implements FromCollection ,WithHeadings,WithMapping,With
                     ]);
                     $final_output[] = $output[0];
                 }
-                array_pop($output);
 
+                array_pop($output);
             }
         }
         return $final_output;

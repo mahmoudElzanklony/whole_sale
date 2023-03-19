@@ -120,6 +120,7 @@ class AdminQuotationReplyCSV implements ToModel, WithHeadingRow , WithValidation
         return [
             'brand' => 'required',
             'part_number' => 'required',
+            'en_part_name' => 'required',
             'offered_stock' => 'required',
             'min_quantity_per_transaction' => 'required',
             'max_quantity_per_transaction' => 'required',
@@ -132,6 +133,7 @@ class AdminQuotationReplyCSV implements ToModel, WithHeadingRow , WithValidation
     {
         return [
             'brand.required' => trans('keywords.brand').trans('keywords.required'),
+            'en_part_name.required' => trans('keywords.en_part_name').trans('keywords.required'),
             'part_number.required' => trans('keywords.part_no').trans('keywords.required'),
             'offered_stock.required' => trans('keywords.offered_stock').trans('keywords.required'),
             'min_quantity_per_transaction.required' => trans('keywords.min_quantity_per_transaction').trans('keywords.required'),

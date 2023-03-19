@@ -37,20 +37,29 @@ export default {
                         }else {
                             $(target).parent().parent().remove();
                         }*/
-                        Toast.fire({
-                            icon:'success',
-                            title:e.data.message[0]
-                        });
+                        if(e.data.data == 'info'){
+                            Toast.fire({
+                                icon:'info',
+                                title:e.data.message[0]
+                            });
+                        }else{
+                            Toast.fire({
+                                icon:'success',
+                                title:e.data.message[0]
+                            });
+                            if(url != false){
+                                window.vm.$inertia.visit(url)
+                            }
+                            if(selector != ''){
+                                console.log($(selector));
+                                $(selector).remove();
+                            }
+                        }
+
                         if(closeall == true){
                             $('.modal').modal('hide')
                         }
-                        if(url != false){
-                            window.vm.$inertia.visit(url)
-                        }
-                        if(selector != ''){
-                            console.log($(selector));
-                            $(selector).remove();
-                        }
+
 
                     });
 

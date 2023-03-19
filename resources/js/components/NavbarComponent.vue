@@ -28,11 +28,7 @@
                             {{ switchWord('dashboard') }}
                         </inertia-link>
                     </li>
-                    <li class="nav-item d-flex align-items-center">
-                        <a :href="'mailto:mailto:wholesale@mkena.com'" class="nav-link">
-                            <span>{{ switchWord('Help') }}?</span>
-                        </a>
-                    </li>
+
                     <li class="nav-item">
                         <a v-if="$page.props.lang == 'en'" class="font-weight-bold d-inline-flex align-items-center" href="/lang/ar">
                             <i class="ri-global-line"></i>
@@ -41,13 +37,6 @@
                         <a  v-else class="font-weight-bold d-inline-flex align-items-center" href="/lang/en">
                             <i class="ri-global-line"></i>
                             {{ switchWord('English_Language') }}
-                        </a>
-                    </li>
-                    <li class="nav-item mrl-1">
-                        <a href="https://api.whatsapp.com/send?phone=966541006608" target="_blank">
-                                <span style="color:green">
-                                    <i class="ri-whatsapp-line"></i>
-                                </span>
                         </a>
                     </li>
                     <li class="nav-item dropdown">
@@ -161,6 +150,17 @@
                                 </div>
                                 <!--                            <div class="dropdown-divider"></div>-->
                             </div>
+                        </a>
+                    </li>
+                    <li class="nav-item d-flex align-items-center mrl-1">
+                        <span>{{ switchWord('Help') }}?</span>
+                        <a :href="'mailto:mailto:wholesale@mkena.com'" class="nav-link">
+                            <span><i class="ri ri-mail-line"></i></span>
+                        </a>
+                        <a href="https://api.whatsapp.com/send?phone=966541006608" target="_blank">
+                                <span style="color:green">
+                                    <i class="ri-whatsapp-line"></i>
+                                </span>
                         </a>
                     </li>
                 </ul>

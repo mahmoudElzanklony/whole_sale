@@ -12,6 +12,8 @@ return [
     'saved_new_user'=>'Saved new user successfully',
     'email_sent_successfully'=>'Your message has been  sent to your mail successfully',
     'cancelled_successfully'=>'Request has been cancelled successfully',
+    'cant_delete_user'=>'This user has history of transactions so we cant delete this user',
+
 
 
 ];

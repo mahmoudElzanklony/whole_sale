@@ -170,9 +170,19 @@
             <div class="layer">
                 <div class="container text-center">
                     <p>{{ keywords.customer_support }}</p>
-                    <a :href="'mailto:wholesale@mkena.com'" class="btn btn-primary">{{ keywords.send_message }}</a>
+                    <a :href="'mailto:wholesale@mkena.com'" class="btn btn-primary d-flex align-items-center">
+                        <span style="color:white">
+                                    <i class="ri-mail-line"></i>
+                                </span>
+                        <span>{{ keywords.send_message }}</span>
+                    </a>
                     <a href="https://api.whatsapp.com/send?phone=966541006608" target="_blank"
-                       class="btn btn-outline-primary">{{ keywords.call_us_by_phone }}</a>
+                       class="btn btn-outline-primary d-flex align-items-center">
+                        <span style="color:white">
+                                    <i class="ri-whatsapp-line"></i>
+                                </span>
+                        <span>{{ keywords.call_us_by_phone }}</span>
+                    </a>
                 </div>
             </div>
         </section>
