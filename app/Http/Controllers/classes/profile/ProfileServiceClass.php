@@ -143,7 +143,7 @@ class ProfileServiceClass extends Controller
         $email = get_first_admin::get_admin()->email;
         if(session()->get('lang') == 'ar') {
             send_email::send('طلب تسعير جديد',
-                'تم ارسال طلب تسعيرات جديد من عميل رقم '.auth()->id().' ورقم الطلب هو  '.$$qutation_bill->id,
+                'تم ارسال طلب تسعيرات جديد من عميل رقم '.auth()->id().' ورقم الطلب هو  '.$qutation_bill->id,
                 request()->root() .'/dashboard/pricing-requests',
                 'Press here', $email
             );
