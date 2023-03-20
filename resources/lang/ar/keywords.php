@@ -216,7 +216,7 @@ return [
     'upload_file'=>'تحميل الملف',
     'serial'=>'الرقم',
     'bill_number'=>'رقم الفاتورة',
-
+    'part_number'=>'رقم القطعة',
     'part_no'=>'رقم القطعة',
     'brand'=>'الماركة',
     'quantity'=>'الكمية',
