@@ -38,7 +38,7 @@ class server_data
                                     $e->orWhere($key, '=', 1);
                                 }
                                 if (str_contains( 'تم الارسال للموردين',$value) == true || str_contains( 'sent to vendors',$value) == true) {
-                                    $e->orWhere($key, '=', 0)->whereHas('items',function($q){
+                                    $e->orWhere($key, '=', 0)->whereDoesntHave('items',function($q){
                                         $q->whereHas('user',function($u){
                                            $u->whereHas('role',function($r){
                                                $r->where('name','=','seller');
