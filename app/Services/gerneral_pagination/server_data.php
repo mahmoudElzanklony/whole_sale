@@ -37,6 +37,15 @@ class server_data
                                 if (str_contains( 'تم الرد من الأدارة',$value) == true || str_contains( 'admin reply',$value) == true) {
                                     $e->orWhere($key, '=', 1);
                                 }
+                                if (str_contains( 'تم الارسال للموردين',$value) == true || str_contains( 'sent to vendors',$value) == true) {
+                                    $e->orWhere($key, '=', 0)->whereHas('items',function($q){
+                                        $q->whereHas('user',function($u){
+                                           $u->whereHas('role',function($r){
+                                               $r->where('name','=','seller');
+                                           }) ;
+                                        });
+                                    });
+                                }
                                 if (str_contains('تم الرد من الموردين',$value) == true || str_contains( 'vendors reply',$value) == true) {
                                     $e->orWhere($key, '=', 11);
                                 }

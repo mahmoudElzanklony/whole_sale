@@ -111,9 +111,8 @@
                             <table class="myTable box-model-table table text-center table-bordered table-striped table-hover">
                                 <thead>
                                 <tr>
-                                    <td></td>
-                                    <td>{{ keywords.brand }}</td>
                                     <td>{{ keywords.part_no }}</td>
+                                    <td>{{ keywords.brand }}</td>
                                     <td>{{ keywords.quantity }}</td>
                                     <td v-if="$page.props.user.role.name != 'seller'">{{ keywords.actions }}</td>
                                 </tr>
@@ -122,9 +121,8 @@
                                 <tr v-for="(i,index) in get_my_quotation"
                                     :key="index" :class="'row_child_'+index"
                                     v-if="i['last_draft'] == null || i['last_draft']['deleted_at'] == null">
-                                    <td>
-                                        <input type="checkbox" @click="detect_row_to_export">
-                                    </td>
+                                    <td>{{ i['last_draft'] == null ? i['part_number']:
+                                        i['last_draft']['part_number'] }}</td>
                                     <td>{{
                                             i['last_draft'] == null ?
                                         (i['brand'] !=null ? i['brand']['name']:i['brand_id']):
@@ -133,8 +131,7 @@
                                             i['last_draft']['brand']['name']:i['last_draft']['brand_id'])
                                         }}
                                     </td>
-                                    <td>{{ i['last_draft'] == null ? i['part_number']:
-                                        i['last_draft']['part_number'] }}</td>
+
                                     <td>{{ i['last_draft'] == null ? i['quantity']:i['last_draft']['quantity'] }}</td>
                                     <td class="actions"
                                         v-if="$page.props.user.role.name != 'seller' && item != null && item['is_completed'] == 1">
@@ -275,11 +272,11 @@
                             <table class="table text-center table-bordered table-striped table-hover">
                                 <thead>
                                 <tr>
-                                    <td></td>
                                     <td>{{ keywords.seq }}</td>
                                     <td>{{ keywords.part_no }}</td>
                                     <td>{{ keywords.brand }}</td>
                                     <td>{{ keywords.quantity }}</td>
+                                    <td>{{ keywords.en_part_name }}</td>
                                     <td>{{ keywords.offered_stock }}</td>
                                     <td>{{ keywords.min_quantity_per_transaction }}</td>
                                     <td>{{ keywords.max_quantity_per_transaction }}</td>
@@ -290,13 +287,11 @@
                                 <tbody>
                                 <tr v-for="(i,index) in admin_quotation"
                                     :key="index" :class="'row_child_'+index">
-                                    <td>
-                                        <input type="checkbox" @click="detect_row_to_export">
-                                    </td>
                                     <td>{{ index + 1 }}</td>
                                     <td>{{ i['part_number'] }}</td>
                                     <td>{{ i['brand'] != null ? i['brand']['name']:i['brand_id'] }}</td>
                                     <td v-if="get_my_quotation.length > 0">{{ get_quantity_data(i) }}</td>
+                                    <td>{{ i['en_part_name'] }}</td>
                                     <td>{{ i['offered_stock'] }}</td>
                                     <td>{{ i['min_quantity_per_transaction'] }}</td>
                                     <td>{{ i['max_quantity_per_transaction'] }}</td>
@@ -568,7 +563,7 @@
                         <form  @submit.prevent="send_agreement_to_admin(item)">
                             <div class="form-group">
                                 <label>{{ keywords.receipt_image }}</label>
-                                <input type="file" class="form-control" name="receipt">
+                                <input type="file" class="form-control" name="receipt" accept="image/*">
                             </div>
                             <div class="form-group">
                                 <input type="submit" class="btn btn-primary" :value="switchWord('send')">
@@ -706,11 +701,17 @@ export default {
         });
         // agree request
         $('.content').on('click','.data table tbody tr td.actions button.agree_request,.data table tbody tr td.actions .receipt',async function (){
+            console.log('agree...............');
+            Toast.fire({
+                title:component.switchWord('please_wait_seconds'),
+                icon:'info'
+            });
             var item = component.get_obj_wanted($(this).attr('el_id'));
             //await component.send_agreement_to_admin(item);
             await component.update_item(item);
             await component.get_data_admin_of_quotation($(this).attr('el_id'));
             await component.get_data_of_quotation($(this).attr('el_id'));
+
             // this error for if you take quantity min than  admin give you
             var error = 0,
                 part_numbers = [];
@@ -737,6 +738,10 @@ export default {
                     clearInterval(interval);
                 }
             },1000);
+            await Toast.fire({
+                title:component.switchWord('please_wait_seconds'),
+                icon:'info'
+            }).close();
 
 
             /*for(let quot of component.get_my_quotation){
@@ -796,10 +801,14 @@ export default {
             var data =  this.get_my_quotation.find((q)=>{return q['part_number'] == i['part_number']});
             console.log(data);
             console.log(i);
-            if(data['last_draft'] != null){
-                return data['last_draft']['quantity'];
+            if(data != undefined) {
+                if (data['last_draft'] != null) {
+                    return data['last_draft']['quantity'];
+                } else {
+                    return data['quantity'];
+                }
             }else{
-                return data['quantity'];
+                return ;
             }
         },
         change_file:function (){

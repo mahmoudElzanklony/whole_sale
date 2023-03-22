@@ -62,8 +62,6 @@ class AdminQuotationReplyCSV implements ToModel, WithHeadingRow , WithValidation
             'quotation_order_id'=>$this->quotation_order_id ?? null,
             'ar_part_name'=>$row['ar_part_name'],
             'en_part_name'=>$row['en_part_name'],
-            'ar_part_description'=>$row['ar_part_description'],
-            'en_part_description'=>$row['en_part_description'],
             'offered_stock'=>$row['offered_stock'],
             'min_quantity_per_transaction'=>$row['min_quantity_per_transaction'],
             'max_quantity_per_transaction'=>$row['max_quantity_per_transaction'],

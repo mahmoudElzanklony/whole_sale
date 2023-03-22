@@ -726,6 +726,10 @@ export default {
                   en:'has been sent to admin',
                   tu:'',
               },
+              sent_to_vendors:{
+                ar:'تم الارسال للموردين',
+                en:'sent to vendors',
+              },
               vendors_reply:{
                 ar:'تم الرد من الموردين',
                 en:'vendors reply',
@@ -872,6 +876,10 @@ export default {
                   en:'Phone number',
                   tu:''
               },
+              please_wait_seconds:{
+                  ar:'من فضلك انتظر لحظات ...',
+                  en:'Please wait seconds...',
+              }
 
 
 

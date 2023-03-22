@@ -24,6 +24,10 @@
                             <span>{{ switchWord('sent_to_admin') }}</span>
                         </p>
                         <p>
+                            <input type="radio" name="is_completed" :value="switchWord('sent_to_vendors')">
+                            <span>{{ switchWord('sent_to_vendors') }}</span>
+                        </p>
+                        <p>
                             <input type="radio" name="is_completed" :value="switchWord('vendors_reply')">
                             <span>{{ switchWord('vendors_reply') }}</span>
                         </p>

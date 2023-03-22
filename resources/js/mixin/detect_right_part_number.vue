@@ -10,10 +10,14 @@ export default {
             var el = this.admin_quotation.find(function(e){
                 return e['part_number'] == part_number;
             })
-            if(el['supplied_part_number'] != null){
-                return el['supplied_part_number']['part_number'];
+            if(el != null) {
+                if (el['supplied_part_number'] != null) {
+                    return el['supplied_part_number']['part_number'];
+                } else {
+                    return el['part_number'];
+                }
             }else{
-                return el['part_number'];
+                return  ;
             }
         },
     }
