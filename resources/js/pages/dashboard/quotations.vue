@@ -516,6 +516,7 @@
                                 </tr>
                                 <tr v-for="(i,index) in get_my_quotation"
                                     v-if="i['last_draft'].length == 0 || i['last_draft'][0]['deleted_at'] == null"
+                                    :class="(Number(index+1) % 24 ) == 0 ? 'avoid':''"
                                     :key="index">
                                     <td>
                                         {{
@@ -545,7 +546,7 @@
                                     </td>
                                     <td>
                                         {{ isNaN(detect_right_price(i))? detect_right_price(i):
-                                        detect_right_price(i) *  (i['last_draft'] == null ? i['quantity']:i['last_draft']['quantity']).toFixed() }}
+                                        detect_right_price(i) *  (i['last_draft'].length == 0 ? i['quantity']:i['last_draft'][0]['quantity']).toFixed() }}
                                     </td>
                                 </tr>
                                 <tr class="tax_row">
@@ -925,12 +926,13 @@ export default {
         },
         detect_right_price:function (i){
             var d =  this.admin_quotation.find((e)=>{
-                return e['part_number'] == (i['last_draft'] == null ? i['part_number']:
-                    i['last_draft']['part_number'])
+                console.log(i['last_draft'].length);
+                return e['part_number'] == (i['last_draft'].length == 0  ? i['part_number']:
+                    i['last_draft'][0]['part_number'])
             });
             if(d != undefined){
                 d = d['prices'].find((p)=>
-                    {return (i['last_draft'] == null ? i['quantity']:i['last_draft']['quantity']) >=                                                          p['min_quantity']}
+                    {return (i['last_draft'].length == 0 ? i['quantity']:i['last_draft'][0]['quantity']) >=                                                          p['min_quantity']}
                 );
             }
             if(d == undefined){
@@ -947,9 +949,10 @@ export default {
             for(let price of $('#print_box table tr:not(:first-of-type,:last-of-type,.tax_row) td:last-of-type')){
                 total += Number($(price).html());
             }
-            $('#print_box table tr.tax td:last-of-type').html(total * this.item.tax / 100);
+            $('#print_box table tr.tax td:last-of-type')
+                .html(total * Number(this.item.tax / 100).toFixed(2));
             total += (total * this.item.tax / 100 );
-            $('#print_box table tr:last-of-type td:last-of-type').html(total);
+            $('#print_box table tr:last-of-type td:last-of-type').html(Number(total).toFixed(2));
         },
         printOrder:function(){
             window.print();
@@ -1006,6 +1009,22 @@ table{
 #see_prices .modal-dialog,
 #admin_quotation_data .modal-dialog{
     max-width: 1100px;
+}
+
+@media print {
+    body * { visibility: hidden;}
+    *:not(td){
+        top:0px; margin: 0px; transform: unset; padding: 0px;
+    }
+    .receipt{height: auto;}
+    .receipt * { visibility: visible; margin: 0px}
+    .receipt button{visibility: hidden;}
+    #receipt .modal-footer{display: none;}
+    #fb-root{display: none;}
+    .modal{
+        position: relative !important;
+        top:0px !important;
+    }
 }
 
 #print_box{
