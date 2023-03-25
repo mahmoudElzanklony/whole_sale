@@ -390,7 +390,8 @@
                     </div>
                     <div class="modal-body">
                         <div class="receipt">
-                            <div class="d-flex align-items-center justify-content-between mb-5">
+                            <div class="d-flex align-items-center justify-content-between mb-5"
+                            >
                                 <div>
                                     <img class="d-block m-auto" style="width: 150px;" src="/images/logo.png">
                                     <p class="mt-3 font-weight-bold">{{ keywords.invoice_number }}
@@ -423,6 +424,7 @@
                                 </tr>
                                 <tr v-for="(i,index) in get_my_quotation"
                                     v-if="i['last_draft'] == null || i['last_draft']['deleted_at'] == null"
+                                    :class="(Number(index+1) % 25 ) == 0 ? 'avoid':''"
                                     :key="index">
                                     <td>
                                         {{
@@ -462,6 +464,7 @@
                                 </tr>
                                 </tbody>
                             </table>
+
                             <p class="text-center mb-3">
                                 <strong>{{ keywords.wholesale_bill_info }}</strong>
                             </p>
@@ -557,7 +560,7 @@
                         </a>
                         <button class="btn btn-outline-primary mb-3"
                                 @click="print_bill(item)"
-                                data-toggle="modal" data-target="#print_box">
+                               >
                             {{ switchWord('initial_bill') }}
                         </button>
                         <form  @submit.prevent="send_agreement_to_admin(item)">
@@ -715,7 +718,7 @@ export default {
             // this error for if you take quantity min than  admin give you
             var error = 0,
                 part_numbers = [];
-            var interval = setInterval(async ()=>{
+             setTimeout(async ()=>{
                 if(component.get_my_quotation.length > 0){
                     for(let quot of component.get_my_quotation){
                         if(isNaN(component.detect_right_price(quot))){
@@ -735,7 +738,7 @@ export default {
                         }
                         $('.modal#agree_quotation_and_upload_bill').modal('show');
                     }
-                    clearInterval(interval);
+                    //clearInterval(interval);
                 }
             },1000);
             await Toast.fire({
@@ -799,8 +802,6 @@ export default {
         }),
         get_quantity_data(i){
             var data =  this.get_my_quotation.find((q)=>{return q['part_number'] == i['part_number']});
-            console.log(data);
-            console.log(i);
             if(data != undefined) {
                 if (data['last_draft'] != null) {
                     return data['last_draft']['quantity'];
@@ -864,6 +865,8 @@ export default {
             $('#update_current_quotation').modal('show');
         },
         print_bill:async function (i){
+            $('#agree_quotation_and_upload_bill').modal('hide');
+
             this.item = i;
             await this.get_info_to_print_bill(i['id']);
             $('#print_box').modal('show');
@@ -871,9 +874,10 @@ export default {
             for(let price of $('#print_box table tr:not(:first-of-type,:last-of-type,.tax_row) td:last-of-type')){
                 total += Number($(price).html());
             }
-            Number($('#print_box table tr.tax td:last-of-type').html(total * this.item.tax / 100)).toFixed(2);
+            $('#print_box table tr.tax td:last-of-type')
+                .html(total * Number(this.item.tax / 100).toFixed(2));
             total += (total * this.item.tax / 100 );
-            $('#print_box table tr:last-of-type td:last-of-type').html(total);
+            $('#print_box table tr:last-of-type td:last-of-type').html(Number(total).toFixed(2));
 
         },
         printOrder:function(){
@@ -909,6 +913,7 @@ export default {
 
 
 }
+
 .sales{
     h2{
         margin-top: 30px;
@@ -924,7 +929,6 @@ export default {
 }
 
 
-
 @media print {
     body * { visibility: hidden; }
     .receipt{height: auto;}
@@ -932,8 +936,12 @@ export default {
     .receipt button{visibility: hidden;}
     #receipt .modal-footer{display: none;}
     #fb-root{display: none;}
-
+    .modal{
+        position: relative !important;
+        top:0px !important;
+    }
 }
+
 
 #my_quotations .modal-dialog,
 #admin_quotation_data .modal-dialog{

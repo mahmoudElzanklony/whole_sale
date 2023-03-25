@@ -8,6 +8,6 @@ mix
     .sass('resources/sass/arabic.scss', 'public/css')
     .sass('resources/sass/english.scss', 'public/css')
   .webpackConfig({
-    output: { chunkFilename: 'js/[name].[contenthash].js' },
+    output: { chunkFilename: 'js/[name].js?id=[contenthash]' },
 
   })

@@ -11,6 +11,21 @@
         line-height: 40px;
     }
 }
+.avoid{
+    page-break-after: always
+}
+
+table{
+    tbody{
+        tr{
+            td{
+                button{
+                    font-size: 13px !important;
+                }
+            }
+        }
+    }
+}
 body{
    // font-family: 'Cairo';
     font-family:"URW DIN Arabic" !important;
