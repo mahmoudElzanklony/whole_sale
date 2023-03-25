@@ -424,7 +424,7 @@
                                 </tr>
                                 <tr v-for="(i,index) in get_my_quotation"
                                     v-if="i['last_draft'] == null || i['last_draft']['deleted_at'] == null"
-                                    :class="(Number(index+1) % 25 ) == 0 ? 'avoid':''"
+                                    :class="(Number(index+1) % 20 ) == 0 ? 'avoid':''"
                                     :key="index">
                                     <td>
                                         {{
@@ -930,9 +930,12 @@ export default {
 
 
 @media print {
-    body * { visibility: hidden; }
+    body * { visibility: hidden;}
+    *:not(td){
+        top:0px; margin: 0px; transform: unset; padding: 0px;
+    }
     .receipt{height: auto;}
-    .receipt * { visibility: visible;  }
+    .receipt * { visibility: visible; margin: 0px}
     .receipt button{visibility: hidden;}
     #receipt .modal-footer{display: none;}
     #fb-root{display: none;}
