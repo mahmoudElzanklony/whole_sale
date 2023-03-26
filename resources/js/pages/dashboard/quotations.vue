@@ -1016,6 +1016,9 @@ table{
     *:not(td){
         top:0px; margin: 0px; transform: unset; padding: 0px;
     }
+    .content.users,nav,footer{
+        display: none;
+    }
     .receipt{height: auto;}
     .receipt * { visibility: visible; margin: 0px}
     .receipt button{visibility: hidden;}

@@ -930,11 +930,14 @@ export default {
 
 
 @media print {
-    body * { visibility: hidden;}
+    body * { visibility: hidden; }
+    .inner-profile,nav,footer{
+        display: none;
+    }
     *:not(td){
         top:0px; margin: 0px; transform: unset; padding: 0px;
     }
-    .receipt{height: auto;}
+    .receipt{height: auto; display: block}
     .receipt * { visibility: visible; margin: 0px}
     .receipt button{visibility: hidden;}
     #receipt .modal-footer{display: none;}
