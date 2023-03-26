@@ -426,7 +426,7 @@
                                     v-if="i['last_draft'] == null || i['last_draft']['deleted_at'] == null"
                                     :class="index == 22 ?
                                     'avoid':
-                                    ((Number(index+1) % 30 ) == 0 ? 'avoid':'')"
+                                    ((Number(index-22) % 30 ) == 0 ? 'avoid':'')"
                                     :key="index">
                                     <td>
                                         {{
