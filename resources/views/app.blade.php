@@ -51,7 +51,7 @@
 
 
 
-    <script src="{{ mix('/js/app.js') }}?v=29.35" defer></script>
+    <script src="{{ mix('/js/app.js') }}?v=30.38" defer></script>
     <style>
         /*body{
             overflow: hidden;
