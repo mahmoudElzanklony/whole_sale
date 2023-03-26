@@ -516,7 +516,7 @@
                                 </tr>
                                 <tr v-for="(i,index) in get_my_quotation"
                                     v-if="i['last_draft'].length == 0 || i['last_draft'][0]['deleted_at'] == null"
-                                    :class="(Number(index+1) % 24 ) == 0 ? 'avoid':''"
+                                    :class="(Number(index+1) % 22 ) == 0 ? 'avoid':''"
                                     :key="index">
                                     <td>
                                         {{
