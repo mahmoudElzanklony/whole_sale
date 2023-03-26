@@ -424,7 +424,9 @@
                                 </tr>
                                 <tr v-for="(i,index) in get_my_quotation"
                                     v-if="i['last_draft'] == null || i['last_draft']['deleted_at'] == null"
-                                    :class="(Number(index+1) % 22 ) == 0 ? 'avoid':''"
+                                    :class="index == 0 ?
+                                    ((Number(index+1) % 22 ) == 0 ? 'avoid':''):
+                                    ((Number(index+1) % 30 ) == 0 ? 'avoid':'')"
                                     :key="index">
                                     <td>
                                         {{
