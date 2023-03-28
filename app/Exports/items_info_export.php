@@ -8,6 +8,10 @@ use Illuminate\Database\Eloquent\Builder as EloquentBuilder;
 use Illuminate\Database\Eloquent\Relations\Relation;
 use Illuminate\Database\Query\Builder;
 use Illuminate\Support\Collection;
+use PhpOffice\PhpSpreadsheet\Cell\Cell;
+use Maatwebsite\Excel\Concerns\ToModel;
+use PhpOffice\PhpSpreadsheet\Cell\DataType;
+
 use Maatwebsite\Excel\Concerns\Exportable;
 use Maatwebsite\Excel\Concerns\FromCollection;
 use Maatwebsite\Excel\Concerns\FromQuery;
@@ -15,11 +19,14 @@ use Maatwebsite\Excel\Concerns\WithHeadings;
 use Maatwebsite\Excel\Concerns\WithMapping;
 use Maatwebsite\Excel\Concerns\WithEvents;
 use Maatwebsite\Excel\Events\AfterSheet;
-use PhpOffice\PhpSpreadsheet\Style\NumberFormat;
+use Maatwebsite\Excel\Concerns\WithCustomValueBinder;
+use PhpOffice\PhpSpreadsheet\Cell\DefaultValueBinder;
 
 
 
-class items_info_export implements FromCollection ,WithHeadings,WithMapping,WithEvents
+
+
+class items_info_export extends DefaultValueBinder implements FromCollection ,WithHeadings,WithMapping,WithEvents,WithCustomValueBinder
 {
     /**
      * @return \Illuminate\Support\Collection
@@ -31,6 +38,17 @@ class items_info_export implements FromCollection ,WithHeadings,WithMapping,With
         $this->payments = $collection;
     }
 
+    public function bindValue(Cell $cell, $value)
+    {
+        if (is_numeric($value)) {
+            $cell->setValueExplicit($value, DataType::TYPE_STRING);
+
+            return true;
+        }
+
+        // else return default behavior
+        return parent::bindValue($cell, $value);
+    }
 
     public function collection()
     {
@@ -132,16 +150,7 @@ class items_info_export implements FromCollection ,WithHeadings,WithMapping,With
         }*/
     }
 
-    /*public function columnFormats(): array
-    {
-        return [
-            'H' => NumberFormat::FORMAT_NUMBER,
-            'I' => NumberFormat::FORMAT_NUMBER,
-            'J' => NumberFormat::FORMAT_NUMBER,
-            'P' => NumberFormat::FORMAT_NUMBER,
-            'Q' => NumberFormat::FORMAT_NUMBER,
-        ];
-    }*/
+
 
     public function map($row): array
     {

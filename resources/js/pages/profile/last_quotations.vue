@@ -736,6 +736,8 @@ export default {
              setTimeout(async ()=>{
                 if(component.get_my_quotation.length > 0){
                     for(let quot of component.get_my_quotation){
+                        console.log(quot);
+                        console.log(quot['part_number']);
                         if(isNaN(component.detect_right_price(quot))){
                             part_numbers.push(quot['part_number']);
                             error++;
@@ -837,9 +839,11 @@ export default {
             });
             if(d != undefined){
              d = d['prices'].find((p)=>
-                    {return (i['last_draft'] == null ? i['quantity']:i['last_draft']['quantity']) >=                                                          p['min_quantity']}
+                    {
+                        return (i['last_draft'] == null ? i['quantity']:i['last_draft']['quantity']) >=                                                          p['min_quantity']}
                 );
             }
+            console.log(d);
             if(d == undefined){
                 return this.switchWord('error_in_price')
             }else{
