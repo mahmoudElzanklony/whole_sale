@@ -200,7 +200,7 @@
                                         <tr v-for="(price_slap,index) in admin_quotation.find((e)=>{return e['part_number'] == (sub_quotation['last_draft'] == null ? sub_quotation['part_number']:sub_quotation['last_draft']['part_number']) })['prices']"
                                         :key="index">
                                             <td>{{ price_slap['min_quantity'] }}</td>
-                                            <td>{{ price_slap['price'] }}</td>
+                                            <td>{{ Number(price_slap['price']).toFixed(2) }}</td>
                                         </tr>
                                     </tbody>
                                 </table>
@@ -416,7 +416,9 @@
                             <table class="table table-bordered table-hover table-striped">
                                 <tbody>
                                 <tr>
+                                    <td>{{ keywords.seq }}</td>
                                     <td>{{ keywords.part_no }}</td>
+                                    <td>{{ keywords.en_part_name }}</td>
                                     <td>{{ keywords.brand }}</td>
                                     <td>{{ keywords.quantity }}</td>
                                     <td>{{ switchWord('unit_price') }}</td>
@@ -428,12 +430,18 @@
                                     'avoid':
                                     ((Number(index-22) % 30 ) == 0 ? 'avoid':'')"
                                     :key="index">
+                                    <td>{{ index + 1 }}</td>
                                     <td>
                                         {{
                                             i['last_draft'] == null ? detect_supplied_part_name(i['part_number']):
                                                 detect_supplied_part_name(i['last_draft']['part_number'])
                                         }}
                                    </td>
+                                    <td v-if="admin_quotation.length > 0">
+                                        {{
+                                            detect_right_part_name(i['part_number'])
+                                        }}
+                                    </td>
                                     <td>{{  i['last_draft'] == null ?
                                         (i['brand'] != null ? i['brand']['name']:i['brand_id'])
                                         :
@@ -452,16 +460,20 @@
                                         }}
                                     </td>
                                     <td>
-                                        {{ isNaN(detect_right_price(i))? detect_right_price(i):
-                                        detect_right_price(i) *  (i['last_draft'] == null ? i['quantity']:i['last_draft']['quantity']).toFixed() }}
+                                        {{ Number(isNaN(detect_right_price(i))? detect_right_price(i):
+                                        detect_right_price(i) *  (i['last_draft'] == null ? i['quantity']:i['last_draft']['quantity'])).toFixed(2) }}
                                     </td>
                                 </tr>
+                                <tr class="total_part_number_price">
+                                    <td colspan="6">{{ switchWord('total_part_number_price') }}</td>
+                                    <td></td>
+                                </tr>
                                 <tr class="tax_row tax">
-                                    <td colspan="4">{{ switchWord('tax_percentage') }}</td>
+                                    <td colspan="6">{{ switchWord('tax_percentage') }}</td>
                                     <td></td>
                                 </tr>
                                 <tr>
-                                    <td colspan="4">{{ keywords.total }}</td>
+                                    <td colspan="6">{{ keywords.total }}</td>
                                     <td></td>
                                 </tr>
                                 </tbody>
@@ -599,11 +611,12 @@ import SwitchLangWord from "../../mixin/SwitchLangWord";
 import update_item from "../../mixin/update_item";
 import delete_item from "../../mixin/delete_item";
 import detect_right_part_number from "../../mixin/detect_right_part_number";
+import detect_right_part_name from "../../mixin/detect_right_part_name";
 import {mapActions, mapGetters} from "vuex";
 export default {
     name: "orders",
     props:['keywords','quotations'],
-    mixins:[tableData,tableDataServer,SwitchLangWord,delete_item,update_item,detect_right_part_number],
+    mixins:[tableData,tableDataServer,SwitchLangWord,delete_item,update_item,detect_right_part_number,detect_right_part_name],
     data:function (){
         return {
             sub_quotation:null,
@@ -876,8 +889,9 @@ export default {
             for(let price of $('#print_box table tr:not(:first-of-type,:last-of-type,.tax_row) td:last-of-type')){
                 total += Number($(price).html());
             }
+            $('.total_part_number_price td:last-of-type').html(total);
             $('#print_box table tr.tax td:last-of-type')
-                .html(total * Number(this.item.tax / 100).toFixed(2));
+                .html(Number(total * Number(this.item.tax ) / 100).toFixed(2));
             total += (total * this.item.tax / 100 );
             $('#print_box table tr:last-of-type td:last-of-type').html(Number(total).toFixed(2));
 
@@ -939,6 +953,17 @@ export default {
     *:not(td){
         top:0px; margin: 0px; transform: unset; padding: 0px;
     }
+    /*.receipt > div:first-of-type{
+        position: fixed;
+        top: 15px;
+        right: 0px;
+        left: 0px;
+        z-index: 9999;
+        background-color: white;
+    }
+    .receipt > table{
+        margin-top: 200px;
+    }*/
     .receipt{height: auto; display: block}
     .receipt * { visibility: visible; margin: 0px}
     .receipt button{visibility: hidden;}
@@ -977,6 +1002,8 @@ export default {
         }
     }
 }
+
+
 #update_current_quotation{
     z-index: 99999999 !important;
 }

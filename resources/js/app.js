@@ -10,6 +10,9 @@ const Toast = Swal.mixin({
     confirmButtonText:'<i class="ri-close-line exit-box"></i>',
    // timer: 5000,
     timerProgressBar: true,
+    heightAuto:false,
+    stopKeydownPropagation:true,
+    allowOutsideClick:false,
     didOpen: (toast) => {
         toast.addEventListener('mouseenter', Swal.stopTimer)
         toast.addEventListener('mouseleave', Swal.resumeTimer)

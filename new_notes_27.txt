@@ -113,3 +113,10 @@ _____________
 8- حسابي تكون اخر واحده بالاضافه الي ضفحه عروض  ف البروفايل
 
 9- صفحه العروض تكون جواها لا يوجد عروض في الوقت الحالي سوف نقوم بابلاغكم في حاله توفر العروض القادمه
+
+
+
+_________
+part number at quotation request input text left to right
+
+all columns number may be take zero value

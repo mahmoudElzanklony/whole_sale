@@ -879,6 +879,11 @@ export default {
               please_wait_seconds:{
                   ar:'من فضلك انتظر لحظات ...',
                   en:'Please wait seconds...',
+              },
+              total_part_number_price:{
+                  ar:'مجموع اسعار القطع',
+                  en:'total price of part numbers',
+                  tu:'',
               }
 
 

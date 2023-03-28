@@ -385,6 +385,11 @@ export default {
 #preview_quotation{
     z-index: 9999999999999999;
 }
+.enter_data{
+    input[name='part_number[]']{
+        text-align: left;
+    }
+}
 .activation{
     strong{
         border-bottom: 1px solid darkred;

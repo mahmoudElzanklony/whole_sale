@@ -508,7 +508,9 @@
                             <table class="table table-bordered table-hover table-striped">
                                 <tbody>
                                 <tr>
+                                    <td>{{ keywords.seq }}</td>
                                     <td>{{ keywords.part_no }}</td>
+                                    <td>{{ keywords.en_part_name }}</td>
                                     <td>{{ keywords.brand }}</td>
                                     <td>{{ keywords.quantity }}</td>
                                     <td>{{ switchWord('unit_price') }}</td>
@@ -518,11 +520,17 @@
                                     v-if="i['last_draft'].length == 0 || i['last_draft'][0]['deleted_at'] == null"
                                     :class="(Number(index+1) % 22 ) == 0 ? 'avoid':''"
                                     :key="index">
+                                    <td>{{ index + 1 }}</td>
                                     <td>
                                         {{
                                             i['last_draft'].length == 0 ?
                                                 detect_supplied_part_name(i['part_number'])
                                                 :detect_supplied_part_name(i['last_draft'][0]['part_number'])
+                                        }}
+                                    </td>
+                                    <td v-if="admin_quotation.length > 0">
+                                        {{
+                                            detect_right_part_name(i['part_number'])
                                         }}
                                     </td>
                                     <td>
@@ -545,17 +553,21 @@
                                         {{  detect_right_price(i) }}
                                     </td>
                                     <td>
-                                        {{ isNaN(detect_right_price(i))? detect_right_price(i):
-                                        detect_right_price(i) *  (i['last_draft'].length == 0 ? i['quantity']:i['last_draft'][0]['quantity']).toFixed() }}
+                                        {{ Number(isNaN(detect_right_price(i))? detect_right_price(i):
+                                        detect_right_price(i) *  (i['last_draft'].length == 0 ? i['quantity']:i['last_draft'][0]['quantity'])).toFixed(2) }}
                                     </td>
                                 </tr>
+                                <tr class="total_part_number_price">
+                                    <td colspan="6">{{ switchWord('total_part_number_price') }}</td>
+                                    <td></td>
+                                </tr>
                                 <tr class="tax_row">
-                                    <td colspan="4">{{ keywords.tax }}</td>
+                                    <td colspan="6">{{ keywords.tax }}</td>
                                     <td v-if="item != null">{{  item.tax }}%</td>
                                     <td v-else></td>
                                 </tr>
                                 <tr>
-                                    <td colspan="4">{{ keywords.total }}</td>
+                                    <td colspan="6">{{ keywords.total }}</td>
                                     <td></td>
                                 </tr>
                                 </tbody>
@@ -709,12 +721,12 @@ import delete_item from "../../mixin/delete_item";
 import update_item from "../../mixin/update_item";
 import detect_row_for_export from "../../mixin/detect_row_for_export";
 import detect_right_part_number from "../../mixin/detect_right_part_number";
-
+import detect_right_part_name from "../../mixin/detect_right_part_name";
 import {mapState,mapActions , mapGetters , mapMutations} from "vuex";
 import TableData from "../../mixin/tableData";
 export default {
     name: "quotations",
-    mixins:[tableData,SwitchLangWord,update_item,delete_item,detect_row_for_export,tableDataServer,detect_right_part_number],
+    mixins:[tableData,SwitchLangWord,update_item,delete_item,detect_row_for_export,tableDataServer,detect_right_part_number,detect_right_part_name],
     props:['main_title','handling_data','keywords'],
     data:function(){
         return {
@@ -949,10 +961,14 @@ export default {
             for(let price of $('#print_box table tr:not(:first-of-type,:last-of-type,.tax_row) td:last-of-type')){
                 total += Number($(price).html());
             }
-            $('#print_box table tr.tax td:last-of-type')
-                .html(total * Number(this.item.tax / 100).toFixed(2));
+            $('.total_part_number_price td:last-of-type').html(total);
+            $('#print_box table tr.tax_row td:last-of-type')
+                .html(Number(total * Number(this.item.tax ) / 100).toFixed(2));
             total += (total * this.item.tax / 100 );
             $('#print_box table tr:last-of-type td:last-of-type').html(Number(total).toFixed(2));
+
+
+
         },
         printOrder:function(){
             window.print();
