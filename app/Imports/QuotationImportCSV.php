@@ -11,6 +11,8 @@ use Maatwebsite\Excel\Concerns\ToModel;
 use Maatwebsite\Excel\Concerns\Importable;
 use Maatwebsite\Excel\Concerns\WithValidation;
 use Maatwebsite\Excel\Concerns\WithHeadingRow;
+use Maatwebsite\Excel\Concerns\SkipsEmptyRows;
+
 
 use Maatwebsite\Excel\Concerns\WithMappedCells;
 use Maatwebsite\Excel\Imports\HeadingRowFormatter;
@@ -26,7 +28,7 @@ HeadingRowFormatter::extend('quotation-custom', function($value, $key) {
 });
 HeadingRowFormatter::default('quotation-custom');
 
-class QuotationImportCSV implements ToModel, WithValidation, WithHeadingRow
+class QuotationImportCSV implements ToModel, WithValidation, WithHeadingRow,SkipsEmptyRows
 {
     use Importable;
     /**
