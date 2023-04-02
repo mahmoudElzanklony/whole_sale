@@ -80,6 +80,7 @@ Route::group(['middleware'=>'changeLang'],function (){
         Route::post('/get-vendors-per-request',[QuoationsInfoController::class,'get_vendors_per_request']);
         Route::post('/add-vendors-per-request',[QuoationsInfoController::class,'add_vendors_per_request']);
         Route::post('/cancel-request',[QuoationsInfoController::class,'cancel_request']);
+        Route::post('/get-offer-info',[QuoationsInfoController::class,'get_offer_info']);
         // statistics
         Route::post('/search-statics',[QuoationsInfoController::class,'search_statistics']);
     });

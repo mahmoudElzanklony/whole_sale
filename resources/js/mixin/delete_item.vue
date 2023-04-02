@@ -66,49 +66,61 @@ export default {
                 }
             })
         },
-        cancel_request:function (table,id, selector = '' ,closeall = false , url = false){
+        cancel_request:async function (table,id, selector = '' ,closeall = false , url = false){
+            var com = this;
+            var reasons = {};
+            for(let reason of com.handling_data.reasons){
+                reasons[reason['id']] = reason['name'];
+            }
+            console.log(reasons);
             if(window.vm.$inertia.page.props.lang == 'ar'){
                 var msg = 'هل أنت متأكد من عملية الغاء الطلب';
+                var reason_cancelled = 'اختر سبب الغاء الطلب';
                 var confirm = 'نعم أنا متأكد';
                 var cancel = 'إلغاء';
             }else{
                 var msg = 'are you sure from cancel request';
+                var reason_cancelled = 'give reason to cancel order';
                 var confirm = 'yes';
                 var cancel = 'cancel';
 
             }
-            Swal.fire({
+
+            const { value: reason } = await Swal.fire({
                 title: msg,
-                icon: 'info',
+                input: 'select',
+                inputOptions: reasons,
+                inputPlaceholder: reason_cancelled,
                 showCancelButton: true,
-                confirmButtonColor: '#035397',
-                cancelButtonColor: '#aaa',
-                confirmButtonText: confirm,
-                cancelButtonText:cancel,
-            }).then((result) => {
-                if (result.isConfirmed) {
-                    axios.post('/quotations/cancel-request',{
-                        table:table,
-                        id:id,
-                    }).then((e)=>{
-                        /*if(table == 'listings_infos'){
-                            $(target).parent().parent().parent().parent().remove();
-                        }else {
-                            $(target).parent().parent().remove();
-                        }*/
-                        Toast.fire({
-                            icon:'success',
-                            title:e.data.message[0]
-                        });
-                        if(closeall == true){
-                            $('.modal').modal('hide')
-                        }
-                        window.vm.$inertia.visit(document.URL)
+                inputValidator: (value) => {
+                    return new Promise((resolve) => {
+                        resolve();
 
-                    });
-
+                    })
                 }
             })
+
+            if (reason) {
+                axios.post('/quotations/cancel-request',{
+                    table:table,
+                    id:id,
+                    reason:reason,
+                }).then((e)=>{
+                    /*if(table == 'listings_infos'){
+                        $(target).parent().parent().parent().parent().remove();
+                    }else {
+                        $(target).parent().parent().remove();
+                    }*/
+                    Toast.fire({
+                        icon:'success',
+                        title:e.data.message[0],
+                    });
+
+                    // window.vm.$inertia.visit(document.URL)
+
+                });
+            }
+
         },
     }
 }

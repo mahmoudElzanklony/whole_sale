@@ -46,6 +46,7 @@ class ProfileLasttQuotations
             'confirm_order_and_processed_to_checkout'=>trans('keywords.confirm_order_and_processed_to_checkout'),
             'close'=>trans('keywords.close'),
             'excel_file'=>trans('keywords.excel_file'),
+            'excel_file_offer'=>trans('keywords.excel_file_offer'),
 
             'wait_to_send_file_quotation'=>trans('keywords.wait_to_send_file_quotation'),
             'file_send_and_wait_from_client_to_confirm_request'=>trans('keywords.file_send_and_wait_from_client_to_confirm_request'),

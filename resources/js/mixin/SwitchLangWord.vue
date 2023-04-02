@@ -422,6 +422,10 @@ export default {
                   en:'Cancel',
                   tu:'',
               },
+              because:{
+                ar:'بسبب',
+                en:'because',
+              },
               approved_done:{
                   ar:'تمت الموافقة',
                   en:'Approved !',
@@ -461,6 +465,10 @@ export default {
                  ar:'الغاء الطلب',
                  en:'Cancel request',
                  tu:'',
+              },
+              cancelled_requests:{
+                ar:'الطلبات الملغاه',
+                en:'cancelled orders',
               },
               cancel_done:{
                   ar:'تم الغاء الطلب',
@@ -822,8 +830,8 @@ export default {
                   tu:'',
               },
               newest_clients_requests:{
-                  ar:'أحدث طلبات العملاء',
-                  en:'Newest clients requests',
+                  ar:'طلبات العملاء',
+                  en:'clients requests',
                   tu:'',
               },
               in_progress:{

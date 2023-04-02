@@ -5,6 +5,7 @@ namespace App\Handling_Data\dashboard;
 
 
 use App\Models\quotation_orders;
+use App\Models\reasons_cancellation_orders;
 use App\Models\User;
 
 class quotations_dashboard
@@ -31,7 +32,8 @@ class quotations_dashboard
             ],
             'sellers'=>User::query()->whereHas('role',function ($e){
                 $e->where('name','=','seller');
-            })->get()
+            })->get(),
+            'reasons'=>reasons_cancellation_orders::selection()->get()
         ];
     }
 }

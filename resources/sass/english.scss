@@ -216,6 +216,9 @@ nav {
 }
 table{
     tr{
+        .cancel_info_icon{
+            left: 2px;
+        }
         td{
             input + span{
                 right: 18px !important;

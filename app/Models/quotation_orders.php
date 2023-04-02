@@ -13,6 +13,7 @@ class quotation_orders extends Model
      is_completed = 1 ==> when admin reply with seller quotations
      is_completed = 2 ==> when user is agreement and make to finish request
      is_completed = 3 ==> when admin finish order
+     is_completed = -1 ==> when admin cancel order
      * */
     protected $fillable = ['user_id','is_completed','tax'];
 
@@ -30,6 +31,14 @@ class quotation_orders extends Model
 
     public function items(){
         return $this->hasMany(items_info::class,'quotation_order_id');
+    }
+
+    public function cancelled_quotations(){
+        return $this->hasOne(cancelled_quotations::class,'quotation_id');
+    }
+
+    public function my_receipt(){
+        return $this->hasOne(receipt_quotations::class,'quotation_id');
     }
 
     public function vendors_requests(){

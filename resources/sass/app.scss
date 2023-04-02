@@ -19,6 +19,7 @@ table{
     tbody{
         tr{
             td{
+                position: relative;
                 button{
                     font-size: 13px !important;
                 }
@@ -250,7 +251,7 @@ input:focus{
     right: 0;
     left: 0;
     bottom: 0;
-    z-index: 11;
+    z-index: 9999999;
     flex-wrap: wrap;
     align-content: center;
     justify-content: center;
@@ -282,6 +283,7 @@ input:focus{
         height: 400px;
         width: 100%;
         text-align: center;
+        z-index: 999999999999999999;
         img{
             width: 300px;
         }
@@ -936,6 +938,14 @@ table{
         height: 45px;
         border-radius: 50%;
     }
+    .cancel_info_icon{
+        position: absolute;
+        top: 1px;
+        color:darkred;
+        i{
+            font-size: 18px;
+        }
+    }
     .actions{
         display: flex;
         align-items: center;
@@ -1134,4 +1144,26 @@ body.swal2-toast-shown .swal2-container{
 }
 .modal{
     z-index: 9999;
+}
+
+
+
+.already_uploaded {
+    border: 2px solid $green;
+}
+
+.overflow-auto.hide-buttons{
+    max-height: 500px;
+    table{
+        thead{
+            background-color: white;
+            border-bottom: 1px solid #dddddd;
+            position: sticky;
+            top:0px;
+            z-index: 99999;
+            tr{
+                outline: 2px solid #ddd;
+            }
+        }
+    }
 }

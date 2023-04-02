@@ -126,4 +126,22 @@ $(document).ready(function (){
     })
 
 
+
+    $('.content').on('keyup','input.search_without_button',function (){
+       var trs = $(this).parent().find('table tbody tr');
+       for(let tr of trs){
+           var matching = false;
+           for(let td of $(tr).find('td')){
+               console.log($(td).html());
+               if($(td).html().indexOf(event.target.value) >= 0){
+                   $(tr).css('display','table-row');
+                   matching = true;
+                   break;
+               }
+           }
+           if(matching == false){
+               $(tr).css('display','none');
+           }
+       }
+    });
 });

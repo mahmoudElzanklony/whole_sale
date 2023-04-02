@@ -122,8 +122,8 @@ class AdminQuotationReplyCSV implements ToModel, WithHeadingRow , WithValidation
             'offered_stock' => 'required',
             'min_quantity_per_transaction' => 'required',
             'max_quantity_per_transaction' => 'required',
-            's1_min' => 'required|integer',
-            's1_price' => 'required|integer',
+            's1_min' => 'required|numeric',
+            's1_price' => 'required|numeric',
         ];
     }
 

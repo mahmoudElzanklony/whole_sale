@@ -41,7 +41,7 @@
                         </p>
                         <p>
                             <input type="radio" name="is_completed" :value="switchWord('cancel_request')">
-                            <span>{{ switchWord('cancel_request') }}</span>
+                            <span>{{ switchWord('cancelled_requests') }}</span>
                         </p>
                         <p>
                             <input type="radio" name="is_completed" :value="switchWord('order_confirmed')">
@@ -149,16 +149,17 @@
                         <div class="loading-img">
                             <img src="/images/loading.gif">
                         </div>
+                        <a v-if="item != null"
+                           class="btn btn-primary mb-2"
+                           :href="'/quotations/export-file?ids='+item['id']" target="_blank">
+                            {{ switchWord('export_selected') }}
+                        </a>
+                        <input class="form-control search_without_button mb-2" :placeholder="switchWord('search_for_you_best')">
                         <div class="overflow-auto hide-buttons">
-                            <a v-if="item != null"
-                               class="btn btn-primary"
-                               :href="'/quotations/export-file?ids='+item['id']" target="_blank">
-                                {{ switchWord('export_selected') }}
-                            </a>
-                            <table class="myTable box-model-table table text-center table-bordered table-striped table-hover">
+
+                            <table class="table text-center table-bordered table-striped table-hover">
                                 <thead>
                                 <tr>
-                                    <td></td>
                                     <td>{{ keywords.brand }}</td>
                                     <td>{{ keywords.part_no }}</td>
                                     <td>{{ keywords.quantity }}</td>
@@ -170,9 +171,6 @@
                                     :key="index" :class="'row_child_'+index"
                                     v-if="i['last_draft'].length == 0 ||
                                     (i['last_draft'].length > 0 && i['last_draft'][0]['deleted_at'] == null)">
-                                    <td>
-                                        <input type="checkbox" @click="detect_row_to_export">
-                                    </td>
                                     <td>{{
                                             i['last_draft'].length == 0 ?
                                         (i['brand'] !=null ? i['brand']['name']:i['brand_id']):
@@ -226,37 +224,30 @@
                             v-if="item != null"
                             :href="'/quotations/export-file?ids='+item['id']"
                            download>{{ switchWord('download_file') }}</a>
+                        <input class="form-control search_without_button mb-2" :placeholder="switchWord('search_for_you_best')">
                         <div class="overflow-auto hide-buttons">
-                            <table class="box-model-table table text-center table-bordered table-striped table-hover">
+                            <table class="table text-center table-bordered table-striped table-hover">
                                 <thead>
                                 <tr>
-                                    <td></td>
                                     <td>{{ keywords.seq }}</td>
                                     <td>{{ keywords.part_no }}</td>
                                     <td>{{ keywords.brand }}</td>
                                     <td>{{ keywords.offered_stock }}</td>
                                     <td>{{ keywords.min_quantity_per_transaction }}</td>
                                     <td>{{ keywords.max_quantity_per_transaction }}</td>
-                                    <td>{{ keywords.unit_price }}</td>
-                                    <td>{{ keywords.estimated_required_days_for_delivery }}</td>
                                     <td>{{ keywords.actions }}</td>
                                 </tr>
                                 </thead>
                                 <tbody>
                                 <tr v-for="(i,index) in admin_quotation"
                                     :key="index" :class="'row_child_'+index">
-                                    <td>
-                                        <input type="checkbox" @click="detect_row_to_export">
-                                    </td>
                                     <td>{{ index + 1 }}</td>
                                     <td>{{ i['part_number'] }}</td>
                                     <td>{{ i['brand'] != null ? i['brand']['name']:i['brand_id'] }}</td>
                                     <td>{{ i['offered_stock'] }}</td>
                                     <td>{{ i['min_quantity_per_transaction'] }}</td>
                                     <td>{{ i['max_quantity_per_transaction'] }}</td>
-                                    <td>{{ i['prices'][0]['price'] }}</td>
-                                    <td>{{ 3 }}</td>
-                                    <td v-if="i['prices'].length >= 2">
+                                    <td v-if="i['prices'].length > 0">
                                         <button class="btn btn-outline-primary"
                                                 @click="current_admin_quotation = i"
                                                 data-toggle="modal"
@@ -506,16 +497,18 @@
                                 </div>
                             </div>
                             <table class="table table-bordered table-hover table-striped">
+                                <thead>
+                                    <tr>
+                                        <td>{{ keywords.seq }}</td>
+                                        <td>{{ keywords.part_no }}</td>
+                                        <td>{{ keywords.en_part_name }}</td>
+                                        <td>{{ keywords.brand }}</td>
+                                        <td>{{ keywords.quantity }}</td>
+                                        <td>{{ switchWord('unit_price') }}</td>
+                                        <td>{{ keywords.total }}</td>
+                                    </tr>
+                                </thead>
                                 <tbody>
-                                <tr>
-                                    <td>{{ keywords.seq }}</td>
-                                    <td>{{ keywords.part_no }}</td>
-                                    <td>{{ keywords.en_part_name }}</td>
-                                    <td>{{ keywords.brand }}</td>
-                                    <td>{{ keywords.quantity }}</td>
-                                    <td>{{ switchWord('unit_price') }}</td>
-                                    <td>{{ keywords.total }}</td>
-                                </tr>
                                 <tr v-for="(i,index) in get_my_quotation"
                                     v-if="i['last_draft'].length == 0 || i['last_draft'][0]['deleted_at'] == null"
                                     :class="(Number(index+1) % 22 ) == 0 ? 'avoid':''"
@@ -550,13 +543,15 @@
                                         }}
                                     </td>
                                     <td>
-                                        {{  detect_right_price(i) }}
+<!--                                        {{  detect_right_price(i) }}-->
                                     </td>
                                     <td>
-                                        {{ Number(isNaN(detect_right_price(i))? detect_right_price(i):
-                                        detect_right_price(i) *  (i['last_draft'].length == 0 ? i['quantity']:i['last_draft'][0]['quantity'])).toFixed(2) }}
+<!--                                        {{ Number(isNaN(detect_right_price(i))? detect_right_price(i):
+                                        detect_right_price(i) *  (i['last_draft'].length == 0 ? i['quantity']:i['last_draft'][0]['quantity'])).toFixed(2) }}-->
                                     </td>
                                 </tr>
+                                </tbody>
+                                <tfoot>
                                 <tr class="total_part_number_price">
                                     <td colspan="6">{{ switchWord('total_part_number_price') }}</td>
                                     <td></td>
@@ -570,7 +565,8 @@
                                     <td colspan="6">{{ keywords.total }}</td>
                                     <td></td>
                                 </tr>
-                                </tbody>
+                                </tfoot>
+
                             </table>
                             <p class="text-center mb-3">
                                 <strong>{{ keywords.wholesale_bill_info }}</strong>
@@ -794,7 +790,7 @@ export default {
                 "render":function(data,type,row){
                     return  row['is_completed'] == 0 ? component.switchWord('sent_to_admin')
                         :row['is_completed'] == 1 ? component.keywords.reply_from_admin
-                            :row['is_completed'] == -1 ? component.switchWord('cancel_done')
+                            :row['is_completed'] == -1 ? '<span>'+component.switchWord('cancel_done')+'</span>'+'<span class="cancel_info_icon" title="'+component.handling_data.reasons.find((e)=>{return e['id'] == row['cancelled_quotations']['cancelled_id']})['name']+'"><i class="ri ri-information-line"></i></span>'
                             :row['is_completed'] == 11 ? component.switchWord('vendors_reply')
                             :row['is_completed'] == 2 ? '<button el_id="'+row['id']+'" class="confirm btn btn-outline-primary">'+component.keywords.click_here_to_finish_request+'</button>' : component.switchWord('order_confirmed');
                 }
@@ -816,7 +812,7 @@ export default {
             },
             { "data": "id",
                 "render":function (data,type,row,option){
-                        var output =  '<span><i class="ri-upload-2-line" title="'+component.switchWord('upload_excel')+'"  el_id="'+row['id']+'"></i> </span><span class="receipt accept" title="'+component.switchWord('receipt_photo')+'"  el_id="'+row['id']+'"><i class="ri-file-paper-line"></i></span><span class="repositry_upload"  title="'+component.switchWord('bank_document')+'"  el_id="'+row['id']+'"><i class="ri-money-dollar-box-line"></i></span>';
+                        var output =  '<span><i class="ri-upload-2-line" title="'+component.switchWord('upload_excel')+'"  el_id="'+row['id']+'"></i> </span><span class="receipt accept '+(row['my_receipt_count'] > 0 ? 'already_uploaded':'')+'" title="'+component.switchWord('receipt_photo')+'"  el_id="'+row['id']+'"><i class="ri-file-paper-line"></i></span><span class="repositry_upload"  title="'+component.switchWord('bank_document')+'"  el_id="'+row['id']+'"><i class="ri-money-dollar-box-line"></i></span>';
                         if(row['is_completed'] == 3){
                             output+= '<span class="print"  title="'+component.switchWord('print_bill')+'"  el_id="'+row['id']+'"><i class="ri-printer-line"></i></span>'
                         }
@@ -827,7 +823,7 @@ export default {
                         output += '<span class="delete cancel_request" style="color:darkred;" title="'+component.switchWord('cancel_request')+'"  el_id="'+row['id']+'"><i class="ri-delete-back-line"></i></span>';
                     }
 
-                        output += '<span class="delete" title="'+component.switchWord('delete_item')+'"  el_id="'+row['id']+'"><i class="ri-close-line"></i></span>';
+                        /*output += '<span class="delete" title="'+component.switchWord('delete_item')+'"  el_id="'+row['id']+'"><i class="ri-close-line"></i></span>';*/
                         return output;
                     }
             },
@@ -898,13 +894,14 @@ export default {
         // cancel request
         $('.content').on('click','.data table tbody tr td:last-of-type span.cancel_request',async function (){
             var item = component.get_obj_wanted($(this).attr('el_id'));
+            console.log('cancel........1..');
             await component.cancel_request('quotation_orders',$(this).attr('el_id'),$(this).parent().parent());
         });
         // delete
-        $('.content').on('click','.data table tbody tr td:last-of-type span:last-of-type',async function (){
+        /*$('.content').on('click','.data table tbody tr td:last-of-type span:last-of-type',async function (){
             var item = component.get_obj_wanted($(this).attr('el_id'));
             await component.delete_item('quotation_orders',$(this).attr('el_id'),$(this).parent().parent());
-        });
+        });*/
     },
     methods:{
         change_file:function (){
@@ -957,15 +954,35 @@ export default {
             this.item = i;
             await this.get_info_to_print_bill(i['id']);
             $('#print_box').modal('show');
+            //
             var total = 0;
-            for(let price of $('#print_box table tr:not(:first-of-type,:last-of-type,.tax_row) td:last-of-type')){
-                total += Number($(price).html());
+            for(let data_item_index in this.get_my_quotation){
+                var tr = $('#print_box table tbody tr').eq(data_item_index);
+                tr.find('td:nth-of-type(6)')
+                    .html(Number(this.detect_right_price(this.get_my_quotation[data_item_index]))
+                    .toFixed(2));
+                var result = '';
+                if(isNaN(this.detect_right_price(this.get_my_quotation[data_item_index]))){
+                    result = this.detect_right_price(this.get_my_quotation[data_item_index]);
+                }else{
+                    result = Number(this.detect_right_price(this.get_my_quotation[data_item_index]) *
+                        (this.get_my_quotation[data_item_index]['last_draft'].length == 0 ?
+                            this.get_my_quotation[data_item_index]['quantity']:
+                            this.get_my_quotation[data_item_index]['last_draft']
+                                [0]['quantity'])).toFixed(2);
+                }
+
+                tr.find('td:nth-of-type(7)')
+                    .html(result);
+                total += Number(result)
             }
-            $('.total_part_number_price td:last-of-type').html(total);
+
+
+            $('.total_part_number_price td:last-of-type').html(total.toFixed(2));
             $('#print_box table tr.tax_row td:last-of-type')
                 .html(Number(total * Number(this.item.tax ) / 100).toFixed(2));
             total += (total * this.item.tax / 100 );
-            $('#print_box table tr:last-of-type td:last-of-type').html(Number(total).toFixed(2));
+            $('#print_box table tfoot tr:last-of-type td:last-of-type').html(Number(total).toFixed(2));
 
 
 
@@ -1051,4 +1068,6 @@ table{
         max-width: 900px;
     }
 }
+
+
 </style>

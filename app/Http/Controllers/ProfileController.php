@@ -23,6 +23,7 @@ use App\Models\listings_info;
 use App\Models\offers;
 use App\Models\quotation_orders;
 use App\Models\quotations;
+use App\Models\reasons_cancellation_orders;
 use App\Models\User;
 use App\Services\listings\favourites;
 use App\Services\quoations\quoations_services;
@@ -60,6 +61,7 @@ class ProfileController extends ProfileServiceClass
         return Inertia::render('profile/last_quotations',[
             'keywords'=>ProfileLasttQuotations::get_keywords(),
             'quotations'=>quotation_orders::query()->where('user_id','=',auth()->id())->get(),
+            'reasons'=>reasons_cancellation_orders::selection()->get()
         ]);
     }
 

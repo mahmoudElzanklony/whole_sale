@@ -44,7 +44,7 @@
                                 </p>
                                 <p>
                                     <input type="radio" name="is_completed" :value="switchWord('cancel_request')">
-                                    <span>{{ switchWord('cancel_request') }}</span>
+                                    <span>{{ switchWord('cancelled_requests') }}</span>
                                 </p>
                             </div>
                             <div class="d-flex align-items-center justify-content-between">
@@ -73,7 +73,7 @@
                                     <td name="is_completed">{{ keywords.status }}</td>
                                     <td>{{ keywords.order_that_client_made }}</td>
                                     <td v-if="$page.props.user.role.name !='seller'">{{ keywords.reply_from_admin }}</td>
-                                    <td v-else>{{ keywords.excel_file }}</td>
+                                    <td v-else>{{ keywords.excel_file_offer }}</td>
                                     <td>{{ keywords.actions }}</td>
                                 </tr>
                             </thead>
@@ -102,13 +102,14 @@
                         <div class="loading-img">
                             <img src="/images/loading.gif">
                         </div>
+                        <a v-if="item != null && $page.props.user.role.name =='seller'"
+                           class="btn btn-primary"
+                           :href="'/quotations/export-file?user_id='+$page.props.user.id+'&ids='+item['id']" target="_blank">
+                            {{ switchWord('export_selected') }}
+                        </a>
+                        <input class="form-control search_without_button mb-2" :placeholder="switchWord('search_for_you_best')">
                         <div class="overflow-auto hide-buttons"  v-if="get_my_quotation.length > 0">
-                            <a v-if="item != null && $page.props.user.role.name =='seller'"
-                               class="btn btn-primary"
-                               :href="'/quotations/export-file?user_id='+$page.props.user.id+'&ids='+item['id']" target="_blank">
-                                {{ switchWord('export_selected') }}
-                            </a>
-                            <table class="myTable box-model-table table text-center table-bordered table-striped table-hover">
+                            <table class="table text-center table-bordered table-striped table-hover">
                                 <thead>
                                 <tr>
                                     <td>{{ keywords.part_no }}</td>
@@ -263,12 +264,14 @@
                         <div class="loading-img">
                             <img src="/images/loading.gif">
                         </div>
+                        <a v-if="item != null"
+                           class="btn btn-primary mb-3"
+                           :href="'/quotations/export-file?ids='+item['id']" target="_blank">
+                            {{ switchWord('export_selected') }}
+                        </a>
+                        <input class="form-control search_without_button mb-2" :placeholder="switchWord('search_for_you_best')">
+
                         <div class="overflow-auto hide-buttons" v-if="admin_quotation.length > 0">
-                            <a v-if="item != null"
-                               class="btn btn-primary mb-3"
-                               :href="'/quotations/export-file?ids='+item['id']" target="_blank">
-                                {{ switchWord('export_selected') }}
-                            </a>
                             <table class="table text-center table-bordered table-striped table-hover">
                                 <thead>
                                 <tr>
@@ -414,7 +417,7 @@
                                 </div>
                             </div>
                             <table class="table table-bordered table-hover table-striped">
-                                <tbody>
+                                <thead>
                                 <tr>
                                     <td>{{ keywords.seq }}</td>
                                     <td>{{ keywords.part_no }}</td>
@@ -424,6 +427,8 @@
                                     <td>{{ switchWord('unit_price') }}</td>
                                     <td>{{ keywords.total }}</td>
                                 </tr>
+                                </thead>
+                                <tbody>
                                 <tr v-for="(i,index) in get_my_quotation"
                                     v-if="i['last_draft'] == null || i['last_draft']['deleted_at'] == null"
                                     :class="index == 22 ?
@@ -455,15 +460,14 @@
                                     </td>
 
                                     <td>
-                                        {{
-                                            detect_right_price(i)
-                                        }}
+
                                     </td>
                                     <td>
-                                        {{ Number(isNaN(detect_right_price(i))? detect_right_price(i):
-                                        detect_right_price(i) *  (i['last_draft'] == null ? i['quantity']:i['last_draft']['quantity'])).toFixed(2) }}
+
                                     </td>
                                 </tr>
+                                </tbody>
+                                <tfoot>
                                 <tr class="total_part_number_price">
                                     <td colspan="6">{{ switchWord('total_part_number_price') }}</td>
                                     <td></td>
@@ -476,7 +480,7 @@
                                     <td colspan="6">{{ keywords.total }}</td>
                                     <td></td>
                                 </tr>
-                                </tbody>
+                                </tfoot>
                             </table>
 
                             <p class="text-center mb-3">
@@ -615,7 +619,7 @@ import detect_right_part_name from "../../mixin/detect_right_part_name";
 import {mapActions, mapGetters} from "vuex";
 export default {
     name: "orders",
-    props:['keywords','quotations'],
+    props:['keywords','quotations','reasons'],
     mixins:[tableData,tableDataServer,SwitchLangWord,delete_item,update_item,detect_right_part_number,detect_right_part_name],
     data:function (){
         return {
@@ -647,7 +651,7 @@ export default {
                 "render":function(data,type,row){
                     return  row['is_completed'] == 0  ? component.switchWord('sent_to_admin')
                         :row['is_completed'] == 11 ? component.switchWord('in_progress')
-                        :row['is_completed'] == -1 ? component.switchWord('cancel_done')
+                        :row['is_completed'] == -1 ? '<span>'+component.switchWord('cancel_done')+'</span>'+'<span class="cancel_info_icon" title="'+component.reasons.find((e)=>{return e['id'] == row['cancelled_quotations']['cancelled_id']})['name']+'"><i class="ri ri-information-line"></i></span>'
                         :row['is_completed'] == 1 ? component.keywords.wait_client_to_confirm
                             :row['is_completed'] == 2 ? component.keywords.order_confirmed : component.keywords.complete_request_successfully;
                 }
@@ -843,7 +847,6 @@ export default {
                         return (i['last_draft'] == null ? i['quantity']:i['last_draft']['quantity']) >=                                                          p['min_quantity']}
                 );
             }
-            console.log(d);
             if(d == undefined){
                 return this.switchWord('error_in_price')
             }else{
@@ -890,14 +893,34 @@ export default {
             await this.get_info_to_print_bill(i['id']);
             $('#print_box').modal('show');
             var total = 0;
-            for(let price of $('#print_box table tr:not(:first-of-type,:last-of-type,.tax_row) td:last-of-type')){
-                total += Number($(price).html());
+            var total = 0;
+            for(let data_item_index in this.get_my_quotation){
+                var tr = $('#print_box table tbody tr').eq(data_item_index);
+                console.log(tr);
+                tr.find('td:nth-of-type(6)')
+                    .html(Number(this.detect_right_price(this.get_my_quotation[data_item_index]))
+                        .toFixed(2));
+                var result = '';
+                console.log(this.detect_right_price(this.get_my_quotation[data_item_index]));
+                if(isNaN(this.detect_right_price(this.get_my_quotation[data_item_index]))){
+                    result = this.detect_right_price(this.get_my_quotation[data_item_index]);
+                }else{
+                    result = Number(this.detect_right_price(this.get_my_quotation[data_item_index]) *
+                        (this.get_my_quotation[data_item_index]['last_draft'] == null ?
+                            this.get_my_quotation[data_item_index]['quantity']:
+                            this.get_my_quotation[data_item_index]['last_draft']
+                                ['quantity'])).toFixed(2);
+                }
+
+                tr.find('td:nth-of-type(7)')
+                    .html(result);
+                total += Number(result)
             }
             $('.total_part_number_price td:last-of-type').html(total);
             $('#print_box table tr.tax td:last-of-type')
                 .html(Number(total * Number(this.item.tax ) / 100).toFixed(2));
             total += (total * this.item.tax / 100 );
-            $('#print_box table tr:last-of-type td:last-of-type').html(Number(total).toFixed(2));
+            $('#print_box table tfoot tr:last-of-type td:last-of-type').html(Number(total).toFixed(2));
 
         },
         printOrder:function(){

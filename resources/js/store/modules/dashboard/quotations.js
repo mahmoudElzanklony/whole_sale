@@ -11,6 +11,7 @@ export default {
             receipt:{},
             file_money:{},
             vendors_request:[],
+            offer_info:[],
         }
     },
     getters:{
@@ -25,6 +26,9 @@ export default {
         },
         get_statistics:function (state){
             return state.statistics
+        },
+        get_offer_info:function (state){
+          return state.offer_info;
         },
         get_data_quotations_admin:function (state){
             return state.quotation_data_admin
@@ -48,6 +52,9 @@ export default {
         },
         update_qotation_data:function(state,item){
             return state.quotation_data = item;
+        },
+        set_offer_info:function (state,item){
+           return state.offer_info = item;
         },
         update_statistics:function (state,data){
            return state.statistics = data;
@@ -161,6 +168,7 @@ export default {
                     destroy: true,
                     aaData: e.data.data
                 });*/
+                console.log(e.data.data);
                 commit('update_qotation_admin_data',e.data.data)
             }).finally(function (){
                 /*
@@ -380,6 +388,14 @@ export default {
             }).then((e)=>{
                 commit('update_vendor_request',e.data);
             });
+        },
+        get_offer_info_action:function({commit},paylod){
+            axios.post('/quotations/get-offer-info',{
+                ids:paylod
+            }).then((e)=>{
+                commit('set_offer_info',e.data.data);
+            });
+            document.querySelector('.loading-img').style.display='none';
         },
         add_vendor:function({commit},payload){
             var target = event.target;

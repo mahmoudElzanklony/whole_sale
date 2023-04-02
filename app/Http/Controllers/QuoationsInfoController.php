@@ -10,6 +10,7 @@ use App\Http\traits\messages;
 use App\Http\traits\upload_image;
 use App\Imports\AdminQuotationReplyCSV;
 use App\Imports\QuotationImportCSV;
+use App\Models\cancelled_quotations;
 use App\Models\items_info;
 use App\Models\offers_items_info;
 use App\Models\quotation_orders;
@@ -45,6 +46,12 @@ class QuoationsInfoController extends Controller
         quotation_orders::query()->find(request('id'))->update([
             'is_completed'=>-1
         ]);
+
+        cancelled_quotations::query()->create([
+            'quotation_id'=>request('id'),
+            'cancelled_id'=>request('reason'),
+        ]);
+
         return messages::success_output([trans('messages.cancelled_successfully')]);
 
     }
@@ -314,6 +321,14 @@ class QuoationsInfoController extends Controller
             ->whereIn('id',$ids)
             ->with(['brand:id,' . app()->getLocale() . '_name as name','prices'])->get();
         return Excel::download(new items_offers_export($data), 'offers.xlsx');
+    }
+
+    public function get_offer_info(){
+        $ids = explode(',',request('ids'));
+        $data = items_info::query()
+            ->whereIn('id',$ids)
+            ->with(['brand:id,' . app()->getLocale() . '_name as name','prices'])->get();
+        return messages::success_output('',$data);
     }
 
     public function export_vendor_file(){
