@@ -17,6 +17,7 @@ use Maatwebsite\Excel\Concerns\WithValidation;
 use Maatwebsite\Excel\Concerns\WithHeadingRow;
 use Maatwebsite\Excel\Concerns\WithMappedCells;
 use Maatwebsite\Excel\Imports\HeadingRowFormatter;
+use Maatwebsite\Excel\Concerns\SkipsEmptyRows;
 
 HeadingRowFormatter::extend('custom', function($value, $key) {
 
@@ -29,8 +30,8 @@ HeadingRowFormatter::extend('custom', function($value, $key) {
 });
 HeadingRowFormatter::default('custom');
 
-
-class AdminQuotationReplyCSV implements ToModel, WithHeadingRow , WithValidation
+// implement skip empty rows
+class AdminQuotationReplyCSV implements ToModel, WithHeadingRow , WithValidation , SkipsEmptyRows
 {
     use Importable;
 

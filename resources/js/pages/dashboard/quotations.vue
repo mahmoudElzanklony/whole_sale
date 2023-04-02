@@ -790,7 +790,7 @@ export default {
                 "render":function(data,type,row){
                     return  row['is_completed'] == 0 ? component.switchWord('sent_to_admin')
                         :row['is_completed'] == 1 ? component.keywords.reply_from_admin
-                            :row['is_completed'] == -1 ? '<span>'+component.switchWord('cancel_done')+'</span>'+'<span class="cancel_info_icon" title="'+component.handling_data.reasons.find((e)=>{return e['id'] == row['cancelled_quotations']['cancelled_id']})['name']+'"><i class="ri ri-information-line"></i></span>'
+                            :row['is_completed'] == -1 ? '<span>'+component.switchWord('cancel_done')+'</span>'+'<span class="cancel_info_icon" title="'+component.handling_data.reasons.find((e)=>{return e['id'] == row['cancelled_quotations']['cancelled_id']}) != null ? component.handling_data.reasons.find((e)=>{return e['id'] == row['cancelled_quotations']['cancelled_id']})['name']:''+'"><i class="ri ri-information-line"></i></span>'
                             :row['is_completed'] == 11 ? component.switchWord('vendors_reply')
                             :row['is_completed'] == 2 ? '<button el_id="'+row['id']+'" class="confirm btn btn-outline-primary">'+component.keywords.click_here_to_finish_request+'</button>' : component.switchWord('order_confirmed');
                 }
