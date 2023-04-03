@@ -26,7 +26,8 @@ class quotation_orders extends Model
     }
 
     public function prices(){
-        return $this->hasManyThrough(items_infos_prices::class,items_info::class,'quotation_order_id','item_id');
+        return $this->hasManyThrough(items_infos_prices::class,items_info::class,
+            'quotation_order_id','item_id');
     }
 
     public function items(){

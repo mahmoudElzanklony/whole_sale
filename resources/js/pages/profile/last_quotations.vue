@@ -102,8 +102,8 @@
                         <div class="loading-img">
                             <img src="/images/loading.gif">
                         </div>
-                        <a v-if="item != null && $page.props.user.role.name =='seller'"
-                           class="btn btn-primary"
+                        <a v-if="item != null"
+                           class="btn btn-primary mb-2"
                            :href="'/quotations/export-file?user_id='+$page.props.user.id+'&ids='+item['id']" target="_blank">
                             {{ switchWord('export_selected') }}
                         </a>
@@ -264,7 +264,7 @@
                         <div class="loading-img">
                             <img src="/images/loading.gif">
                         </div>
-                        <a v-if="item != null"
+                        <a v-if="item != null && $page.props.user.role.name != 'seller'"
                            class="btn btn-primary mb-3"
                            :href="'/quotations/export-file?ids='+item['id']" target="_blank">
                             {{ switchWord('export_selected') }}

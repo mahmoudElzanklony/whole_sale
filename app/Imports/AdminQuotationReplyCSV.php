@@ -53,7 +53,6 @@ class AdminQuotationReplyCSV implements ToModel, WithHeadingRow , WithValidation
     {
         // php artisan make:import countriesImportCSV --model=countries to make this class
         // create new quotation bill
-
         $item = new items_info([
             //
             'user_id'=>auth()->id(),

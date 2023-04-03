@@ -44,7 +44,7 @@ class items_info extends Model
     }
 
     public function prices(){
-        return $this->hasMany(items_infos_prices::class,'item_id')->orderBy('min_quantity','DESC');
+        return $this->hasMany(items_infos_prices::class,'item_id');
     }
 
     public function vendor(){
