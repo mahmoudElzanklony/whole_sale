@@ -74,7 +74,7 @@
                                 <label>{{ keywords.vat }}</label>
                                 <input name="vat" type="number" min="0"
                                        :value="stored_info != null ? stored_info['vat']:''"
-                                       class="form-control" required>
+                                       class="form-control">
                                 <p class="alert alert-danger"></p>
                                 <span class="required"><i class="ri-asterisk"></i></span>
                             </div>
