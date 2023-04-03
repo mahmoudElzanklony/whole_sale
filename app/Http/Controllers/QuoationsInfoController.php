@@ -309,7 +309,6 @@ class QuoationsInfoController extends Controller
                     });
                 })->with('prices');
             }])->get();
-        return $data;
         return Excel::download(new items_info_export($data), request('ids').'.xlsx');
 
     }
