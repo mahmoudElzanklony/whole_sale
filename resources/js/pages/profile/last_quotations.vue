@@ -209,7 +209,7 @@
                             <div class="form-group">
                                 <label>{{ keywords.brand }}</label>
                                 <input class="form-control" name="brand_id"
-                                       :value="(sub_quotation['last_draft'] == null ? sub_quotation['brand_id']:sub_quotation['last_draft']['brand_id'])" required>
+                                       :value="detect_right_brand(sub_quotation)"  required>
                                 <select v-if="false" class="form-control" name="brand_id" required>
                                     <option value="">{{ switchWord('select_best_for_you') }}</option>
                                     <option v-for="(i,index) in all_brands" :key="index"
@@ -821,6 +821,19 @@ export default {
             'send_activation':'users_dash/send_activation',
 
         }),
+        detect_right_brand:function (sub_quotation){
+           var test_result =  (sub_quotation['last_draft'] == null ? sub_quotation['brand_id']:sub_quotation['last_draft']['brand_id']);
+           // if brand is number
+           if(!(isNaN(test_result))){
+               // if brand object not null
+               if(sub_quotation['brand'] != null){
+                   return sub_quotation['brand']['name'];
+               }else{
+                   return '';
+               }
+           }
+           return test_result;
+        },
         get_quantity_data(i){
             var data =  this.get_my_quotation.find((q)=>{return q['part_number'] == i['part_number']});
             if(data != undefined) {
