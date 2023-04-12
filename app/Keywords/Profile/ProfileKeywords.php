@@ -31,6 +31,7 @@ class ProfileKeywords
             'full_name'=>trans('keywords.full_name'),
             'username'=>trans('keywords.username'),
             'phone'=>trans('keywords.phone'),
+            'referral_code'=>trans('keywords.referral_code'),
 
             // new word
             'change_bank_info'=>trans('keywords.change_bank_info'),

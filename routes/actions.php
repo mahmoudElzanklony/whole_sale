@@ -38,6 +38,7 @@ Route::group(['middleware'=>'changeLang'],function (){
 
     });
     Route::post('/login',[AuthController::class,'login_post']);
+    Route::post('/login/selectrole',[AuthController::class,'selectrole']);
     Route::post('/newpass',[AuthController::class,'newpass']);
 
     Route::post('/sendmail',[AuthController::class,'sendmail']);

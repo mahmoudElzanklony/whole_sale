@@ -1308,6 +1308,8 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
+//
 
 
 
@@ -2538,34 +2540,36 @@ var render = function () {
                       _vm._v(_vm._s(_vm.keywords.sign_in)),
                     ]),
                     _vm._v(" "),
-                    _c("div", { staticClass: "form-group input-icon" }, [
-                      _c("label", [_vm._v(_vm._s(_vm.keywords.email))]),
+                    _c("div", { staticClass: "inputs" }, [
+                      _c("div", { staticClass: "form-group input-icon" }, [
+                        _c("label", [_vm._v(_vm._s(_vm.keywords.email))]),
+                        _vm._v(" "),
+                        _c("input", {
+                          staticClass: "form-control",
+                          attrs: { name: "email", type: "email", required: "" },
+                        }),
+                        _vm._v(" "),
+                        _c("p", { staticClass: "alert alert-danger" }),
+                        _vm._v(" "),
+                        _vm._m(0),
+                      ]),
                       _vm._v(" "),
-                      _c("input", {
-                        staticClass: "form-control",
-                        attrs: { name: "email", type: "email", required: "" },
-                      }),
-                      _vm._v(" "),
-                      _c("p", { staticClass: "alert alert-danger" }),
-                      _vm._v(" "),
-                      _vm._m(0),
-                    ]),
-                    _vm._v(" "),
-                    _c("div", { staticClass: "form-group input-icon" }, [
-                      _c("label", [_vm._v(_vm._s(_vm.keywords.password))]),
-                      _vm._v(" "),
-                      _c("input", {
-                        staticClass: "form-control",
-                        attrs: {
-                          name: "password",
-                          type: "password",
-                          required: "",
-                        },
-                      }),
-                      _vm._v(" "),
-                      _c("p", { staticClass: "alert alert-danger" }),
-                      _vm._v(" "),
-                      _vm._m(1),
+                      _c("div", { staticClass: "form-group input-icon" }, [
+                        _c("label", [_vm._v(_vm._s(_vm.keywords.password))]),
+                        _vm._v(" "),
+                        _c("input", {
+                          staticClass: "form-control",
+                          attrs: {
+                            name: "password",
+                            type: "password",
+                            required: "",
+                          },
+                        }),
+                        _vm._v(" "),
+                        _c("p", { staticClass: "alert alert-danger" }),
+                        _vm._v(" "),
+                        _vm._m(1),
+                      ]),
                     ]),
                     _vm._v(" "),
                     _c("div", { staticClass: "form-group" }, [

@@ -40,6 +40,7 @@ use App\Models\packages_prices_places;
 use App\Models\questions;
 use App\Models\quotation_orders;
 use App\Models\roles;
+use App\Models\supplier_data;
 use App\Models\support;
 use App\Models\tax_money;
 use App\Models\User;
@@ -93,9 +94,23 @@ class DashboardServiceClass extends Controller
             $validated['role_id'] = roles::query()->where('name','=','supervisor')->first()->id;
             $validated['approved'] = 1;
         }
+        if(request()->has('serial_number')){
+            $validated['serial_number'] = request('serial_number');
+        }
         $item = User::query()->updateOrCreate([
             'id'=>request()->has('id') ? request('id'):null
         ],$validated);
+        // seller data
+        if(request()->has('currency') && request()->has('delivery_terms')){
+            supplier_data::query()->updateOrCreate([
+                'user_id'=>$item->id,
+            ],[
+                'currency'=>request('currency'),
+                'delivery_terms'=>request('delivery_terms'),
+            ]);
+        }
+
+        // privillage for supper visor
         if(request()->has('privillage')){
             users_privillages::query()->where('user_id','=',$item->id)->delete();
             foreach(request('privillage') as $p){
@@ -109,7 +124,10 @@ class DashboardServiceClass extends Controller
                     $e->where('name','=','supervisor');
                 })->first();
         }else{
-            $item = User::query()->find(request('id'));
+            $item = User::query()
+                ->with(['seller_data','role','country'=>function($e){
+                    $e->select('id',app()->getLocale().'_name as name');
+                }])->find(request('id'));
         }
 
         return messages::success_output(trans('messages.saved_successfully'),$item,request()->has('id') ? 'update':'insert');

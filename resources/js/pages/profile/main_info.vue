@@ -9,6 +9,10 @@
                         <span>{{ keywords.current_balance }}</span>
                         <strong>100 SR</strong>
                     </p>
+                    <p class="alert alert-warning" v-if="role == 'buyer'">
+                        <span>{{ keywords.referral_code }}</span>
+                        <strong>{{ $page.props.user.serial_number }}</strong>
+                    </p>
                     <div class="row">
                         <div class="col-md-6 col-12">
                             <div class="section_inputs">

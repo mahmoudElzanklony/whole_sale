@@ -72,6 +72,10 @@ class User extends Authenticatable implements JWTSubject
         return $this->belongsTo(roles::class,'role_id');
     }
 
+    public function seller_data(){
+        return $this->hasOne(supplier_data::class,'user_id');
+    }
+
     public function country(){
         return $this->belongsTo(countries::class,'country_id');
     }

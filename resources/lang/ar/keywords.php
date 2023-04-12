@@ -37,6 +37,7 @@ return [
    'sign_in'=>'تسجيل دخول',
    'logout'=>'تسجيل خروج',
    'email'=>'البريد الألكتروني',
+   'referral_code'=>'كود الاحالة',
    'vat'=>'الرقم الضريبي',
    'password'=>'كلمة المرور',
    'current_password'=>'كلمة المرور الحالية',
@@ -53,6 +54,7 @@ return [
    'account_number'=>'رقم الحساب',
    'brands_dealing'=>'البرندات العالمية',
    'user_type'=>'نوع المستخدم',
+   'another_info'=>'معلومات اخري',
    'trade_licence'=>'السجل التجاري',
    'bank_info_document'=>'وثيقه البنك التي تحمل بياناتك',
    'have_already_account'=>'تمتلك بالفعل حساب معنا',
@@ -356,6 +358,9 @@ return [
     'prices'=>'الاسعار',
     'brands'=>'العملات التجارية',
     'select_brand'=>'اختر العلامه التجارية',
+
+    'delivery_terms'=>'شروط التوصيل',
+    'currency'=>'العملة',
     // end of dashboard ----------------------------------------------------------
 
     // start of dashboard categories ----------------------------------------------------------
@@ -369,6 +374,7 @@ return [
     'sub_categories'=>'الأقسام الفرعية',
     'category_parent_id'=>'الأب الرئيسي',
     'see_more'=>'رؤية المزيد',
+
     // end of dashboard categories ----------------------------------------------------------
 
     // start of dashboard quoations ----------------------------------------------------------

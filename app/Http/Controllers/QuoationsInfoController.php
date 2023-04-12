@@ -108,6 +108,8 @@ class QuoationsInfoController extends Controller
             Excel::import(new AdminQuotationReplyCSV(request('quotation_order_id')),
                 request()->file('excel_file')
             );
+
+
         } catch (\Maatwebsite\Excel\Validators\ValidationException $e) {
             $failures = $e->failures();
             return messages::error_output($failures[0]->errors());
@@ -117,30 +119,48 @@ class QuoationsInfoController extends Controller
         $quotation_order->is_completed = session()->get('type') == 'seller'?11:1;
         $quotation_order->save();
 
+        // check type
+        if(session()->get('type') == 'seller'){
+            // send notification to admin
+            $notification_data = [
+                'sender_id'=>auth()->id(),
+                'receiver_id'=>get_first_admin::get_admin()->id,
+                'ar_info'=>'تم الرد عليك من  قبل  المورد  في طلب رقم '.request('quotation_order_id'),
+                'en_info'=>'there is a new reply from vendor in request number '.request('quotation_order_id'),
+                'seen'=>0,
+            ];
+            create_notification::new_notification($notification_data);
+        }else{
+            create_notification::new_notification([
+                'sender_id'=>auth()->id(),
+                'receiver_id'=>session()->get('type') == 'seller'? get_first_admin::get_admin()->id: $quotation_order->user_id,
+                'ar_info'=>'تم الرد علي الطلب الذي رقمه '.$quotation_order->id,
+                'en_info'=>'request number '.$quotation_order->id.' has been replied please check this ',
+                'tu_info'=>'',
+                'seen'=>0,
+            ]);
+
+            if(session()->get('lang') == 'ar') {
+                send_email::send('رد الاداره بخصوص طلبك',
+                    'تم رد الاداره بخصوص الطلب الذي قمت بارساله رقم '.$quotation_order->id,
+                    request()->root() .'/profile/last-quotations',
+                    'Press here', User::query()->find($quotation_order->user_id)->email
+                );
+            }else{
+                send_email::send(' quotation request has been replied',
+                    'request number '.$quotation_order->id.' has been replied please check your profile to see more',
+                    request()->root() .'/profile/last-quotations',
+                    'Press here', User::query()->find($quotation_order->user_id)->email
+                );
+            }
+        }
+
+
         // send notification
         // ['sender_id','receiver_id','ar_info','en_info','tu_info','seen']
-        create_notification::new_notification([
-            'sender_id'=>auth()->id(),
-            'receiver_id'=>session()->get('type') == 'seller'? get_first_admin::get_admin()->id: $quotation_order->user_id,
-            'ar_info'=>'تم الرد علي الطلب الذي رقمه '.$quotation_order->id,
-            'en_info'=>'request number '.$quotation_order->id.' has been replied please check this ',
-            'tu_info'=>'',
-            'seen'=>0,
-        ]);
 
-        if(session()->get('lang') == 'ar') {
-            send_email::send('رد الاداره بخصوص طلبك',
-                'تم رد الاداره بخصوص الطلب الذي قمت بارساله رقم '.$quotation_order->id,
-                request()->root() .'/profile/last-quotations',
-                'Press here', User::query()->find($quotation_order->user_id)->email
-            );
-        }else{
-            send_email::send(' quotation request has been replied',
-                'request number '.$quotation_order->id.' has been replied please check your profile to see more',
-                request()->root() .'/profile/last-quotations',
-                'Press here', User::query()->find($quotation_order->user_id)->email
-            );
-        }
+
+
 
         return messages::success_output(trans('messages.saved_successfully'),$quotation_order);
     }
@@ -163,7 +183,27 @@ class QuoationsInfoController extends Controller
             ],[
                 'image'=>$name
             ]);
+            // send notification to admin
+            $notification_data = [
+                'sender_id'=>auth()->id(),
+                'receiver_id'=>get_first_admin::get_admin()->id,
+                'ar_info'=> 'تم تأكيد الطلب رقم '.request('id').'من قبل العميل مع رفع صورة الايصال ',
+                'en_info'=> 'order number '.request('id').' has been confirmed from client with uploading bill photo',
+                'seen'=>0,
+            ];
+
+        }else{
+            // send notification to admin
+            $notification_data = [
+                'sender_id'=>auth()->id(),
+                'receiver_id'=>get_first_admin::get_admin()->id,
+                'ar_info'=> 'تم تأكيد الطلب رقم '.request('id').' من قبل العميل ',
+                'en_info'=> 'order number '.request('id').' has been confirmed from client',
+                'seen'=>0,
+            ];
+
         }
+        create_notification::new_notification($notification_data);
         $quotation_order = quotation_orders::query()->find(request('id'));
         if($quotation_order->is_completed < 2){
             $quotation_order->is_completed = 2;
@@ -173,17 +213,18 @@ class QuoationsInfoController extends Controller
         $email = get_first_admin::get_admin()->email;
         if(session()->get('lang') == 'ar') {
             send_email::send('تم الموافقة علي الطلب',
-                'تم ايصال صوره من الايصال رقم '.request('id').' يمكنك رؤيه التفاصيل من خلال لوحه التحكم ',
+                'تم الموافقه علي الطلب رقم '.request('id').' يمكنك رؤيه التفاصيل من خلال لوحه التحكم ',
                 request()->root() .'/dashboard/pricing-requests',
                 'Press here', $email
             );
         }else{
             send_email::send('order accepted from client',
-                'Bill file from '.request('id').' has been received you can check from admin panel',
+                'order number '.request('id').' has been confirmed from client you can check from admin panel',
                 request()->root() .'/dashboard/pricing-requests',
                 'Press here', $email
             );
         }
+
     }
 
     public function change_status_of_request(){

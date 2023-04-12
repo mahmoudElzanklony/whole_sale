@@ -21,6 +21,7 @@ use App\Models\user_company_info;
 use App\Models\user_info;
 use App\Services\get_first_admin;
 use App\Services\mail\send_email;
+use App\Services\notifications\create_notification;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Str;
 use Maatwebsite\Excel\Facades\Excel;
@@ -154,6 +155,17 @@ class ProfileServiceClass extends Controller
                 'Press here', $email
             );
         }
+
+        // send notification to admin
+        $notification_data = [
+            'sender_id'=>auth()->id(),
+            'receiver_id'=>get_first_admin::get_admin()->id,
+            'ar_info'=> 'تم ارسال طلب تسعيرات جديد من عميل رقم '.auth()->id().' ورقم الطلب هو  '.$qutation_bill->id,
+            'en_info'=>'there is new quotation request from user id '.auth()->id().' and request number is  '.$qutation_bill->id,
+            'seen'=>0,
+        ];
+
+        create_notification::new_notification($notification_data);
         return messages::success_output([trans('messages.saved_successfully')]);
     }
 
@@ -212,6 +224,18 @@ class ProfileServiceClass extends Controller
                 'Press here', $email
             );
         }
+
+        // send notification to admin
+        $notification_data = [
+            'sender_id'=>auth()->id(),
+            'receiver_id'=>get_first_admin::get_admin()->id,
+            'ar_info'=> 'تم ارسال طلب تسعيرات جديد من عميل رقم '.auth()->id().' ورقم الطلب هو  '.$qutation_bill->id,
+            'en_info'=>'there is new quotation request from user id '.auth()->id().' and request number is  '.$qutation_bill->id,
+            'seen'=>0,
+        ];
+
+        create_notification::new_notification($notification_data);
+
         return messages::success_output([trans('messages.saved_successfully')]);
     }
 }

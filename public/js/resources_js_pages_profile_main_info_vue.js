@@ -1651,6 +1651,10 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
+//
+//
+//
 
 
 
@@ -3367,6 +3371,16 @@ var render = function () {
                     _c("span", [_vm._v(_vm._s(_vm.keywords.current_balance))]),
                     _vm._v(" "),
                     _c("strong", [_vm._v("100 SR")]),
+                  ])
+                : _vm._e(),
+              _vm._v(" "),
+              _vm.role == "buyer"
+                ? _c("p", { staticClass: "alert alert-warning" }, [
+                    _c("span", [_vm._v(_vm._s(_vm.keywords.referral_code))]),
+                    _vm._v(" "),
+                    _c("strong", [
+                      _vm._v(_vm._s(_vm.$page.props.user.serial_number)),
+                    ]),
                   ])
                 : _vm._e(),
               _vm._v(" "),

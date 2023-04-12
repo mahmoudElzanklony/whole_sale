@@ -41,6 +41,7 @@ return [
     'logout'=>'Logout',
     'email'=>'Email',
     'vat'=>'VAT registration number',
+    'referral_code'=>'Referral code',
     'password'=>'Password',
     'current_password'=>'Current Password is not correct',
     'username'=>'Company name',
@@ -59,6 +60,7 @@ return [
     'bank_info_document'=>'Bank info document',
 
     'user_type'=>'user type',
+    'another_info'=>'Another info',
     'have_already_account'=>'have already account ',
     'forget_password'=>'forget password',
     'dont_have_account'=>'dont have account',
@@ -313,6 +315,9 @@ registered vendors, this process may take few moments',
     'user_products'=>'User Products',
     'brands'=>'Brands',
     'prices'=>'Prices',
+
+    'delivery_terms'=>'Delivery terms',
+    'currency'=>'Currency',
     // end of dashboard ----------------------------------------------------------
 
 

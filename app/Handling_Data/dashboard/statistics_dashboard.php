@@ -13,18 +13,21 @@ class statistics_dashboard
 
         return [
            'table_head_keys'=>[
-               trans('keywords.image'),
+             //  trans('keywords.image'),
                trans('keywords.username'),
                trans('keywords.email'),
                trans('keywords.phone'),
                trans('keywords.country'),
                trans('keywords.user_type'),
+               trans('keywords.another_info'),
            //    trans('keywords.address'),
             //   trans('keywords.block'),
             //   trans('keywords.user_products'),
                trans('keywords.actions'),
            ],
-           'data_model'=>[
+           'serial_number'=>trans('keywords.referral_code'),
+
+            'data_model'=>[
                'username'=>trans('keywords.username'),
                'email'=>trans('keywords.email'),
                'password'=>trans('keywords.password'),
@@ -34,11 +37,15 @@ class statistics_dashboard
              //  'block'=>trans('keywords.block'),
                'image'=>trans('keywords.image'),
            ],
+           'seller_data_keywords'=>[
+               'currency'=>trans('keywords.currency'),
+               'delivery_terms'=>trans('keywords.delivery_terms'),
+           ],
            'data'=>User::query()->with('country',function($e){
                $e->select('id',app()->getLocale().'_name as name');
            })->with('role')->whereHas('role',function($e){
                     $e->where('name','!=','admin');
-                })->orderByDesc('id')->get(),
+                })->with('seller_data')->orderByDesc('id')->get(),
            'countries'=>countries::selection()->get(),
         ];
     }

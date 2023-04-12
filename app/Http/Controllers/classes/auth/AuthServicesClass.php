@@ -6,12 +6,17 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\usersFormRequest;
 use App\Http\traits\messages;
 use App\Mail\Myemail;
+use App\Models\notifications;
 use App\Models\roles;
 use App\Models\User;
 use App\Services\auth\register_service;
+use App\Services\get_first_admin;
 use App\Services\mail\send_email;
+use App\Services\notifications\create_notification;
 use Illuminate\Http\Request;
 use App\Http\traits\upload_image;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
 
 class AuthServicesClass extends Controller
 {
@@ -22,6 +27,22 @@ class AuthServicesClass extends Controller
 
     public function store_personal_info(usersFormRequest $request){
         $role = roles::query()->find(request('role_id'));
+
+        // check if email is already exists
+        $user_email = User::query()->with('role')->where('email','=',request('email'))->first();
+        if($user_email != null){
+            // its already exists
+            // check if role name is equal to user register
+            if($user_email->role->name == $role->name){
+                // send an error
+                $rules = [
+                    'email' => 'unique:users'
+                ];
+
+                return $this->validate(request(), $rules, []);
+            }
+        }
+
         if($role->name == 'buyer' || $role->name == 'seller'){
             $personal_info = $request->validated();
             $personal_info['password'] = bcrypt($personal_info['password']);
@@ -43,6 +64,18 @@ class AuthServicesClass extends Controller
                     'Press here', $user->email
                 );
             }
+
+            // send notification to admin
+            $notification_data = [
+              'sender_id'=>$user->id,
+              'receiver_id'=>get_first_admin::get_admin()->id,
+              'ar_info'=>'هناك عمليه تسجيل جديدة من قبل '.($role->name == 'buyer'?'عميل':'مورد'),
+              'en_info'=>'there is a new registration from  '.$role->name,
+              'seen'=>0,
+
+            ];
+            create_notification::new_notification($notification_data);
+
             return messages::success_output(trans('messages.registered_user'),'','/login');
         }else {
             session()->put('personal_data', $request->validated());
@@ -77,20 +110,52 @@ class AuthServicesClass extends Controller
 
     // post
     public function login_post(usersFormRequest $request){
+
+
         if(auth()->attempt($request->validated())){
             $role_name = roles::query()->find(auth()->user()->role_id)->name;
-            session()->put('type',$role_name);
-            if($role_name == 'admin' || $role_name == 'supervisor'){
-                $url = '/dashboard';
-            }else if($role_name == 'buyer'){
-                $url = '/profile/quotations';
-            }else{
-                $url = '/profile/pricing';
+            // check if user has two emails
+            $user_emails = User::query()->with('role')
+                ->where('email','=',request('email'))
+                ->get();
+            if(sizeof($user_emails) > 1){
+                // has more than email
+                auth()->logout();
+                return messages::success_output(''
+                    ,$user_emails);
+            }else {
+                session()->put('type', $role_name);
+                if ($role_name == 'admin' || $role_name == 'supervisor') {
+                    $url = '/dashboard';
+                } else if ($role_name == 'buyer') {
+                    $url = '/profile/quotations';
+                } else {
+                    $url = '/profile/pricing';
+                }
+                return messages::success_output(['message'=>'','user'=>auth()->user()]
+                    ,'', $url);
             }
-            return messages::success_output(['message'=>'','user'=>auth()->user()]
-                ,'', $url);
+
         }
         return messages::error_output(['message'=>trans('messages.unauthenticated_err_form')]);
+    }
+
+    // select role you want to login
+    public function selectrole(){
+        $user = User::query()->with('role')->find(request('id'));
+        $role_name = $user->role->name;
+        Auth::login(User::query()->find(request('id')));
+
+        session()->put('type', $role_name);
+        if ($role_name == 'admin' || $role_name == 'supervisor') {
+            $url = '/dashboard';
+        } else if ($role_name == 'buyer') {
+            $url = '/profile/quotations';
+        } else {
+            $url = '/profile/pricing';
+        }
+        return messages::success_output(['message' => '', 'user' => auth()->user()]
+            , '', $url);
     }
 
     public function sendmail(){

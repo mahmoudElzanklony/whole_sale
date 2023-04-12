@@ -8,19 +8,21 @@
                     <div class="col-md-6" data-aos="fade-left">
                         <form method="post" @submit.prevent="login">
                             <h2 class="mb-4">{{ keywords.sign_in }}</h2>
-                            <div class="form-group input-icon">
-                                <label>{{ keywords.email }}</label>
-                                <input name="email" type="email" class="form-control" required>
-                                <p class="alert alert-danger"></p>
-                                <span class="required"><i class="ri-asterisk"></i></span>
-                            </div>
-                            <div class="form-group input-icon">
-                                <label>{{ keywords.password }}</label>
-                                <input name="password" type="password" class="form-control" required>
-                                <p class="alert alert-danger"></p>
-                                <span>
+                            <div class="inputs">
+                                <div class="form-group input-icon">
+                                    <label>{{ keywords.email }}</label>
+                                    <input name="email" type="email" class="form-control" required>
+                                    <p class="alert alert-danger"></p>
+                                    <span class="required"><i class="ri-asterisk"></i></span>
+                                </div>
+                                <div class="form-group input-icon">
+                                    <label>{{ keywords.password }}</label>
+                                    <input name="password" type="password" class="form-control" required>
+                                    <p class="alert alert-danger"></p>
+                                    <span>
                                     <i class="ri-eye-line show_password cursor-pointer"></i>
                                 </span>
+                                </div>
                             </div>
                             <div class="form-group">
                                 <input type="submit" name="send"
@@ -86,4 +88,5 @@ export default {
         height: 100%;
     }
 }
+
 </style>

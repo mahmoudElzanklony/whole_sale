@@ -20,12 +20,21 @@
                         </thead>
                         <tbody>
                             <tr v-for="(i,index) in handling_data['data']" :key="index" :class="'tr_'+i['id']">
-                                <td><img :src="'/images/users/'+i['image']"></td>
+                                <td v-if="false"><img :src="'/images/users/'+i['image']"></td>
                                 <td>{{ i['username'] }}</td>
                                 <td>{{ i['email'] }}</td>
                                 <td>{{ i['phone'] }}</td>
                                 <td>{{ i['country']['name'] }}</td>
                                 <td>{{ switchWord(i['role']['name']) }}</td>
+                                <td>
+                                    <button v-if="i['role']['name'] == 'seller'"
+                                        data-toggle="modal"
+                                        @click="update_item(i)"
+                                        data-target="#see_details"
+                                        class="btn btn-outline-primary">
+                                        {{ switchWord('see_details') }}
+                                    </button>
+                                </td>
                                 <td class="actions">
                                     <span><i data-toggle="modal"
                                              data-target="#update_users"
@@ -39,6 +48,40 @@
                 </div>
             </div>
         </div>
+
+
+        <div class="modal fade" id="see_details"
+             tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="see_details_box">
+                            {{ switchWord('see_details') }}
+                        </h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body" v-if="item != null && item['seller_data'] != null">
+                        <p class="mb-3">
+                            <strong>{{ handling_data['seller_data_keywords']['currency'] }}</strong>
+                            <span>{{ item['seller_data']['currency'] }}</span>
+                        </p>
+                        <p>
+                            <strong>{{ handling_data['seller_data_keywords']['delivery_terms'] }}</strong>
+                        </p>
+                        <p>{{ item['seller_data']['delivery_terms'] }}</p>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">
+                            {{ switchWord('close') }}
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
 
         <div class="modal fade" id="update_users" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
             <div class="modal-dialog" role="document">
@@ -60,7 +103,10 @@
                             </div>
                             <div class="form-group input-icon"
                                  v-for="input in modal_data"
-                                 v-if="input != 'block' && input != 'auto_publish' && input != 'country_id'"
+                                 v-if="input != 'block' &&
+                                  input != 'auto_publish'
+                                  && input != 'country_id'"
+
                                  :key="input">
                                  <label>{{ handling_data['data_model'][input] }}</label>
                                  <input :name="input"
@@ -95,6 +141,34 @@
                                     <p class="alert alert-danger w-100"></p>
 
                                 </div>
+                            </div>
+
+
+
+                            <div class="another_data"
+                                 v-if="item != null && item['role']['name'] == 'seller'">
+                                <div class="form-group input-icon"
+                                     v-for="input in ['currency','delivery_terms']"
+                                     :key="input">
+                                    <label>{{ handling_data['seller_data_keywords'][input] }}</label>
+                                    <input :name="input"
+                                           v-if="input == 'currency'"
+                                           :value="item != null && item['seller_data'] != null ? item['seller_data'][input]:''"
+                                           class="form-control" required>
+                                    <textarea :name="input" v-else
+                                              :value="item != null && item['seller_data'] != null ? item['seller_data'][input]:''"
+                                              class="form-control" required></textarea>
+
+                                    <p class="alert alert-danger"></p>
+                                </div>
+                            </div>
+                            <div class="form-group input-icon"
+                                 v-if="item != null && item.role.name == 'buyer'">
+                                <label>{{ handling_data['serial_number'] }}</label>
+                                <input name="serial_number"
+                                       :value="item != null ? item['serial_number']:''"
+                                       class="form-control" required>
+                                <p class="alert alert-danger"></p>
                             </div>
                             <div class="form-group">
                                 <div class="drag-drop-files">

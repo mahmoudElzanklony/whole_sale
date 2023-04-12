@@ -49,7 +49,7 @@ class usersFormRequest extends FormRequest
         return [
             //
             'username'=>'required',
-            'email'=>'required|email|max:191|unique:users,email',
+            'email'=>'required|email|max:191',
             'password'=>'required|min:7|max:191|confirmed',
             'phone'=>'required|min:7',
             'vat'=>'nullable|digits:15',

@@ -66,7 +66,8 @@
                                <div class="col-lg-3 col-md-6 col-12">
                                    <div class="form-group">
                                        <label>{{ keywords.brand }}</label>
-                                       <select name="brand_id[]" class="form-control" required>
+                                       <input name="brand_id[]" class="form-control" required>
+                                       <select v-if="false" name="brand_id[]" class="form-control" required>
                                            <option value="">{{ switchWord('select_best_choice') }}</option>
                                            <option v-for="i in brands" :value="i['id']">
                                                {{ i['name'] }}
@@ -244,7 +245,7 @@ export default {
                 $('.enter_data .inputs').append(output);
                 $('.enter_data .row').last().find('label')
                 $('.enter_data .row').last().find('input').eq(0).attr('disabled','disabled').eq(0).val($('.enter_data .row').length );
-                $('.enter_data .row').last().find('select option[value="'+$('.enter_data .row:last-of-type select').val()+'"]').prop('selected','selected');
+                /*$('.enter_data .row').last().find('select option[value="'+$('.enter_data .row:last-of-type select').val()+'"]').prop('selected','selected');*/
             }
         },
         change_quotation_type:function (){
@@ -384,11 +385,6 @@ export default {
 }
 #preview_quotation{
     z-index: 9999999999999999;
-}
-.enter_data{
-    input[name='part_number[]']{
-        text-align: left;
-    }
 }
 .activation{
     strong{

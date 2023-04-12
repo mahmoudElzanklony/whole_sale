@@ -1072,6 +1072,12 @@ body.swal2-toast-shown .swal2-container{
 }
 
 .profile{
+    .enter_data{
+        input[name='part_number[]']{
+            text-align: left;
+            direction: ltr;
+        }
+    }
     .inner-profile{
         .sales{
             .data{
@@ -1164,6 +1170,15 @@ body.swal2-toast-shown .swal2-container{
             tr{
                 outline: 2px solid #ddd;
             }
+        }
+    }
+}
+
+.auth{
+    .inputs{
+        input[type="radio"]{
+            width:18px;
+            height:18px;
         }
     }
 }

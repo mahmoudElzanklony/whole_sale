@@ -1879,6 +1879,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
 
 
 
@@ -1949,7 +1950,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
         $('.enter_data .inputs').append(output);
         $('.enter_data .row').last().find('label');
         $('.enter_data .row').last().find('input').eq(0).attr('disabled', 'disabled').eq(0).val($('.enter_data .row').length);
-        $('.enter_data .row').last().find('select option[value="' + $('.enter_data .row:last-of-type select').val() + '"]').prop('selected', 'selected');
+        /*$('.enter_data .row').last().find('select option[value="'+$('.enter_data .row:last-of-type select').val()+'"]').prop('selected','selected');*/
       }
     },
     change_quotation_type: function change_quotation_type() {
@@ -2120,7 +2121,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, ".ar .result .load span[data-v-6b7113f2] {\n  left: 5px;\n}\n.en .result .load span[data-v-6b7113f2] {\n  right: 5px;\n}\n.profile[data-v-6b7113f2] {\n  margin-top: 100px;\n}\n.profile .main-title span[data-v-6b7113f2] {\n  font-size: 25px;\n}\n.profile .main-title span[data-v-6b7113f2]::before, .profile .main-title span[data-v-6b7113f2]::after {\n  top: 65%;\n}\n.profile .enter_data .inputs > div.row:not(:first-of-type) label[data-v-6b7113f2] {\n  display: none;\n}\n.profile .inner-form > div[data-v-6b7113f2] {\n  display: none;\n}\n.profile .inner-form > div[data-v-6b7113f2]:first-of-type {\n  display: block;\n}\n.profile .input-has-delete span[data-v-6b7113f2] {\n  top: 30px;\n  left: -30px;\n}\n.profile a[data-v-6b7113f2] {\n  font-size: 16px;\n  font-weight: bold;\n  margin-bottom: 20px;\n  display: block;\n}\n.alert-danger[data-v-6b7113f2] {\n  display: none;\n}\n.result[data-v-6b7113f2] {\n  position: fixed;\n  top: 57px;\n  bottom: 0;\n  right: 0;\n  left: 0;\n  display: flex;\n  align-items: center;\n  justify-content: center;\n  background-color: #dddddd7d;\n  z-index: 9999;\n  display: none;\n}\n.result > div[data-v-6b7113f2] {\n  display: none;\n}\n.result .load[data-v-6b7113f2] {\n  max-width: 600px;\n  border: 1px solid #ddd;\n  border-radius: 10px;\n  padding: 10px;\n  background-color: white;\n  display: flex;\n  align-items: center;\n  justify-content: center;\n  flex-wrap: wrap;\n  padding-top: 30px;\n  position: relative;\n  top: -57px;\n}\n.result .load span[data-v-6b7113f2] {\n  color: #9D0208;\n  position: absolute;\n  top: 10px;\n  cursor: pointer;\n}\n.result .load span i[data-v-6b7113f2] {\n  font-size: 25px;\n}\n.result .best_offer[data-v-6b7113f2] {\n  background-color: white;\n  width: 95%;\n}\n#preview_quotation[data-v-6b7113f2] {\n  z-index: 10000000000000000;\n}\n.enter_data input[name=\"part_number[]\"][data-v-6b7113f2] {\n  text-align: left;\n}\n.activation strong[data-v-6b7113f2] {\n  border-bottom: 1px solid darkred;\n  padding-bottom: 6px;\n  cursor: pointer;\n}", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, ".ar .result .load span[data-v-6b7113f2] {\n  left: 5px;\n}\n.en .result .load span[data-v-6b7113f2] {\n  right: 5px;\n}\n.profile[data-v-6b7113f2] {\n  margin-top: 100px;\n}\n.profile .main-title span[data-v-6b7113f2] {\n  font-size: 25px;\n}\n.profile .main-title span[data-v-6b7113f2]::before, .profile .main-title span[data-v-6b7113f2]::after {\n  top: 65%;\n}\n.profile .enter_data .inputs > div.row:not(:first-of-type) label[data-v-6b7113f2] {\n  display: none;\n}\n.profile .inner-form > div[data-v-6b7113f2] {\n  display: none;\n}\n.profile .inner-form > div[data-v-6b7113f2]:first-of-type {\n  display: block;\n}\n.profile .input-has-delete span[data-v-6b7113f2] {\n  top: 30px;\n  left: -30px;\n}\n.profile a[data-v-6b7113f2] {\n  font-size: 16px;\n  font-weight: bold;\n  margin-bottom: 20px;\n  display: block;\n}\n.alert-danger[data-v-6b7113f2] {\n  display: none;\n}\n.result[data-v-6b7113f2] {\n  position: fixed;\n  top: 57px;\n  bottom: 0;\n  right: 0;\n  left: 0;\n  display: flex;\n  align-items: center;\n  justify-content: center;\n  background-color: #dddddd7d;\n  z-index: 9999;\n  display: none;\n}\n.result > div[data-v-6b7113f2] {\n  display: none;\n}\n.result .load[data-v-6b7113f2] {\n  max-width: 600px;\n  border: 1px solid #ddd;\n  border-radius: 10px;\n  padding: 10px;\n  background-color: white;\n  display: flex;\n  align-items: center;\n  justify-content: center;\n  flex-wrap: wrap;\n  padding-top: 30px;\n  position: relative;\n  top: -57px;\n}\n.result .load span[data-v-6b7113f2] {\n  color: #9D0208;\n  position: absolute;\n  top: 10px;\n  cursor: pointer;\n}\n.result .load span i[data-v-6b7113f2] {\n  font-size: 25px;\n}\n.result .best_offer[data-v-6b7113f2] {\n  background-color: white;\n  width: 95%;\n}\n#preview_quotation[data-v-6b7113f2] {\n  z-index: 10000000000000000;\n}\n.activation strong[data-v-6b7113f2] {\n  border-bottom: 1px solid darkred;\n  padding-bottom: 6px;\n  cursor: pointer;\n}", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -4145,37 +4146,14 @@ var render = function () {
                                   _vm._v(_vm._s(_vm.keywords.brand)),
                                 ]),
                                 _vm._v(" "),
-                                _c(
-                                  "select",
-                                  {
-                                    staticClass: "form-control",
-                                    attrs: { name: "brand_id[]", required: "" },
-                                  },
-                                  [
-                                    _c("option", { attrs: { value: "" } }, [
-                                      _vm._v(
-                                        _vm._s(
-                                          _vm.switchWord("select_best_choice")
-                                        )
-                                      ),
-                                    ]),
-                                    _vm._v(" "),
-                                    _vm._l(_vm.brands, function (i) {
-                                      return _c(
-                                        "option",
-                                        { domProps: { value: i["id"] } },
-                                        [
-                                          _vm._v(
-                                            "\n                                           " +
-                                              _vm._s(i["name"]) +
-                                              "\n                                       "
-                                          ),
-                                        ]
-                                      )
-                                    }),
-                                  ],
-                                  2
-                                ),
+                                _c("input", {
+                                  staticClass: "form-control",
+                                  attrs: { name: "brand_id[]", required: "" },
+                                }),
+                                _vm._v(" "),
+                                 false
+                                  ? 0
+                                  : _vm._e(),
                               ]),
                             ]
                           ),

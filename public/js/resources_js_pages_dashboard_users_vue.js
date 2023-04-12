@@ -1431,6 +1431,80 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 
@@ -2283,11 +2357,9 @@ var render = function () {
                   "tbody",
                   _vm._l(_vm.handling_data["data"], function (i, index) {
                     return _c("tr", { key: index, class: "tr_" + i["id"] }, [
-                      _c("td", [
-                        _c("img", {
-                          attrs: { src: "/images/users/" + i["image"] },
-                        }),
-                      ]),
+                       false
+                        ? 0
+                        : _vm._e(),
                       _vm._v(" "),
                       _c("td", [_vm._v(_vm._s(i["username"]))]),
                       _vm._v(" "),
@@ -2299,6 +2371,33 @@ var render = function () {
                       _vm._v(" "),
                       _c("td", [
                         _vm._v(_vm._s(_vm.switchWord(i["role"]["name"]))),
+                      ]),
+                      _vm._v(" "),
+                      _c("td", [
+                        i["role"]["name"] == "seller"
+                          ? _c(
+                              "button",
+                              {
+                                staticClass: "btn btn-outline-primary",
+                                attrs: {
+                                  "data-toggle": "modal",
+                                  "data-target": "#see_details",
+                                },
+                                on: {
+                                  click: function ($event) {
+                                    return _vm.update_item(i)
+                                  },
+                                },
+                              },
+                              [
+                                _vm._v(
+                                  "\n                                        " +
+                                    _vm._s(_vm.switchWord("see_details")) +
+                                    "\n                                    "
+                                ),
+                              ]
+                            )
+                          : _vm._e(),
                       ]),
                       _vm._v(" "),
                       _c("td", { staticClass: "actions" }, [
@@ -2347,6 +2446,103 @@ var render = function () {
         {
           staticClass: "modal fade",
           attrs: {
+            id: "see_details",
+            tabindex: "-1",
+            role: "dialog",
+            "aria-labelledby": "exampleModalLabel",
+            "aria-hidden": "true",
+          },
+        },
+        [
+          _c(
+            "div",
+            { staticClass: "modal-dialog", attrs: { role: "document" } },
+            [
+              _c("div", { staticClass: "modal-content" }, [
+                _c("div", { staticClass: "modal-header" }, [
+                  _c(
+                    "h5",
+                    {
+                      staticClass: "modal-title",
+                      attrs: { id: "see_details_box" },
+                    },
+                    [
+                      _vm._v(
+                        "\n                            " +
+                          _vm._s(_vm.switchWord("see_details")) +
+                          "\n                        "
+                      ),
+                    ]
+                  ),
+                  _vm._v(" "),
+                  _vm._m(1),
+                ]),
+                _vm._v(" "),
+                _vm.item != null && _vm.item["seller_data"] != null
+                  ? _c("div", { staticClass: "modal-body" }, [
+                      _c("p", { staticClass: "mb-3" }, [
+                        _c("strong", [
+                          _vm._v(
+                            _vm._s(
+                              _vm.handling_data["seller_data_keywords"][
+                                "currency"
+                              ]
+                            )
+                          ),
+                        ]),
+                        _vm._v(" "),
+                        _c("span", [
+                          _vm._v(_vm._s(_vm.item["seller_data"]["currency"])),
+                        ]),
+                      ]),
+                      _vm._v(" "),
+                      _c("p", [
+                        _c("strong", [
+                          _vm._v(
+                            _vm._s(
+                              _vm.handling_data["seller_data_keywords"][
+                                "delivery_terms"
+                              ]
+                            )
+                          ),
+                        ]),
+                      ]),
+                      _vm._v(" "),
+                      _c("p", [
+                        _vm._v(
+                          _vm._s(_vm.item["seller_data"]["delivery_terms"])
+                        ),
+                      ]),
+                    ])
+                  : _vm._e(),
+                _vm._v(" "),
+                _c("div", { staticClass: "modal-footer" }, [
+                  _c(
+                    "button",
+                    {
+                      staticClass: "btn btn-secondary",
+                      attrs: { type: "button", "data-dismiss": "modal" },
+                    },
+                    [
+                      _vm._v(
+                        "\n                            " +
+                          _vm._s(_vm.switchWord("close")) +
+                          "\n                        "
+                      ),
+                    ]
+                  ),
+                ]),
+              ]),
+            ]
+          ),
+        ]
+      ),
+      _vm._v(" "),
+      _c(
+        "div",
+        {
+          staticClass: "modal fade",
+          attrs: {
             id: "update_users",
             tabindex: "-1",
             role: "dialog",
@@ -2380,7 +2576,7 @@ var render = function () {
                       )
                     : _vm._e(),
                   _vm._v(" "),
-                  _vm._m(1),
+                  _vm._m(2),
                 ]),
                 _vm._v(" "),
                 _c("div", { staticClass: "modal-body" }, [
@@ -2538,6 +2734,110 @@ var render = function () {
                                 ])
                           }),
                           _vm._v(" "),
+                          _vm.item != null &&
+                          _vm.item["role"]["name"] == "seller"
+                            ? _c(
+                                "div",
+                                { staticClass: "another_data" },
+                                _vm._l(
+                                  ["currency", "delivery_terms"],
+                                  function (input) {
+                                    return _c(
+                                      "div",
+                                      {
+                                        key: input,
+                                        staticClass: "form-group input-icon",
+                                      },
+                                      [
+                                        _c("label", [
+                                          _vm._v(
+                                            _vm._s(
+                                              _vm.handling_data[
+                                                "seller_data_keywords"
+                                              ][input]
+                                            )
+                                          ),
+                                        ]),
+                                        _vm._v(" "),
+                                        input == "currency"
+                                          ? _c("input", {
+                                              staticClass: "form-control",
+                                              attrs: {
+                                                name: input,
+                                                required: "",
+                                              },
+                                              domProps: {
+                                                value:
+                                                  _vm.item != null &&
+                                                  _vm.item["seller_data"] !=
+                                                    null
+                                                    ? _vm.item["seller_data"][
+                                                        input
+                                                      ]
+                                                    : "",
+                                              },
+                                            })
+                                          : _c("textarea", {
+                                              staticClass: "form-control",
+                                              attrs: {
+                                                name: input,
+                                                required: "",
+                                              },
+                                              domProps: {
+                                                value:
+                                                  _vm.item != null &&
+                                                  _vm.item["seller_data"] !=
+                                                    null
+                                                    ? _vm.item["seller_data"][
+                                                        input
+                                                      ]
+                                                    : "",
+                                              },
+                                            }),
+                                        _vm._v(" "),
+                                        _c("p", {
+                                          staticClass: "alert alert-danger",
+                                        }),
+                                      ]
+                                    )
+                                  }
+                                ),
+                                0
+                              )
+                            : _vm._e(),
+                          _vm._v(" "),
+                          _vm.item != null && _vm.item.role.name == "buyer"
+                            ? _c(
+                                "div",
+                                { staticClass: "form-group input-icon" },
+                                [
+                                  _c("label", [
+                                    _vm._v(
+                                      _vm._s(_vm.handling_data["serial_number"])
+                                    ),
+                                  ]),
+                                  _vm._v(" "),
+                                  _c("input", {
+                                    staticClass: "form-control",
+                                    attrs: {
+                                      name: "serial_number",
+                                      required: "",
+                                    },
+                                    domProps: {
+                                      value:
+                                        _vm.item != null
+                                          ? _vm.item["serial_number"]
+                                          : "",
+                                    },
+                                  }),
+                                  _vm._v(" "),
+                                  _c("p", {
+                                    staticClass: "alert alert-danger",
+                                  }),
+                                ]
+                              )
+                            : _vm._e(),
+                          _vm._v(" "),
                           _c("div", { staticClass: "form-group" }, [
                             _c("div", { staticClass: "drag-drop-files" }, [
                               _c("input", {
@@ -2561,7 +2861,7 @@ var render = function () {
                                     _vm._v(_vm._s(_vm.keywords.upload_image)),
                                   ]),
                                   _vm._v(" "),
-                                  _vm._m(2),
+                                  _vm._m(3),
                                 ]
                               ),
                             ]),
@@ -2613,6 +2913,23 @@ var staticRenderFns = [
     return _c("span", [
       _c("i", { staticClass: "ri-arrow-down-s-line toggle_next" }),
     ])
+  },
+  function () {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c(
+      "button",
+      {
+        staticClass: "close",
+        attrs: {
+          type: "button",
+          "data-dismiss": "modal",
+          "aria-label": "Close",
+        },
+      },
+      [_c("span", { attrs: { "aria-hidden": "true" } }, [_vm._v("×")])]
+    )
   },
   function () {
     var _vm = this
