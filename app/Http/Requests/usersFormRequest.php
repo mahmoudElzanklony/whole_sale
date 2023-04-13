@@ -69,9 +69,9 @@ class usersFormRequest extends FormRequest
     }
     public function update_admin(){
         return [
-            //
+            // unique:users,email,'.(auth()->id() == request('id') ? auth()->id():request('id'))
             'username'=>'required|max:191',
-            'email'=>'required|email|max:191|unique:users,email,'.(auth()->id() == request('id') ? auth()->id():request('id')),
+            'email'=>'required|email|max:191',
             'phone'=>'required|min:7',
             'country_id'=>'required|exists:countries,id',
             'image'=>'nullable|image|mimes:jpg,jpeg,png,gif',
