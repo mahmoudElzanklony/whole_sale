@@ -383,9 +383,7 @@
                     <div class="modal-header">
                         <h5 class="modal-title"
                             id="update_box_data">
-                            <span v-if="item['is_completed'] == 3">{{ switchWord('tax_bill') }}</span>
-                            <span v-else>{{ switchWord('initial_bill') }}</span>
-
+                            <span>{{ print_name }}</span>
                         </h5>
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                             <span aria-hidden="true">&times;</span>
@@ -577,7 +575,7 @@
                             {{ switchWord('press_here_to_preview_bill') }}
                         </a>
                         <button class="btn btn-outline-primary mb-3"
-                                @click="print_bill(item)"
+                                @click="print_bill(item); print_name = switchWord('initial_bill');"
                                >
                             {{ switchWord('initial_bill') }}
                         </button>
@@ -630,6 +628,7 @@ export default {
             table_columns:null,
             page_data:null,
             tax:0,
+            print_name:'',
         }
     },
     created() {
@@ -694,7 +693,7 @@ export default {
                         } else if (row['is_completed'] == 2) {
                             return '<span title="' + component.switchWord("receipt_photo") + '" class="receipt accept" el_id="' + row['id'] + '"><i class="ri-file-paper-line"></i></span>'
                         } else if (row['is_completed'] == 3) {
-                            return '<span class="print" title="' + component.switchWord("print_bill") + '" el_id="' + row['id'] + '"><i class="ri-printer-line"></i></span><span title="' + component.switchWord("receipt_photo") + '" class="receipt accept" el_id="' + row['id'] + '"><i class="ri-file-paper-line"></i></span>'
+                            return '<span class="print initial_bill" title="' + component.switchWord("initial_bill") + '" el_id="' + row['id'] + '"><i class="ri-printer-line initial_bill"></i></span><span class="print" title="' + component.switchWord("tax_bill") + '" el_id="' + row['id'] + '"><i class="ri-printer-line"></i></span><span title="' + component.switchWord("receipt_photo") + '" class="receipt accept" el_id="' + row['id'] + '"><i class="ri-file-paper-line"></i></span>'
                         } else {
                             return '';
                         }
@@ -775,6 +774,12 @@ export default {
         });
         // print bill
         $('.content').on('click','.data table tbody tr td.actions span.print',async function (){
+            if($(event.target).hasClass('initial_bill')){
+                console.log('yesssssss inital bill');
+                component.print_name = component.switchWord('initial_bill');
+            }else{
+                component.print_name = component.switchWord('tax_bill');
+            }
             var item = component.get_obj_wanted($(this).attr('el_id'));
             await component.print_bill(item);
             await component.update_item(item);

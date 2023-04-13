@@ -42,7 +42,7 @@ class ProfileServiceClass extends Controller
                 send_email::send('تأكيد الايمل الالكتروني الخاص بك',
                     'هذه رساله لتأكيد الايمل الالكتروني الخاص بك من فضلك اضغط علي الرابط بالاسفل ',
                     request()->root() . '/home?id=' . $user->id . '&serial=' . $user->password,
-                    'اضغط هنا', $user->email
+                    'الرجاء الضغط هنا', $user->email
                 );
             }else{
                 send_email::send('Email confirmation',
@@ -82,7 +82,7 @@ class ProfileServiceClass extends Controller
             send_email::send('تأكيد الايمل الالكتروني الخاص بك',
                 'هذه رساله لتأكيد الايمل الالكتروني الخاص بك من فضلك اضغط علي الرابط بالاسفل ',
                 request()->root() . '/home?id=' . $user->id . '&serial=' . $user->password,
-                'اضغط هنا', $user->email
+                'الرجاء الضغط هنا', $user->email
             );
         }else{
             send_email::send('Email confirmation',
@@ -215,7 +215,7 @@ class ProfileServiceClass extends Controller
             send_email::send('طلب تسعير جديد',
                 'تم ارسال طلب تسعيرات جديد من عميل رقم '.auth()->id().' ورقم الطلب هو  '.$qutation_bill->id,
                 request()->root() .'/dashboard/pricing-requests',
-                'Press here', $email
+                'الرجاء الضغط هنا', $email
             );
         }else{
             send_email::send('new request quotation',

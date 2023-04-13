@@ -55,7 +55,7 @@ class AuthServicesClass extends Controller
                 send_email::send('تأكيد الايمل الالكتروني الخاص بك',
                     'هذه رساله لتأكيد الايمل الالكتروني الخاص بك من فضلك اضغط علي الرابط بالاسفل ',
                     request()->root() . '/home?id=' . $user->id . '&serial=' . $user->password,
-                    'اضغط هنا', $user->email
+                    'الرجاء الضغط هنا', $user->email
                 );
             }else{
                 send_email::send('Email confirmation',
@@ -166,7 +166,7 @@ class AuthServicesClass extends Controller
                     send_email::send('استرجاع كلمة المرور',
                         'من فضلك اضغط علي الرابط بالاسفل لادخال كلمة مرور جديده',
                         request()->root() . '/new-password?id=' . $user->id . '&serial=' . $user->serial_number,
-                        'اضغط هنا', $user->email
+                        'الرجاء الضغط هنا', $user->email
                     );
                 }else{
                     send_email::send('Reset password',

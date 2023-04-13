@@ -144,7 +144,7 @@ class QuoationsInfoController extends Controller
                 send_email::send('رد الاداره بخصوص طلبك',
                     'تم رد الاداره بخصوص الطلب الذي قمت بارساله رقم '.$quotation_order->id,
                     request()->root() .'/profile/last-quotations',
-                    'Press here', User::query()->find($quotation_order->user_id)->email
+                    'الرجاء الضغط هنا', User::query()->find($quotation_order->user_id)->email
                 );
             }else{
                 send_email::send(' quotation request has been replied',
@@ -215,7 +215,7 @@ class QuoationsInfoController extends Controller
             send_email::send('تم الموافقة علي الطلب',
                 'تم الموافقه علي الطلب رقم '.request('id').' يمكنك رؤيه التفاصيل من خلال لوحه التحكم ',
                 request()->root() .'/dashboard/pricing-requests',
-                'Press here', $email
+                'الرجاء الضغط هنا', $email
             );
         }else{
             send_email::send('order accepted from client',
@@ -318,7 +318,7 @@ class QuoationsInfoController extends Controller
             send_email::send('طلب جديد من الاداره',
                 'تم ارسال لك طلب من الاداره برجاء قرائته وارفاق ملف الاكسل الذي يحتوي علي التسعيرات الخاصه بك رقم '.$data->id,
                 request()->root() .'/profile/pricing',
-                'Press here', $data['user']->email
+                'الرجاء الضغط هنا', $data['user']->email
             );
         }else{
             send_email::send('new request from admin',

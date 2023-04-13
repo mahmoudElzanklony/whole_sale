@@ -33,6 +33,7 @@ return [
 
 
    // Auth page
+   'press_here'=>'أضغط هنا',
    'sign_up'=>'حساب جديد',
    'sign_in'=>'تسجيل دخول',
    'logout'=>'تسجيل خروج',

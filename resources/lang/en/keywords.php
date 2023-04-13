@@ -36,6 +36,7 @@ return [
 
 
     // Auth page
+    'press_here'=>'Press here',
     'sign_up'=>'Sign up',
     'sign_in'=>'Sign in',
     'logout'=>'Logout',
