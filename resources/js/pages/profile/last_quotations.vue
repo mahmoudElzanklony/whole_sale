@@ -391,6 +391,7 @@
                     </div>
                     <div class="modal-body">
                         <div class="receipt">
+
                             <div class="d-flex align-items-center justify-content-between mb-5"
                             >
                                 <div>
@@ -414,7 +415,8 @@
                                     <img class="qr_code" style="max-height: 130px;" src="/images/qr.png">
                                 </div>
                             </div>
-                            <table class="table table-bordered table-hover table-striped">
+
+                            <table class="mb-0 table table-bordered table-hover table-striped">
                                 <thead>
                                 <tr>
                                     <td>{{ keywords.seq }}</td>
@@ -429,9 +431,9 @@
                                 <tbody>
                                 <tr v-for="(i,index) in get_my_quotation"
                                     v-if="i['last_draft'] == null || i['last_draft']['deleted_at'] == null"
-                                    :class="index == 22 ?
+                                    :class="index == 20 ?
                                     'avoid':
-                                    ((Number(index-22) % 30 ) == 0 ? 'avoid':'')"
+                                    ((Number(index-20) % 28 ) == 0 ? 'avoid':'')"
                                     :key="index">
                                     <td>{{ index + 1 }}</td>
                                     <td>
@@ -465,6 +467,19 @@
                                     </td>
                                 </tr>
                                 </tbody>
+                            </table>
+                            <table class="table table-bordered table-hover table-striped">
+                                <thead style="visibility: collapse;">
+                                <tr>
+                                    <td>{{ keywords.seq }}</td>
+                                    <td>{{ keywords.part_no }}</td>
+                                    <td>{{ keywords.en_part_name }}</td>
+                                    <td>{{ keywords.brand }}</td>
+                                    <td>{{ keywords.quantity }}</td>
+                                    <td>{{ switchWord('unit_price') }}</td>
+                                    <td>{{ keywords.total }}</td>
+                                </tr>
+                                </thead>
                                 <tfoot>
                                 <tr class="total_part_number_price">
                                     <td colspan="6">{{ switchWord('total_part_number_price') }}</td>
@@ -934,7 +949,7 @@ export default {
                     .html(result);
                 total += Number(result)
             }
-            $('.total_part_number_price td:last-of-type').html(total);
+            $('.total_part_number_price td:last-of-type').html(Number(total).toFixed(2));
             $('#print_box table tr.tax td:last-of-type')
                 .html(Number(total * Number(this.item.tax ) / 100).toFixed(2));
             total += (total * this.item.tax / 100 );
@@ -989,30 +1004,44 @@ export default {
     }
 }
 
+.receipt{
+    table{
+        tr{
+            td{
+                border: 1px solid #dddddd;
+            }
+        }
+    }
+}
 
 @media print {
     body * { visibility: hidden; }
     .inner-profile,nav,footer{
         display: none;
     }
-    *:not(td){
+    *:not(td,tr){
         top:0px; margin: 0px; transform: unset; padding: 0px;
     }
-    /*.receipt > div:first-of-type{
-        position: fixed;
-        top: 15px;
-        right: 0px;
-        left: 0px;
-        z-index: 9999;
-        background-color: white;
-    }
-    .receipt > table{
-        margin-top: 200px;
-    }*/
     .receipt{height: auto; display: block}
-    .receipt * { visibility: visible; margin: 0px}
+    .receipt * { visibility: visible;  margin: 0px}
     .receipt button{visibility: hidden;}
     #receipt .modal-footer{display: none;}
+    #receipt table tbody tr td{
+        border: 1px solid #dddddd !important;
+    }
+    .receipt table tr td{
+        border: 3px solid #dddddd !important;;
+    }
+    .receipt table:last-of-type tfoot tr:first-of-type td{
+        border-top: 0px !important;
+    }
+    #receipt table thead{
+        position: relative !important;
+        top:0px !important;
+    }
+    #receipt table tfoot{
+        position: unset !important;
+    }
     #fb-root{display: none;}
     .modal{
         position: relative !important;

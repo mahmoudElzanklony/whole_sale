@@ -482,21 +482,32 @@
                     </div>
                     <div class="modal-body">
                         <div class="receipt">
-                            <div class="d-flex align-items-center justify-content-between mb-5">
+
+                            <div class="d-flex align-items-center justify-content-between mb-5"
+                            >
                                 <div v-if="item != null">
                                     <img class="d-block m-auto" style="width: 150px;" src="/images/logo.png">
                                     <p class="mt-3 font-weight-bold">{{ keywords.invoice_number }}
-                                        #W
-                                        {{ ("0" + (new Date(item.created_at).getFullYear())).slice(-2) }}
-                                        {{ ("0" + (new Date(item.created_at).getMonth() + 1)).slice(-2) }}
-                                        {{ item.id }}
+                                        #W{{ ("0" + (new Date(item.created_at).getFullYear())).slice(-2) }}{{ ("0" + (new Date(item.created_at).getMonth() + 1)).slice(-2) }}{{ item.id }}
+                                    </p>
+                                    <p>
+                                        <span class="font-weight-bold">{{ switchWord('tax_number') }}</span> : <span class="font-weight-bold">310188508400003</span>
+                                    </p>
+                                    <p>
+                                        <span class="font-weight-bold">{{ switchWord('client_name') }}</span>:
+                                        <span>{{ item.user.username }}</span>
+                                    </p>
+                                    <p v-if="item.user.phone.length > 0">
+                                        <span class="font-weight-bold">{{ switchWord('phone_number') }}</span>:
+                                        <span>{{ item.user.phone }}</span>
                                     </p>
                                 </div>
                                 <div>
                                     <img class="qr_code" style="max-height: 130px;" src="/images/qr.png">
                                 </div>
                             </div>
-                            <table class="table table-bordered table-hover table-striped">
+
+                            <table class="mb-0 table table-bordered table-hover table-striped">
                                 <thead>
                                     <tr>
                                         <td>{{ keywords.seq }}</td>
@@ -511,7 +522,9 @@
                                 <tbody>
                                 <tr v-for="(i,index) in get_my_quotation"
                                     v-if="i['last_draft'].length == 0 || i['last_draft'][0]['deleted_at'] == null"
-                                    :class="(Number(index+1) % 22 ) == 0 ? 'avoid':''"
+                                    :class="index == 20 ?
+                                    'avoid':
+                                    ((Number(index-20) % 28 ) == 0 ? 'avoid':'')"
                                     :key="index">
                                     <td>{{ index + 1 }}</td>
                                     <td>
@@ -551,6 +564,21 @@
                                     </td>
                                 </tr>
                                 </tbody>
+
+
+                            </table>
+                            <table class="table table-bordered table-hover table-striped">
+                                <thead style="visibility: collapse;">
+                                <tr>
+                                    <td>{{ keywords.seq }}</td>
+                                    <td>{{ keywords.part_no }}</td>
+                                    <td>{{ keywords.en_part_name }}</td>
+                                    <td>{{ keywords.brand }}</td>
+                                    <td>{{ keywords.quantity }}</td>
+                                    <td>{{ switchWord('unit_price') }}</td>
+                                    <td>{{ keywords.total }}</td>
+                                </tr>
+                                </thead>
                                 <tfoot>
                                 <tr class="total_part_number_price">
                                     <td colspan="6">{{ switchWord('total_part_number_price') }}</td>
@@ -566,7 +594,6 @@
                                     <td></td>
                                 </tr>
                                 </tfoot>
-
                             </table>
                             <p class="text-center mb-3">
                                 <strong>{{ keywords.wholesale_bill_info }}</strong>
@@ -1044,24 +1071,45 @@ table{
     max-width: 1100px;
 }
 
+
 @media print {
-    body * { visibility: hidden;}
-    *:not(td){
-        top:0px; margin: 0px; transform: unset; padding: 0px;
-    }
-    .content.users,nav,footer{
+    body * { visibility: hidden; }
+    .content.users.table-data-page{
         display: none;
     }
-    .receipt{height: auto;}
-    .receipt * { visibility: visible; margin: 0px}
+    .inner-profile,nav,footer{
+        display: none;
+    }
+    *:not(td,tr){
+        top:0px; margin: 0px; transform: unset; padding: 0px;
+    }
+    .receipt{height: auto; display: block}
+    .receipt * { visibility: visible;  margin: 0px}
     .receipt button{visibility: hidden;}
     #receipt .modal-footer{display: none;}
+    #receipt table tbody tr td{
+        border: 1px solid #dddddd !important;
+    }
+    .receipt table tr td{
+        border: 3px solid #dddddd !important;;
+    }
+    .receipt table:last-of-type tfoot tr:first-of-type td{
+        border-top: 0px !important;
+    }
+    #receipt table thead{
+        position: relative !important;
+        top:0px !important;
+    }
+    #receipt table tfoot{
+        position: unset !important;
+    }
     #fb-root{display: none;}
-    .modal{
+    .modal,#print_box{
         position: relative !important;
         top:0px !important;
     }
 }
+
 
 #print_box{
     >div{
