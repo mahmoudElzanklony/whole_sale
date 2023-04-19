@@ -47,19 +47,7 @@ class QuotationImportCSV implements ToModel, WithValidation, WithHeadingRow,Skip
     {
         // php artisan make:import countriesImportCSV --model=countries to make this class
         // create new quotation bill
-        if($this->qutation_bill != null) {
-            // dd($row);
-            return new quotations([
-                //
-                'quotation_order_id' => $this->qutation_bill->id,
-                'brand_id' => brands::query()->where('ar_name', '=', $row['brand'])
-                        ->orWhere('en_name', '=', $row['brand'])->first()->id ?? $row['brand'],
-                'part_number' => $row['part_number'],
-                'quantity' => $row['quantity'],
-            ]);
-        }else{
-            array_push($this->data,$row);
-        }
+        array_push($this->data,$row);
     }
 
 

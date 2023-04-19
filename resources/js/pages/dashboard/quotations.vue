@@ -810,7 +810,11 @@ export default {
             },
             {"data":"id",
                 "render":function (data,type,row){
-                    return '<button class="client_request btn btn-outline-primary" el_id="'+row['id']+'">'+component.switchWord('see_details')+'</button>'
+                var output = '<button style="font-size:7px !important;" class="client_request btn btn-outline-primary" el_id="'+row['id']+'">'+component.switchWord('see_details')+'</button>';
+                    if(row['offer'] != null){
+                        output+='<span class="cancel_info_icon" title="'+component.switchWord('this_order_made_from_offer_number')+row['offer']['offer_id']+'"><i class="ri ri-information-line"></i></span>';
+                    }
+                    return output;
                 }
             },
             { "data": "is_completed",
@@ -819,7 +823,9 @@ export default {
                         :row['is_completed'] == 1 ? component.keywords.reply_from_admin
                             :row['is_completed'] == -1 ? '<span>'+component.switchWord('cancel_done')+'</span>'+'<span class="cancel_info_icon" title="'+component.handling_data.reasons.find((e)=>{return e['id'] == row['cancelled_quotations']['cancelled_id']})['name']+'"><i class="ri ri-information-line"></i></span>'
                             :row['is_completed'] == 11 ? component.switchWord('vendors_reply')
-                            :row['is_completed'] == 2 ? '<button el_id="'+row['id']+'" class="confirm btn btn-outline-primary">'+component.keywords.click_here_to_finish_request+'</button>' : component.switchWord('order_confirmed');
+                            :row['is_completed'] == 2 && row['my_receipt_count'] > 0 ? '<button el_id="'+row['id']+'" class="confirm btn btn-outline-primary">'+component.keywords.click_here_to_finish_request+'</button>'
+                            :row['is_completed'] == 2 && row['my_receipt_count'] == 0 ? component.switchWord('wait_receipt')
+                                        : component.switchWord('order_confirmed');
                 }
             },
             { "data": "id", // get my quotation
@@ -1116,6 +1122,7 @@ table{
         max-width: 900px;
     }
 }
+
 
 
 </style>

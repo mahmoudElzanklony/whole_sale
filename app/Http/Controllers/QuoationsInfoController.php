@@ -367,7 +367,7 @@ class QuoationsInfoController extends Controller
         $ids = explode(',',request('ids'));
         $data = items_info::query()
             ->whereIn('id',$ids)
-            ->with(['brand:id,' . app()->getLocale() . '_name as name','prices'])->get();
+            ->with(['brand:id,' . app()->getLocale() . '_name as name','prices','offer'])->get();
         return messages::success_output('',$data);
     }
 

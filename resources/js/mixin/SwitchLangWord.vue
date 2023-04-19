@@ -892,7 +892,23 @@ export default {
                   ar:'مجموع اسعار القطع',
                   en:'total price of part numbers',
                   tu:'',
-              }
+              },
+              order_quantity_offer:{
+                  ar:'طلب كمية من هذا العرض',
+                  en:'order quantity form this offer',
+              },
+              this_order_made_from_offer_number:{
+                  ar:'هذا الطلب تم عن طريق عرض رقم ',
+                  en:'this order done from offer number ',
+              },
+              rows_that_has_no_receipt:{
+                  ar:'عندما تري طلب باللون الرصاصي يضئ وينطفئ هذا تذكير لك بأن هذا الطلب لم يتم ارسال صورة ايصال ويلزم عليك في اسرع وقت ارسال صوره الايصال',
+                en:'When you see a request in gray that turns on and off, this is a reminder to you that a copy of the receipt has not been sent to this request, and you must send a copy of the receipt as soon as possible',
+              },
+            wait_receipt:{
+                ar:'في انتظار صورة الايصال',
+                en:'wait receipt photo',
+            }
 
 
 

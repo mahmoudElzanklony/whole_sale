@@ -73,6 +73,11 @@
                                                {{ i['name'] }}
                                            </option>
                                        </select>
+                                       <ul class="auto_complete">
+                                           <li v-for="(b,index) in brands" :key="index">
+                                               {{ b['name'] }}
+                                           </li>
+                                       </ul>
                                    </div>
                                </div>
                                <div class="col-lg-3 col-md-6 col-12">
@@ -204,6 +209,26 @@ export default {
     created() {
         console.log(this.$inertia.page.props.user.approved);
     },
+    mounted() {
+        $('.content').on('keyup','form input[name="brand_id[]"]',function (){
+            $(this).next().slideDown();
+            var data = $(this).next().find('li');
+            for(let item of data){
+                if($(item).html().indexOf(event.target.value) >= 0){
+                    $(item).css('display','block');
+                }else{
+                    $(item).css('display','none');
+                }
+            }
+        });
+        $('.content').on('blur','form input[name="brand_id[]"]',function (){
+            // $(this).next().slideUp();
+        })
+        $('.content').on('click','form input[name="brand_id[]"] + ul li',function (){
+            $(this).parent().prev().val($(this).html().trim());
+            $(this).parent().slideUp();
+        })
+    },
     computed:{
         ...mapGetters({
             preview_request:'send_qutoation/get_data',
@@ -218,6 +243,7 @@ export default {
             event.target.nextElementSibling.innerHTML = event.target.files[0].name;
         },
         save_previewed_quotation:function (){
+            console.log($('#preview_quotation'));
             $('#preview_quotation').modal('hide');
             var form = document.request_quotation;
             $(form).find('input[name="quotation_request_type"]:checked').val('upload_file');
@@ -253,8 +279,10 @@ export default {
           $('.inner-form > div.'+event.target.value).fadeIn();
           if(event.target.value == 'enter_file'){
               $('.enter_data .inputs input , .enter_data .inputs select').removeAttr('required');
+              $('form input[type="file"]').attr('required','required');
           }else{
               $('.enter_data .inputs input , .enter_data .inputs select').attr('required','required');
+              $('form input[type="file"]').removeAttr('required');
           }
         },
 

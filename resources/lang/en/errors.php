@@ -14,5 +14,9 @@ return [
 
     'not_found_user'=>'Not found user with this info',
 
+    'repeated_part_number'=>'There is a repeat for part number',
+    'repeated_brand'=>'And repeat for brand ',
+    'preview_file_and_upload_again'=>'please review file again then upload it',
+
 
 ];

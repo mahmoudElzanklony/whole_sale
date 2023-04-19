@@ -8,7 +8,7 @@ return [
     'know'=>'know',
     'search'=>'Search',
     'know_more'=>'Know more..',
-    'active_brands'=>'Active Brands',
+    'active_brands'=>'Most Demanded Brands',
     'website_name'=>'mkena wholesale',
     'website_word'=>'Where you can find a wide range of the most reliable automotive parts brands with competitive prices ',
     'mobile_experience'=>'Excellent experience on any device',

@@ -59,6 +59,9 @@
                             </div>
                         </form>
                     </div>
+                    <div class="alert alert-warning">
+                        <span>{{ switchWord('rows_that_has_no_receipt') }}</span>
+                    </div>
                     <button class="btn btn-primary export_excel" v-if="$page.props.user.role.name != 'seller'"
                             @click="pass_data_to_export">{{ switchWord('export_selected') }}</button>
                     <div :class="'data '+($page.props.user.role.name == 'seller' ? 'seller_table':'')">

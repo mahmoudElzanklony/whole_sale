@@ -2,9 +2,9 @@
     <section class="forget_password">
         <navbar-component></navbar-component>
 
-        <div class="auth mt-5 mb-5">
+        <div class="auth mb-5">
             <div class="container">
-                <div class="row mt-3">
+                <div class="row">
                     <div class="col-md-6">
                         <form method="post" @submit.prevent="new_pass">
                             <input type="hidden" name="email" :value="email">

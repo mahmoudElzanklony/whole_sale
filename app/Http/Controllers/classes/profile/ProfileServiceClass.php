@@ -12,9 +12,11 @@ use App\Http\traits\messages;
 use App\Http\traits\upload_image;
 use App\Imports\countriesImportCSV;
 use App\Imports\QuotationImportCSV;
+use App\Models\brands;
 use App\Models\listings_notes;
 use App\Models\quotation_orders;
 use App\Models\quotations;
+use App\Models\quotations_orders_offers;
 use App\Models\tax_money;
 use App\Models\User;
 use App\Models\user_company_info;
@@ -124,13 +126,42 @@ class ProfileServiceClass extends Controller
     }
 
     public function send_quotation(QuotationFormRequest $request){
-
+        DB::beginTransaction();
         // create new quotation bill
         $qutation_bill = quotation_orders::query()->create([
            'user_id'=>auth()->id() ,
            'is_completed'=>0,
            'tax'=>tax_money::query()->first() != null ? tax_money::query()->first()->tax:0,
         ]);
+
+        if(request()->has('request_type') && request('request_type') == 'offer'){
+            // make this quotation to offer table
+            quotations_orders_offers::query()->create([
+                'quotation_order_id'=>$qutation_bill->id,
+                'offer_id'=>request('offer_id')[0],
+            ]);
+        }else{
+            $assoc_array = array();
+            $data_to_array = $request->validated()['brand_id'];
+            foreach ($data_to_array as $key => $value) {
+                $new_key = $request->validated()['part_number'][$key] . $request->validated()['brand_id'][$key];
+                // Presence of combination of company_code and clerk_code in the assoc_array indicates that
+                // there is duplicate entry in the Excel being imported. So, abort the process and report this to user.
+                if (array_key_exists($new_key, $assoc_array)) {
+                    return messages::
+                    error_output(["error"=>trans('errors.repeated_part_number') .
+                        $request->validated()['part_number'][$key] ." ".
+                        trans('errors.repeated_brand') .
+                        $request->validated()['brand_id'][$key] ." ".
+                        trans('errors.preview_file_and_upload_again')], 422);
+                }
+
+                $assoc_array[$new_key] = $value;
+            }
+        }
+
+
+
 
         for($i = 0; $i < sizeof($request->validated()['brand_id']); $i++){
             $inserted_data = [];
@@ -164,7 +195,7 @@ class ProfileServiceClass extends Controller
             'en_info'=>'there is new quotation request from user id '.auth()->id().' and request number is  '.$qutation_bill->id,
             'seen'=>0,
         ];
-
+        DB::commit();
         create_notification::new_notification($notification_data);
         return messages::success_output([trans('messages.saved_successfully')]);
     }
@@ -200,9 +231,42 @@ class ProfileServiceClass extends Controller
                 'tax'=>tax_money::query()->first() != null ? tax_money::query()->first()->tax:0,
 
             ]);
-            Excel::import(new QuotationImportCSV($qutation_bill),
+            $data = Excel::import(new QuotationImportCSV($qutation_bill),
                 request()->file('file')
             );
+            $data_to_array = Excel::toArray([], request()->file('file'))[0];
+            unset($data_to_array[0]);
+            //dd($data_to_array);
+            $assoc_array = array();
+            foreach ($data_to_array as $key => $value) {
+                $new_key = $value[0] . $value[1];
+
+                // Presence of combination of company_code and clerk_code in the assoc_array indicates that
+                // there is duplicate entry in the Excel being imported. So, abort the process and report this to user.
+                if (array_key_exists($new_key, $assoc_array)) {
+                    return messages::
+                    error_output(["error"=>trans('errors.repeated_part_number') .
+                        $value[0] ." ".
+                        trans('errors.repeated_brand') .
+                        $value[1] ." ".
+                        trans('errors.preview_file_and_upload_again')], 422);
+                }
+
+                $assoc_array[$new_key] = $value;
+            }
+
+            // process code now and insert
+            foreach ($data_to_array as $key => $value) {
+                quotations::query()->create([
+                    'quotation_order_id' => $qutation_bill->id,
+                    'brand_id' => brands::query()->where('ar_name', '=', $value[1])
+                            ->orWhere('en_name', '=', $value[1])->first()->id ?? $value[1],
+                    'part_number' => $value[0],
+                    'quantity' => $value[2],
+                ]);
+            }
+
+
         } catch (\Maatwebsite\Excel\Validators\ValidationException $e) {
             $failures = $e->failures();
             $qutation_bill->delete();

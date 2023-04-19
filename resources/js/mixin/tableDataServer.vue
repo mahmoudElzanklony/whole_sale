@@ -60,9 +60,16 @@ export default {
                 },
                 columns: columns,
                 createdRow: function( row, data, dataIndex ) {
+                    if(data.is_completed == 2){
+                        console.log(data);
+                    }
                     var class_name = '';
                     if(data.hasOwnProperty('is_completed') && data.is_completed > 2 ){
                         class_name = 'active';
+                    }else if(data.hasOwnProperty('my_receipt_count') &&
+                        data.my_receipt_count == 0 &&
+                        data.hasOwnProperty('is_completed') &&  data.is_completed == 2 ){
+                        class_name = 'bk-lines-gray';
                     }
                     $(row).addClass(class_name).find('span[name="order"]').html(dataIndex+1)
                     $(row).find('td:last-of-type').addClass('actions');

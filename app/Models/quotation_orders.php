@@ -49,4 +49,8 @@ class quotation_orders extends Model
             });
     }
 
+    public function offer(){
+        return $this->hasOne(quotations_orders_offers::class,'quotation_order_id');
+    }
+
 }

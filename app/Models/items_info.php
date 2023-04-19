@@ -50,4 +50,8 @@ class items_info extends Model
     public function vendor(){
         return $this->belongsTo(vendors_requests::class,'quotation_order_id','quotation_order_id');
     }
+
+    public function offer(){
+        return $this->hasOne(offers_items_info::class,'item_info_id');
+    }
 }

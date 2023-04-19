@@ -11,5 +11,7 @@ return [
     'payment_unauthorized_user'=>'انت لست صاحب هذا الاعلان',
     'not_enough_points'=>'ليس لديك رصيد كافي من النقاط',
     'not_found_user'=>'لا يوجد مستخدم بتلك البيانات',
-
+    'repeated_part_number'=>'هناك تكرار لرقم القطعه',
+    'repeated_brand'=>'و تكرار للماركة ',
+    'preview_file_and_upload_again'=>'يرجي مراجعة الملف جيدا ورفعة مرة اخري',
 ];

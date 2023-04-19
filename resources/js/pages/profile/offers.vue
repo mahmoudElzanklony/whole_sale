@@ -60,6 +60,9 @@
                         <div class="loading-img">
                             <img src="/images/loading.gif">
                         </div>
+                        <form method="post" @submit.prevent="make_offer">
+                        <input class="form-control search_without_button mb-2"
+                               :placeholder="switchWord('search_for_you_best')">
                         <div class="overflow-auto hide-buttons" v-if="offer_data.length > 0">
                             <table class="table text-center table-bordered table-striped table-hover">
                                 <thead>
@@ -72,14 +75,15 @@
                                     <td>{{ keywords.min_quantity_per_transaction }}</td>
                                     <td>{{ keywords.max_quantity_per_transaction }}</td>
                                     <td>{{ keywords.actions }}</td>
+                                    <td>{{ switchWord('order_quantity_offer') }}</td>
                                 </tr>
                                 </thead>
                                 <tbody>
                                 <tr v-for="(i,index) in offer_data"
                                     :key="index" :class="'row_child_'+index">
                                     <td>{{ index + 1 }}</td>
-                                    <td>{{ i['part_number'] }}</td>
-                                    <td>{{ i['brand'] != null ? i['brand']['name']:i['brand_id'] }}</td>
+                                    <td class="part_number">{{ i['part_number'] }}</td>
+                                    <td class="brand">{{ i['brand'] != null ? i['brand']['name']:i['brand_id'] }}</td>
                                     <td>{{ i['en_part_name'] }}</td>
                                     <td>{{ i['offered_stock'] }}</td>
                                     <td>{{ i['min_quantity_per_transaction'] }}</td>
@@ -93,10 +97,23 @@
                                         >{{ keywords.see_prices }}</button>
                                     </td>
                                     <td v-else></td>
+                                    <td>
+                                        <input type="hidden" name="offer_id[]"
+                                               :value="i['offer']['offer_id']">
+                                        <input name="quantity[]"
+                                               type="number"
+                                               :min="i['min_quantity_per_transaction']"
+                                               :max="i['max_quantity_per_transaction']"
+                                               :placeholder="keywords.quantity"
+                                               class="form-control">
+                                    </td>
                                 </tr>
                                 </tbody>
                             </table>
                         </div>
+                            <input type="submit" class="btn btn-primary"
+                                   :value="switchWord('send')">
+                        </form>
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">
@@ -187,7 +204,8 @@ export default {
     },
     methods:{
         ...mapActions({
-            'get_offer_info_action':'quotations_dash/get_offer_info_action'
+            'get_offer_info_action':'quotations_dash/get_offer_info_action',
+            'make_offer':'send_qutoation/make_offer',
         }),
         get_quantity_data(i){
             var data =  this.offer_data.find((q)=>{return q['part_number'] == i['part_number']});
@@ -208,7 +226,8 @@ export default {
         $('.content').on('click','.offer_table_data table button.btn-outline-primary',async function (){
             var ids = $(this).attr('ids');
             document.querySelector('.loading-img').style.display='block';
-            await component.get_offer_info_action(ids)
+            await component.get_offer_info_action(ids);
+            $('#offer_get_data').find('tr td input').val('');
             $('#offer_get_data').modal('show');
         });
     }

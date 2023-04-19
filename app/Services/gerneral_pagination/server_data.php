@@ -13,6 +13,7 @@ class server_data
         if(request('table') == 'quotation_orders'){
             return quotation_orders::query()
                 ->with('cancelled_quotations')->withCount('my_receipt')
+                ->with('offer')
             ->when(session()->get('type') =='buyer',function ($e){
                 $e->where('user_id','=',auth()->id());
             })->when(session()->get('type') =='seller',function ($e){
