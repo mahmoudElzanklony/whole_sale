@@ -41,6 +41,9 @@
     position: absolute;
     width: 100%;
     background-color: white;
+    z-index: 99;
+    max-height: 200px;
+    overflow: auto;
     li{
         padding: 4px;
         cursor: pointer;

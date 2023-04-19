@@ -28,6 +28,7 @@ export default {
             }
             console.log(url_post);
             axios.post(url_post,data).then((e)=>{
+                validation(e.data, target, e.data.related);
                 if(e.data.data.length > 1){
                     var lang = window.vm.$inertia.page.props.lang;
 
@@ -47,7 +48,7 @@ export default {
                     if (e.data.hasOwnProperty('success')) {
                         commit('setUser', e.data.success.user);
                     }
-                    validation(e.data, target, e.data.related);
+
                 }
 
             }).catch((e)=>{

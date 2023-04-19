@@ -35,7 +35,7 @@ export default {
                     'Content-Type':'multipart/form-data',
                 }
             }).then((e)=>{
-                validation(e.data, target,'/profile/offers');
+                validation(e.data, target);
             })
         },
         send_quotation_request:function ({commit},payload){
