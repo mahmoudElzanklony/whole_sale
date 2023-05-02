@@ -72,10 +72,6 @@
 <div class="content">
     @inertia
 </div>
-<script
-    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDgIAtyby96ja8LMC5kTGfKuAfTgBEXDnk&callback=initMap&v=weekly"
-
-></script>
 
 </body>
 </html>

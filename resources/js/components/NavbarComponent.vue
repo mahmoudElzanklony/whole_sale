@@ -245,10 +245,6 @@ export default {
     .navbar-brand{
         margin-right: 5%;
     }
-    .dropdown-menu{
-        right: 0px;
-        left: unset;
-    }
     .mrl-1{
         margin-left: 10px;
     }
@@ -509,11 +505,55 @@ nav {
 }
 
 @media (max-width: 767px) {
+
     .auth-form , .sign-form{
         max-height: 400px;
         overflow: auto;
     }
+    .ar{
+        nav{
+            ul{
+                >li{
+                    &:last-of-type{
+                        >span:first-of-type{
+                            margin-left: 10px;
+                        }
+                    }
+                }
+            }
+        }
+    }
+    .en{
+        nav{
+            ul{
+                >li{
+                    &:last-of-type{
+                        >span:first-of-type{
+                            margin-right: 10px;
+                        }
+                    }
+                }
+            }
+        }
+    }
     nav{
+        ul{
+            align-items: flex-start !important;
+            >li{
+                margin-bottom: 10px;
+                a{
+                    i{
+                        position: relative;
+                        top:-1px;
+                    }
+                }
+                &:last-of-type{
+                    margin-right: 0px !important;
+                    margin-left: 0px !important;
+                    align-items: center;
+                }
+            }
+        }
         form{
             margin: auto;
             input:first-of-type{
