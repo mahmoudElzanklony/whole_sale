@@ -128,7 +128,13 @@ $(document).ready(function (){
 
 
     $('.content').on('keyup','input.search_without_button',function (){
-       var trs = $(this).parent().find('table tbody tr');
+        console.log('abc');
+        if($(this).attr('number_of_parents') != undefined){
+            var trs = $(this).parents().eq($(this).attr('number_of_parents')).find('table tbody tr');
+
+        }else {
+            var trs = $(this).parent().find('table tbody tr');
+        }
        for(let tr of trs){
            var matching = false;
            for(let td of $(tr).find('td')){

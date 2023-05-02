@@ -25,6 +25,8 @@ class ProfileOffersKeywords
             'price'=>trans('keywords.price'),
             'min_quantity_per_transaction'=>trans('keywords.min_quantity_per_transaction'),
             'max_quantity_per_transaction'=>trans('keywords.max_quantity_per_transaction'),
+            'search_by_part_no'=>trans('keywords.search_by_part_no'),
+            'search_by_brand'=>trans('keywords.search_by_brand'),
             'see_prices'=>trans('keywords.see_prices'),
             'actions'=>trans('keywords.actions'),
         ];

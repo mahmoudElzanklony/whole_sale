@@ -151,7 +151,7 @@
                         </div>
                         <a v-if="item != null"
                            class="btn btn-primary mb-2"
-                           :href="'/quotations/export-file?ids='+item['id']" target="_blank">
+                           :href="'/quotations/export-file?'+(item.hasOwnProperty('offer') && item['offer'] != null ? 'offer=true&':'')+'ids='+item['id']" target="_blank">
                             {{ switchWord('export_selected') }}
                         </a>
                         <input class="form-control search_without_button mb-2" :placeholder="switchWord('search_for_you_best')">

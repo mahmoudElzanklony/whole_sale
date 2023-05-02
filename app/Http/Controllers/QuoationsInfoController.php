@@ -12,6 +12,7 @@ use App\Imports\AdminQuotationReplyCSV;
 use App\Imports\QuotationImportCSV;
 use App\Models\cancelled_quotations;
 use App\Models\items_info;
+use App\Models\offers;
 use App\Models\offers_items_info;
 use App\Models\quotation_orders;
 use App\Models\quotations;
@@ -335,21 +336,50 @@ class QuoationsInfoController extends Controller
     public function export_file(){
         $ids = explode(',',request('ids'));
         $user_id = request('user_id') ?? null;
-        $data = quotation_orders::query()
-            ->whereIn('id',$ids)
-            ->with(['quotations'=>function($e) {
-            $e->with('brand:id,en_name as name');
-        },'items'=>function($e) use ($user_id){
-                $e->when($user_id != null,function($q) use ($user_id){
-                    $q->where('user_id','=',$user_id);
-                })->when($user_id == null,function($query){
-                    $query->whereHas('user',function ($u){
-                       $u->whereHas('role',function($r){
-                           $r->where('name','!=','seller');
-                       });
+        if(request()->has('offer')){
+            $data = quotation_orders::query()
+                ->whereIn('id',$ids)
+                ->with(['offer'=>function($q){
+                    $q->with('items_infos_ids',function ($query){
+                        $query->with('item_info',function ($p){
+                            $p->with('prices');
+                        });
                     });
-                })->with('prices');
-            }])->get();
+                },'quotations'=>function($e) {
+                    $e->with('brand:id,en_name as name');
+                },'items'=>function($e) use ($user_id){
+                    $e->when($user_id != null,function($q) use ($user_id){
+                        $q->where('user_id','=',$user_id);
+                    })->when($user_id == null,function($query){
+                        $query->whereHas('user',function ($u){
+                            $u->whereHas('role',function($r){
+                                $r->where('name','!=','seller');
+                            });
+                        });
+                    })->with('prices');
+                }])->get();
+            foreach($data as $d){
+                foreach ($d['offer']['items_infos_ids'] as $item){
+                    $d['items'][] =  $item['item_info'];
+                }
+            }
+        }else{
+            $data = quotation_orders::query()
+                ->whereIn('id',$ids)
+                ->with(['quotations'=>function($e) {
+                $e->with('brand:id,en_name as name');
+            },'items'=>function($e) use ($user_id){
+                    $e->when($user_id != null,function($q) use ($user_id){
+                        $q->where('user_id','=',$user_id);
+                    })->when($user_id == null,function($query){
+                        $query->whereHas('user',function ($u){
+                           $u->whereHas('role',function($r){
+                               $r->where('name','!=','seller');
+                           });
+                        });
+                    })->with('prices');
+                }])->get();
+        }
         return Excel::download(new items_info_export($data), request('ids').'.xlsx');
 
     }
@@ -369,6 +399,24 @@ class QuoationsInfoController extends Controller
             ->whereIn('id',$ids)
             ->with(['brand:id,' . app()->getLocale() . '_name as name','prices','offer'])->get();
         return messages::success_output('',$data);
+    }
+
+
+    // for search at offers page
+    public function get_offers_data(){
+
+        $data = items_info::query()->has('offer')
+            ->with('offer',function($e){
+                $e->with('offer',function($query){
+                    $query->with('brand:id,'.app()->getLocale().'_name as name');
+                });
+            })
+            ->where('part_number','LIKE','%'.request('search').'%')
+
+            ->get();
+        return messages::success_output('',$data);
+
+
     }
 
     public function export_vendor_file(){

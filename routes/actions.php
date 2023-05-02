@@ -82,6 +82,7 @@ Route::group(['middleware'=>'changeLang'],function (){
         Route::post('/add-vendors-per-request',[QuoationsInfoController::class,'add_vendors_per_request']);
         Route::post('/cancel-request',[QuoationsInfoController::class,'cancel_request']);
         Route::post('/get-offer-info',[QuoationsInfoController::class,'get_offer_info']);
+        Route::post('/get-offers-data-for-offers-page',[QuoationsInfoController::class,'get_offers_data']);
         // statistics
         Route::post('/search-statics',[QuoationsInfoController::class,'search_statistics']);
     });

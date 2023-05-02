@@ -6,11 +6,30 @@
             <div class="change_data offer_table_data">
                 <div class="container">
                   <p class="alert alert-warning" v-if="data.length == 0">{{ keywords.there_is_no_offers_yet }}</p>
+                 <div class="row mt-2" v-if="data.length > 0">
 
-                  <div v-else class="overflow-auto">
-                        <table class="myTable table text-center table-bordered table-striped table-hover">
+                     <div class="col-md-4 col-12">
+                         <div class="form-group">
+                             <select class="form-control" @change="change_search_functionality">
+                                 <option value="part_number">{{ keywords.search_by_part_no }}</option>
+                                 <option value="brand">{{ keywords.search_by_brand }}</option>
+                             </select>
+                         </div>
+                     </div>
+                     <div class="col-md-8 col-12">
+                         <div class="form-group mb-2 " >
+                             <input class="form-control part_number"
+                                    number_of_parents="3"
+                                    :placeholder="switchWord('search_for_you_best')">
+                         </div>
+                     </div>
+                 </div>
+
+                  <div v-if="get_offers_data_page.length > 0" class="overflow-auto">
+                        <table class="offers_data table text-center table-bordered table-striped table-hover">
                             <thead>
                             <tr>
+                                <td style="display: none">id</td>
                                 <td>{{ keywords.brand }}</td>
                                 <td>{{ switchWord('see_details') }}</td>
                                 <td>{{ keywords.file }}</td>
@@ -19,8 +38,9 @@
                             </tr>
                             </thead>
                             <tbody>
-                            <tr v-for="(i,index) in data"
+                            <tr v-for="(i,index) in get_offers_data_page"
                                 :key="index" :class="'row_'+index">
+                                <td style="display: none">{{ i['id'] }}</td>
                                 <td>{{ i['brand']['name'] }}</td>
                                 <td>
                                     <button class="btn btn-outline-primary" :ids="i['offer_items'].map((e)=>{return e['item_info_id']}).toString()">{{ switchWord('see_details') }} </button>
@@ -90,7 +110,7 @@
                                     <td>{{ i['max_quantity_per_transaction'] }}</td>
                                     <td v-if="false">{{ i['prices'][0]['price'] }}</td>
                                     <td v-if="i['prices'].length >= 1">
-                                        <button class="btn btn-outline-primary"
+                                        <button type="button" class="btn btn-outline-primary"
                                                 @click="current_admin_quotation = i"
                                                 data-toggle="modal"
                                                 data-target="#see_prices"
@@ -186,7 +206,7 @@ import delete_item from "../../mixin/delete_item";
 import tableData from "../../mixin/tableData";
 import SwitchLangWord from "../../mixin/SwitchLangWord";
 import update_item from "../../mixin/update_item";
-import {mapActions,mapGetters} from "vuex";
+import {mapActions, mapGetters, mapMutations} from "vuex";
 export default {
     name: "offers",
     props:['keywords','data'],
@@ -199,13 +219,18 @@ export default {
     components: {ProfileNavComponent, FooterComponent, NavbarComponent},
     computed:{
        ...mapGetters({
-           'offer_data':'quotations_dash/get_offer_info'
+           'offer_data':'quotations_dash/get_offer_info',
+           'get_offers_data_page':'quotations_dash/get_offers',
        })
     },
     methods:{
         ...mapActions({
             'get_offer_info_action':'quotations_dash/get_offer_info_action',
             'make_offer':'send_qutoation/make_offer',
+            'search_offer':'quotations_dash/search_offer',
+        }),
+        ...mapMutations({
+           'set_offers_data':'quotations_dash/set_offers_data',
         }),
         get_quantity_data(i){
             var data =  this.offer_data.find((q)=>{return q['part_number'] == i['part_number']});
@@ -219,8 +244,19 @@ export default {
                 return ;
             }
         },
+        change_search_functionality:function (){
+            if(event.target.value == 'part_number') {
+                event.target.parentElement.parentElement.nextElementSibling
+                    .firstElementChild.firstElementChild.className = 'form-control part_number';
+            }else{
+                event.target.parentElement.parentElement.nextElementSibling
+                    .firstElementChild.firstElementChild
+                    .className = 'form-control search_without_button';
+            }
+        },
     },
     mounted() {
+        this.set_offers_data(this.data);
         // get admin reply
         var component = this;
         $('.content').on('click','.offer_table_data table button.btn-outline-primary',async function (){
@@ -229,6 +265,11 @@ export default {
             await component.get_offer_info_action(ids);
             $('#offer_get_data').find('tr td input').val('');
             $('#offer_get_data').modal('show');
+        });
+
+        // search part number
+        $('.content').on('keyup','input.form-control.part_number',async function (){
+            component.search_offer();
         });
     }
 }

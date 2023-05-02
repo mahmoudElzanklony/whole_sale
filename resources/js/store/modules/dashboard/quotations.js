@@ -1,4 +1,5 @@
 import validation from "../../../formValidation/validation";
+import $ from "jquery";
 
 export default {
     namespaced:true,
@@ -12,6 +13,7 @@ export default {
             file_money:{},
             vendors_request:[],
             offer_info:[],
+            get_offers:[],
         }
     },
     getters:{
@@ -38,7 +40,10 @@ export default {
         },
         get_vendors_per_request:function (state){
             return state.vendors_request
-        }
+        },
+        get_offers:function (state){
+            return state.get_offers;
+        },
     },
     mutations:{
         inilalize_data:function (state,item){
@@ -89,6 +94,12 @@ export default {
         },
         update_index_vendor_request:function (state,payload){
             state.vendors_request.push(payload)
+        },
+        set_offers_data:function(state,payload){
+            state.get_offers = payload;
+        },
+        update_offers_data:function (state,payload){
+
         }
     },
     actions:{
@@ -111,8 +122,30 @@ export default {
                 $('#update_current_quotation').modal('hide');
             });
         },
+        search_offer:function ({state,commit}){
+            var target = event.target;
+            var ids = state.get_offers.map((e)=>{return e['id']});
+            axios.post('/quotations/get-offers-data-for-offers-page',{
+                'search':target.value,
+                'ids':ids,
+            }).then((e)=>{
+                var result =  e.data.data.map(function (item){
+                    return item['offer']['offer'];
+                })
+                for(let td of $('.offers_data tbody tr td:first-of-type')){
+                    var check = result.find(function(el){
+                        return el['id'] == td.innerHTML.trim();
+                    });
+                    if(!(check)){
+                        td.parentElement.style.display = 'none';
+                    }else{
+                        td.parentElement.style.display = 'table-row';
+                    }
+                }
+            })
+        },
         get_info_about_quotation: async function({commit,getters,state},payload_id){
-            $('.box-model-table').DataTable().destroy();
+            //$('.box-model-table').DataTable().destroy();
             if(document.querySelector('.loading-img')) {
                 document.querySelector('.loading-img').style.display = 'block';
             }
@@ -135,7 +168,7 @@ export default {
                 }
                 var data_table = null;
                 document.querySelector('.loading-img').style.display='none';
-                data_table = $('.box-model-table').DataTable( {
+                /*data_table = $('.box-model-table').DataTable( {
                     destroy: true,
                     language: {
                         url: url,
@@ -152,7 +185,7 @@ export default {
                             }
                         }
                     ]
-                } );
+                } );*/
 
             });
         },

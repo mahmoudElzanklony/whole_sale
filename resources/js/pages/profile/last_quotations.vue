@@ -77,6 +77,7 @@
                                     <td>{{ keywords.order_that_client_made }}</td>
                                     <td v-if="$page.props.user.role.name !='seller'">{{ keywords.reply_from_admin }}</td>
                                     <td v-else>{{ keywords.excel_file_offer }}</td>
+                                    <td>{{ keywords.date }}</td>
                                     <td>{{ keywords.actions }}</td>
                                 </tr>
                             </thead>
@@ -693,6 +694,11 @@ export default {
                             return '';
                         }
                     }
+                }
+            },
+            { "data": "is_completed",
+                "render":function(data,type,row){
+                   return '<span>'+new Date(row['created_at']).toLocaleDateString()+'</span>';
                 }
             },
             { "data": "id",

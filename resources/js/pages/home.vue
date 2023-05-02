@@ -46,20 +46,37 @@
                 <h2 class="main-title">
                     <span>{{ keywords.active_brands }}</span>
                 </h2>
-                <div class="row">
-                    <div class="col-xl-3 col-lg-4 col-md-6 col-12"
-                         data-aos="fade-left"
-                         :data-aos-delay="100 * index"
-                         v-for="(i,index) in brands" :key="index">
-                        <div class="brand mb-2 rounded">
-                            <div class="image">
-                                <img :src="'/images/brands/'+i['image']">
+                <div id="carouselExampleControls" class="carousel slide" data-ride="carousel">
+                    <div class="carousel-inner">
+                        <div
+                             v-for="(chunk,key_index) in brands_chunk" :key="key_index"
+                             :class="'carousel-item '+(key_index == 0 ?'active':'')"
+                        >
+                            <div class="row">
+                                <div class="col-xl-3 col-lg-4 col-md-6 col-12 mb-2"
+                                     v-for="(i,index) in chunk" :key="index">
+                                    <div class="brand mb-2 rounded">
+                                        <div class="image">
+                                            <img :src="'/images/brands/'+i['image']">
+                                        </div>
+                                        <p class="bold p-2 text-center">
+                                            {{ i['name'] }}
+                                        </p>
+                                    </div>
+                                </div>
                             </div>
-                            <p class="bold p-2 text-center">
-                                {{ i['name'] }}
-                            </p>
                         </div>
                     </div>
+                    <a class="carousel-control-prev"
+                       href="#carouselExampleControls" role="button" data-slide="prev">
+                        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                        <span class="sr-only">Previous</span>
+                    </a>
+                    <a class="carousel-control-next"
+                       href="#carouselExampleControls" role="button" data-slide="next">
+                        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                        <span class="sr-only">Next</span>
+                    </a>
                 </div>
             </div>
         </section>
@@ -205,12 +222,21 @@ export default {
     data(){
         return {
             link:'',
+            brands_chunk:[],
         }
     },
     created(){
         this.link = window.location.host
     },
     mounted() {
+
+        let result = [];
+        for (let i = 0; i < this.brands.length; i += 8) {
+            let chunk = this.brands.slice(i, i + 8);
+            result.push(chunk);
+        }
+        this.brands_chunk = result;
+
         // change arrow direction at english page
         if(this.$inertia.page.props.lang == 'en'){
             $('i.ri-arrow-drop-left-line').removeClass('ri-arrow-drop-left-line').addClass('ri-arrow-drop-right-line');
@@ -420,6 +446,27 @@ header{
     }
 }
 
+
+.carousel-control-prev,
+.carousel-control-next {
+    opacity: 1;
+    span:first-of-type{
+        background-color: $main_color;
+        padding: 10px;
+    }
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    z-index: 1;
+}
+
+.carousel-control-prev {
+    left: -15%;
+}
+
+.carousel-control-next {
+    right: -15%;
+}
 
 @media (max-width: 767px) {
     header{

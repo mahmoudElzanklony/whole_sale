@@ -177,6 +177,8 @@ registered vendors, this process may take few moments',
 
     // start of profile offers----------------------------------
     'no_offers'=>'there are no offers yet , once offers exists we will tell our clients',
+    'search_by_part_no'=>'Search by part number',
+    'search_by_brand'=>'Search by brand',
     // end of profile offers----------------------------------
 
 

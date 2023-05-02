@@ -908,6 +908,10 @@ export default {
             wait_receipt:{
                 ar:'في انتظار صورة الايصال',
                 en:'wait receipt photo',
+            },
+            search_by:{
+                  ar:'ابحث عن طريق',
+                  en:'search by',
             }
 
 
