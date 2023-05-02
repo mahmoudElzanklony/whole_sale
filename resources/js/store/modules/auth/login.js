@@ -26,7 +26,6 @@ export default {
             }else{
                 var url_post = '/login/selectrole';
             }
-            console.log(url_post);
             axios.post(url_post,data).then((e)=>{
                 validation(e.data, target, e.data.related);
                 if(e.data.data.length > 1){

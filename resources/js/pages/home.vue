@@ -484,5 +484,12 @@ header{
             display: none;
         }
     }
+    .carousel-control-prev {
+        left:0%;
+    }
+
+    .carousel-control-next {
+        right: 0%;
+    }
 }
 </style>

@@ -227,15 +227,4 @@ table{
         }
     }
 }
-@media (max-width: 767px) {
-    table{
-        tr{
-            td{
-                input + span{
-                    bottom: unset !important;
-                    top:31px !important;
-                }
-            }
-        }
-    }
-}
+
