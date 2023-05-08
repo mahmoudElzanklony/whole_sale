@@ -1238,3 +1238,14 @@ body.swal2-toast-shown .swal2-container{
         }
     }
 }
+@media (min-width: 800px) {
+    table{
+        tr{
+            td{
+                input + span{
+                    bottom:17px !important;
+                }
+            }
+        }
+    }
+}

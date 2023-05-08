@@ -14,9 +14,9 @@ class brands_dashboard
         return [
             'data'=>brands::query()->get(),
             'table_head_keys'=>[
+               'image'=>trans('keywords.image'),
                'ar_name'=>trans('keywords.ar_name'),
                'en_name'=>trans('keywords.en_name'),
-               'image'=>trans('keywords.image'),
                'actions'=>trans('keywords.actions'),
             ],
             'data_model'=>[

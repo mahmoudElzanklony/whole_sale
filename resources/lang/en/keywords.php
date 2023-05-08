@@ -28,8 +28,8 @@ return [
     'easy_to_use_info'=>'Mkena Wholesale gives you the easiest possible process by entering your required data directly or uploading readily filled files into the system.',
 
     'customer_support'=>'Contact Mkena Wholesale',
-    'send_message'=>'Send message',
-    'call_us_by_phone'=>'Call us using phone',
+    'send_message'=>'Send by email',
+    'call_us_by_phone'=>'send by whatapp',
     'email_activation_successfully'=>'Account has been activated successfully',
     'email_not_activated_yet'=>'Account not activated yet successfully',
 
@@ -104,7 +104,7 @@ return [
 
     'change_bank_info'=>'Change bank info',
     'change_brands_info'=>'Change brands i deal with',
-    'you_can_choose_whether_to_file_your_query_from_both_options_below'=>'You can request a quote by uploading a file with the required pieces and quantities, or enter the data manually',
+    'you_can_choose_whether_to_file_your_query_from_both_options_below'=>'You can request a quote by uploading a file with the required brands , part numbers , quantities . or enter the data manually',
     'you_can_press_here_to_download_file_to_know_correct_format_you_should_upload'=>'you can press here to download file to know correct format you should upload',
     'enter_data'=>'Enter data',
     'upload_file'=>'Upload file',
@@ -114,7 +114,7 @@ return [
     'part_no'=>'Part number',
     'brand'=>'Brand',
     'select_brand'=>'Select brand',
-    'quantity'=>'Quantity',
+    'quantity'=>'Requested Quantity',
     'wholesale-is-trying-to-get-the-best-deal-for-you-from-the-registered-vendors-this-process-may-take-few-moments'=>'Mkena wholesale is trying to get the best deal for you from the
 registered vendors, this process may take few moments',
 
@@ -152,12 +152,14 @@ registered vendors, this process may take few moments',
 
 
     // start of profile last made quotations----------------------------------
-    'last_made_quotations'=>'Last quotations made by me',
+    'last_made_quotations'=>'Quotations requests made by me',
     'quotation_number'=>'Quotation number',
-    'reply_from_admin'=>'Admin reply',
+    'reply_from_admin'=>'Admin replied',
     'admin_reply'=>'Admin reply',
     'excel_file'=>'Excel File',
     'excel_file_offer'=>'Submitted offer',
+    'client_send_date'=>'date of delivery file',
+    'vendor_send_date'=>'date of sent offer',
     'agree_request'=>'Agree on quotation',
     'on_agree_request_condition'=>'Upon approval, you will have to upload the payment receipt to be sent to the administration. If you do not have a copy of the receipt at the present time, approve the request now and send the receipt later',
     'receipt_image'=>'Receipt image',
@@ -203,15 +205,15 @@ registered vendors, this process may take few moments',
     'en_part_name'=>'Part name in english',
     'ar_part_description'=>'part description in arabic',
     'en_part_description'=>'part description in english',
-    'offered_stock'=>'Offered Stock',
+    'offered_stock'=>'Supplied Quantity',
     'min_quantity'=>'Min quantity',
     'price'=>'Price',
     'min_quantity_per_transaction'=>'Min quantity per transaction',
     'max_quantity_per_transaction'=>'Max quantity per transaction',
     'unit_of_packing'=>'Unit of packing',
-    'width'=>'Width',
-    'length'=>'Length',
-    'thickness'=>'Thickness',
+    'width'=>'Width(cm)',
+    'length'=>'Length(cm)',
+    'thickness'=>'Thickness(cm)',
     'quantity_per_pallet'=>'Quantity per pallet load',
     's1_min'=>'Slab 1 min quantity',
     's1_price'=>'Slab 1 price',
@@ -383,8 +385,8 @@ registered vendors, this process may take few moments',
 
     // start of profile offers ----------------------------------------------------
     'offers'=>'Offers',
-    'start_date'=>'Start date',
-    'end_date'=>'End date',
+    'start_date'=>'Start offer date',
+    'end_date'=>'End offer date',
     'seller_related_offer'=>'Seller offer',
     // end of profile offers ----------------------------------------------------
 

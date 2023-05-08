@@ -27,7 +27,7 @@ return [
    'easy_to_use_info'=>'سواء رغبت بادخال البيانات مباشرة أو عن طريق تحميل ملف بتلك البيانات، ستلتمس سهولة التعامل مع (مكينة جملة) ',
    'customer_support'=>'للتواصل مع مكينة جملة',
    'send_message'=>'أرسال رسالة',
-   'call_us_by_phone'=>'الأتصال بنا هاتفيا',
+   'call_us_by_phone'=>'عن طريق الواتساب',
    'email_activation_successfully'=>'تم تفعيل الحساب الشخصي الخاص بك',
    'email_not_activated_yet'=>'لم يتم تفعيل الحساب الشخصي بنجاح',
 
@@ -109,6 +109,8 @@ return [
     'admin_reply'=>'رد الأداره',
     'excel_file'=>'ملف الاكسل',
     'excel_file_offer'=>'العرض المقدم',
+    'client_send_date'=>'تاريخ ارسال العميل',
+    'vendor_send_date'=>'تاريخ ارسال العرض',
     'agree_request'=>'الموافقة علي الطلب',
     'on_agree_request_condition'=>'عند الموافقة سيتعين عليك رفع ايصال المدفوعات لأرسالة للاداره . اذ لم يكن معك صوره الايصال في الوقت الحالي قم بالموافقه علي الطلب الان وارسال الايصال لاحقا',
     'receipt_image'=>'صورة الايصال',
@@ -225,7 +227,7 @@ return [
     'part_number'=>'رقم القطعة',
     'part_no'=>'رقم القطعة',
     'brand'=>'الماركة',
-    'quantity'=>'الكمية',
+    'quantity'=>'الكمية المطلوبة',
     'wholesale-is-trying-to-get-the-best-deal-for-you-from-the-registered-vendors-this-process-may-take-few-moments'=>'يحاول مكينة جمله الحصول على أفضل صفقة لك من
 البائعين المسجلين ، قد تستغرق هذه العملية بضع دقائق',
     // end of profile  ----------------------------------------------------
@@ -259,8 +261,8 @@ return [
 
     // start of profile offers ----------------------------------------------------
     'offers'=>'العروض',
-    'start_date'=>'بداية التاريخ',
-    'end_date'=>'نهاية التاريخ',
+    'start_date'=>'بداية تاريخ العرض',
+    'end_date'=>'نهاية تاريخ العرض',
     'seller_related_offer'=>'صاحب العرض',
     // end of profile offers ----------------------------------------------------
 
@@ -281,16 +283,16 @@ return [
     'en_part_name'=>'اسم القطعة بالانجليزي',
     'ar_part_description'=>'وصف القطعة بالعربي',
     'en_part_description'=>'وصف القطعة بالانجليزي',
-    'offered_stock'=>'ما استطيع توفيرة',
+    'offered_stock'=>'الكمية المتوفرة',
     'min_quantity'=>'اقل كمية',
     'price'=>'السعر',
     'min_quantity_per_transaction'=>'اقل كمية للمعاملة الواحدة',
     'max_quantity_per_transaction'=>'اقصي كمية للمعاملة الواحدة',
     'unit_of_packing'=>'وحدة التعبئة',
-    'width'=>'العرض',
-    'length'=>'الطول',
-    'thickness'=>'الارتفاع',
-    'quantity_per_pallet'=>'الكمية لكل حمولة منصة نقالة',
+    'width'=>'العرض(سم)',
+    'length'=>'الطول(سم)',
+    'thickness'=>'الارتفاع(سم)',
+    'quantity_per_pallet'=>'الكمية اللازمة لتعبئة طبلية',
     's1_min'=>'أقل كمية للعرض الاول',
     's1_price'=>'السعر للعرض الاول',
     's2_min'=>'أقل كمية للعرض الثاني',
@@ -359,7 +361,7 @@ return [
     'upload_image'=>'أرفع الصورة',
     'user_products'=>'منتجات المستخدم',
     'prices'=>'الاسعار',
-    'brands'=>'العملات التجارية',
+    'brands'=>'العلامات التجارية',
     'select_brand'=>'اختر العلامه التجارية',
 
     'delivery_terms'=>'شروط التوصيل',

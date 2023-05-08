@@ -36,7 +36,7 @@ class server_data
                                 if (str_contains( 'الغاء الطلب',$value) == true || str_contains( 'Cancel request',$value) == true) {
                                     $e->orWhere($key, '=', -1);
                                 }
-                                if (str_contains( 'تم الرد من الأدارة',$value) == true || str_contains( 'admin reply',$value) == true) {
+                                if (str_contains( 'تم الرد من الأدارة',$value) == true || str_contains( 'Admin replied',$value) == true) {
                                     $e->orWhere($key, '=', 1);
                                 }
                                 if (str_contains( 'تم الارسال للموردين',$value) == true || str_contains( 'sent to vendors',$value) == true) {
@@ -53,10 +53,10 @@ class server_data
                                 if (str_contains('تم الرد من الموردين',$value) == true || str_contains( 'vendors reply',$value) == true) {
                                     $e->orWhere($key, '=', 11);
                                 }
-                                if (str_contains('تم تأكيد الطلب',$value) == true || str_contains( 'order confirmed',$value) == true) {
+                                if (str_contains('تم تأكيد الطلب',$value) == true || str_contains( 'Order Confirmed',$value) == true) {
                                     $e->orWhere($key, '=', 2);
                                 }
-                                if (str_contains('تم انهاء الطلب بنجاح',$value) == true || str_contains( 'order has been done successfully',$value) == true) {
+                                if (str_contains('تم انهاء الطلب بنجاح',$value) == true || str_contains( 'order has been completed successfully',$value) == true) {
                                     $e->orWhere($key, '=', 3);
                                 }
 

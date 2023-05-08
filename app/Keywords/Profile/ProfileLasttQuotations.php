@@ -72,6 +72,8 @@ class ProfileLasttQuotations
             'vendor_file'=>trans('keywords.vendor_file'),
             'change_request_status'=>trans('keywords.change_request_status'),
             'date'=>trans('keywords.date'),
+            'client_send_date'=>trans('keywords.client_send_date'),
+            'vendor_send_date'=>trans('keywords.vendor_send_date'),
 
         ];
     }

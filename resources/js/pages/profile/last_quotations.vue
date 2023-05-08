@@ -59,7 +59,7 @@
                             </div>
                         </form>
                     </div>
-                    <div class="alert alert-warning">
+                    <div class="alert alert-warning" v-if="$page.props.user.role.name != 'seller'">
                         <span>{{ switchWord('rows_that_has_no_receipt') }}</span>
                     </div>
                     <button class="btn btn-primary export_excel" v-if="$page.props.user.role.name != 'seller'"
@@ -671,7 +671,7 @@ export default {
                         :row['is_completed'] == 11 ? component.switchWord('in_progress')
                         :row['is_completed'] == -1 ? '<span>'+component.switchWord('cancel_done')+'</span>'+'<span class="cancel_info_icon" title="'+component.reasons.find((e)=>{return e['id'] == row['cancelled_quotations']['cancelled_id']})['name']+'"><i class="ri ri-information-line"></i></span>'
                         :row['is_completed'] == 1 ? component.keywords.wait_client_to_confirm
-                            :row['is_completed'] == 2 ? component.keywords.order_confirmed : component.keywords.complete_request_successfully;
+                            :row['is_completed'] == 2 ? component.keywords.order_confirmed : component.switchWord('order_confirmed');
                 }
             },
             { "data": "id", // get my quotation

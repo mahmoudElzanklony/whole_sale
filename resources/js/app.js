@@ -18,6 +18,8 @@ const Toast = Swal.mixin({
         toast.addEventListener('mouseleave', Swal.resumeTimer)
     }
 });
+
+
 window.Toast = Toast;
 window.Swal = Swal;
 
@@ -121,7 +123,8 @@ Inertia.on('start', (event) => {
 });
 
 Inertia.on('navigate', (event) => {
-    console.log(Inertia.page.props.user)
+    Swal.close();
+    Toast.close();
     if(Inertia.page.props.user){
         /*if(Inertia.page.props.user.type == 'client' || Inertia.page.props.user.type == 'seller' ){
             document.addEventListener('contextmenu', removeDbclick);

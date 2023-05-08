@@ -91,7 +91,7 @@
                        <div class="form-group">
                            <input type="button" class="btn btn-outline-primary"
                                   @click="add_new_item"
-                                  :value="switchWord('add_another_item')">
+                                  :value="switchWord('add_another_part_number')">
                            <input type="submit" class="btn btn-primary" :value="switchWord('save')">
 
                        </div>
@@ -214,7 +214,7 @@ export default {
             $(this).next().slideDown();
             var data = $(this).next().find('li');
             for(let item of data){
-                if($(item).html().indexOf(event.target.value) >= 0){
+                if($(item).html().toLowerCase().indexOf(event.target.value.toLowerCase()) >= 0){
                     $(item).css('display','block');
                 }else{
                     $(item).css('display','none');

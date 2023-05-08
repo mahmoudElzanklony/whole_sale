@@ -8,7 +8,7 @@ class ProfileStatisticsKeywords
 {
     public static function get_keywords(){
         return [
-           'statistics'=>trans('keywords.statistics_year'),
+           'statistics'=>trans('keywords.statistics'),
            'select_process_type'=>trans('keywords.select_process_type'),
            'sale'=>trans('keywords.sale'),
            'buying'=>trans('keywords.buying'),

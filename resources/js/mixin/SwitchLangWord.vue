@@ -112,7 +112,7 @@ export default {
               },
               common_questions:{
                   ar:'الاسئلة الشائعة',
-                  en:'Common questions',
+                  en:'FAQs',
                   tu:'',
               },
               contact_us:{
@@ -127,7 +127,7 @@ export default {
               },
               conditions:{
                   ar:'الاحكام',
-                  en:'Terms',
+                  en:'Terms & Conditions',
                   tu:'',
               },
               searches:{
@@ -239,7 +239,7 @@ export default {
               },
               last_quotations:{
                  ar:'طلباتي السابقة',
-                 en:'Last quotations',
+                 en:'Previous transactions',
                  tu:'',
               },
               my_sales:{
@@ -249,12 +249,12 @@ export default {
               },
               quotations:{
                 ar:'طلب تسعير جديد',
-                en:'new quotation',
+                en:'New quotation request',
                 tu:'',
               },
              vendor_pricing:{
                 ar:'ملفات التسعير',
-                en:'vendor pricing',
+                en:'Quotations',
                 tu:'',
              },
               my_notes:{
@@ -467,7 +467,7 @@ export default {
                  tu:'',
               },
               cancelled_requests:{
-                ar:'الطلبات الملغاه',
+                ar:'الطلبات الملغاة',
                 en:'cancelled orders',
               },
               cancel_done:{
@@ -694,6 +694,11 @@ export default {
                   en:'Add another item',
                   tu:'',
               },
+              add_another_part_number:{
+                  ar:'اضافه رقم قطعة اخر',
+                  en:'Add another part number',
+                  tu:'',
+              },
               please_enter_all_required_data:{
                   ar:'من فضلك ادخل قيم للبيانات الاجبارية',
                   en:'Please enter all required inputs',
@@ -721,7 +726,7 @@ export default {
               },
               order_confirmed:{
                   ar:'تم انهاء الطلب بنجاح',
-                  en:'order has been done successfully',
+                  en:'order has been completed successfully',
                   tu:'',
               },
               all:{
@@ -831,7 +836,7 @@ export default {
               },
               newest_clients_requests:{
                   ar:'طلبات العملاء',
-                  en:'clients requests',
+                  en:'Quotations requests',
                   tu:'',
               },
               in_progress:{

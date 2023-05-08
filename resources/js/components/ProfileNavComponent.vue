@@ -21,12 +21,13 @@
                             <span>{{ switchWord('vendor_pricing') }}</span>
                         </inertia-link>
                     </li>
-                   <li v-if="$page.props.user.role.name != 'seller'">
-                     <inertia-link href="/profile/statistics">
-                       <span><i class="ri-line-chart-line"></i></span>
-                       <span>{{ switchWord('statistics') }}</span>
-                     </inertia-link>
-                   </li>
+                    <li>
+                        <inertia-link href="/profile/offers">
+                            <span><i class="ri-price-tag-3-line"></i></span>
+                            <span>{{ switchWord('offers') }}</span>
+                        </inertia-link>
+                    </li>
+
                     <li v-if="false">
                         <inertia-link href="/profile/orders">
                             <span><i class="ri-shopping-cart-line"></i></span>
@@ -45,10 +46,12 @@
                             <span>{{ switchWord('my_sales') }}</span>
                         </inertia-link>
                     </li>
-                    <li>
-                        <inertia-link href="/profile/offers">
-                            <span><i class="ri-price-tag-3-line"></i></span>
-                            <span>{{ switchWord('offers') }}</span>
+
+
+                    <li v-if="$page.props.user.role.name != 'seller'">
+                        <inertia-link href="/profile/statistics">
+                            <span><i class="ri-line-chart-line"></i></span>
+                            <span>{{ switchWord('statistics') }}</span>
                         </inertia-link>
                     </li>
                     <li>

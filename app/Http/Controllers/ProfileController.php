@@ -91,7 +91,9 @@ class ProfileController extends ProfileServiceClass
     }
 
     public function offers(){
-        $data = offers::query()->with(['offer_items','user','brand'=>function($e){
+        $data = offers::query()->when(session()->get('type') == 'seller',function ($q){
+            $q->where('user_id','=',auth()->id());
+        })->with(['offer_items','user','brand'=>function($e){
             return $e->select('id',app()->getLocale().'_name as name');
         }])
             ->where('start_date','<=',date('Y-m-d'))

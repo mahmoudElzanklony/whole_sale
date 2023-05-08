@@ -1,7 +1,7 @@
 <template>
     <div>
-        <navbar-component data-aos="fade-left"></navbar-component>
-        <header data-aos="fade-up">
+        <navbar-component ></navbar-component>
+        <header>
             <div class="layer">
                 <div class="container">
                     <h2 class="text-center">{{ keywords.website_name }}</h2>
@@ -41,6 +41,29 @@
             </div>
         </header>
         <!------------------start of brands section------------------------ -->
+        <section class="brands mt-4 overflow-hidden" v-if="false">
+            <div class="container">
+                <h2 class="main-title">
+                    <span>{{ keywords.active_brands }}</span>
+                </h2>
+            </div>
+            <div style="width: 98%;" class="m-auto">
+                <VueSlickCarousel v-bind="settings"  v-if="brands.length > 0">
+                    <div class="outer-brand mb-2 rounded p-2"  v-for="(i,key_index) in brands" :key="key_index"
+                         :class="'carousel-item '+(key_index == 0 ?'active':'')">
+                       <div class="brand p-2 rounded">
+                           <div class="image">
+                               <img :src="'/images/brands/'+i['image']">
+                           </div>
+                           <p class="bold p-2 text-center">
+                               {{ i['name'] }}
+                           </p>
+                       </div>
+                    </div>
+                </VueSlickCarousel>
+            </div>
+        </section>
+
         <section class="brands mt-4 overflow-hidden">
             <div class="container">
                 <h2 class="main-title">
@@ -49,11 +72,11 @@
                 <div id="carouselExampleControls" class="carousel slide" data-ride="carousel">
                     <div class="carousel-inner">
                         <div
-                             v-for="(chunk,key_index) in brands_chunk" :key="key_index"
-                             :class="'carousel-item '+(key_index == 0 ?'active':'')"
+                            v-for="(chunk,key_index) in brands_chunk" :key="key_index"
+                            :class="'carousel-item '+(key_index == 0 ?'active':'')"
                         >
                             <div class="row">
-                                <div class="col-xl-3 col-lg-4 col-md-6 col-12 mb-2"
+                                <div class="col-xl-2 col-lg-3 col-6 mb-2"
                                      v-for="(i,index) in chunk" :key="index">
                                     <div class="brand mb-2 rounded">
                                         <div class="image">
@@ -80,20 +103,21 @@
                 </div>
             </div>
         </section>
+
         <!------------------end of brands section------------------------ -->
         <!------------------start of mobile section------------------------ -->
 
         <section class="mobile">
             <div class="container">
                 <div class="row align-items-center">
-                    <div class="col-lg-8 col-12"data-aos="fade-left" >
+                    <div class="col-lg-8 col-12">
                         <div class="content">
                             <h2 class="small_line_heading">{{ keywords.mobile_experience }}</h2>
                             <p>{{ keywords.mobile_experience_info }}</p>
                         </div>
                     </div>
                     <div class="col-lg-4 col-12">
-                        <div class="image" data-aos="fade-right">
+                        <div class="image">
                         </div>
                     </div>
                 </div>
@@ -109,67 +133,67 @@
                     <span>{{ keywords.wholesale_features }}</span>
                 </h2>
                 <div class="row align-items-center">
-                    <div class="col-md-6 col-12" data-aos="fade-left">
+                    <div class="col-md-6 col-12">
                         <div class="content mb-2">
                             <h2 class="mb-3 small_line_heading">{{ keywords.fast_transfer }}</h2>
                             <p>{{keywords.fast_transfer_info}}</p>
                         </div>
                     </div>
-                    <div class="col-md-6 col-12" data-aos="fade-right">
+                    <div class="col-md-6 col-12">
                         <div class="image mb-2">
                             <img class="img-thumbnail" src="images/home/transfer.jpg">
                         </div>
                     </div>
-                    <div class="col-md-6 col-12" data-aos="fade-right">
+                    <div class="col-md-6 col-12" >
                         <div class="image mb-2">
                             <img class="img-thumbnail" src="images/home/wrap.jpg">
                         </div>
                     </div>
                     <div class="col-md-6 col-12">
-                        <div class="content mb-2" data-aos="fade-left">
+                        <div class="content mb-2">
                             <h2 class="mb-3 small_line_heading">{{ keywords.wrap_goods }}</h2>
                             <p>{{keywords.wrap_goods_info}}</p>
                         </div>
                     </div>
-                    <div class="col-md-6 col-12" data-aos="fade-left">
+                    <div class="col-md-6 col-12">
                         <div class="content mb-2" >
                             <h2 class="mb-3 small_line_heading">{{ keywords.do_you_face_problem }}</h2>
                             <p>{{keywords.do_you_face_problem_info}}</p>
                         </div>
                     </div>
-                    <div class="col-md-6 col-12" data-aos="fade-right">
+                    <div class="col-md-6 col-12">
                         <div class="image mb-2">
                             <img class="img-thumbnail" src="images/home/support.jpg">
                         </div>
                     </div>
-                    <div class="col-md-6 col-12" data-aos="fade-right">
+                    <div class="col-md-6 col-12">
                         <div class="image mb-2">
                             <img class="img-thumbnail" src="images/home/best_prices.jpg">
                         </div>
                     </div>
-                    <div class="col-md-6 col-12" data-aos="fade-left">
+                    <div class="col-md-6 col-12">
                         <div class="content mb-2" >
                             <h2 class="mb-3 small_line_heading">{{ keywords.best_prices }}</h2>
                             <p>{{keywords.best_prices_info}}</p>
                         </div>
                     </div>
-                    <div class="col-md-6 col-12" data-aos="fade-left">
+                    <div class="col-md-6 col-12">
                         <div class="content mb-2" >
                             <h2 class="mb-3 small_line_heading">{{ keywords.special_account }}</h2>
                             <p>{{keywords.special_account_info}}</p>
                         </div>
                     </div>
-                    <div class="col-md-6 col-12" data-aos="fade-right">
+                    <div class="col-md-6 col-12">
                         <div class="image mb-2">
                             <img class="img-thumbnail" src="images/home/special_user.jpg">
                         </div>
                     </div>
-                    <div class="col-md-6 col-12" data-aos="fade-right">
+                    <div class="col-md-6 col-12" >
                         <div class="image mb-2">
                             <img class="img-thumbnail" src="images/home/easy_to_use.jpg">
                         </div>
                     </div>
-                    <div class="col-md-6 col-12" data-aos="fade-left">
+                    <div class="col-md-6 col-12">
                         <div class="content mb-2" >
                             <h2 class="mb-3 small_line_heading">{{ keywords.easy_to_use }}</h2>
                             <p>{{keywords.easy_to_use_info}}</p>
@@ -183,7 +207,7 @@
 
 
         <!----------------------------start of support----------------------------------- -->
-        <section class="support_customer" id="contactus" data-aos="fade-down" data-aos-delay="500">
+        <section class="support_customer" id="contactus">
             <div class="layer">
                 <div class="container text-center">
                     <p>{{ keywords.customer_support }}</p>
@@ -205,12 +229,17 @@
         </section>
         <!----------------------------end of support----------------------------------- -->
 
-        <footer-component data-aos="fade-up" data-aos-delay="500"></footer-component>
+        <footer-component></footer-component>
 
     </div>
 </template>
 
 <script>
+import VueSlickCarousel from 'vue-slick-carousel';
+import 'vue-slick-carousel/dist/vue-slick-carousel.css';
+// optional style for arrows & dots
+import 'vue-slick-carousel/dist/vue-slick-carousel-theme.css';
+
 import NavbarComponent from "../components/NavbarComponent";
 import switchLang from "../mixin/SwitchLangWord";
 import FooterComponent from "../components/FooterComponent";
@@ -218,9 +247,49 @@ export default {
     name: "home",
     props:['keywords','brands','approved_status'],
     mixins:[switchLang],
-    components: {FooterComponent, NavbarComponent},
+    components: {FooterComponent, NavbarComponent,VueSlickCarousel},
     data(){
         return {
+            settings:{
+                "arrows": true,
+                "infinite": true,
+                "speed": 300,
+                "focusOnSelect": true,
+                "slidesToShow": 8,
+                "autoplay": false,
+                "autoplaySpeed": 2000,
+                "cssEase": "linear",
+                "slidesToScroll": 1,
+                "initialSlide": 0,
+                "responsive": [
+                    {
+                        "breakpoint": 1024,
+                        "settings": {
+                            "slidesToShow": 2,
+                            "slidesToScroll": 2,
+                            "infinite": true,
+                            "dots": true
+                        }
+                    },
+                    {
+                        "breakpoint": 600,
+                        "settings": {
+                            "slidesToShow": 2,
+                            "slidesToScroll": 2,
+                            "initialSlide": 2
+                        }
+                    },
+                    {
+                        "breakpoint": 500,
+                        "settings": {
+                            "slidesToShow": 1,
+                            "slidesToScroll": 1
+                        }
+                    }
+                ]
+            },
+
+
             link:'',
             brands_chunk:[],
         }
@@ -229,13 +298,21 @@ export default {
         this.link = window.location.host
     },
     mounted() {
-
-        let result = [];
-        for (let i = 0; i < this.brands.length; i += 8) {
-            let chunk = this.brands.slice(i, i + 8);
-            result.push(chunk);
+        if(window.innerWidth < 767) {
+            let result = [];
+            for (let i = 0; i < this.brands.length; i += 6) {
+                let chunk = this.brands.slice(i, i + 6);
+                result.push(chunk);
+            }
+            this.brands_chunk = result;
+        }else{
+            let result = [];
+            for (let i = 0; i < this.brands.length; i += 16) {
+                let chunk = this.brands.slice(i, i + 16);
+                result.push(chunk);
+            }
+            this.brands_chunk = result;
         }
-        this.brands_chunk = result;
 
         // change arrow direction at english page
         if(this.$inertia.page.props.lang == 'en'){
@@ -452,7 +529,7 @@ header{
     opacity: 1;
     span:first-of-type{
         background-color: $main_color;
-        padding: 10px;
+        padding: 16px;
     }
     position: absolute;
     top: 50%;

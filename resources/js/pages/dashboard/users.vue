@@ -67,10 +67,12 @@
                             <strong>{{ handling_data['seller_data_keywords']['currency'] }}</strong>
                             <span>{{ item['seller_data']['currency'] }}</span>
                         </p>
-                        <p>
+                        <p class="mb-2">
                             <strong>{{ handling_data['seller_data_keywords']['delivery_terms'] }}</strong>
                         </p>
-                        <p>{{ item['seller_data']['delivery_terms'] }}</p>
+                        <p>
+                            <span class="d-block mb-1" v-for="data_item in item['seller_data']['delivery_terms'].split('\n')">{{ data_item }}</span>
+                        </p>
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">
