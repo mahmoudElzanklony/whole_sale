@@ -4,10 +4,13 @@
             <div class="container">
                 <ul class="d-flex align-items-center justify-content-between">
                     <li class="d-flex align-items-center justify-content-center">
-                        <span><i class="ri-file-user-line"></i></span>
-                        <span>
+                        <p class="mb-0 d-flex align-items-center">
+                            <span><i class="ri-file-user-line"></i></span>
+                            <span>
                             {{ $page.props.user.username }}
                         </span>
+                        </p>
+                        <span><i class="ri-arrow-down-s-line" @click="toggleNav"></i></span>
                     </li>
                     <li v-if="$page.props.user.role.name != 'seller'">
                         <inertia-link href="/profile/quotations">
@@ -73,6 +76,12 @@ import SwitchLangWord from "../mixin/SwitchLangWord";
 export default {
     name: "ProfileNavComponent",
     mixins:[SwitchLangWord],
+    methods:{
+        toggleNav:function ()  {
+            console.log($(event.target).parent().parent());
+            $(event.target).parent().parent().siblings().fadeToggle();
+        }
+    },
     mounted() {
         var url = document.URL;
         for(let a of document.querySelectorAll('.profile-nav ul li a')){
@@ -112,6 +121,9 @@ export default {
             background-color: $sub_main_color;
             span{
                 color:white;
+            }
+            >span{
+                display: none;
             }
         }
         li:not(:first-of-type){
@@ -194,16 +206,28 @@ export default {
     }
 }
 @media (max-width:767px) {
-    .profile-nav ul li span:last-of-type{
-        display: none;
-    }
-    .profile-nav ul li:first-of-type{
-        display: none !important;
-        span:first-of-type{
-            display: none;
-        }
-        span:last-of-type{
-            display: block;
+    .profile-nav{
+        .container {
+            padding: 0px;
+            ul {
+                flex-wrap: wrap;
+                li{
+                    justify-content: unset !important;
+                    padding:6px;
+                    a{
+                        justify-content: unset !important;
+                    }
+                    &:first-of-type{
+                        justify-content: space-between !important;
+                        >span{
+                            display: inline-block;
+                        }
+                    }
+                    &:not(:first-of-type){
+                        display: none;
+                    }
+                }
+            }
         }
     }
     .profile-nav ul li.active a::before{

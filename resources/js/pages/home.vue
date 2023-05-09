@@ -307,8 +307,8 @@ export default {
             this.brands_chunk = result;
         }else{
             let result = [];
-            for (let i = 0; i < this.brands.length; i += 16) {
-                let chunk = this.brands.slice(i, i + 16);
+            for (let i = 0; i < this.brands.length; i += 18) {
+                let chunk = this.brands.slice(i, i + 18);
                 result.push(chunk);
             }
             this.brands_chunk = result;

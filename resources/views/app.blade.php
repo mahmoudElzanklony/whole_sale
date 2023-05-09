@@ -41,9 +41,9 @@
 
     <link href="{{ mix('/css/app.css') }}?version=18.6" rel="stylesheet" />
     @if(session()->get('lang') == 'en' || session()->get('lang') == 'tu')
-        <link href="{{ mix('/css/english.css') }}?v=4.4" rel="stylesheet" />
+        <link href="{{ mix('/css/english.css') }}?v=25.4" rel="stylesheet" />
     @else
-        <link href="{{ mix('/css/arabic.css') }}?v=4.4" rel="stylesheet" />
+        <link href="{{ mix('/css/arabic.css') }}?v=28.4" rel="stylesheet" />
     @endif
     <link rel="icon" href="/images/logo.jpg" />
     <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/1.7.3/socket.io.min.js"></script>
@@ -51,7 +51,7 @@
 
 
 
-    <script src="{{ mix('/js/app.js') }}?v=50.18" defer></script>
+    <script src="{{ mix('/js/app.js') }}?v=53.11.1" defer></script>
     <style>
         /*body{
             overflow: hidden;
