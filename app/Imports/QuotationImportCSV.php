@@ -56,7 +56,7 @@ class QuotationImportCSV implements ToModel, WithValidation, WithHeadingRow,Skip
         return [
             'brand' => 'required',
             'part_number' => 'required',
-            'quantity' => 'required',
+           // 'quantity' => 'required',
         ];
     }
 
