@@ -131,6 +131,34 @@ class QuoationsInfoController extends Controller
                 'seen'=>0,
             ];
             create_notification::new_notification($notification_data);
+            if(session()->get('lang') == 'ar') {
+
+                // send email to admin in arabic
+                send_email::send('رد (' . auth()->user()->username . ') على طلب تسعير رقم ' . request('quotation_order_id'),
+                    'لقد قام (' . auth()->user()->username . ') بالرد على طلب التسعير رقم  ' . request('quotation_order_id') . ' ، للاطلاع على التفاصيل والعمل على العرض، يمكنك الدخول على حسابك من خلال النقر على الرابط أدناه    ',
+                    request()->root() . '/dashboard/pricing-requests',
+                    'الرجاء الضغط هنا', get_first_admin::get_admin()->email
+                );
+                // send email to vendor in arabic
+                send_email::send('تأكيد تقديم عرضكم لطلب السعر من مكينة جملة رقم ' . request('quotation_order_id'),
+                    'نشكركم للرد على طلب التسعير رقم' . request('quotation_order_id') . ' ، للاطلاع على التفاصيل والمتابعة، يمكنكم الدخول على حسابكم من خلال النقر على الرابط أدناه ',
+                    request()->root() . '/profile/pricing',
+                    'الرجاء الضغط هنا', auth()->user()->email
+                );
+            }else{
+                // send email to admin in english
+                send_email::send('('.auth()->user()->username.') reply on query no '.request('quotation_order_id'),
+                    '('.auth()->user()->username.') just replied on query no. '.request('quotation_order_id').' . To review and take further actions, you can sign in by clicking on the below link',
+                    request()->root() . '/dashboard/pricing-requests',
+                    'الرجاء الضغط هنا', get_first_admin::get_admin()->email
+                );
+                // send email to vendor in english
+                send_email::send('Mkena Wholesale  Reply confirmation for query no ' . request('quotation_order_id'),
+                    'Thank you for your reply on  query no. '.request('quotation_order_id').' . To review and follow up, you can sign in into your account by clicking on the below link',
+                    request()->root() . '/profile/pricing',
+                    'الرجاء الضغط هنا', auth()->user()->email
+                );
+            }
         }else{
             create_notification::new_notification([
                 'sender_id'=>auth()->id(),
@@ -142,16 +170,30 @@ class QuoationsInfoController extends Controller
             ]);
 
             if(session()->get('lang') == 'ar') {
-                send_email::send('رد الاداره بخصوص طلبك',
-                    'تم رد الاداره بخصوص الطلب الذي قمت بارساله رقم '.$quotation_order->id,
+                // send email to client
+                send_email::send('رد مكينة جملة على طلب التسعير الخاص بكم رقم '.$quotation_order->id,
+                    'لقد تم الرد على طلب التسعير الخاص بكم، رقم '.$quotation_order->id.' ، من مكينة جملة ، للاطلاع على التفاصيل، طباعة الفاتورة المبدئية ، والموافقة على العرض، يمكمنكم الدخول على حسابكم الخاص بمكينة جملة عن طريق الضغط على الرابط أدناه',
                     request()->root() .'/profile/last-quotations',
                     'الرجاء الضغط هنا', User::query()->find($quotation_order->user_id)->email
                 );
+                // send email to admin
+                send_email::send('رد مكينة جملة على طلب رقم '.$quotation_order->id,
+                    ' لقد تم الرد من قبل الادارة على طلب التسعير رقم '.$quotation_order->id.' ، للاطلاع على التفاصيل يمكنك يمكنك الدخول على حسابك من خلال النقر على الرابط أدناه',
+                    request()->root() .'/dashboard/pricing-requests',
+                    'الرجاء الضغط هنا', get_first_admin::get_admin()->email
+                );
             }else{
-                send_email::send(' quotation request has been replied',
-                    'request number '.$quotation_order->id.' has been replied please check your profile to see more',
+                // send email to client
+                send_email::send('Mkena\'s reply on query no. '.$quotation_order->id,
+                    'Mkena Wholesale management just replied on your query no. '.$quotation_order->id.'. To review the offer, print a proforma invoice and approve the order, you can sig in into your account by clicking on the below link',
                     request()->root() .'/profile/last-quotations',
-                    'Press here', User::query()->find($quotation_order->user_id)->email
+                    'الرجاء الضغط هنا', User::query()->find($quotation_order->user_id)->email
+                );
+                // send email to admin
+                send_email::send('Mkena\'s reply on query no '.$quotation_order->id,
+                    'Management reply on query no. '.$quotation_order->id.' just been submitted. To review and further details you can sign in into your account by clicking on the below link',
+                    request()->root() .'/dashboard/pricing-requests',
+                    'الرجاء الضغط هنا', get_first_admin::get_admin()->email
                 );
             }
         }
@@ -313,19 +355,34 @@ class QuoationsInfoController extends Controller
             'en_info'=>'A request has been sent to you from the administration. Please read it and attach the excel file that contains your pricing.',
             'seen'=>0,
         ]);
-
+        $admin = get_first_admin::get_admin();
         // send email
         if(session()->get('lang') == 'ar') {
+            // send email to vendor
             send_email::send('طلب جديد من الاداره',
-                'تم ارسال لك طلب من الاداره برجاء قرائته وارفاق ملف الاكسل الذي يحتوي علي التسعيرات الخاصه بك رقم '.$data->id,
+                'لقد  تم ارسال طلب تسعير جديد رقم  '.request('quotation_order_id').'  من مكينة جملة، للاطلاع على التفاصيل وتقديم عرضكم، يمكنكم الدخول على حسابكم من خلال النقر على الرابط أدناه',
                 request()->root() .'/profile/pricing',
                 'الرجاء الضغط هنا', $data['user']->email
             );
+            // send email to admin in arabic
+            send_email::send('  تحويل طلب تسعير لموردين رقم '.request('quotation_order_id'),
+                ' تم تحويل طلب التسعير '.request('quotation_order_id').'  للموردين أدناه. للمتابعة يمكنك الدخول لحسابك عن طريق النقر على الرابط أدناه ',
+                request()->root() .'/dashboard/pricing-requests',
+                'الرجاء الضغط هنا', $admin->email
+            );
+
         }else{
-            send_email::send('new request from admin',
-                'A request has been sent to you from the administration. Please read it and attach the excel file that contains your pricing . number of request : '.$data->id,
+            // send email to vendor in english
+            send_email::send('Mkena Wholesale new query no '.request('quotation_order_id'),
+                'Mkena Wholesale management just sent you a new query no. '.request('quotation_order_id').' . To review and reply, you can sign in into your account by clicking on the below link',
                 request()->root() .'/profile/pricing',
                 'Press here', $data['user']->email
+            );
+            // send email to admin in english
+            send_email::send('  تحويل طلب تسعير لموردين رقم '.request('quotation_order_id'),
+                'Query no. '.request('quotation_order_id').'  just been forwarded  to below Vendors . To review and follow up you can sign in by clicking on the below ink',
+                request()->root() .'/dashboard/pricing-requests',
+                'Press here', $admin->email
             );
         }
 

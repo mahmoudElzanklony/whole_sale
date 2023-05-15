@@ -42,6 +42,7 @@ class AuthServicesClass extends Controller
                 return $this->validate(request(), $rules, []);
             }
         }
+        $admin = get_first_admin::get_admin();
 
         if($role->name == 'buyer' || $role->name == 'seller'){
             $personal_info = $request->validated();
@@ -53,15 +54,27 @@ class AuthServicesClass extends Controller
             $user = User::query()->create($personal_info);
             if(session()->get('lang') == 'ar') {
                 send_email::send('تأكيد الايمل الالكتروني الخاص بك',
-                    'هذه رساله لتأكيد الايمل الالكتروني الخاص بك من فضلك اضغط علي الرابط بالاسفل ',
+                    'تأكيد بريدك الالكتروني لتفعيل حسابك بموقع مكينة جملة',
                     request()->root() . '/home?id=' . $user->id . '&serial=' . $user->password,
                     'الرجاء الضغط هنا', $user->email
                 );
+               // send email to admin about user registeration in arabic
+                send_email::send('تسجيل مستخدم جديد (اسم المستخدم  / '.$user->username.') ',
+                    'لقد قام '.trans('keywords['.$role->name.']').' جديد بتقديم طلب للتسجيل بالموقع .  للاطلاع على التفاصيل، بامكانك الدخول لحسابك عن طريق النقر على الرابط أدناه',
+                    request()->root() . '/dashboard/users',
+                    'الرجاء الضغط هنا', $admin->email
+                );
             }else{
                 send_email::send('Email confirmation',
-                    'Please click on the link below to activate email',
+                    'Kindly verify your registered email in you Mkena Wholesale created account by clicking on the link below. Kindly discard this email if you haven\'t recently tried to create an account with Mkena Wholesale',
                     request()->root() . '/activation?id=' . $user->id . '&serial=' . $user->password,
                     'Press here', $user->email
+                );
+                // send email to admin about user registeration in english
+                send_email::send('New '.$role->name.' registration (User Name /  '.$user->username.') ',
+                    'A new '.$role->name.' has just filed a registration request. To review the details you can  sign in into your account by clicking on the below link',
+                    request()->root() . '/dashboard/users',
+                    'Press here', $admin->email
                 );
             }
 

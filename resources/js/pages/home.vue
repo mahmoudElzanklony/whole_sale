@@ -300,15 +300,15 @@ export default {
     mounted() {
         if(window.innerWidth < 767) {
             let result = [];
-            for (let i = 0; i < this.brands.length; i += 6) {
-                let chunk = this.brands.slice(i, i + 6);
+            for (let i = 0; i < this.brands.length; i+= 2) {
+                let chunk = this.brands.slice(i, i + 2);
                 result.push(chunk);
             }
             this.brands_chunk = result;
         }else{
             let result = [];
-            for (let i = 0; i < this.brands.length; i += 18) {
-                let chunk = this.brands.slice(i, i + 18);
+            for (let i = 0; i < this.brands.length; i += 12) {
+                let chunk = this.brands.slice(i, i + 12);
                 result.push(chunk);
             }
             this.brands_chunk = result;
@@ -546,8 +546,21 @@ header{
 }
 
 @media (max-width: 767px) {
+    .carousel-inner{
+        width:88%;
+        margin: auto;
+    }
+    .carousel-control-next{
+        right: -6% !important;
+    }
+    .carousel-control-prev{
+        left:-6% !important;
+    }
     header{
         height: 820px;
+    }
+    .brands .brand .image img{
+        height: 100px;
     }
     .mobile{
         margin-top: 20px;
