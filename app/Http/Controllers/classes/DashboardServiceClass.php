@@ -53,6 +53,7 @@ use App\Services\notifications\create_notification;
 use App\Services\statistics\filter_statistics_admin;
 use Illuminate\Http\Request;
 use App\Http\traits\upload_image;
+use Illuminate\Support\Facades\DB;
 use Maatwebsite\Excel\Facades\Excel;
 
 class DashboardServiceClass extends Controller
@@ -242,7 +243,7 @@ class DashboardServiceClass extends Controller
 
     public function save_offers(offersFormRequest $request){
         $validated = $request->validated();
-
+        DB::beginTransaction();
         $offer = offers::query()->updateOrCreate([
             'id'=>request()->has('id') ? request('id'):null
         ],$validated);
@@ -255,6 +256,7 @@ class DashboardServiceClass extends Controller
             Excel::import(new AdminQuotationReplyCSV(null,$offer->id),
                 request()->file('file')
             );
+            DB::commit();
         } catch (\Maatwebsite\Excel\Validators\ValidationException $e) {
             $failures = $e->failures();
             return messages::error_output($failures[0]->errors());

@@ -84,7 +84,8 @@
                             </div>
                             <div class="form-group">
                                 <div class="drag-drop-files">
-                                    <input type="file" name="file">
+                                    <input type="file" name="file" @change="change_file">
+                                    <span class="ml-2 mr-2"></span>
                                     <p class="alert alert-danger"></p>
                                     <button type="button" class="btn btn-primary">
                                         <span>{{ switchWord('download_file') }}</span>
@@ -139,6 +140,9 @@ export default {
             'update_data':'offers_dash/update_data',
             'inilaize_data':'offers_dash/inilalize_data',
         }),
+        change_file(){
+            event.target.nextElementSibling.innerHTML = event.target.files[0].name;
+        },
     },
     created() {
         this.inilaize_data(this.handling_data['data'])

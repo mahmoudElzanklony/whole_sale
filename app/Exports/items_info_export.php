@@ -26,7 +26,8 @@ use PhpOffice\PhpSpreadsheet\Cell\DefaultValueBinder;
 
 
 
-class items_info_export extends DefaultValueBinder implements FromCollection ,WithHeadings,WithMapping,WithEvents,WithCustomValueBinder
+class items_info_export extends DefaultValueBinder implements FromCollection ,
+    WithHeadings,WithMapping,WithEvents,WithCustomValueBinder
 {
     /**
      * @return \Illuminate\Support\Collection
