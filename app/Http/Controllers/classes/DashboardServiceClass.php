@@ -247,19 +247,19 @@ class DashboardServiceClass extends Controller
         $offer = offers::query()->updateOrCreate([
             'id'=>request()->has('id') ? request('id'):null
         ],$validated);
-
-        $file = request()->file('file');
-        $exten = $file->getClientOriginalExtension();
-        $file_name = time().rand(0,9999999999999). '_excel.' .$exten;
-        try {
-
-            Excel::import(new AdminQuotationReplyCSV(null,$offer->id),
-                request()->file('file')
-            );
-            DB::commit();
-        } catch (\Maatwebsite\Excel\Validators\ValidationException $e) {
-            $failures = $e->failures();
-            return messages::error_output($failures[0]->errors());
+        if(request()->has('file')) {
+            $file = request()->file('file');
+            $exten = $file->getClientOriginalExtension();
+            $file_name = time() . rand(0, 9999999999999) . '_excel.' . $exten;
+            try {
+                Excel::import(new AdminQuotationReplyCSV(null, $offer->id),
+                    request()->file('file')
+                );
+                DB::commit();
+            } catch (\Maatwebsite\Excel\Validators\ValidationException $e) {
+                $failures = $e->failures();
+                return messages::error_output($failures[0]->errors());
+            }
         }
         $item = offers::query()->with(['offer_items','user','brand'=>function($e){
             return $e->select('id',app()->getLocale().'_name as name');
