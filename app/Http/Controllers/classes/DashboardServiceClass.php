@@ -260,6 +260,8 @@ class DashboardServiceClass extends Controller
                 $failures = $e->failures();
                 return messages::error_output($failures[0]->errors());
             }
+        }else{
+            DB::commit();
         }
         $item = offers::query()->with(['offer_items','user','brand'=>function($e){
             return $e->select('id',app()->getLocale().'_name as name');
