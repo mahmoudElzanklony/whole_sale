@@ -15,7 +15,7 @@ class offers_dashboard
         return [
             'data'=>offers::query()->with(['offer_items','user','brand'=>function($e){
                         return $e->select('id',app()->getLocale().'_name as name');
-                    }])->get(),
+                    }])->orderBy('id','DESC')->get(),
             'users'=>User::query()->whereHas('role',function ($e){
                 $e->where('name','=','seller');
             })->get(),
@@ -26,6 +26,7 @@ class offers_dashboard
                 'file'=>trans('keywords.file'),
                 'start_date'=>trans('keywords.start_date'),
                 'end_date'=>trans('keywords.end_date'),
+                'status'=>trans('keywords.status'),
                 'actions'=>trans('keywords.actions'),
             ],
             'data_model'=>[

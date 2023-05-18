@@ -243,7 +243,30 @@ class DashboardServiceClass extends Controller
 
     public function save_offers(offersFormRequest $request){
         $validated = $request->validated();
+        if(session()->get('type') == 'seller'){
+            $validated['status'] = 0;
+            $validated['user_id'] = auth()->id();
+        }else{
+            $validated['status'] = request('status');
+        }
         DB::beginTransaction();
+        if(request()->has('id')){
+            $offer_check = offers::query()->find(request('id'));
+            $offer_check->delete();
+            if(session()->get('type') != 'seller' && $validated['status'] == 1){
+                // send email
+                // send new notification to admin
+                create_notification::new_notification([
+                    'sender_id'=>auth()->id(),
+                    'receiver_id'=>$validated['user_id'],
+                    'ar_info'=>'تمت الموافقة علي العرض الذي قدمته الي الادارة بنجاح',
+                    'en_info'=>'offer request has been accepted from admin',
+                    'tu_info'=>'',
+                    'seen'=>0
+                ]);
+            }
+
+        }
         $offer = offers::query()->updateOrCreate([
             'id'=>request()->has('id') ? request('id'):null
         ],$validated);
@@ -252,7 +275,7 @@ class DashboardServiceClass extends Controller
             $exten = $file->getClientOriginalExtension();
             $file_name = time() . rand(0, 9999999999999) . '_excel.' . $exten;
             try {
-                Excel::import(new AdminQuotationReplyCSV(null, $offer->id),
+                Excel::import(new AdminQuotationReplyCSV(null, $offer->id , request('brand_id')),
                     request()->file('file')
                 );
                 DB::commit();

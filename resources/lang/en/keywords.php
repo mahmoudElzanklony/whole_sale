@@ -388,6 +388,11 @@ registered vendors, this process may take few moments',
     'start_date'=>'Start offer date',
     'end_date'=>'End offer date',
     'seller_related_offer'=>'Seller offer',
+    'upload_new_offer'=>'You can upload your offers through an excel file, and it will be sent to admin for review and then acceptance on the customer offers page',
+    'new_offer'=>'Make new offer',
+    'download_offer_template'=>'Download offer template',
+    'publish_status'=>'publish status',
+
     // end of profile offers ----------------------------------------------------
 
 

@@ -26,7 +26,7 @@ use PhpOffice\PhpSpreadsheet\Cell\DefaultValueBinder;
 
 
 
-class items_info_export extends DefaultValueBinder implements FromCollection ,
+class items_info_offer_export extends DefaultValueBinder implements FromCollection ,
     WithHeadings,WithMapping,WithEvents,WithCustomValueBinder
 {
     /**
@@ -91,7 +91,6 @@ class items_info_export extends DefaultValueBinder implements FromCollection ,
 
                 ];
                 $cells = ['B1', 'D1', 'E1', 'G1', 'H1', 'I1', 'J1', 'P1', 'Q1'];
-
                 for($i = 0; $i < sizeof($cells); $i++){
                     $event->sheet->styleCells(
                         $cells[$i],
@@ -131,8 +130,7 @@ class items_info_export extends DefaultValueBinder implements FromCollection ,
     public function headings(): array
     {
         $full_columns = [
-            trans('keywords.id'),trans("keywords.part_number"),trans('keywords.supplied_part_number'),
-            trans("keywords.brand"),trans("keywords.quantity"),
+            trans('keywords.id'),trans("keywords.part_number"),
             trans("keywords.ar_part_name"),trans("keywords.en_part_name"),
             trans("keywords.offered_stock"),trans("keywords.min_quantity_per_transaction"),
             trans("keywords.max_quantity_per_transaction"),
@@ -189,9 +187,6 @@ class items_info_export extends DefaultValueBinder implements FromCollection ,
                         $counter++,
                         //   $status,
                         $quotation->part_number,
-                        items_infos_supplied_part_number::query()->where('item_id',$item->id)->first()->part_number??'',
-                        $quotation->brand->name ?? $quotation->brand_id,
-                        $quotation->quantity,
                         $item->ar_part_name,
                         $item->en_part_name,
                         $item->offered_stock,

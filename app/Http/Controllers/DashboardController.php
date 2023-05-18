@@ -279,6 +279,7 @@ class DashboardController extends DashboardServiceClass
                 'start_date'=>trans('keywords.start_date'),
                 'end_date'=>trans('keywords.end_date'),
                 'brand'=>trans('keywords.brand'),
+                'status'=>trans('keywords.publish_status'),
             ],
         ]);
     }

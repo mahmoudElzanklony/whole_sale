@@ -14,6 +14,7 @@ class server_data
             return quotation_orders::query()
                 ->with('cancelled_quotations')->withCount('my_receipt')
                 ->with('offer')
+                ->withCount('vendors_requests')
             ->when(session()->get('type') =='buyer',function ($e){
                 $e->where('user_id','=',auth()->id());
             })->when(session()->get('type') =='seller',function ($e){
@@ -31,7 +32,7 @@ class server_data
                         if ($key == 'is_completed' && $value != '') {
                             $e->where(function ($e) use ($key,$value){
                                 if (str_contains( 'تم الارسال للادراة',$value) == true || str_contains( 'has been sent to admin',$value) == true) {
-                                    $e->orWhere($key, '=', 0);
+                                    $e->orWhere($key, '=', 0)->whereDoesntHave('vendors_requests');
                                 }
                                 if (str_contains( 'الغاء الطلب',$value) == true || str_contains( 'Cancel request',$value) == true) {
                                     $e->orWhere($key, '=', -1);

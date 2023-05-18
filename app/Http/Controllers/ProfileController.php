@@ -98,10 +98,17 @@ class ProfileController extends ProfileServiceClass
         }])
             ->where('start_date','<=',date('Y-m-d'))
             ->where('end_date','>=',date('Y-m-d'))
+            ->where('status','=',1)
             ->get();
         return Inertia::render('profile/offers',[
             'data'=>$data,
             'keywords'=>ProfileOffersKeywords::get_keywords(),
+            'brands'=>brands::selection()->get(),
+            'data_model'=>[
+                'brand_id'=>trans('keywords.brand'),
+                'start_date'=>trans('keywords.start_date'),
+                'end_date'=>trans('keywords.end_date'),
+            ]
         ]);
     }
 

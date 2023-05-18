@@ -32,6 +32,7 @@
                             </td>
                             <td>{{ i['start_date'] }}</td>
                             <td>{{ i['end_date'] }}</td>
+                            <td>{{ i['status'] == 1 ? switchWord('yes'):switchWord('no') }}</td>
                             <td class="actions">
                                 <span>
                                     <i data-toggle="modal" @click="update_item(i)" data-target="#update_box"
@@ -83,6 +84,15 @@
                                 <p class="alert alert-danger"></p>
                             </div>
                             <div class="form-group">
+                                <label>{{ keywords.status }}</label>
+                                <select class="form-control" name="status" required>
+                                    <option value="">{{ switchWord('select_best_choice') }}</option>
+                                    <option v-for="i in [1,0]"
+                                            :selected="item != null && item['status'] == i"
+                                            :value="i">{{ switchWord(i == 1 ? 'yes':'no') }}</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
                                 <div class="drag-drop-files">
                                     <input type="file" name="file" @change="change_file">
                                     <span class="ml-2 mr-2"></span>
@@ -121,7 +131,7 @@ import {mapState,mapActions , mapGetters , mapMutations} from "vuex";
 export default {
     name: "offers",
     mixins:[tableData,SwitchLangWord,update_item,delete_item],
-    props:['main_title','handling_data'],
+    props:['main_title','handling_data','keywords'],
     data:function(){
         return {
             modal_data:[],

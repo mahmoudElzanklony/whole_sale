@@ -819,7 +819,8 @@ export default {
             },
             { "data": "is_completed",
                 "render":function(data,type,row){
-                    return  row['is_completed'] == 0 ? component.switchWord('sent_to_admin')
+                    return  row['is_completed'] == 0 && row['vendors_requests_count'] == 0 ? component.switchWord('sent_to_admin')
+                        :row['is_completed'] == 0 && row['vendors_requests_count'] > 0 ? component.switchWord('sent_to_vendors')
                         :row['is_completed'] == 1 ? component.keywords.reply_from_admin
                             :row['is_completed'] == -1 ? '<span>'+component.switchWord('cancel_done')+'</span>'+'<span class="cancel_info_icon" title="'+component.handling_data.reasons.find((e)=>{return e['id'] == row['cancelled_quotations']['cancelled_id']})['name']+'"><i class="ri ri-information-line"></i></span>'
                             :row['is_completed'] == 11 ? component.switchWord('vendors_reply')

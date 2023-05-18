@@ -25,7 +25,7 @@ class offersFormRequest extends FormRequest
     {
         return [
             //
-            'user_id'=>'required|exists:users,id',
+            'user_id'=>'filled|exists:users,id',
             'brand_id'=>'required|exists:brands,id',
             'start_date'=>'required',
             'end_date'=>'required',

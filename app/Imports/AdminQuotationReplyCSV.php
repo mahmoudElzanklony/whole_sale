@@ -43,9 +43,11 @@ class AdminQuotationReplyCSV implements ToModel, WithHeadingRow , WithValidation
 
     private $quotation_order_id;
     private $offer_id;
-    public function __construct($quotation_order_id = null , $offer_id = null){
+    private $brand_id;
+    public function __construct($quotation_order_id = null , $offer_id = null , $brand_id = null){
         $this->quotation_order_id = $quotation_order_id;
         $this->offer_id = $offer_id;
+        $this->brand_id = $brand_id;
     }
 
 
@@ -57,8 +59,8 @@ class AdminQuotationReplyCSV implements ToModel, WithHeadingRow , WithValidation
             //
             'user_id'=>auth()->id(),
             'part_number'=>$row['part_number'],
-            'brand_id'=>brands::query()->where('ar_name','=',$row['brand'])
-                ->orWhere('en_name','=',$row['brand'])->first()->id??$row['brand'],
+            'brand_id'=>$this->brand_id != null ? $this->brand_id : (brands::query()->where('ar_name','=',$row['brand'])
+                ->orWhere('en_name','=',$row['brand'])->first()->id??$row['brand']),
             'quotation_order_id'=>$this->quotation_order_id ?? null,
             'ar_part_name'=>$row['ar_part_name'],
             'en_part_name'=>$row['en_part_name'],
@@ -74,7 +76,7 @@ class AdminQuotationReplyCSV implements ToModel, WithHeadingRow , WithValidation
         $item->save();
 
         // check if there is supplied part number
-        if(strlen($row['supplied_part_number']) > 0){
+        if(isset($row['supplied_part_number']) && strlen($row['supplied_part_number']) > 0){
             items_infos_supplied_part_number::query()->updateOrCreate([
                 'item_id'=>$item->id,
             ],[
@@ -116,7 +118,7 @@ class AdminQuotationReplyCSV implements ToModel, WithHeadingRow , WithValidation
     public function rules(): array
     {
         return [
-            'brand' => 'required',
+            'brand' => 'filled',
             'part_number' => 'required',
             'en_part_name' => 'required',
             'offered_stock' => 'required',

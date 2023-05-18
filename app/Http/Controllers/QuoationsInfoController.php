@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Exports\items_info_export;
+use App\Exports\items_info_offer_export;
 use App\Exports\items_offers_export;
 use App\Exports\quotations_orders_export;
 use App\Http\Requests\QuotationFormRequest;
@@ -391,6 +392,9 @@ class QuoationsInfoController extends Controller
     }
 
     public function export_file(){
+        if(request()->has('template')){
+            return Excel::download(new items_info_offer_export(collect([]),false), 'offer_template.xlsx');
+        }
         $ids = explode(',',request('ids'));
         $user_id = request('user_id') ?? null;
         if(request()->has('offer')){

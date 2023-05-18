@@ -6,6 +6,17 @@
             <div class="change_data offer_table_data">
                 <div class="container">
                   <p class="alert alert-warning" v-if="data.length == 0">{{ keywords.there_is_no_offers_yet }}</p>
+                  <div class="alert alert-warning d-flex align-items-center justify-content-between"
+                       v-if="$page.props.user.role.name == 'seller' && $page.props.user.approved == 1">
+                      <p class="mb-0">
+                          <span class="mb-2 d-block">{{ keywords.upload_new_offer }}</span>
+                          <a href="/quotations/export-file?template=true">{{ keywords.download_offer_template }}</a>
+                      </p>
+                      <button
+                          data-toggle="modal"
+                          data-target="#update_box"
+                          class="btn btn-outline-warning">{{ keywords.new_offer }}</button>
+                  </div>
                  <div class="row mt-2" v-if="data.length > 0">
 
                      <div class="col-md-4 col-12">
@@ -190,8 +201,62 @@
         </div>
 
 
-
-
+        <!-- upload new offer -->
+        <div class="modal fade" id="update_box" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="update_box_data">{{ item == null ? switchWord('add_new_item'):switchWord('update_new_item')+item.ar_name }}</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <form method="post" @submit.prevent="save_vendor_offer">
+                            <input v-if="item != null" type="hidden" name="id" :value="item.id">
+                            <div class="form-group"
+                                 v-for="input in Object.keys(data_model)" :key="input">
+                                <label>{{ data_model[input] }}</label>
+                                <input :name="input" class="form-control"
+                                       type="date"
+                                       v-if="input != 'brand_id'"
+                                       :value="item != null ? item[input]:''" :required="input.indexOf('tu') == -1">
+                                <select class="form-control" v-else :name="input" required>
+                                    <option value="">{{ switchWord('select_best_choice') }}</option>
+                                    <option v-for="(i,index) in brands"
+                                            :key="index"
+                                            :selected="item != null && item['brand_id'] == i['id']"
+                                            :value="i['id']">
+                                        {{ i['name'] }}
+                                    </option>
+                                </select>
+                                <p class="alert alert-danger"></p>
+                            </div>
+                            <div class="form-group">
+                                <div class="drag-drop-files">
+                                    <input type="file" name="file" @change="change_file">
+                                    <span class="ml-2 mr-2"></span>
+                                    <p class="alert alert-danger"></p>
+                                    <button type="button" class="btn btn-primary">
+                                        <span>{{ switchWord('download_file') }}</span>
+                                        <span><i class="ri-add-line"></i></span>
+                                    </button>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <input type="submit" name="save" class="btn btn-primary"
+                                       :value="switchWord('save')">
+                            </div>
+                        </form>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">
+                            {{ switchWord('close') }}
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
 
 
         <footer-component></footer-component>
@@ -209,10 +274,11 @@ import update_item from "../../mixin/update_item";
 import {mapActions, mapGetters, mapMutations} from "vuex";
 export default {
     name: "offers",
-    props:['keywords','data'],
+    props:['keywords','data','data_model','brands'],
     data(){
         return {
             current_admin_quotation:null,
+            modal_data:[],
         }
     },
     mixins:[delete_item,tableData,SwitchLangWord,update_item],
@@ -228,10 +294,15 @@ export default {
             'get_offer_info_action':'quotations_dash/get_offer_info_action',
             'make_offer':'send_qutoation/make_offer',
             'search_offer':'quotations_dash/search_offer',
+            'save_vendor_offer':'offers_dash/save_offer'
+
         }),
         ...mapMutations({
            'set_offers_data':'quotations_dash/set_offers_data',
         }),
+        change_file(){
+            event.target.nextElementSibling.innerHTML = event.target.files[0].name;
+        },
         get_quantity_data(i){
             var data =  this.offer_data.find((q)=>{return q['part_number'] == i['part_number']});
             if(data != undefined) {
@@ -271,13 +342,21 @@ export default {
         $('.content').on('keyup','input.form-control.part_number',async function (){
             component.search_offer();
         });
+    },
+    created() {
+
     }
 }
 </script>
 
 
-<style>
+<style lang="scss" scoped>
 #offer_get_data .modal-dialog{
     max-width: 1200px;
+}
+form{
+    p.alert-danger{
+        display: none;
+    }
 }
 </style>

@@ -45,6 +45,39 @@ class items_offers_export extends DefaultValueBinder implements FromCollection ,
         return [
             AfterSheet::class    => function(AfterSheet $event) {
 
+                $style = [
+                    //Set border Style
+                    'borders' => [
+                        'outline' => [
+                            'borderStyle' => \PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THICK,
+                            'color' => ['argb' => 'EB2B02'],
+                            'width'=>'1px'
+                        ],
+
+                    ],
+
+                    //Set font style
+                    'font' => [
+                        'bold'      =>  true,
+                        'color' => ['argb' => 'EB2B02'],
+                    ],
+
+                    //Set background style
+                    'fill' => [
+                        'fillType' => \PhpOffice\PhpSpreadsheet\Style\Fill::FILL_SOLID,
+                        'startColor' => [
+                            'rgb' => 'dff0d8',
+                        ]
+                    ],
+
+                ];
+                $cells = ['B1','D1','E1','F1','G1','H1','I1'];
+                for($i = 0; $i < sizeof($cells); $i++){
+                    $event->sheet->styleCells(
+                        $cells[$i],
+                        $style
+                    );
+                }
 
 
                 $event->sheet->getDelegate()->getColumnDimension('A')->setWidth(15);
@@ -61,7 +94,15 @@ class items_offers_export extends DefaultValueBinder implements FromCollection ,
                 $event->sheet->getDelegate()->getColumnDimension('L')->setWidth(20);
                 $event->sheet->getDelegate()->getColumnDimension('M')->setWidth(20);
                 $event->sheet->getDelegate()->getColumnDimension('N')->setWidth(20);
-                $event->sheet->getDelegate()->getColumnDimension('O')->setWidth(20);
+                $event->sheet->getDelegate()->getColumnDimension('O')->setWidth(23);
+                $event->sheet->getDelegate()->getColumnDimension('P')->setWidth(23);
+                $event->sheet->getDelegate()->getColumnDimension('Q')->setWidth(23);
+                $event->sheet->getDelegate()->getColumnDimension('R')->setWidth(23);
+                $event->sheet->getDelegate()->getColumnDimension('S')->setWidth(23);
+                $event->sheet->getDelegate()->getColumnDimension('T')->setWidth(23);
+                $event->sheet->getDelegate()->getColumnDimension('U')->setWidth(23);
+                $event->sheet->getDelegate()->getColumnDimension('V')->setWidth(23);
+                $event->sheet->getDelegate()->getColumnDimension('W')->setWidth(23);
 
             },
         ];
@@ -71,12 +112,13 @@ class items_offers_export extends DefaultValueBinder implements FromCollection ,
     {
         $full_columns = [
             trans('keywords.id'),trans("keywords.part_number"),
-            trans("keywords.brand"),trans("keywords.quantity"),
             trans("keywords.ar_part_name"),trans("keywords.en_part_name"),
             trans("keywords.offered_stock"),trans("keywords.min_quantity_per_transaction"),
             trans("keywords.max_quantity_per_transaction"),
             trans("keywords.s1_min"),trans("keywords.s1_price"),trans("keywords.s2_min"),
-            trans("keywords.s2_price"),trans("keywords.s3_min"),trans("keywords.s3_price")
+            trans("keywords.s2_price"),trans("keywords.s3_min"),trans("keywords.s3_price"),
+            trans("keywords.unit_of_packing"),trans("keywords.quantity_per_pallet"),
+            trans("keywords.width"),trans("keywords.length"),trans("keywords.thickness"),
         ];
         return $full_columns;
         /*if(session()->has('type')){
@@ -104,11 +146,22 @@ class items_offers_export extends DefaultValueBinder implements FromCollection ,
         }
         array_push($output,[
            $row->id,
-           $row->brand->name,
            $row->part_number,
+           $row->ar_part_name,
+           $row->en_part_name,
            $row->offered_stock,
+           $row->min_quantity_per_transaction,
+           $row->max_quantity_per_transaction,
         ]);
         $final_output[] = (array_merge($output[0],$prices_output));
+        $final_output[] = [
+            $row->unit_of_packing,
+            $row->quantity_per_pallet,
+            $row->quantity_per_pallet,
+            $row->height,
+            $row->thickness,
+        ];
+        $final_output = array_merge($final_output[0],$final_output[1]);
         $prices_output = [];
         $output =  [];
         return $final_output;

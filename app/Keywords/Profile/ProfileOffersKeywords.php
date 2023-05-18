@@ -29,6 +29,9 @@ class ProfileOffersKeywords
             'search_by_brand'=>trans('keywords.search_by_brand'),
             'see_prices'=>trans('keywords.see_prices'),
             'actions'=>trans('keywords.actions'),
+            'upload_new_offer'=>trans('keywords.upload_new_offer'),
+            'new_offer'=>trans('keywords.new_offer'),
+            'download_offer_template'=>trans('keywords.download_offer_template'),
         ];
     }
 
