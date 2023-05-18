@@ -393,7 +393,7 @@ class QuoationsInfoController extends Controller
 
     public function export_file(){
         if(request()->has('template')){
-            return Excel::download(new items_info_offer_export(collect([]),false), 'offer_template.xlsx');
+            return Excel::download(new items_offers_export(collect([])), 'offer_template.xlsx');
         }
         $ids = explode(',',request('ids'));
         $user_id = request('user_id') ?? null;
