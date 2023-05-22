@@ -16,9 +16,9 @@ class server_data
                 ->with('offer')
                 ->withCount('vendors_requests')
             ->when(session()->get('type') =='buyer',function ($e){
-                $e->where('user_id','=',auth()->id());
+                $e->with('one_item_admin:id,user_id,quotation_order_id,created_at')->where('user_id','=',auth()->id());
             })->when(session()->get('type') =='seller',function ($e){
-                    $e->with('vendors_requests',function ($qu){
+                    $e->with('one_item:id,quotation_order_id,created_at')->with('vendors_requests',function ($qu){
                           $qu->withCount('check_user_from_vendor_at_items');
                     })->whereHas('vendors_requests',function ($e){
                         $e->where('user_id',auth()->id());

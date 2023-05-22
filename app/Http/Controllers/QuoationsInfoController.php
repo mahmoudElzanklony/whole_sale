@@ -255,7 +255,7 @@ class QuoationsInfoController extends Controller
         }
 
         $email = get_first_admin::get_admin()->email;
-        if(session()->get('lang') == 'ar') {
+        /*if(session()->get('lang') == 'ar') {
             send_email::send('تم الموافقة علي الطلب',
                 'تم الموافقه علي الطلب رقم '.request('id').' يمكنك رؤيه التفاصيل من خلال لوحه التحكم ',
                 request()->root() .'/dashboard/pricing-requests',
@@ -267,7 +267,7 @@ class QuoationsInfoController extends Controller
                 request()->root() .'/dashboard/pricing-requests',
                 'Press here', $email
             );
-        }
+        }*/
 
     }
 

@@ -170,6 +170,9 @@ registered vendors, this process may take few moments',
     'upload_bank_document'=>'Upload bank document',
     'file'=>'File',
     'invoice_number'=>'Invoice number ',
+    'request_date'=>'Date of request',
+    'file_sent_date'=>'Date of offer',
+
 
     'you_can_upload_file_of_prices'=>'You can upload file of prices',
     'start_discount_date'=>'Start discount date',

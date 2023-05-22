@@ -25,6 +25,7 @@ use App\Models\quotation_orders;
 use App\Models\quotations;
 use App\Models\reasons_cancellation_orders;
 use App\Models\User;
+use App\Services\get_first_admin;
 use App\Services\listings\favourites;
 use App\Services\quoations\quoations_services;
 use App\Services\users\all_listings_notes;

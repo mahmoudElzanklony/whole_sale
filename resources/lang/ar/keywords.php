@@ -124,6 +124,8 @@ return [
     'upload_bank_document'=>'رفع وثيقه البنك',
     'file'=>'ملف',
     'invoice_number'=>'رقم الفاتورة',
+    'request_date'=>'تاريخ ارسال الطلب',
+    'file_sent_date'=>'تاريخ ارسال العرض',
 
     // end of profile last made quotations----------------------------------
 

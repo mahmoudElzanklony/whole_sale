@@ -77,7 +77,8 @@
                                     <td>{{ keywords.order_that_client_made }}</td>
                                     <td v-if="$page.props.user.role.name !='seller'">{{ keywords.reply_from_admin }}</td>
                                     <td v-else>{{ keywords.excel_file_offer }}</td>
-                                    <td>{{ keywords.date }}</td>
+                                    <td>{{ keywords.request_date }}</td>
+                                    <td>{{ keywords.file_sent_date }}</td>
                                     <td>{{ keywords.actions }}</td>
                                 </tr>
                             </thead>
@@ -184,14 +185,18 @@
                             <input class="form-control" name="part_number"
                                    :value="sub_quotation['last_draft'] == null ? sub_quotation['part_number']:sub_quotation['last_draft']['part_number']" type="hidden">
                             <div class="alert alert-warning" v-if="admin_quotation.length > 0">
-                                <div class="d-flex justify-content-between">
+                                <div class="d-flex justify-content-between flex-wrap">
                                     <p>
-                                        <span>{{ keywords.min_quantity_per_transaction }} : </span>
+                                        <strong>{{ keywords.min_quantity_per_transaction }} : </strong>
                                         <span>{{ admin_quotation.find((e)=>{return e['part_number'] == (sub_quotation['last_draft'] == null ? sub_quotation['part_number']:sub_quotation['last_draft']['part_number']) })['min_quantity_per_transaction'] }}</span>
                                     </p>
                                     <p>
-                                        <span>{{ keywords.max_quantity_per_transaction }} : </span>
+                                        <strong>{{ keywords.max_quantity_per_transaction }} : </strong>
                                         <span>{{ admin_quotation.find((e)=>{return e['part_number'] == (sub_quotation['last_draft'] == null ? sub_quotation['part_number']:sub_quotation['last_draft']['part_number']) })['max_quantity_per_transaction'] }}</span>
+                                    </p>
+                                    <p class="text-center w-100 mt-2">
+                                        <strong>{{ keywords.offered_stock }} : </strong>
+                                        <span>{{ admin_quotation.find((e)=>{return e['part_number'] == (sub_quotation['last_draft'] == null ? sub_quotation['part_number']:sub_quotation['last_draft']['part_number']) })['offered_stock'] }}</span>
                                     </p>
                                 </div>
                                 <table class="table table-hover mt-3 text-center">
@@ -505,7 +510,7 @@
                             </p>
                             <p class="text-center mb-3">
                                 <strong>{{ keywords.bill_export_date }}</strong>
-                                <strong v-if="item != null">{{ new Date(item['created_at']).toLocaleString() }}</strong>
+                                <strong v-if="item != null">{{ new Date(item['updated_at']).toLocaleString() }}</strong>
                             </p>
                         </div>
                         <button class="btn btn-outline-primary" @click="printOrder">{{ switchWord('print_bill') }}</button>
@@ -698,18 +703,44 @@ export default {
             },
             { "data": "is_completed",
                 "render":function(data,type,row){
-                   return '<span>'+new Date(row['created_at']).toLocaleDateString()+'</span>';
+                    if(component.$inertia.page.props.user.role.name == 'seller') {
+                        if(row['vendors_requests_count'] > 0){
+                            return '<span>'+new Date(row['vendors_requests']['created_at']).toLocaleString()+'</span>';
+                        }else{
+                            return '<span>'+component.switchWord('not_reply_yet')+'</span>';
+                        }
+                    }else {
+                        return '<span>' + new Date(row['created_at']).toLocaleString() + '</span>';
+                    }
                 }
             },
             { "data": "id",
                 "render":function (data,type,row,option){
                     if(component.$inertia.page.props.user.role.name == 'seller'){
-                        if(row['vendors_requests']['check_user_from_vendor_at_items_count'] == 0){
-                            return '<span class="upload_excel" el_id="' + row['id'] + '" ><i class="ri-upload-2-line" title="'+component.switchWord('upload_excel')+'"  el_id="'+row['id']+'"></i> </span>'
+                        if(row['one_item'] != null){
+                            return '<span>'+new Date(row['one_item']['created_at']).toLocaleString()+'</span>';
                         }else{
-                            return '';
+                            return '<span>'+component.switchWord('not_reply_yet')+'</span>';
                         }
                     }else {
+                        if(row['one_item_admin'] != null && row['one_item_admin']['user'] != null){
+                            return '<span>'+new Date(row['one_item_admin']['created_at']).toLocaleString()+'</span>';
+                        }else{
+                            return '<span>'+component.switchWord('not_reply_yet')+'</span>';
+                        }
+                        // date of admin sent
+                    }
+                }
+            },
+            { "data": "is_completed",
+                "render":function(data,type,row){
+                    if(component.$inertia.page.props.user.role.name == 'seller') {
+                        if(row['vendors_requests']['check_user_from_vendor_at_items_count'] == 0){
+                               return '<span class="upload_excel" el_id="' + row['id'] + '" ><i class="ri-upload-2-line" title="'+component.switchWord('upload_excel')+'"  el_id="'+row['id']+'"></i> </span>'
+                           }else{
+                                return '';
+                           }
+                    }else{
                         if (row['is_completed'] == 0) {
                             return '<span class="delete" el_id="' + row['id'] + '" title="' + component.switchWord("delete_item") + '"><i class="ri-close-line"></i></span>';
                         } else if (row['is_completed'] == 1) {
@@ -746,7 +777,6 @@ export default {
         });
         // agree request
         $('.content').on('click','.data table tbody tr td.actions button.agree_request,.data table tbody tr td.actions .receipt',async function (){
-            console.log('agree...............');
             Toast.fire({
                 title:component.switchWord('please_wait_seconds'),
                 icon:'info'
@@ -879,20 +909,24 @@ export default {
             event.target.nextElementSibling.innerHTML = event.target.files[0].name;
         },
         detect_right_price:function (i){
+            var prices;
             var d =  this.admin_quotation.find((e)=>{
                 return e['part_number'] == (i['last_draft'] == null ? i['part_number']:
                 i['last_draft']['part_number'])
             });
             if(d != undefined){
-             d = d['prices'].find((p)=>
+                d['prices'].sort((a, b) => b.min_quantity - a.min_quantity);
+                prices = d['prices'].find((p)=>
                     {
                         return (i['last_draft'] == null ? i['quantity']:i['last_draft']['quantity']) >=                                                          p['min_quantity']}
                 );
             }
-            if(d == undefined){
+            console.log(d['prices']);
+            var right_quan = (i['last_draft'] == null ? i['quantity']:i['last_draft']['quantity']);
+            if(prices == undefined || ( Number(d['offered_stock']) < Number(right_quan)  )){
                 return this.switchWord('error_in_price')
             }else{
-                return Number(d['price']).toFixed(2)
+                return Number(prices['price']).toFixed(2)
             }
         },
         pass_data_to_export:function (){
@@ -953,16 +987,15 @@ export default {
                             this.get_my_quotation[data_item_index]['last_draft']
                                 ['quantity'])).toFixed(2);
                 }
-
                 tr.find('td:nth-of-type(7)')
-                    .html(result);
-                total += Number(result)
+                    .html(Number(result).toLocaleString());
+                total += Number(Number(result.replaceAll(',','')))
             }
-            $('.total_part_number_price td:last-of-type').html(Number(total).toFixed(2));
+            $('.total_part_number_price td:last-of-type').html(Number(total).toLocaleString());
             $('#print_box table tr.tax td:last-of-type')
-                .html(Number(total * Number(this.item.tax ) / 100).toFixed(2));
+                .html(Number(total * Number(this.item.tax ) / 100).toLocaleString());
             total += (total * this.item.tax / 100 );
-            $('#print_box table tfoot tr:last-of-type td:last-of-type').html(Number(total).toFixed(2));
+            $('#print_box table tfoot tr:last-of-type td:last-of-type').html(Number(total).toLocaleString());
 
         },
         printOrder:function(){

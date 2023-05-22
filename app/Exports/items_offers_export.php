@@ -81,10 +81,10 @@ class items_offers_export extends DefaultValueBinder implements FromCollection ,
 
 
                 $event->sheet->getDelegate()->getColumnDimension('A')->setWidth(15);
-                $event->sheet->getDelegate()->getColumnDimension('B')->setWidth(15);
+                $event->sheet->getDelegate()->getColumnDimension('B')->setWidth(25);
                 $event->sheet->getDelegate()->getColumnDimension('C')->setWidth(25);
-                $event->sheet->getDelegate()->getColumnDimension('D')->setWidth(15);
-                $event->sheet->getDelegate()->getColumnDimension('E')->setWidth(22);
+                $event->sheet->getDelegate()->getColumnDimension('D')->setWidth(25);
+                $event->sheet->getDelegate()->getColumnDimension('E')->setWidth(25);
                 $event->sheet->getDelegate()->getColumnDimension('F')->setWidth(22);
                 $event->sheet->getDelegate()->getColumnDimension('G')->setWidth(22);
                 $event->sheet->getDelegate()->getColumnDimension('H')->setWidth(22);

@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Services\get_first_admin;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
@@ -32,6 +33,18 @@ class quotation_orders extends Model
 
     public function items(){
         return $this->hasMany(items_info::class,'quotation_order_id');
+    }
+    public function one_item(){
+        return $this->hasOne(items_info::class,'quotation_order_id')->where('user_id',auth()->id());
+    }
+
+    public function one_item_admin(){
+        return $this->hasOne(items_info::class,'quotation_order_id')
+            ->with('user',function($q){
+                $q->whereHas('role',function($r){
+                    $r->where('name','=','admin');
+                });
+            })->orderBy('id','DESC');
     }
 
     public function cancelled_quotations(){

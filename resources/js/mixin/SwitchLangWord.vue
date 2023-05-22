@@ -860,7 +860,7 @@ export default {
                   en:'mkena retail',
               },
               error_in_price:{
-                  ar:'هناك خطأ في تحديد السعر حيث انك قمت بطلب كميه اقل من الحد المسموح له',
+                  ar:'هناك خطأ في تحديد السعر حيث انك قمت بطلب كميه اقل من الحد المسموح له او تجاوزت الكمية المتوفرة',
                   en:'There is an error in determining the price as you have ordered less than the allowable amount',
               },
               edit_my_quantity:{
@@ -868,8 +868,8 @@ export default {
                   en:'update my quantity',
               },
               there_are_error_at_quantity_of_part_numbers:{
-                  ar:'هناك خطأ في الكمية التي طلبتها حيث انها اقل من الحد الادني المسموح به لدي القطع الاتيه ',
-                  en:'There is an error in the quantity you ordered as it is less than the minimum allowed for the following part numbers ',
+                  ar:'هناك خطأ في الكمية التي طلبتها حيث انها اقل من الحد الادني او انك تجاوزت الكمية المتوفرة المسموح به لدي القطع الاتيه ',
+                  en:'There is an error in the quantity you ordered as it is less than the minimum allowed or you exceeded offered stock for the following part numbers ',
               },
               initial_bill:{
                   ar:'فاتورة مبدئية',
