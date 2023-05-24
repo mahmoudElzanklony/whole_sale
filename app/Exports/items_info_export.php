@@ -2,6 +2,7 @@
 
 namespace App\Exports;
 
+use App\Models\brands;
 use App\Models\items_infos_supplied_part_number;
 use App\Models\quotation_orders;
 use Illuminate\Database\Eloquent\Builder as EloquentBuilder;
@@ -163,21 +164,27 @@ class items_info_export extends DefaultValueBinder implements FromCollection ,
         $final_output = [];
         $counter = 1;
         if(sizeof($row->quotations) > 0){
-            foreach ($row->quotations as $quotation){
-                if($row->is_completed == 0){
-                    $status = trans('keywords.sent_to_admin');
-                }else if( $row->is_completed == 1 ){
-                    $status = trans('keywords.reply_from_admin');
-                } else if( $row->is_completed == 2 ){
-                    $status = trans('keywords.client_confirm_request');
-                }else{
-                    $status = trans('keywords.complete_request_successfully');
-                }
+            if(sizeof($row->quotations) == sizeof($row->items)){
+                $rows_data = $row->quotations;
+            }else{
+                // in this case you have many items with different prices and different quantities
+                $rows_data = $row->items;
+            }
+            foreach ($rows_data as $key => $quotation){
                 if(sizeof($row->items) > 0){
                     // get item prices that part_number equal to quotation part number
-                    $item = collect($row->items)->filter(function ($e) use ($quotation){
-                        return $e->part_number == $quotation->part_number;
-                    })->first();
+                    if($quotation->prices == null){
+                        $item = collect($row->items)->filter(function ($e) use ($quotation){
+                            return $e->part_number == $quotation->part_number;
+                        })->first();
+                    }else{
+                        $item = $quotation; // in this case you use $row->items at line 170
+                        $quotation->quantity = $row->quotations->filter(function ($e) use ($item){
+                            return $e->part_number == $item->part_number;
+                        })->first()->quantity;
+
+                    }
+                    $item->brand = brands::selection()->find($item->brand_id);
                     if(sizeof($item->prices) > 0){
                         // there are prices
                         foreach($item->prices as $price){
@@ -190,7 +197,7 @@ class items_info_export extends DefaultValueBinder implements FromCollection ,
                         //   $status,
                         $quotation->part_number,
                         items_infos_supplied_part_number::query()->where('item_id',$item->id)->first()->part_number??'',
-                        $quotation->brand->name ?? $quotation->brand_id,
+                        $item->brand->name ?? $item->brand_id,
                         $quotation->quantity,
                         $item->ar_part_name,
                         $item->en_part_name,

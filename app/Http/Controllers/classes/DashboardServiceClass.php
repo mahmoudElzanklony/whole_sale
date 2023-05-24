@@ -252,7 +252,9 @@ class DashboardServiceClass extends Controller
         DB::beginTransaction();
         if(request()->has('id')){
             $offer_check = offers::query()->find(request('id'));
-            $offer_check->delete();
+            if($offer_check != null) {
+                $offer_check->delete();
+            }
             if(session()->get('type') != 'seller' && $validated['status'] == 1){
                 // send email
                 // send new notification to admin

@@ -194,7 +194,7 @@
                                         <strong>{{ keywords.max_quantity_per_transaction }} : </strong>
                                         <span>{{ admin_quotation.find((e)=>{return e['part_number'] == (sub_quotation['last_draft'] == null ? sub_quotation['part_number']:sub_quotation['last_draft']['part_number']) })['max_quantity_per_transaction'] }}</span>
                                     </p>
-                                    <p class="text-center w-100 mt-2">
+                                    <p class="w-100 mt-2">
                                         <strong>{{ keywords.offered_stock }} : </strong>
                                         <span>{{ admin_quotation.find((e)=>{return e['part_number'] == (sub_quotation['last_draft'] == null ? sub_quotation['part_number']:sub_quotation['last_draft']['part_number']) })['offered_stock'] }}</span>
                                     </p>
