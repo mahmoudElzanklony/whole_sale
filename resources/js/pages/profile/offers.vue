@@ -5,7 +5,7 @@
             <ProfileNavComponent></ProfileNavComponent>
             <div class="change_data offer_table_data">
                 <div class="container">
-                  <p class="alert alert-warning" v-if="data.length == 0">{{ keywords.there_is_no_offers_yet }}</p>
+                  <p class="alert alert-warning" v-if="data.length == 0 && $page.props.user.role.name == 'buyer'">{{ keywords.there_is_no_offers_yet }}</p>
                   <div class="alert alert-warning d-flex align-items-center justify-content-between"
                        v-if="$page.props.user.role.name == 'seller' && $page.props.user.approved == 1">
                       <p class="mb-0">

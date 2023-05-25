@@ -125,7 +125,7 @@ return [
     'file'=>'ملف',
     'invoice_number'=>'رقم الفاتورة',
     'request_date'=>'تاريخ ارسال الطلب',
-    'file_sent_date'=>'تاريخ ارسال العرض',
+    'file_sent_date'=>'تاريخ وصول العرض',
 
     // end of profile last made quotations----------------------------------
 

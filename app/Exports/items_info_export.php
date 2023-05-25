@@ -164,7 +164,7 @@ class items_info_export extends DefaultValueBinder implements FromCollection ,
         $final_output = [];
         $counter = 1;
         if(sizeof($row->quotations) > 0){
-            if(sizeof($row->quotations) == sizeof($row->items)){
+            if(sizeof($row->quotations) == sizeof($row->items) || sizeof($row->items) == 0){
                 $rows_data = $row->quotations;
             }else{
                 // in this case you have many items with different prices and different quantities

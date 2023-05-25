@@ -545,6 +545,16 @@ header{
     right: -15%;
 }
 
+@media (min-width: 992px) and (max-width: 1300px) {
+    .carousel-control-prev {
+        left: -85px;
+    }
+
+    .carousel-control-next {
+        right: -85px;
+    }
+}
+
 @media (max-width: 767px) {
     .carousel-inner{
         width:88%;

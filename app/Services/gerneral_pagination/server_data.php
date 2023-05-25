@@ -13,7 +13,9 @@ class server_data
         if(request('table') == 'quotation_orders'){
             return quotation_orders::query()
                 ->with('cancelled_quotations')->withCount('my_receipt')
-                ->with('offer')
+                ->with('offer',function($q){
+                    $q->with('offer_owner');
+                })
                 ->withCount('vendors_requests')
             ->when(session()->get('type') =='buyer',function ($e){
                 $e->with('one_item_admin:id,user_id,quotation_order_id,created_at')->where('user_id','=',auth()->id());

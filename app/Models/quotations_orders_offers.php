@@ -14,4 +14,8 @@ class quotations_orders_offers extends Model
     public function items_infos_ids(){
         return $this->hasMany(offers_items_info::class,'offer_id','offer_id');
     }
+
+    public function offer_owner(){
+        return $this->belongsTo(offers::class,'offer_id');
+    }
 }

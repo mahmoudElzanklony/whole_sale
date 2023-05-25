@@ -683,7 +683,8 @@
                                             <option value="">{{ switchWord('select_best_choice') }}</option>
                                             <option v-if="!(vendors_per_request.find(e => e['user_id'] == i['id']))"
                                                     v-for="(i,index) in handling_data['sellers']"
-                                                    :key="index" :value="i['id']">{{ i['username'] }}</option>
+                                                    :key="index" :value="i['id']"
+                                                    :disabled="item != null && item.offer != null && item.offer.offer_owner.user_id != i['id']">{{ i['username'] }}</option>
                                         </select>
                                     </div>
                                 </div>

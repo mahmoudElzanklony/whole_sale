@@ -33,6 +33,9 @@
         opacity: 1;
     }
 }
+option[disabled]{
+    color:#ddd;
+}
 .auto_complete{
     display: none;
     border:1px solid #ddd;

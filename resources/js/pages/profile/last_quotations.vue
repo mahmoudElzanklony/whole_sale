@@ -9,16 +9,21 @@
             </p>
             <div v-else class="sales">
                 <div class="container">
-                    <h2 class="text-center main-title" v-if="$page.props.user.role.name != 'seller'">
-                        <span>{{ keywords.main_title }}</span>
-                    </h2>
-                    <h2 class="text-center main-title" v-else>
-                        <span>{{ switchWord('newest_clients_requests') }}</span>
-                    </h2>
+                    <div v-if="false">
+                        <h2 class="text-center main-title" v-if="$page.props.user.role.name != 'seller'">
+                            <span>{{ keywords.main_title }}</span>
+                        </h2>
+                        <h2 class="text-center main-title" v-else>
+                            <span>{{ switchWord('newest_clients_requests') }}</span>
+                        </h2>
+                    </div>
 
                     <p class="alert alert-info" v-if="$page.props.user.role.name != 'seller'">
                         {{  keywords.print_data_info  }}
                     </p>
+                    <div class="alert alert-warning" v-if="$page.props.user.role.name != 'seller'">
+                        <span>{{ switchWord('rows_that_has_no_receipt') }}</span>
+                    </div>
                     <div class="m-auto mb-3 filters last-quotations-filter" v-if="$page.props.user.role.name != 'seller'">
                         <form class="justify-content-between flex-wrap">
                             <div class="d-flex align-items-center justify-content-between flex-wrap">
@@ -59,9 +64,7 @@
                             </div>
                         </form>
                     </div>
-                    <div class="alert alert-warning" v-if="$page.props.user.role.name != 'seller'">
-                        <span>{{ switchWord('rows_that_has_no_receipt') }}</span>
-                    </div>
+
                     <button class="btn btn-primary export_excel" v-if="$page.props.user.role.name != 'seller'"
                             @click="pass_data_to_export">{{ switchWord('export_selected') }}</button>
                     <div :class="'data '+($page.props.user.role.name == 'seller' ? 'seller_table':'')">
@@ -419,6 +422,10 @@
                                         <span class="font-weight-bold">{{ switchWord('phone_number') }}</span>:
                                         <span>{{ $page.props.user.phone }}</span>
                                     </p>
+                                    <p>
+                                        <span class="font-weight-bold">{{ keywords.date }}</span>:
+                                        <span v-if="item != null">{{ new Date(item['updated_at']).toLocaleString() }}</span>
+                                    </p>
                                 </div>
                                 <div>
                                     <img class="qr_code" style="max-height: 130px;" src="/images/qr.png">
@@ -508,10 +515,7 @@
                             <p class="text-center mb-3">
                                 <strong>{{ keywords.wholesale_bill_info }}</strong>
                             </p>
-                            <p class="text-center mb-3">
-                                <strong>{{ keywords.bill_export_date }}</strong>
-                                <strong v-if="item != null">{{ new Date(item['updated_at']).toLocaleString() }}</strong>
-                            </p>
+
                         </div>
                         <button class="btn btn-outline-primary" @click="printOrder">{{ switchWord('print_bill') }}</button>
                     </div>
