@@ -912,12 +912,21 @@ export default {
         change_file:function (){
             event.target.nextElementSibling.innerHTML = event.target.files[0].name;
         },
-        detect_right_price:function (i){
+        detect_right_price:function (i,index){
             var prices;
-            var d =  this.admin_quotation.find((e)=>{
-                return e['part_number'] == (i['last_draft'] == null ? i['part_number']:
-                i['last_draft']['part_number'])
-            });
+            if(index){
+                var d = this.admin_quotation[index];
+            }else {
+                var d = this.admin_quotation.find((e) => {
+                    return (e['part_number'] == (i['last_draft'] == null ? i['part_number'] :
+                        i['last_draft']['part_number']))
+                });
+            }
+
+            // remove from admin quotations
+
+
+
             if(d != undefined){
                 d['prices'].sort((a, b) => b.min_quantity - a.min_quantity);
                 prices = d['prices'].find((p)=>
@@ -978,14 +987,13 @@ export default {
                 var tr = $('#print_box table tbody tr').eq(data_item_index);
                 console.log(tr);
                 tr.find('td:nth-of-type(6)')
-                    .html(Number(this.detect_right_price(this.get_my_quotation[data_item_index]))
+                    .html(Number(this.detect_right_price(this.get_my_quotation[data_item_index],data_item_index))
                         .toFixed(2));
                 var result = '';
-                console.log(this.detect_right_price(this.get_my_quotation[data_item_index]));
-                if(isNaN(this.detect_right_price(this.get_my_quotation[data_item_index]))){
-                    result = this.detect_right_price(this.get_my_quotation[data_item_index]);
+                if(isNaN(this.detect_right_price(this.get_my_quotation[data_item_index],data_item_index))){
+                    result = this.detect_right_price(this.get_my_quotation[data_item_index],data_item_index);
                 }else{
-                    result = Number(this.detect_right_price(this.get_my_quotation[data_item_index]) *
+                    result = Number(this.detect_right_price(this.get_my_quotation[data_item_index],data_item_index) *
                         (this.get_my_quotation[data_item_index]['last_draft'] == null ?
                             this.get_my_quotation[data_item_index]['quantity']:
                             this.get_my_quotation[data_item_index]['last_draft']
@@ -1129,5 +1137,11 @@ export default {
 }
 #admin_quotation_data,my_quotations{
     z-index: 9999 !important;
+}
+#update_current_quotation{
+    .modal-body {
+        max-height: 600px;
+        overflow: auto;
+    }
 }
 </style>

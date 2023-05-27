@@ -44,23 +44,63 @@ class AdminQuotationReplyCSV implements ToModel, WithHeadingRow , WithValidation
     private $quotation_order_id;
     private $offer_id;
     private $brand_id;
+    private $duplicate;
     public function __construct($quotation_order_id = null , $offer_id = null , $brand_id = null){
         $this->quotation_order_id = $quotation_order_id;
         $this->offer_id = $offer_id;
         $this->brand_id = $brand_id;
     }
 
+    public function array(array $rows)
+    {
+        dd($rows);
+    }
+
+
 
     public function model(array $row)
     {
+        $inert_row = true;
         // php artisan make:import countriesImportCSV --model=countries to make this class
         // create new quotation bill
+        $brand_id = $this->brand_id != null ? $this->brand_id : (brands::query()->where('ar_name','=',$row['brand'])
+                ->orWhere('en_name','=',$row['brand'])->first()->id??$row['brand']);
+        if(session()->get('type') != 'seller'){
+
+            // get quotation
+            $quotation = quotations::query()
+                ->where('part_number',$row['part_number'])
+                ->where('brand_id',$brand_id)
+               // ->where('quantity','=',$row['quantity'])
+                ->where('quotation_order_id',$this->quotation_order_id ?? null)
+                ->first();
+            if($quotation != null && $quotation->quantity != $row['quantity'] &&
+                (!(is_array($this->duplicate)) || $this->duplicate['part_number'] != $row['part_number']) ){
+                // you change quantity of user wanted
+                // if quantity > offered stock
+                // may be duplicate
+                $this->duplicate = ['part_number'=>$row['part_number'],'brand_id'=>$brand_id];
+                $quotation->update(['quantity'=>$row['quantity']]);
+                $inert_row = false;
+            }
+
+            // check if there is duplicate
+            if($inert_row == true && is_array($this->duplicate) && $row['part_number'] == $this->duplicate['part_number'] && $brand_id == $this->duplicate['brand_id']){
+                quotations::query()->create([
+                    'quotation_order_id'=>$this->quotation_order_id ?? null,
+                    'part_number'=>$row['part_number'],
+                    'brand_id'=>$brand_id,
+                    'quantity'=>$row['quantity']
+                ]);
+            }
+        }
+
+
         $item = new items_info([
             //
             'user_id'=>auth()->id(),
             'part_number'=>$row['part_number'],
-            'brand_id'=>$this->brand_id != null ? $this->brand_id : (brands::query()->where('ar_name','=',$row['brand'])
-                ->orWhere('en_name','=',$row['brand'])->first()->id??$row['brand']),
+            'brand_id'=>$brand_id,
             'quotation_order_id'=>$this->quotation_order_id ?? null,
             'ar_part_name'=>$row['ar_part_name'],
             'en_part_name'=>$row['en_part_name'],

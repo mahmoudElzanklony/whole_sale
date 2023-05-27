@@ -501,6 +501,10 @@
                                         <span class="font-weight-bold">{{ switchWord('phone_number') }}</span>:
                                         <span>{{ item.user.phone }}</span>
                                     </p>
+                                    <p>
+                                        <span class="font-weight-bold">{{ keywords.date }}</span>:
+                                        <span v-if="item != null">{{ new Date(item['updated_at']).toLocaleString() }}</span>
+                                    </p>
                                 </div>
                                 <div>
                                     <img class="qr_code" style="max-height: 130px;" src="/images/qr.png">
@@ -598,10 +602,7 @@
                             <p class="text-center mb-3">
                                 <strong>{{ keywords.wholesale_bill_info }}</strong>
                             </p>
-                            <p class="text-center mb-3">
-                                <strong>{{ keywords.bill_export_date }}</strong>
-                                <strong v-if="item != null">{{ new Date(item['created_at']).toLocaleString() }}</strong>
-                            </p>
+
                         </div>
                         <button class="btn btn-outline-primary" @click="printOrder">{{ switchWord('print_bill') }}</button>
                     </div>
@@ -968,12 +969,16 @@ export default {
         update_sub_quotation:function (item){
             this.sub_quotation = item;
         },
-        detect_right_price:function (i){
-            var d =  this.admin_quotation.find((e)=>{
-                console.log(i['last_draft'].length);
-                return e['part_number'] == (i['last_draft'].length == 0  ? i['part_number']:
-                    i['last_draft'][0]['part_number'])
-            });
+        detect_right_price:function (i,index){
+            if(index){
+                var d = this.admin_quotation[index];
+            }else {
+                var d = this.admin_quotation.find((e) => {
+                    console.log(i['last_draft'].length);
+                    return e['part_number'] == (i['last_draft'].length == 0 ? i['part_number'] :
+                        i['last_draft'][0]['part_number'])
+                });
+            }
             if(d != undefined){
                 d = d['prices'].find((p)=>
                     {return (i['last_draft'].length == 0 ? i['quantity']:i['last_draft'][0]['quantity']) >=                                                          p['min_quantity']}
@@ -994,13 +999,13 @@ export default {
             for(let data_item_index in this.get_my_quotation){
                 var tr = $('#print_box table tbody tr').eq(data_item_index);
                 tr.find('td:nth-of-type(6)')
-                    .html(Number(this.detect_right_price(this.get_my_quotation[data_item_index]))
+                    .html(Number(this.detect_right_price(this.get_my_quotation[data_item_index],data_item_index))
                     .toFixed(2));
                 var result = '';
-                if(isNaN(this.detect_right_price(this.get_my_quotation[data_item_index]))){
-                    result = this.detect_right_price(this.get_my_quotation[data_item_index]);
+                if(isNaN(this.detect_right_price(this.get_my_quotation[data_item_index],data_item_index))){
+                    result = this.detect_right_price(this.get_my_quotation[data_item_index],data_item_index);
                 }else{
-                    result = Number(this.detect_right_price(this.get_my_quotation[data_item_index]) *
+                    result = Number(this.detect_right_price(this.get_my_quotation[data_item_index],data_item_index) *
                         (this.get_my_quotation[data_item_index]['last_draft'].length == 0 ?
                             this.get_my_quotation[data_item_index]['quantity']:
                             this.get_my_quotation[data_item_index]['last_draft']
@@ -1008,16 +1013,16 @@ export default {
                 }
 
                 tr.find('td:nth-of-type(7)')
-                    .html(result);
+                    .html(Number(result).toLocaleString());
                 total += Number(result)
             }
 
 
-            $('.total_part_number_price td:last-of-type').html(total.toFixed(2));
+            $('.total_part_number_price td:last-of-type').html(Number(total).toLocaleString());
             $('#print_box table tr.tax_row td:last-of-type')
-                .html(Number(total * Number(this.item.tax ) / 100).toFixed(2));
+                .html(Number(total * Number(this.item.tax ) / 100).toLocaleString());
             total += (total * this.item.tax / 100 );
-            $('#print_box table tfoot tr:last-of-type td:last-of-type').html(Number(total).toFixed(2));
+            $('#print_box table tfoot tr:last-of-type td:last-of-type').html(Number(total).toLocaleString());
 
 
 
