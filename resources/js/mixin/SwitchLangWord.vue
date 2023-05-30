@@ -917,6 +917,22 @@ export default {
             search_by:{
                   ar:'ابحث عن طريق',
                   en:'search by',
+            },
+            your_offer_no:{
+              ar:'رقم العرض الخاص بك ',
+              en:'Your Offer Number ',
+            },
+            start_date:{
+                ar:'يبدا في تاريخ ',
+                en:'End date',
+            },
+            end_date:{
+                ar:'ينتهي في تاريخ ',
+                en:'End of date ',
+            },
+            still_pending:{
+                ar:'مازال مقيدا ',
+                en:'Still pending',
             }
 
 

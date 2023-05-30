@@ -685,7 +685,11 @@ export default {
             },
             { "data": "id", // get my quotation
                 "render":function(data,type,row){
-                    return '<button class="btn btn-outline-primary" el_id="'+row['id']+'">'+component.switchWord('see_details')+'</button>';
+                    var output =  '<button class="btn btn-outline-primary" el_id="'+row['id']+'">'+component.switchWord('see_details')+'</button>';
+                    if(row['offer'] != null && row['offer']['offer_owner'] != null && row['offer']['offer_owner']['user_id'] == component.$inertia.page.props.user.id){
+                        output += '<span class="cancel_info_icon" title="'+component.switchWord('this_order_made_from_offer_number')+row['offer']['offer_id']+'"><i class="ri ri-information-line"></i></span>';
+                    }
+                    return output;
                 }
             },
             { "data": "is_completed",

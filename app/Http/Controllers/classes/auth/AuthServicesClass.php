@@ -209,6 +209,6 @@ class AuthServicesClass extends Controller
     public function logout(){
         session()->forget('type');
         auth()->logout();
-        return back();
+        return redirect('/');
     }
 }

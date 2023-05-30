@@ -390,6 +390,8 @@ registered vendors, this process may take few moments',
     'offers'=>'Offers',
     'start_date'=>'Start offer date',
     'end_date'=>'End offer date',
+    'created_at'=>'Created at date',
+
     'seller_related_offer'=>'Seller offer',
     'upload_new_offer'=>'You can upload your offers through an excel file, and it will be sent to admin for review and then acceptance on the customer offers page',
     'new_offer'=>'Make new offer',

@@ -102,10 +102,22 @@ class ProfileController extends ProfileServiceClass
             ->where('status','=',1)
             ->orderBy('id','DESC')
             ->get();
+
+
+        $pending = offers::query()->when(session()->get('type') == 'seller',function ($q){
+            $q->where('user_id','=',auth()->id());
+        })
+            ->where('start_date','<=',date('Y-m-d'))
+            ->where('end_date','>=',date('Y-m-d'))
+            ->where('status','=',0)
+            ->orderBy('id','DESC')
+            ->get();
+
         return Inertia::render('profile/offers',[
             'data'=>$data,
             'keywords'=>ProfileOffersKeywords::get_keywords(),
             'brands'=>brands::selection()->get(),
+            'pending'=>$pending,
             'data_model'=>[
                 'brand_id'=>trans('keywords.brand'),
                 'start_date'=>trans('keywords.start_date'),

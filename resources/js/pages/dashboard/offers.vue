@@ -12,7 +12,8 @@
                 </p>
 
                 <div class="overflow-auto">
-                    <table class="myTable table text-center table-bordered table-striped table-hover">
+                    <input class="form-control search_without_button mb-2" :placeholder="switchWord('search_for_you_best')">
+                    <table class="table text-center table-bordered table-striped table-hover">
                         <thead>
                         <tr>
                             <td v-for="i in handling_data['table_head_keys']" :key="i">
@@ -32,6 +33,7 @@
                             </td>
                             <td>{{ i['start_date'] }}</td>
                             <td>{{ i['end_date'] }}</td>
+                            <td>{{ new Date(i['created_at']).toLocaleString() }}</td>
                             <td>{{ i['status'] == 1 ? switchWord('yes'):switchWord('no') }}</td>
                             <td class="actions">
                                 <span>

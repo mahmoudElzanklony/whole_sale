@@ -252,7 +252,7 @@ class DashboardServiceClass extends Controller
         DB::beginTransaction();
         if(request()->has('id')){
             $offer_check = offers::query()->find(request('id'));
-            if($offer_check != null) {
+            if($offer_check != null && request()->has('file')) {
                 $offer_check->delete();
             }
             if(session()->get('type') != 'seller' && $validated['status'] == 1){
@@ -272,6 +272,7 @@ class DashboardServiceClass extends Controller
         $offer = offers::query()->updateOrCreate([
             'id'=>request()->has('id') ? request('id'):null
         ],$validated);
+
         if(request()->has('file')) {
             $file = request()->file('file');
             $exten = $file->getClientOriginalExtension();
@@ -288,6 +289,7 @@ class DashboardServiceClass extends Controller
         }else{
             DB::commit();
         }
+
         $item = offers::query()->with(['offer_items','user','brand'=>function($e){
             return $e->select('id',app()->getLocale().'_name as name');
         }])->find($offer->id);

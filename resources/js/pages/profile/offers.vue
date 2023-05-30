@@ -17,6 +17,21 @@
                           data-target="#update_box"
                           class="btn btn-outline-warning">{{ keywords.new_offer }}</button>
                   </div>
+
+                  <div class="pending"
+                       v-if="$page.props.user.role.name == 'seller' && $page.props.user.approved == 1">
+                      <div class="alert alert-warning d-flex align-items-center"
+                           v-for="(i,index) in pending" :key="index">
+                          <span class="ml-1 mr-1"><i class="ri-information-line"></i></span>
+                          <span>
+                              {{ switchWord('your_offer_no') }} {{ i['id'] }} {{ switchWord('start_date') }}
+                              {{ i['start_date'] }} {{ switchWord('end_date') }} {{ i['end_date'] }}
+                              {{ switchWord('still_pending') }}
+                          </span>
+                      </div>
+                  </div>
+
+
                  <div class="row mt-2" v-if="data.length > 0">
 
                      <div class="col-md-4 col-12">
@@ -106,7 +121,7 @@
                                     <td>{{ keywords.min_quantity_per_transaction }}</td>
                                     <td>{{ keywords.max_quantity_per_transaction }}</td>
                                     <td>{{ keywords.actions }}</td>
-                                    <td>{{ switchWord('order_quantity_offer') }}</td>
+                                    <td v-if="$page.props.user.role.name == 'buyer'">{{ switchWord('order_quantity_offer') }}</td>
                                 </tr>
                                 </thead>
                                 <tbody>
@@ -128,7 +143,7 @@
                                         >{{ keywords.see_prices }}</button>
                                     </td>
                                     <td v-else></td>
-                                    <td>
+                                    <td v-if="$page.props.user.role.name == 'buyer'">
                                         <input type="hidden" name="offer_id[]"
                                                :value="i['offer']['offer_id']">
                                         <input name="quantity[]"
@@ -143,6 +158,7 @@
                             </table>
                         </div>
                             <input type="submit" class="btn btn-primary"
+                                   v-if="$page.props.user.role.name == 'buyer'"
                                    :value="switchWord('send')">
                         </form>
                     </div>
@@ -274,7 +290,7 @@ import update_item from "../../mixin/update_item";
 import {mapActions, mapGetters, mapMutations} from "vuex";
 export default {
     name: "offers",
-    props:['keywords','data','data_model','brands'],
+    props:['keywords','data','data_model','brands','pending'],
     data(){
         return {
             current_admin_quotation:null,

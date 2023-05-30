@@ -268,6 +268,7 @@ return [
     'offers'=>'العروض',
     'start_date'=>'بداية تاريخ العرض',
     'end_date'=>'نهاية تاريخ العرض',
+    'created_at'=>'تاريخ الانشاء ',
     'seller_related_offer'=>'صاحب العرض',
     // end of profile offers ----------------------------------------------------
 

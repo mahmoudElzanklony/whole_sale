@@ -18,7 +18,7 @@ class CreateItemsInfosPricesTable extends Migration
             $table->foreignId('item_id')->constrained('items_infos')
             ->onUpdate('cascade')->onDelete('cascade');
             $table->integer('min_quantity');
-            $table->integer('price');
+            $table->float('price');
             $table->timestamps();
         });
     }

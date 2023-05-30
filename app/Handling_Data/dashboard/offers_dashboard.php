@@ -18,7 +18,7 @@ class offers_dashboard
                     }])->orderBy('id','DESC')->get(),
             'users'=>User::query()->whereHas('role',function ($e){
                 $e->where('name','=','seller');
-            })->get(),
+            })->orderBy('id','DESC')->get(),
             'brands'=>brands::selection()->get(),
             'table_head_keys'=>[
                 'user_id'=>trans('keywords.seller_related_offer'),
@@ -26,6 +26,7 @@ class offers_dashboard
                 'file'=>trans('keywords.file'),
                 'start_date'=>trans('keywords.start_date'),
                 'end_date'=>trans('keywords.end_date'),
+                'created_at'=>trans('keywords.created_at'),
                 'status'=>trans('keywords.status'),
                 'actions'=>trans('keywords.actions'),
             ],
