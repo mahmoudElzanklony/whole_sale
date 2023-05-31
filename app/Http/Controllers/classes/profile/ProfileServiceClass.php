@@ -173,33 +173,37 @@ class ProfileServiceClass extends Controller
             quotations::query()->create($inserted_data);
         }
         $email = get_first_admin::get_admin()->email;
-        if(session()->get('lang') == 'ar') {
-            // send email to admin in arabic
-            send_email::send('طلب تسعير جديد من مكينة جملة رقم '.$qutation_bill->id,
-                ' تم استلام طلب تسعير جديد رقم ### من   ('.auth()->user()->username.'  )، للاطلاع على التفاصيل، يمكنك الدخول على حسابك عن طريق النقر على الرابط أدناه '.auth()->id().' ورقم الطلب هو  '.$qutation_bill->id,
+            // send email to admin
+            $title_admin = [
+                'ar'=>['طلب تسعير جديد من مكينة جملة رقم ',$qutation_bill->id],
+                'en'=>['new request quotation from Mkena wholesale ',$qutation_bill->id],
+            ];
+            $body_admin = [
+              'ar'=>[' تم استلام طلب تسعير جديد رقم ### من   (',auth()->user()->username,'  )، للاطلاع على التفاصيل، يمكنك الدخول على حسابك عن طريق النقر على الرابط أدناه ',auth()->id(),' ورقم الطلب هو  ',$qutation_bill->id],
+              'en'=>['there is new quotation request from user id ',auth()->id(),' and request number is  ',$qutation_bill->id],
+            ];
+            send_email::send($title_admin,
+                $body_admin,
                 request()->root() .'/dashboard/pricing-requests',
                 'Press here', $email
             );
+
+
             // send email to customer
-            send_email::send('طلب تسعير جديد من مكينة جملة رقم '.$qutation_bill->id,
-                'نشكركم على تقديم طلب  التسعير رقم  '.$qutation_bill->id.' ، للاطلاع على التفاصيل او المتابعة او التعديل يمكنكم الدخول لحسابكم من خلال النقر علي الرابط ادناه',
+            $title_customer = [
+                'ar'=>['طلب تسعير جديد من مكينة جملة رقم ',$qutation_bill->id],
+                'en'=>['New Mkena Wholesale Query no ',$qutation_bill->id],
+            ];
+            $body_customer = [
+                'ar'=>['نشكركم على تقديم طلب  التسعير رقم  ',$qutation_bill->id,' ، للاطلاع على التفاصيل او المتابعة او التعديل يمكنكم الدخول لحسابكم من خلال النقر علي الرابط ادناه'],
+                'en'=>['Thank you for Your query no. ',$qutation_bill->id,' , to review the details, follow up, or amend, you can sign in into your Mkena Wholesale account by clicking on the below link '],
+            ];
+            send_email::send($title_customer,
+                $body_customer,
                 request()->root() .'/profile/last-quotations',
                 'Press here', auth()->user()->email
             );
-        }else{
-            // send email to admin in english
-            send_email::send('new request quotation from Mkena wholesale '.$qutation_bill->id,
-                'there is new quotation request from user id '.auth()->id().' and request number is  '.$qutation_bill->id,
-                request()->root() .'/dashboard/pricing-requests',
-                'Press here', $email
-            );
-            // send email to customer
-            send_email::send('New Mkena Wholesale Query no '.$qutation_bill->id,
-                'Thank you for Your query no. '.$qutation_bill->id.' , to review the details, follow up, or amend, you can sign in into your Mkena Wholesale account by clicking on the below link ',
-                request()->root() .'/profile/last-quotations',
-                'Press here', auth()->user()->email
-            );
-        }
+
 
         // send notification to admin
         $notification_data = [
@@ -289,33 +293,36 @@ class ProfileServiceClass extends Controller
         }
         DB::commit();
         $email = get_first_admin::get_admin()->email;
-        if(session()->get('lang') == 'ar') {
-            // send email to admin in arabic
-            send_email::send('طلب تسعير جديد من مكينة جملة رقم '.$qutation_bill->id,
-                ' تم استلام طلب تسعير جديد رقم ### من   ('.auth()->user()->username.'  )، للاطلاع على التفاصيل، يمكنك الدخول على حسابك عن طريق النقر على الرابط أدناه '.auth()->id().' ورقم الطلب هو  '.$qutation_bill->id,
-                request()->root() .'/dashboard/pricing-requests',
-                'Press here', $email
-            );
-            // send email to customer
-            send_email::send('طلب تسعير جديد من مكينة جملة رقم '.$qutation_bill->id,
-                'نشكركم على تقديم طلب  التسعير رقم  '.$qutation_bill->id.' ، للاطلاع على التفاصيل او المتابعة او التعديل يمكنكم الدخول لحسابكم من خلال النقر علي الرابط ادناه',
-                request()->root() .'/profile/last-quotations',
-                'Press here', auth()->user()->email
-            );
-        }else{
-            // send email to admin in english
-            send_email::send('new request quotation from Mkena wholesale '.$qutation_bill->id,
-                'there is new quotation request from user id '.auth()->id().' and request number is  '.$qutation_bill->id,
-                request()->root() .'/dashboard/pricing-requests',
-                'Press here', $email
-            );
-            // send email to customer
-            send_email::send('New Mkena Wholesale Query no '.$qutation_bill->id,
-                'Thank you for Your query no. '.$qutation_bill->id.' , to review the details, follow up, or amend, you can sign in into your Mkena Wholesale account by clicking on the below link ',
-                request()->root() .'/profile/last-quotations',
-                'Press here', auth()->user()->email
-            );
-        }
+        // send email to admin
+        $title_admin = [
+            'ar'=>['طلب تسعير جديد من مكينة جملة رقم ',$qutation_bill->id],
+            'en'=>['new request quotation from Mkena wholesale ',$qutation_bill->id],
+        ];
+        $body_admin = [
+            'ar'=>[' تم استلام طلب تسعير جديد رقم ### من   (',auth()->user()->username,'  )، للاطلاع على التفاصيل، يمكنك الدخول على حسابك عن طريق النقر على الرابط أدناه ',auth()->id(),' ورقم الطلب هو  ',$qutation_bill->id],
+            'en'=>['there is new quotation request from user id ',auth()->id(),' and request number is  ',$qutation_bill->id],
+        ];
+        send_email::send($title_admin,
+            $body_admin,
+            request()->root() .'/dashboard/pricing-requests',
+            'Press here', $email
+        );
+
+
+        // send email to customer
+        $title_customer = [
+            'ar'=>['طلب تسعير جديد من مكينة جملة رقم ',$qutation_bill->id],
+            'en'=>['New Mkena Wholesale Query no ',$qutation_bill->id],
+        ];
+        $body_customer = [
+            'ar'=>['نشكركم على تقديم طلب  التسعير رقم  ',$qutation_bill->id,' ، للاطلاع على التفاصيل او المتابعة او التعديل يمكنكم الدخول لحسابكم من خلال النقر علي الرابط ادناه'],
+            'en'=>['Thank you for Your query no. ',$qutation_bill->id,' , to review the details, follow up, or amend, you can sign in into your Mkena Wholesale account by clicking on the below link '],
+        ];
+        send_email::send($title_customer,
+            $body_customer,
+            request()->root() .'/profile/last-quotations',
+            'Press here', auth()->user()->email
+        );
 
 
         // send notification to admin

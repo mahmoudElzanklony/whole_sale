@@ -18,4 +18,6 @@ class send_email
 
         \Mail::to($to)->send(new Myemail($details));
     }
+
+
 }

@@ -132,34 +132,36 @@ class QuoationsInfoController extends Controller
                 'seen'=>0,
             ];
             create_notification::new_notification($notification_data);
-            if(session()->get('lang') == 'ar') {
+                 // send emails
+                $title_admin = [
+                    'ar'=>['رد (' , auth()->user()->username , ') على طلب تسعير رقم ' , request('quotation_order_id')],
+                    'en'=>['(',auth()->user()->username,') reply on query no ',request('quotation_order_id')],
+                ];
+                $body_admin = [
+                    'ar'=>['لقد قام (' . auth()->user()->username . ') بالرد على طلب التسعير رقم  ' . request('quotation_order_id') . ' ، للاطلاع على التفاصيل والعمل على العرض، يمكنك الدخول على حسابك من خلال النقر على الرابط أدناه    ',],
+                    'en'=>['(',auth()->user()->username,') just replied on query no. ',request('quotation_order_id'),' . To review and take further actions, you can sign in by clicking on the below link',]
+                ];
+                // send email to admin
+                send_email::send($title_admin,
+                    $body_admin,
+                    request()->root() . '/dashboard/pricing-requests',
+                    'الرجاء الضغط هنا', get_first_admin::get_admin()->email
+                );
 
-                // send email to admin in arabic
-                send_email::send('رد (' . auth()->user()->username . ') على طلب تسعير رقم ' . request('quotation_order_id'),
-                    'لقد قام (' . auth()->user()->username . ') بالرد على طلب التسعير رقم  ' . request('quotation_order_id') . ' ، للاطلاع على التفاصيل والعمل على العرض، يمكنك الدخول على حسابك من خلال النقر على الرابط أدناه    ',
-                    request()->root() . '/dashboard/pricing-requests',
-                    'الرجاء الضغط هنا', get_first_admin::get_admin()->email
-                );
+                $title_vendor = [
+                    'ar'=>['تأكيد تقديم عرضكم لطلب السعر من مكينة جملة رقم ' , request('quotation_order_id')],
+                    'en'=>['Mkena Wholesale  Reply confirmation for query no ' . request('quotation_order_id')],
+                ];
+                $body_vendor = [
+                    'ar'=>['نشكركم للرد على طلب التسعير رقم' , request('quotation_order_id') , ' ، للاطلاع على التفاصيل والمتابعة، يمكنكم الدخول على حسابكم من خلال النقر على الرابط أدناه '],
+                    'en'=>['Thank you for your reply on  query no. ',request('quotation_order_id'),' . To review and follow up, you can sign in into your account by clicking on the below link']
+                ];
                 // send email to vendor in arabic
-                send_email::send('تأكيد تقديم عرضكم لطلب السعر من مكينة جملة رقم ' . request('quotation_order_id'),
-                    'نشكركم للرد على طلب التسعير رقم' . request('quotation_order_id') . ' ، للاطلاع على التفاصيل والمتابعة، يمكنكم الدخول على حسابكم من خلال النقر على الرابط أدناه ',
+                send_email::send($title_vendor,
+                    $body_vendor,
                     request()->root() . '/profile/pricing',
                     'الرجاء الضغط هنا', auth()->user()->email
                 );
-            }else{
-                // send email to admin in english
-                send_email::send('('.auth()->user()->username.') reply on query no '.request('quotation_order_id'),
-                    '('.auth()->user()->username.') just replied on query no. '.request('quotation_order_id').' . To review and take further actions, you can sign in by clicking on the below link',
-                    request()->root() . '/dashboard/pricing-requests',
-                    'الرجاء الضغط هنا', get_first_admin::get_admin()->email
-                );
-                // send email to vendor in english
-                send_email::send('Mkena Wholesale  Reply confirmation for query no ' . request('quotation_order_id'),
-                    'Thank you for your reply on  query no. '.request('quotation_order_id').' . To review and follow up, you can sign in into your account by clicking on the below link',
-                    request()->root() . '/profile/pricing',
-                    'الرجاء الضغط هنا', auth()->user()->email
-                );
-            }
         }else{
             create_notification::new_notification([
                 'sender_id'=>auth()->id(),
