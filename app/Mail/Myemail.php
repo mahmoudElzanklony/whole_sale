@@ -35,10 +35,11 @@ class Myemail extends Mailable
             foreach($this->details['title']['ar'] as $t){
                 $title = $title . $t;
             }
-            $title = $title . '  ';
+            $title = $title . ' ( ';
             foreach($this->details['title']['en'] as $t){
                 $title = $title . $t;
             }
+            $title = $title . ' ) ';
         }else{
             $title = $this->details['title'];
         }

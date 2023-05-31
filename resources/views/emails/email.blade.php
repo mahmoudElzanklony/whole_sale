@@ -14,6 +14,7 @@
             @foreach($details['title']['ar'] as $b)
                 <span>{!!html_entity_decode($b)!!}</span>
             @endforeach
+            <br>
             @foreach($details['title']['en'] as $b)
                 <span>{!!html_entity_decode($b)!!}</span>
             @endforeach
@@ -27,6 +28,7 @@
             @foreach($details['body']['ar'] as $b)
             <span>{!!html_entity_decode($b)!!}</span>
             @endforeach
+            <br>
             @foreach($details['body']['en'] as $b)
                 <span>{!!html_entity_decode($b)!!}</span>
             @endforeach
