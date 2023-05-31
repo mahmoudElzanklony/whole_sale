@@ -32,7 +32,11 @@ class Myemail extends Mailable
     {
         $title = '';
         if(is_array($this->details['title'])){
-            foreach($this->details['title'] as $t){
+            foreach($this->details['title']['ar'] as $t){
+                $title = $title . $t;
+            }
+            $title = $title . '  ';
+            foreach($this->details['title']['en'] as $t){
                 $title = $title . $t;
             }
         }else{
