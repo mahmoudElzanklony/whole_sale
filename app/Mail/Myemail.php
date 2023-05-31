@@ -30,7 +30,15 @@ class Myemail extends Mailable
      */
     public function build()
     {
-        return $this->subject($this->details['title'])
+        $title = '';
+        if(is_array($this->details['title'])){
+            foreach($this->details['title'] as $t){
+                $title += $t;
+            }
+        }else{
+            $title = $this->details['title'];
+        }
+        return $this->subject($title)
             ->view('emails.email')->with('details',$this->details);
     }
 }
