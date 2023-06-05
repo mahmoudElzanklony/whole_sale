@@ -450,7 +450,7 @@
                         </a>
                         <a v-else-if="get_receipt.hasOwnProperty('image') &&
                         get_receipt['image'].indexOf('pdf') != -1"
-                           :href="'/pdf/receipts/'+get_receipt['image']"
+                           :href="'/pdfs/receipts/'+get_receipt['image']"
                            target="_blank">{{ switchWord('press_here') }}
                         </a>
                         <form  @submit.prevent="send_agreement_to_admin(item)">
