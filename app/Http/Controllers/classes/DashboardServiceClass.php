@@ -45,6 +45,7 @@ use App\Models\support;
 use App\Models\tax_money;
 use App\Models\User;
 use App\Models\users_privillages;
+use App\Services\get_first_admin;
 use App\Services\listings\average_price_at_area;
 use App\Services\listings\get_pointsprice_of_place;
 use App\Services\mail\send_email;
@@ -266,6 +267,38 @@ class DashboardServiceClass extends Controller
                     'tu_info'=>'',
                     'seen'=>0
                 ]);
+            }else{
+                $admin = get_first_admin::get_admin();
+                // this is seller
+                $title_admin = [
+                    'ar'=>[' /عرض خاص جديد من (اسم المورد',auth()->user()->username,')'],
+                    'en'=>['New  Special Offer uploaded by (',auth()->user()->username,')'],
+                ];
+                $body_admin = [
+                    'ar'=>[' لقد تم رفع عرض خاص جديد من (',auth()->user()->username,') . للاطلاع على التفاصيل يمكنك الدخول لحسابك عن طريق النقر على الرابط أدناه '],
+                    'en'=>['New special offer from (',auth()->user()->username,') just been uploaded on Mkena Wholesale. To review, you can sign in into your account by clicking on the below link'],
+                ];
+                send_email::send(
+                    $title_admin,$body_admin,
+                    request()->root() . '/dashboard/offers',
+                    'اضغط هنا', $admin->email);
+
+                // send email to customer
+
+
+
+                $title_vendor = [
+                    'ar'=>['تأكيد رفعكم للعرض الخاص على مكينة جملة'],
+                    'en'=>['Mkena Wholesale New Special Offer received'],
+                ];
+                $body_vendor = [
+                    'ar'=>['  نشكركم على رفعكم للعرض الخاص على حسابكم في مكينة جملة، للتفاصيل، يمكنكم الدخول على حسابكم عن طريق الضغط على الرابط أدناه'],
+                    'en'=>['Thank you for uploading your new special offer on Mkena Wholesale. For further details, you can sign in into your account by clicking on the below link '],
+                ];
+                send_email::send(
+                    $title_vendor,$body_vendor,
+                    request()->root() . '/profile/offers',
+                    'اضغط هنا', auth()->user()->email);
             }
 
         }

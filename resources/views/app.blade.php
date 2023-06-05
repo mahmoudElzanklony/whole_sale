@@ -39,7 +39,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@100;300&display=swap" rel="stylesheet">
     <link href='https://fonts.googleapis.com/css?family=Cairo' rel='stylesheet'>
 
-    <link href="{{ mix('/css/app.css') }}?version=28.02" rel="stylesheet" />
+    <link href="{{ mix('/css/app.css') }}?version=29.12" rel="stylesheet" />
     @if(session()->get('lang') == 'en' || session()->get('lang') == 'tu')
         <link href="{{ mix('/css/english.css') }}?v=25.4" rel="stylesheet" />
     @else
@@ -51,7 +51,7 @@
 
 
 
-    <script src="{{ mix('/js/app.js') }}?v=71.91.4" defer></script>
+    <script src="{{ mix('/js/app.js') }}?v=73.91.7" defer></script>
     <style>
         /*body{
             overflow: hidden;

@@ -112,11 +112,15 @@ export default {
                 commit('update_statistics',e.data.data);
             });
         },
-        save_quotation_at_draft:function({commit,getters,state}){
+        save_quotation_at_draft:function({commit,getters,state},payload){
             var target = event.target;
             var data = new FormData(target);
+
             axios.post('/quotations/save-quotation-at-draft',data).then((e)=>{
                 validation(e.data,target,'');
+                if(payload){
+                    payload.sub_quotation = e.data.data
+                }
                 // check if there is no error
                 commit('update_qotation_index_data',e.data.data);
                 $('#update_current_quotation').modal('hide');

@@ -759,7 +759,7 @@ export default {
               },
               agree_request:{
                   ar:'الموافقه علي الطلب',
-                  en:'agree request',
+                  en:'Approve quotation',
                   tu:'',
               },
               sent_agreement:{
@@ -933,6 +933,10 @@ export default {
             still_pending:{
                 ar:'مازال مقيدا ',
                 en:'Still pending',
+            },
+            terms_conditions:{
+                  ar:'الشروظ و الاتفاقيات',
+                  en:'Terms and conditions',
             }
 
 

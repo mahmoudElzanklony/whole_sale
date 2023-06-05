@@ -52,31 +52,46 @@ class AuthServicesClass extends Controller
             $personal_info['wallet'] = 0;
             $personal_info['serial_number'] = time();
             $user = User::query()->create($personal_info);
-            if(session()->get('lang') == 'ar') {
-                send_email::send('تأكيد الايمل الالكتروني الخاص بك',
-                    'تأكيد بريدك الالكتروني لتفعيل حسابك بموقع مكينة جملة',
-                    request()->root() . '/home?id=' . $user->id . '&serial=' . $user->password,
-                    'الرجاء الضغط هنا', $user->email
-                );
-               // send email to admin about user registeration in arabic
-                send_email::send('تسجيل مستخدم جديد (اسم المستخدم  / '.$user->username.') ',
-                    'لقد قام '.trans('keywords['.$role->name.']').' جديد بتقديم طلب للتسجيل بالموقع .  للاطلاع على التفاصيل، بامكانك الدخول لحسابك عن طريق النقر على الرابط أدناه',
-                    request()->root() . '/dashboard/users',
-                    'الرجاء الضغط هنا', $admin->email
-                );
-            }else{
-                send_email::send('Email confirmation',
-                    'Kindly verify your registered email in you Mkena Wholesale created account by clicking on the link below. Kindly discard this email if you haven\'t recently tried to create an account with Mkena Wholesale',
-                    request()->root() . '/activation?id=' . $user->id . '&serial=' . $user->password,
-                    'Press here', $user->email
-                );
-                // send email to admin about user registeration in english
-                send_email::send('New '.$role->name.' registration (User Name /  '.$user->username.') ',
-                    'A new '.$role->name.' has just filed a registration request. To review the details you can  sign in into your account by clicking on the below link',
-                    request()->root() . '/dashboard/users',
-                    'Press here', $admin->email
-                );
-            }
+
+
+            // send email
+            $email = get_first_admin::get_admin()->email;
+            $title_customer = [
+                'ar'=>['تأكيد بريدك الالكتروني لتفعيل حسابك بموقع مكينة جملة '],
+                'en'=>['Mkena Wholesale account email verification'],
+            ];
+            $body_customer = [
+                'ar'=>[' يرجى النقر على الرابط أدناه للتحقق من بريدك الإلكتروني و تفعيل حسابك  في موقع مكينة جملة . الرجاء تجاهل هذه الرسالة إذا لم تكن قد حاولت مؤخرًا إنشاء حساب في موقع مكينة جملة'],
+                'en'=>['Kindly verify your registered email in you Mkena Wholesale created account by clicking on the link below. Kindly discard this email if you haven\'t recently tried to create an account with Mkena Wholesale'],
+            ];
+
+            // send email to customer
+
+            send_email::send($title_customer,
+                $body_customer,
+                request()->root() . '/home?id=' . $user->id . '&serial=' . $user->password,
+                'الرجاء الضغط هنا', $user->email
+            );
+
+            // send email to admin
+
+
+            $title_admin = [
+                'ar'=>['تسجيل ',($role->name == 'buyer')?'عميل':'مورد','جديد','الاسم : ',$user->username],
+                'en'=>['New Customer registration (Customer Name /',$user->username,' ) '],
+
+            ];
+            $body_admin = [
+                'ar'=>['A new '.($role->name == 'buyer') ? 'Client':'Vendor'.' has just filed a registration request. To review the details you can  sign in into your account by clicking on the below link'],
+                'en'=>[' لقد قام  '.($role->name == 'buyer') ? 'عميل':'مورد'.'  جديد بتقديم طلب للتسجيل بالموقع .  للاطلاع على التفاصيل، بامكانك الدخول لحسابك عن طريق النقر على الرابط أدناه'],
+            ];
+
+            send_email::send($title_admin,$body_admin,
+                request()->root() . '/dashboard/users',
+                'الرجاء الضغط هنا', $admin->email
+            );
+
+
 
             // send notification to admin
             $notification_data = [
@@ -175,19 +190,20 @@ class AuthServicesClass extends Controller
         if(request()->has('email')){
             $user = User::query()->where('email','=',request('email'))->first();
             if($user != null){
-                if(session()->get('lang') == 'ar') {
-                    send_email::send('استرجاع كلمة المرور',
-                        'من فضلك اضغط علي الرابط بالاسفل لادخال كلمة مرور جديده',
-                        request()->root() . '/new-password?id=' . $user->id . '&serial=' . $user->serial_number,
-                        'الرجاء الضغط هنا', $user->email
-                    );
-                }else{
-                    send_email::send('Reset password',
-                        'Please click on the link below to enter a new password on the site',
-                        request()->root() . '/new-password?id=' . $user->id . '&serial=' . $user->serial_number,
-                        'Press here', $user->email
-                    );
-                }
+                // send email
+                $title = [
+                    'ar'=>['اعادة ضبط كلمة السر لموقع مكينة جملة '],
+                    'en'=>['Mkena Wholesale Password reset '],
+                ];
+                $body = [
+                    'ar'=>['لاعادة ضبط كلمة السر الخاصة بحسابكم على موقع مكينة جملة، الرجاء الضغط على الرايط أدناه واتباع التعليمات'],
+                    'en'=>['To reset your password for Mkena Wholesale account, you can click on the below link and follow the instructions'],
+                ];
+                send_email::send(
+                    $title,$body,
+                    request()->root() . '/new-password?id=' . $user->id . '&serial=' . $user->serial_number,
+                    'الرجاء الضغط هنا', $user->email);
+
                 return messages::success_output(trans('messages.email_sent_successfully'));
             }else{
                 return messages::error_output(['message'=>trans('errors.not_found_user')]);

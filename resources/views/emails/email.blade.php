@@ -8,7 +8,7 @@
 <body>
 <div style="padding: 10px; border: 1px solid #ddd; border-radius: 8px;">
 
-    <img  style="margin:20px auto; height: 80px;" src="https://wholesale.mkena.com/images/logo.png">
+    <img  src="https://wholesale.mkena.com/images/logo_email.png">
     @if(is_array($details['title']))
         <h1 style="text-align:center; margin-bottom: 20px">
             @foreach($details['title']['ar'] as $b)

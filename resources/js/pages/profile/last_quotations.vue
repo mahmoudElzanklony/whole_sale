@@ -183,7 +183,7 @@
                         </button>
                     </div>
                     <div class="modal-body" v-if="$page.props.user.role.name != 'seller'">
-                        <form method="post" @submit.prevent="update_quotation_at_draft">
+                        <form method="post" @submit.prevent="update_quotation_at_draft(current_com)">
                             <input type="hidden" name="quotation_id" :value="sub_quotation['id']">
                             <input class="form-control" name="part_number"
                                    :value="sub_quotation['last_draft'] == null ? sub_quotation['part_number']:sub_quotation['last_draft']['part_number']" type="hidden">
@@ -213,7 +213,7 @@
                                         <tr v-for="(price_slap,index) in admin_quotation.find((e)=>{return e['part_number'] == (sub_quotation['last_draft'] == null ? sub_quotation['part_number']:sub_quotation['last_draft']['part_number']) })['prices']"
                                         :key="index">
                                             <td>{{ price_slap['min_quantity'] }}</td>
-                                            <td>{{ Number(price_slap['price']).toFixed(2) }}</td>
+                                            <td>{{ Number(price_slap['price']).toLocaleString() }}</td>
                                         </tr>
                                     </tbody>
                                 </table>
@@ -275,6 +275,16 @@
                     <div class="modal-body">
                         <div class="loading-img">
                             <img src="/images/loading.gif">
+                        </div>
+                        <div class="mb-3" v-if="item != null && item.terms_data != null">
+                            <p class="mb-2"><strong>{{ switchWord('terms_conditions') }}</strong></p>
+                            <div>
+                                <div class="row">
+                                     <div class="col-lg-6 col-12 mb-1"
+                                           v-for="data_item in item['terms_data']['terms'].split('\n')">{{ data_item }}</div>
+                                </div>
+
+                            </div>
                         </div>
                         <a v-if="item != null && $page.props.user.role.name != 'seller'"
                            class="btn btn-primary mb-3"
@@ -369,7 +379,7 @@
                                     :key="index" :class="'row_child_'+index">
                                     <td>{{ index + 1 }}</td>
                                     <td>{{ i['min_quantity'] }}</td>
-                                    <td>{{ i['price'] }}</td>
+                                    <td>{{ i['price'].toLocaleString() }}</td>
                                 </tr>
                                 </tbody>
                             </table>
@@ -546,6 +556,12 @@
                         <form  method="post" @submit.prevent="send_excel">
                             <input v-if="item != null" type="hidden" name="quotation_order_id" :value="item.id">
                             <div class="form-group">
+                                <label>{{ switchWord('terms_conditions') }}</label>
+                                <textarea class="form-control" name="terms" required
+                                          :value="item != null && item.terms_data != null
+                                           ? item.terms_data.terms:''"></textarea>
+                            </div>
+                            <div class="form-group">
                                 <div class="drag-drop-files mb-3" data-aos="fade-up" data-aos-delay="2000">
                                     <input type="file" name="excel_file" required
                                            @change="change_file"
@@ -656,6 +672,7 @@ export default {
             table_columns:null,
             page_data:null,
             tax:0,
+            current_com:null,
             print_name:'',
         }
     },
@@ -1026,6 +1043,7 @@ export default {
         }
     },
     mounted() {
+        this.current_com = this;
         let all_thead_tds = document.querySelectorAll
         ('.myTableServer thead tr td:nth-of-type(3),.myTableServer thead tr td:nth-of-type(4)');
         for( let input of all_thead_tds){

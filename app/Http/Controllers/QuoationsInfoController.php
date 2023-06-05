@@ -18,6 +18,7 @@ use App\Models\offers_items_info;
 use App\Models\quotation_orders;
 use App\Models\quotations;
 use App\Models\quotations_draft;
+use App\Models\quotations_orders_terms;
 use App\Models\quotations_upload_money;
 use App\Models\receipt_quotations;
 use App\Models\tax_money;
@@ -45,14 +46,49 @@ class QuoationsInfoController extends Controller
     }
 
     public function cancel_request(){
-        quotation_orders::query()->find(request('id'))->update([
-            'is_completed'=>-1
-        ]);
+        $quotation_order = quotation_orders::query()->with('user')->find(request('id'));
+        if($quotation_order != null) {
+            $quotation_order->update([
+                'is_completed' => -1
+            ]);
+        }
 
         cancelled_quotations::query()->create([
             'quotation_id'=>request('id'),
             'cancelled_id'=>request('reason'),
         ]);
+
+        // send email to admin
+        $title_admin = [
+            'ar'=>['الغاء (',$quotation_order->user->username,') الطلب رقم ', request('id')],
+            'en'=>['(',$quotation_order->user->username,') query no',request('id'),'Has been cancelled'],
+        ];
+        $body_admin = [
+            'ar'=>[' لقد تم الغاء الطلب رقم ',request('id'),' من قبل (',$quotation_order->user->username,'). للاطلاع على التفاصيل، يمكنك الدخول لحسابك عن طريق النقر على الرابط أدناه ' ],
+            'en'=>['(',$quotation_order->user->username,')  canceled query no. ',request('id'),'. For further information you can sign in into your account by clicking on the below link']
+        ];
+        // send email to admin
+        send_email::send($title_admin,
+            $body_admin,
+            request()->root() . '/dashboard/pricing-requests',
+            'الرجاء الضغط هنا', get_first_admin::get_admin()->email
+        );
+
+
+        // send email to customer
+        $title_customer = [
+            'ar'=>['تأكيد الغاء طلبكم من مكينة جملة رقم ',request('id')],
+            'en'=>['Mkena Wholesale query cancelation no',request('id')],
+        ];
+        $body_customer = [
+            'ar'=>['هذه الرسالة لتأكيد الغائكم للطلب رقم ',request('id'),' من مكينة جملة، للتفاصيل، يمكنكم الدخول لحسابكم عن طريق النقر على الرابط أدناه '],
+            'en'=>['This is a confirmation of canceling your query no. ',request('id'),' with Mkena Wholesale. For further information, you can sign in into your account by clicking on the below link']
+        ];
+        send_email::send($title_customer,
+            $body_customer,
+            request()->root() . '/profile/last-quotations',
+            'الرجاء الضغط هنا', $quotation_order->user->email
+        );
 
         return messages::success_output([trans('messages.cancelled_successfully')]);
 
@@ -88,130 +124,186 @@ class QuoationsInfoController extends Controller
     }
 
     public function upload_excel_admin(){
-        $file = request()->file('excel_file');
-        $exten = $file->getClientOriginalExtension();
-        $file_name = time().rand(0,9999999999999). '_excel.' .$exten;
-
-        try {
-            if(session()->get('type') == 'seller') {
-                items_info::query()
-                    ->where('user_id','=',auth()->id())
-                    ->where('quotation_order_id', request('quotation_order_id'))->delete();
-            }else{
-                // admin or supervisor
-                items_info::query()
-                    ->whereHas('user',function ($e){
-                        $e->whereHas('role',function ($q){
-                            $q->where('name','!=','seller');
-                        });
-                    })
-                    ->where('quotation_order_id', request('quotation_order_id'))->delete();
-            }
-            Excel::import(new AdminQuotationReplyCSV(request('quotation_order_id')),
-                request()->file('excel_file')
-            );
-
-
-        } catch (\Maatwebsite\Excel\Validators\ValidationException $e) {
-            $failures = $e->failures();
-            return messages::error_output($failures[0]->errors());
-
-        }
-        $quotation_order = quotation_orders::query()->with('user')->find(request('quotation_order_id'));
-        $quotation_order->is_completed = session()->get('type') == 'seller'?11:1;
-        $quotation_order->save();
-
-        // check type
-        if(session()->get('type') == 'seller'){
-            // send notification to admin
-            $notification_data = [
-                'sender_id'=>auth()->id(),
-                'receiver_id'=>get_first_admin::get_admin()->id,
-                'ar_info'=>'تم الرد عليك من  قبل  المورد  في طلب رقم '.request('quotation_order_id'),
-                'en_info'=>'there is a new reply from vendor in request number '.request('quotation_order_id'),
-                'seen'=>0,
-            ];
-            create_notification::new_notification($notification_data);
-                 // send emails
-                $title_admin = [
-                    'ar'=>['رد (' , auth()->user()->username , ') على طلب تسعير رقم ' , request('quotation_order_id')],
-                    'en'=>['(',auth()->user()->username,') reply on query no ',request('quotation_order_id')],
-                ];
-                $body_admin = [
-                    'ar'=>['لقد قام (' . auth()->user()->username . ') بالرد على طلب التسعير رقم  ' . request('quotation_order_id') . ' ، للاطلاع على التفاصيل والعمل على العرض، يمكنك الدخول على حسابك من خلال النقر على الرابط أدناه    ',],
-                    'en'=>['(',auth()->user()->username,') just replied on query no. ',request('quotation_order_id'),' . To review and take further actions, you can sign in by clicking on the below link',]
-                ];
-                // send email to admin
-                send_email::send($title_admin,
-                    $body_admin,
-                    request()->root() . '/dashboard/pricing-requests',
-                    'الرجاء الضغط هنا', get_first_admin::get_admin()->email
-                );
-
-                $title_vendor = [
-                    'ar'=>['تأكيد تقديم عرضكم لطلب السعر من مكينة جملة رقم ' , request('quotation_order_id')],
-                    'en'=>['Mkena Wholesale  Reply confirmation for query no ' . request('quotation_order_id')],
-                ];
-                $body_vendor = [
-                    'ar'=>['نشكركم للرد على طلب التسعير رقم' , request('quotation_order_id') , ' ، للاطلاع على التفاصيل والمتابعة، يمكنكم الدخول على حسابكم من خلال النقر على الرابط أدناه '],
-                    'en'=>['Thank you for your reply on  query no. ',request('quotation_order_id'),' . To review and follow up, you can sign in into your account by clicking on the below link']
-                ];
-                // send email to vendor in arabic
-                send_email::send($title_vendor,
-                    $body_vendor,
-                    request()->root() . '/profile/pricing',
-                    'الرجاء الضغط هنا', auth()->user()->email
-                );
-        }else{
-            create_notification::new_notification([
-                'sender_id'=>auth()->id(),
-                'receiver_id'=>session()->get('type') == 'seller'? get_first_admin::get_admin()->id: $quotation_order->user_id,
-                'ar_info'=>'تم الرد علي الطلب الذي رقمه '.$quotation_order->id,
-                'en_info'=>'request number '.$quotation_order->id.' has been replied please check this ',
-                'tu_info'=>'',
-                'seen'=>0,
+        if(request()->has('terms')){
+            quotations_orders_terms::query()->updateOrCreate([
+                'quotation_order_id'=>request('quotation_order_id'),
+            ],[
+                'terms'=>request('terms'),
             ]);
+        }
+        if(request()->has('excel_file')){
+            $file = request()->file('excel_file');
+            $exten = $file->getClientOriginalExtension();
+            $file_name = time().rand(0,9999999999999). '_excel.' .$exten;
 
-            if(session()->get('lang') == 'ar') {
-                // send email to client
-                send_email::send('رد مكينة جملة على طلب التسعير الخاص بكم رقم '.$quotation_order->id,
-                    'لقد تم الرد على طلب التسعير الخاص بكم، رقم '.$quotation_order->id.' ، من مكينة جملة ، للاطلاع على التفاصيل، طباعة الفاتورة المبدئية ، والموافقة على العرض، يمكمنكم الدخول على حسابكم الخاص بمكينة جملة عن طريق الضغط على الرابط أدناه',
-                    request()->root() .'/profile/last-quotations',
-                    'الرجاء الضغط هنا', User::query()->find($quotation_order->user_id)->email
+            try {
+                if(session()->get('type') == 'seller') {
+                    items_info::query()
+                        ->where('user_id','=',auth()->id())
+                        ->where('quotation_order_id', request('quotation_order_id'))->delete();
+                }else{
+                    // admin or supervisor
+                    items_info::query()
+                        ->whereHas('user',function ($e){
+                            $e->whereHas('role',function ($q){
+                                $q->where('name','!=','seller');
+                            });
+                        })
+                        ->where('quotation_order_id', request('quotation_order_id'))->delete();
+                }
+                Excel::import(new AdminQuotationReplyCSV(request('quotation_order_id')),
+                    request()->file('excel_file')
                 );
-                // send email to admin
-                send_email::send('رد مكينة جملة على طلب رقم '.$quotation_order->id,
-                    ' لقد تم الرد من قبل الادارة على طلب التسعير رقم '.$quotation_order->id.' ، للاطلاع على التفاصيل يمكنك يمكنك الدخول على حسابك من خلال النقر على الرابط أدناه',
-                    request()->root() .'/dashboard/pricing-requests',
-                    'الرجاء الضغط هنا', get_first_admin::get_admin()->email
-                );
-            }else{
-                // send email to client
-                send_email::send('Mkena\'s reply on query no. '.$quotation_order->id,
-                    'Mkena Wholesale management just replied on your query no. '.$quotation_order->id.'. To review the offer, print a proforma invoice and approve the order, you can sig in into your account by clicking on the below link',
-                    request()->root() .'/profile/last-quotations',
-                    'الرجاء الضغط هنا', User::query()->find($quotation_order->user_id)->email
-                );
-                // send email to admin
-                send_email::send('Mkena\'s reply on query no '.$quotation_order->id,
-                    'Management reply on query no. '.$quotation_order->id.' just been submitted. To review and further details you can sign in into your account by clicking on the below link',
-                    request()->root() .'/dashboard/pricing-requests',
-                    'الرجاء الضغط هنا', get_first_admin::get_admin()->email
-                );
+
+
+            } catch (\Maatwebsite\Excel\Validators\ValidationException $e) {
+                $failures = $e->failures();
+                return messages::error_output($failures[0]->errors());
+
             }
+            $quotation_order = quotation_orders::query()->with('user')->find(request('quotation_order_id'));
+            $quotation_order->is_completed = session()->get('type') == 'seller'?11:1;
+            $quotation_order->save();
+
+            $admin = get_first_admin::get_admin();
+            // check type
+            if(session()->get('type') == 'seller'){
+                // send notification to admin
+                $notification_data = [
+                    'sender_id'=>auth()->id(),
+                    'receiver_id'=>get_first_admin::get_admin()->id,
+                    'ar_info'=>'تم الرد عليك من  قبل  المورد  في طلب رقم '.request('quotation_order_id'),
+                    'en_info'=>'there is a new reply from vendor in request number '.request('quotation_order_id'),
+                    'seen'=>0,
+                ];
+                create_notification::new_notification($notification_data);
+                     // send emails
+                    $title_admin = [
+                        'ar'=>['رد (' , auth()->user()->username , ') على طلب تسعير رقم ' , request('quotation_order_id')],
+                        'en'=>['(',auth()->user()->username,') reply on query no ',request('quotation_order_id')],
+                    ];
+                    $body_admin = [
+                        'ar'=>['لقد قام (' . auth()->user()->username . ') بالرد على طلب التسعير رقم  ' . request('quotation_order_id') . ' ، للاطلاع على التفاصيل والعمل على العرض، يمكنك الدخول على حسابك من خلال النقر على الرابط أدناه    ',],
+                        'en'=>['(',auth()->user()->username,') just replied on query no. ',request('quotation_order_id'),' . To review and take further actions, you can sign in by clicking on the below link',]
+                    ];
+                    // send email to admin
+                    send_email::send($title_admin,
+                        $body_admin,
+                        request()->root() . '/dashboard/pricing-requests',
+                        'الرجاء الضغط هنا', get_first_admin::get_admin()->email
+                    );
+
+                    $title_vendor = [
+                        'ar'=>['تأكيد تقديم عرضكم لطلب السعر من مكينة جملة رقم ' , request('quotation_order_id')],
+                        'en'=>['Mkena Wholesale  Reply confirmation for query no ' . request('quotation_order_id')],
+                    ];
+                    $body_vendor = [
+                        'ar'=>['نشكركم للرد على طلب التسعير رقم' , request('quotation_order_id') , ' ، للاطلاع على التفاصيل والمتابعة، يمكنكم الدخول على حسابكم من خلال النقر على الرابط أدناه '],
+                        'en'=>['Thank you for your reply on  query no. ',request('quotation_order_id'),' . To review and follow up, you can sign in into your account by clicking on the below link']
+                    ];
+                    // send email to vendor in arabic
+                    send_email::send($title_vendor,
+                        $body_vendor,
+                        request()->root() . '/profile/pricing',
+                        'الرجاء الضغط هنا', auth()->user()->email
+                    );
+            }else{
+                create_notification::new_notification([
+                    'sender_id'=>auth()->id(),
+                    'receiver_id'=>session()->get('type') == 'seller'? get_first_admin::get_admin()->id: $quotation_order->user_id,
+                    'ar_info'=>'تم الرد علي الطلب الذي رقمه '.$quotation_order->id,
+                    'en_info'=>'request number '.$quotation_order->id.' has been replied please check this ',
+                    'tu_info'=>'',
+                    'seen'=>0,
+                ]);
+
+                if(session()->get('type') == 'seller'){
+                    // this is seller make file
+                    $title_admin = [
+                        'ar'=>['رد (',auth()->user()->username,') على طلب تسعير رقم ',request('quotation_order_id')],
+                        'en'=>['(',auth()->user()->username,') reply on query no',request('quotation_order_id')],
+                    ];
+                    $body_admin = [
+                        'ar'=>[' لقد قام (',auth()->user()->username,') بالرد على طلب التسعير رقم',request('quotation_order_id'),' ، للاطلاع على التفاصيل والعمل على العرض، يمكنك الدخول على حسابك من خلال النقر على الرابط أدناه   '],
+                        'en'=>['('.auth()->user()->username.') just replied on query no.'.request('quotation_order_id').'. To review and take further actions, you can click on the below link'],
+                    ];
+
+                    // send email to admin
+
+                    send_email::send(
+                        $title_admin,$body_admin,
+                        request()->root() . '/dashboard/pricing-requests',
+                        'اضغط هنا', $admin->email);
+
+                    // send mail to seller
+                    $title_vendor = [
+                        'ar'=>['تأكيد تقديم عرضكم لطلب السعر من مكينة جملة رقم ',request('quotation_order_id')],
+                        'en'=>['Mkena Wholesale  Reply confirmation for query no',request('quotation_order_id')],
+                    ];
+                    $body_vendor = [
+                        'ar'=>['.نشكركم للرد على طلب التسعير رقم',request('quotation_order_id'),' ، للاطلاع على التفاصيل والمتابعة، يمكنكم الدخول على حسابكم من خلال النقر على الرابط أدناه'],
+                        'en'=>['Thank you for your reply on  query no. ',request('quotation_order_id'),'. To review and follow up, click on the below link'],
+                    ];
+
+                    send_email::send(
+                        $title_vendor,$body_vendor,
+                        request()->root() . '/profile/last-quotations',
+                        'اضغط هنا', auth()->user()->email);
+
+                }else{
+                    // admin upload this file
+                    $title_admin = [
+                        'ar'=>['رد مكينة جملة على طلب رقم ',request('quotation_order_id')],
+                        'en'=>['Mkena\'s reply on query no.',request('quotation_order_id')],
+                    ];
+                    $body_admin = [
+                        'ar'=>['  لقد تم الرد من قبل الادارة على طلب التسعير رقم '.request('quotation_order_id').'، للاطلاع على التفاصيل يمكنك الدخول على حسابك من خلال النقر على الرابط أدناه'],
+                        'en'=>['Management reply on query no. '.request('quotation_order_id').' just been submitted. To review and further details you can sign in into your account by clicking on the below link'],
+                    ];
+
+                    // send email to admin
+
+                    send_email::send(
+                        $title_admin,$body_admin,
+                        request()->root() . '/dashboard/pricing-requests',
+                        'اضغط هنا', $admin->email);
+
+                    // send email to cutomer
+                    $title_customer = [
+                        'ar'=>['رد مكينة جملة على طلب التسعير الخاص بكم رقم',request('quotation_order_id')],
+                        'en'=>['Mkena Wholesale reply on your query no.',request('quotation_order_id')],
+                    ];
+                    $body_customer = [
+                        'ar'=>['  لقد تم الرد على طلب التسعير الخاص بكم، رقم ',request('quotation_order_id'),'، من مكينة جملة ، للاطلاع على التفاصيل، طباعة الفاتورة المبدئية ، والموافقة على العرض، يمكمنكم الدخول على حسابكم الخاص بمكينة جملة عن طريق الضغط على الرابط أدناه'],
+                        'en'=>['Mkena Wholesale management just replied on your query no. ',request('quotation_order_id'),'. To review the offer, print a proforma invoice and approve the order, you can sig in into your account by clicking on the below link'],
+                    ];
+                    send_email::send(
+                        $title_customer,$body_customer,
+                        request()->root() . '/profile/last-quotations',
+                        'اضغط هنا', User::query()->find($quotation_order->user_id)->email);
+
+                }
+
+            }
+
+
+            // send notification
+            // ['sender_id','receiver_id','ar_info','en_info','tu_info','seen']
+            return messages::success_output(trans('messages.saved_successfully'),$quotation_order);
+
+        }else{
+            $quotation_order = quotation_orders::query()->with('user')
+                ->with('terms_data')
+                ->find(request('quotation_order_id'));
+            return messages::success_output(trans('messages.saved_successfully'),$quotation_order);
         }
 
 
-        // send notification
-        // ['sender_id','receiver_id','ar_info','en_info','tu_info','seen']
 
-
-
-
-        return messages::success_output(trans('messages.saved_successfully'),$quotation_order);
     }
 
     public function send_agreement_to_admin(){
+        $admin = get_first_admin::get_admin();
         if(request()->hasFile('receipt')){
             if(request()->file('receipt')->getClientOriginalExtension() == 'pdf'){
                 $name = $this->uploadPdf(request()->file('receipt'),'receipts');
@@ -229,6 +321,44 @@ class QuoationsInfoController extends Controller
             ],[
                 'image'=>$name
             ]);
+
+            $quotation_order = quotation_orders::query()->with('user')->find(request('id'));
+
+            // send email to admin
+
+            $title_admin = [
+                'ar'=>['(',auth()->user()->username,') أرفقوا  وصل الدفع لطلبهم رقم',request('id')],
+                'en'=>['(',auth()->user()->username,') uploaded payment receipt for order no',request('id')],
+            ];
+            $body_admin = [
+                'ar'=>[' لقد أرفق (',auth()->user()->username,') نسخة ايصال الدفع لطلبهم رقم ',request('id'),'، للاطلاع و متابعة الاجراءات، يمكنك الدخول لحسابك عن طريق النقر على الرابط أدناه '],
+                'en'=>['(',auth()->user()->username,') just uploaded payment receipt covering order no. ',request('id'),'. To review and take further action, you can sign in into your account by clicking on the below link'],
+            ];
+            send_email::send($title_admin,
+                $body_admin,
+                request()->root() .'/dashboard/pricing-requests',
+                'Press here', $admin->email
+            );
+
+            // send email to customer
+
+            $title_customer = [
+                'ar'=>['تأكيد ارفاق ايصال الدفع لطلبكم من مكينة جملة رقم ',request('id')],
+                'en'=>['Mkena Wholesale payment receipt confirmation for order no',request('id')],
+            ];
+            $body_customer = [
+                'ar'=>['  شكرا على ارفاقكم لوصل الدفع الخاص بطلبكم رقم ',request('id'),' من مكينة جملة، للاطلاع على التفاصيل والمتابعة، يمكنكم الدخول لحسابكم عن طريق النقر على الرابط أدناه '],
+                'en'=>['Thank you for uploading payment receipt to your Mkena Wholesale order no.',request('id'),' . To review and follow up, you can sign in into your account by clicking on the below link '],
+            ];
+            send_email::send($title_customer,
+                $body_customer,
+                request()->root() .'/profile/last-quotations',
+                'Press here', $quotation_order->user->email
+            );
+
+
+
+
             // send notification to admin
             $notification_data = [
                 'sender_id'=>auth()->id(),
@@ -239,6 +369,39 @@ class QuoationsInfoController extends Controller
             ];
 
         }else{
+
+            // send email to admin
+            $title_admin = [
+                'ar'=>['تأكيد (',auth()->user()->username,') لطلبهم رقم ',request('id')],
+                'en'=>['(',auth()->user()->username,') confirms order no. ',request('id')],
+            ];
+            $body_admin = [
+                'ar'=>[' لقد قام (',auth()->user()->username,') بتأكيد طلبه رقم ',request('id'),'، للاطلاع على التفاصيل، يمكنك الدخول لحسابك عن طريق النقر على الرابط أدناه'],
+                'en'=>['(',auth()->user()->username,')  just confirmed order no. ',request('id'),'. To review and take further actions , you can sign in into your account by clicking on the below link'],
+            ];
+            send_email::send($title_admin,
+                $body_admin,
+                request()->root() .'/dashboard/pricing-requests',
+                'Press here', $admin->email
+            );
+
+
+            // send email to customer
+            $title_customer = [
+                'ar'=>['تأكيد طلبكم مع مكينة جملة رقم ',request('id')],
+                'en'=>['Mkena Wholesale order confirmation no ',request('id')],
+            ];
+            $body_customer = [
+                'ar'=>['  نشكركم على تأكيد طلبكم رقم ',request('id'),'، للاطلاع على التفاصيل، المتابعة، أو تحميل صورة عن سند الدفع، يمكنكم الدخول لحسابكم عن طريق النقر على الرابط أدناه. ملاحظة: لا يعتبر أي طلب مؤكدا مالم يتم رفع صورة عن سند الدفع المتفق عليه مع ادارة مكينة جملة'],
+                'en'=>['Thank you for confirming your order no. '.request('id').' . To review,  follow up, and upload your payment receipt, you can sign in into your account by clicking on the below link.  P.S. order cannot be confirmed unless agreed-on payment receipt copy is provided to Mkena Wholesale management '],
+            ];
+            send_email::send($title_customer,
+                $body_customer,
+                request()->root() .'/profile/last-quotations',
+                'Press here', auth()->user()->email
+            );
+
+
             // send notification to admin
             $notification_data = [
                 'sender_id'=>auth()->id(),
@@ -360,34 +523,38 @@ class QuoationsInfoController extends Controller
         ]);
         $admin = get_first_admin::get_admin();
         // send email
-        if(session()->get('lang') == 'ar') {
-            // send email to vendor
-            send_email::send('طلب جديد من الاداره',
-                'لقد  تم ارسال طلب تسعير جديد رقم  '.request('quotation_order_id').'  من مكينة جملة، للاطلاع على التفاصيل وتقديم عرضكم، يمكنكم الدخول على حسابكم من خلال النقر على الرابط أدناه',
-                request()->root() .'/profile/pricing',
-                'الرجاء الضغط هنا', $data['user']->email
-            );
-            // send email to admin in arabic
-            send_email::send('  تحويل طلب تسعير لموردين رقم '.request('quotation_order_id'),
-                ' تم تحويل طلب التسعير '.request('quotation_order_id').'  للموردين أدناه. للمتابعة يمكنك الدخول لحسابك عن طريق النقر على الرابط أدناه ',
-                request()->root() .'/dashboard/pricing-requests',
-                'الرجاء الضغط هنا', $admin->email
-            );
 
-        }else{
-            // send email to vendor in english
-            send_email::send('Mkena Wholesale new query no '.request('quotation_order_id'),
-                'Mkena Wholesale management just sent you a new query no. '.request('quotation_order_id').' . To review and reply, you can sign in into your account by clicking on the below link',
-                request()->root() .'/profile/pricing',
-                'Press here', $data['user']->email
-            );
-            // send email to admin in english
-            send_email::send('  تحويل طلب تسعير لموردين رقم '.request('quotation_order_id'),
-                'Query no. '.request('quotation_order_id').'  just been forwarded  to below Vendors . To review and follow up you can sign in by clicking on the below ink',
-                request()->root() .'/dashboard/pricing-requests',
-                'Press here', $admin->email
-            );
-        }
+        // send email to admin
+        $title_admin = [
+            'ar'=>[' تحويل طلب تسعير لموردين رقم ',request('quotation_order_id')],
+            'en'=>['Query forwarded to vendor. No ',request('quotation_order_id')],
+        ];
+        $body_admin = [
+            'ar'=>['تم تحويل طلب التسعير ',request('quotation_order_id'),'للمورد',$data['user']->username,'للمتابعة يمكنك الدخول لحسابك عن طريق النقر على الرابط أدناه'],
+            'en'=>['Query no. ',request('quotation_order_id'),'  just been forwarded  to ',$data['user']->username,' . To review and follow up you can sign in by clicking on the below link'],
+        ];
+        send_email::send(
+            $title_admin,$body_admin,
+            request()->root() .'/dashboard/pricing-requests',
+            'الرجاء الضغط هنا', $admin->email
+        );
+
+        // send email to vendor
+        $title_vendor = [
+            'ar'=>[' طلب تسعير جديد من مكينة جملة  رقم ',request('quotation_order_id')],
+            'en'=>['Mkena Wholesale new query no ',request('quotation_order_id')],
+        ];
+        $body_vendor = [
+            'ar'=>[' لقد  تم ارسال طلب تسعير جديد رقم ',request('quotation_order_id'),' من مكينة جملة، للاطلاع على التفاصيل وتقديم عرضكم، يمكنكم الدخول على حسابكم من خلال النقر على الرابط أدناه'],
+            'en'=>['Mkena Wholesale management just sent you a new query no. ',request('quotation_order_id'),'. To review and reply, you can sign in into your account by clicking on the below link'],
+        ];
+
+        send_email::send(
+            $title_vendor,$body_vendor,
+            request()->root() .'/profile/pricing',
+            'الرجاء الضغط هنا', $data['user']->email
+        );
+
 
         return messages::success_output(trans('messages.saved_successfully'),$data);
 

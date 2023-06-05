@@ -66,4 +66,8 @@ class quotation_orders extends Model
         return $this->hasOne(quotations_orders_offers::class,'quotation_order_id');
     }
 
+    public function terms_data(){
+        return $this->hasOne(quotations_orders_terms::class,'quotation_order_id');
+    }
+
 }

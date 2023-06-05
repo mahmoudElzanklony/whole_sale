@@ -13,6 +13,7 @@ class server_data
         if(request('table') == 'quotation_orders'){
             return quotation_orders::query()
                 ->with('cancelled_quotations')->withCount('my_receipt')
+                ->with('terms_data')
                 ->with('offer',function($q){
                     $q->with('offer_owner');
                 })

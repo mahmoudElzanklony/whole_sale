@@ -331,6 +331,12 @@
                         <form  method="post" @submit.prevent="send_excel">
                             <input v-if="item != null" type="hidden" name="quotation_order_id" :value="item.id">
                             <div class="form-group">
+                                <label>{{ switchWord('terms_conditions') }}</label>
+                                <textarea class="form-control" name="terms" required
+                                          :value="item != null && item.terms_data != null
+                                           ? item.terms_data.terms:''"></textarea>
+                            </div>
+                            <div class="form-group">
                                 <div class="drag-drop-files mb-3" data-aos="fade-up" data-aos-delay="2000">
                                     <input type="file" name="excel_file"
                                            @change="change_file"
