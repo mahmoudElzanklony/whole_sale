@@ -860,8 +860,8 @@ export default {
                   en:'mkena retail',
               },
               error_in_price:{
-                  ar:'هناك خطأ في تحديد السعر حيث انك قمت بطلب كميه اقل من الحد المسموح له او تجاوزت الكمية المتوفرة',
-                  en:'There is an error in determining the price as you have ordered less than the allowable amount',
+                  ar:'هناك خطأ في تحديد السعر حيث انك قمت بطلب كميه اقل من الحد المسموح له او تجاوزت اقصي كمية متاحة لك',
+                  en:'There is an error in determining the price as you have ordered less than the allowable amount or exceeded max quantity per transaction',
               },
               edit_my_quantity:{
                   ar:'تعديل الكمية الخاصه بي',

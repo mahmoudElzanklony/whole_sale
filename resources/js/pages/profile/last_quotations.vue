@@ -957,7 +957,7 @@ export default {
             }
             console.log(d['prices']);
             var right_quan = (i['last_draft'] == null ? i['quantity']:i['last_draft']['quantity']);
-            if(prices == undefined || ( Number(d['offered_stock']) < Number(right_quan)  )){
+            if(prices == undefined || ( Number(d['max_quantity_per_transaction']) < Number(right_quan)  )){
                 return this.switchWord('error_in_price')
             }else{
                 return Number(prices['price']).toFixed(2)
