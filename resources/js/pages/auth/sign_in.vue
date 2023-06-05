@@ -76,7 +76,7 @@ export default {
     margin-top: 100px;
 }
 .image {
-    background-image: url("/images/auth/register.jpg");
+    background-image: url("/images/auth/register_new.jpg");
     height: 100%;
     background-size: cover;
     background-position: bottom;
