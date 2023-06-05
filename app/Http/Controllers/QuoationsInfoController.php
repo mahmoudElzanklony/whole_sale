@@ -95,12 +95,17 @@ class QuoationsInfoController extends Controller
     }
 
     public function save_quotation_at_draft(QuotationFormRequest $request){
-        $quotation = quotations::query()->find(request('quotation_id'));
+        $quotation = quotations::query()->with('last_draft')->find(request('quotation_id'));
+        if($quotation->last_draft != null){
+            $qan_check = $quotation->last_draft->quantity;
+        }else{
+            $qan_check = $quotation->quantity;
+        }
         $validated = $request->validated();
         $validated['quotation_id'] = request('quotation_id');
         if($quotation->brand_id != $validated['brand_id'] ||
             $quotation->part_number != $validated['part_number'] ||
-            $quotation->quantity != $validated['quantity']){
+            $qan_check != $validated['quantity']){
             // check if this item exists
             /*$quotation_check = quotations_draft::query()
                 ->whereRaw('quotation_id = '.request('quotation_id').' AND brand_id = '.$quotation->brand_id.' AND part_number = ');
@@ -127,6 +132,8 @@ class QuoationsInfoController extends Controller
         if(request()->has('terms')){
             quotations_orders_terms::query()->updateOrCreate([
                 'quotation_order_id'=>request('quotation_order_id'),
+                'user_id'=>auth()->id(),
+                'status'=>session()->get('type') == 'seller' ? 'seller':'admin',
             ],[
                 'terms'=>request('terms'),
             ]);
@@ -493,13 +500,20 @@ class QuoationsInfoController extends Controller
     }
 
     public function get_vendors_per_request(){
-        return vendors_requests::query()
+        $data = vendors_requests::query()
             ->with(['user:id,username'])
             /*->whereHas('items',function (){
 
             })*/
             ->withCount('check_user_from_vendor_at_items')
             ->where('quotation_order_id','=',request('id'))->get();
+
+            foreach($data as $d){
+                $d['terms'] = quotations_orders_terms::query()
+                    ->where('user_id','=',$d->user_id)
+                    ->where('quotation_order_id','=',$d->quotation_order_id)->first();
+            }
+            return $data;
     }
 
     public function add_vendors_per_request(){

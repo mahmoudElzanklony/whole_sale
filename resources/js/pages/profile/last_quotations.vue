@@ -239,7 +239,8 @@
                             <div class="form-group">
                                 <label>{{ keywords.quantity }}</label>
                                 <input class="form-control" name="quantity" type="number"
-                                       :value="sub_quotation['last_draft'] == null ? sub_quotation['quantity']:sub_quotation['last_draft']['quantity']" required :min="admin_quotation.length > 0 ? admin_quotation.find((e)=>{return e['part_number'] == (sub_quotation['last_draft'] == null ? sub_quotation['part_number']:sub_quotation['last_draft']['part_number']) })['min_quantity_per_transaction']:1"
+                                       :value="sub_quotation['last_draft'] == null ? sub_quotation['quantity']:sub_quotation['last_draft']['quantity']" required
+                                       :min="admin_quotation.length > 0 ? admin_quotation.find((e)=>{return e['part_number'] == (sub_quotation['last_draft'] == null ? sub_quotation['part_number']:sub_quotation['last_draft']['part_number']) })['min_quantity_per_transaction']:1"
 
                                        :max="admin_quotation.length > 0 ? admin_quotation.find((e)=>{return e['part_number'] == (sub_quotation['last_draft'] == null ? sub_quotation['part_number']:sub_quotation['last_draft']['part_number']) })['max_quantity_per_transaction']:''"
                                 >

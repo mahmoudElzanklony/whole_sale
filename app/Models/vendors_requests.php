@@ -27,4 +27,8 @@ class vendors_requests extends Model
     public function check_user_from_vendor_at_items(){
         return $this->hasMany(items_info::class,['user_id','quotation_order_id'],['user_id','quotation_order_id']);
     }
+
+    public function quotation_order(){
+        return $this->belongsTo(quotation_orders::class,'quotation_order_id');
+    }
 }

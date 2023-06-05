@@ -13,7 +13,13 @@ class server_data
         if(request('table') == 'quotation_orders'){
             return quotation_orders::query()
                 ->with('cancelled_quotations')->withCount('my_receipt')
-                ->with('terms_data')
+                ->with('terms_data',function($q){
+                    if(session()->get('type') == 'seller'){
+                        $q->where('user_id','=',auth()->id());
+                    }else{
+                        $q->where('status','=','admin');
+                    }
+                })
                 ->with('offer',function($q){
                     $q->with('offer_owner');
                 })

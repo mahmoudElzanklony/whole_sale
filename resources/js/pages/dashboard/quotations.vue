@@ -705,6 +705,7 @@
                                 <tr>
                                     <td>{{ keywords.vendor_name }}</td>
                                     <td>{{ keywords.vendor_file }}</td>
+                                    <td>{{ switchWord('terms_conditions') }}</td>
                                     <td>{{ keywords.actions }}</td>
                                 </tr>
                             </thead>
@@ -719,6 +720,11 @@
                                            download>{{ switchWord('download_file') }}</a>
                                         <span v-else>{{ switchWord('not_reply_yet') }}</span>
                                     </td>
+                                    <td v-if="i['terms'] != null">
+                                        <span
+                                              v-for="data_item in i['terms']['terms'].split('\n')">{{ data_item }} . </span>
+                                    </td>
+                                    <td v-else></td>
                                     <td class="actions">
                                         <span class="delete"
                                               @click="delete_item('vendors_requests',i['id'],'.row_ven_'+index)"><i class="ri-close-line"></i></span>
@@ -1086,6 +1092,7 @@ table{
 #my_quotations .modal-dialog,
 #old_update .modal-dialog,
 #see_prices .modal-dialog,
+#share_vendors .modal-dialog,
 #admin_quotation_data .modal-dialog{
     max-width: 1100px;
 }

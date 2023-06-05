@@ -9,5 +9,5 @@ class quotations_orders_terms extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['quotation_order_id','terms'];
+    protected $fillable = ['quotation_order_id','user_id','status','terms'];
 }
