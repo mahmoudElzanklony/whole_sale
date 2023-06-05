@@ -316,7 +316,7 @@
                                     <td>{{ index + 1 }}</td>
                                     <td>{{ i['part_number'] }}</td>
                                     <td>{{ i['brand'] != null ? i['brand']['name']:i['brand_id'] }}</td>
-                                    <td v-if="get_my_quotation.length > 0">{{ get_quantity_data(i) }}</td>
+                                    <td v-if="get_my_quotation.length > 0">{{ get_quantity_data(i,index) }}</td>
                                     <td>{{ i['en_part_name'] }}</td>
                                     <td>{{ i['offered_stock'] }}</td>
                                     <td>{{ i['min_quantity_per_transaction'] }}</td>
@@ -919,8 +919,14 @@ export default {
            }
            return test_result;
         },
-        get_quantity_data(i){
-            var data =  this.get_my_quotation.find((q)=>{return q['part_number'] == i['part_number']});
+        get_quantity_data(i,index = null){
+            if(index == null) {
+                var data = this.get_my_quotation.find((q) => {
+                    return q['part_number'] == i['part_number']
+                });
+            }else{
+                var data = this.get_my_quotation[index];
+            }
             if(data != undefined) {
                 if (data['last_draft'] != null) {
                     return data['last_draft']['quantity'];

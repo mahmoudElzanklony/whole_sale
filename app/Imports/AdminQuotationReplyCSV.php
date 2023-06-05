@@ -61,6 +61,7 @@ class AdminQuotationReplyCSV implements ToModel, WithHeadingRow , WithValidation
     public function model(array $row)
     {
         $inert_row = true;
+
         // php artisan make:import countriesImportCSV --model=countries to make this class
         // create new quotation bill
         $brand_id = $this->brand_id != null ? $this->brand_id : (brands::query()->where('ar_name','=',$row['brand'])
@@ -68,9 +69,10 @@ class AdminQuotationReplyCSV implements ToModel, WithHeadingRow , WithValidation
         if(session()->get('type') != 'seller'){
 
             // get quotation
+            $brand_query =
             $quotation = quotations::query()
                 ->where('part_number',$row['part_number'])
-                ->where('brand_id',$brand_id)
+                ->where('brand_id','=',$brand_id)
                // ->where('quantity','=',$row['quantity'])
                 ->where('quotation_order_id',$this->quotation_order_id ?? null)
                 ->first();
