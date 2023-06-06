@@ -992,9 +992,13 @@ export default {
                 });
             }
             if(d != undefined){
-                d = d['prices'].find((p)=>
-                    {return (i['last_draft'].length == 0 ? i['quantity']:i['last_draft'][0]['quantity']) >=                                                          p['min_quantity']}
-                );
+                d['prices'].sort((a, b) => b.min_quantity - a.min_quantity);
+                d = d['prices'].find(function (p)
+                    {
+                        var quan = i['last_draft'].length == 0 ? i['quantity']:i['last_draft'][0]['quantity'];
+                        return (quan >= p['min_quantity'] || quan == 0);
+                    }
+                )
             }
             if(d == undefined){
                 return this.switchWord('error_in_price')

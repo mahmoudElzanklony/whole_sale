@@ -187,6 +187,8 @@ nav {
 .dashboard{
     .content{
         margin-left: auto;
+        width: calc(100% - 200px);
+        padding-top: 30px;
     }
     .inserted_questions{
         >div:not(:first-of-type){

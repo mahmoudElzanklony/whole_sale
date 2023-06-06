@@ -115,6 +115,7 @@
                            :href="'/quotations/export-file?user_id='+$page.props.user.id+'&ids='+item['id']" target="_blank">
                             {{ switchWord('export_selected') }}
                         </a>
+                        <p class="alert alert-warning">{{ switchWord('wait_admin_reply_and_you_can_change_data') }}</p>
                         <input class="form-control search_without_button mb-2" :placeholder="switchWord('search_for_you_best')">
                         <div class="overflow-auto hide-buttons"  v-if="get_my_quotation.length > 0">
                             <table class="table text-center table-bordered table-striped table-hover">
@@ -123,7 +124,7 @@
                                     <td>{{ keywords.part_no }}</td>
                                     <td>{{ keywords.brand }}</td>
                                     <td>{{ keywords.quantity }}</td>
-                                    <td v-if="$page.props.user.role.name != 'seller'">{{ keywords.actions }}</td>
+                                    <td v-if="false && $page.props.user.role.name != 'seller'">{{ keywords.actions }}</td>
                                 </tr>
                                 </thead>
                                 <tbody>
@@ -143,15 +144,14 @@
 
                                     <td>{{ i['last_draft'] == null ? i['quantity']:i['last_draft']['quantity'] }}</td>
                                     <td class="actions"
-                                        v-if="$page.props.user.role.name != 'seller' && item != null && item['is_completed'] == 1">
+                                        v-if="false && ($page.props.user.role.name != 'seller' && item != null && item['is_completed'] == 1)">
                                         <span
-                                            @click="update_current_quotation_open_box(i)">
+                                            @click="update_current_quotation_open_box(admin_quotation.length > 0 ?  admin_quotation[index]:i)">
                                             <i class="ri-edit-line"></i>
                                         </span>
                                         <span class="delete"  @click="delete_item('quotations-draft-user'
                                        ,i['id'],'.row_child_'+index)"><i class="ri-close-line"></i></span>
                                     </td>
-                                    <td v-else-if="$page.props.user.role.name != 'seller'"></td>
                                 </tr>
                                 </tbody>
                             </table>
@@ -191,15 +191,17 @@
                                 <div class="d-flex justify-content-between flex-wrap">
                                     <p>
                                         <strong>{{ keywords.min_quantity_per_transaction }} : </strong>
-                                        <span>{{ admin_quotation.find((e)=>{return e['part_number'] == (sub_quotation['last_draft'] == null ? sub_quotation['part_number']:sub_quotation['last_draft']['part_number']) })['min_quantity_per_transaction'] }}</span>
+                                        <span>{{ current_admin_quotation['min_quantity_per_transaction'] }}</span>
                                     </p>
                                     <p>
                                         <strong>{{ keywords.max_quantity_per_transaction }} : </strong>
-                                        <span>{{ admin_quotation.find((e)=>{return e['part_number'] == (sub_quotation['last_draft'] == null ? sub_quotation['part_number']:sub_quotation['last_draft']['part_number']) })['max_quantity_per_transaction'] }}</span>
+                                        <span>{{ current_admin_quotation['max_quantity_per_transaction'] }}</span>
+
                                     </p>
                                     <p class="w-100 mt-2">
                                         <strong>{{ keywords.offered_stock }} : </strong>
-                                        <span>{{ admin_quotation.find((e)=>{return e['part_number'] == (sub_quotation['last_draft'] == null ? sub_quotation['part_number']:sub_quotation['last_draft']['part_number']) })['offered_stock'] }}</span>
+                                        <span>{{ current_admin_quotation['offered_stock'] }}</span>
+
                                     </p>
                                 </div>
                                 <table class="table table-hover mt-3 text-center">
@@ -209,8 +211,8 @@
                                             <td class="font-weight-bold">{{ keywords.price }}</td>
                                         </tr>
                                     </thead>
-                                    <tbody>
-                                        <tr v-for="(price_slap,index) in admin_quotation.find((e)=>{return e['part_number'] == (sub_quotation['last_draft'] == null ? sub_quotation['part_number']:sub_quotation['last_draft']['part_number']) })['prices']"
+                                    <tbody v-if="current_admin_quotation != null">
+                                        <tr v-for="(price_slap,index) in current_admin_quotation['prices']"
                                         :key="index">
                                             <td>{{ price_slap['min_quantity'] }}</td>
                                             <td>{{ Number(price_slap['price']).toLocaleString() }}</td>
@@ -240,9 +242,9 @@
                                 <label>{{ keywords.quantity }}</label>
                                 <input class="form-control" name="quantity" type="number"
                                        :value="sub_quotation['last_draft'] == null ? sub_quotation['quantity']:sub_quotation['last_draft']['quantity']" required
-                                       :min="admin_quotation.length > 0 ? admin_quotation.find((e)=>{return e['part_number'] == (sub_quotation['last_draft'] == null ? sub_quotation['part_number']:sub_quotation['last_draft']['part_number']) })['min_quantity_per_transaction']:1"
+                                       @change="check_value_quantity(current_admin_quotation['min_quantity_per_transaction'],current_admin_quotation['max_quantity_per_transaction'])"
 
-                                       :max="admin_quotation.length > 0 ? admin_quotation.find((e)=>{return e['part_number'] == (sub_quotation['last_draft'] == null ? sub_quotation['part_number']:sub_quotation['last_draft']['part_number']) })['max_quantity_per_transaction']:''"
+                                       :max="current_admin_quotation['max_quantity_per_transaction']"
                                 >
                             </div>
                             <div class="form-group">
@@ -324,7 +326,8 @@
                                     <td v-if="false">{{ i['prices'][0]['price'] }}</td>
                                     <td v-if="i['prices'].length >= 1">
                                         <button class="btn btn-outline-primary"
-                                        @click="current_admin_quotation = i"
+                                        @click="current_admin_quotation = i;
+                                        update_sub_quotation(get_my_quotation[index])"
                                         data-toggle="modal"
                                         data-target="#see_prices"
                                         >{{ keywords.see_prices }}</button>
@@ -362,9 +365,7 @@
                     <div class="modal-body">
                         <div class="overflow-auto hide-buttons">
                             <button class="btn btn-outline-primary mb-2 " v-if="$page.props.user.role.name != 'seller'"
-                                @click="update_current_quotation_open_box(get_my_quotation.find((e)=>{
-                                    return e['part_number'] == current_admin_quotation['part_number']
-                                }))">
+                                @click="update_current_quotation_open_box(undefined)">
                                             {{ switchWord('edit_my_quantity') }}
                                         </button>
                             <table class="box-model-table table text-center table-bordered table-striped table-hover">
@@ -675,6 +676,8 @@ export default {
             tax:0,
             current_com:null,
             print_name:'',
+            min_quantity_per_draft:0,
+            max_quantity_per_draft:0,
         }
     },
     created() {
@@ -818,14 +821,15 @@ export default {
                 part_numbers = [];
              setTimeout(async ()=>{
                 if(component.get_my_quotation.length > 0){
-                    for(let quot of component.get_my_quotation){
+                    component.get_my_quotation.forEach(function(quot,index){
                         console.log(quot);
                         console.log(quot['part_number']);
-                        if(isNaN(component.detect_right_price(quot))){
+                        console.log(index);
+                        if(isNaN(component.detect_right_price(quot,index))){
                             part_numbers.push(quot['part_number']);
                             error++;
                         }
-                    }
+                    })
                     if(error > 0){
                         // you should edit quantity for quantity
                         Toast.fire({
@@ -906,6 +910,31 @@ export default {
             'send_activation':'users_dash/send_activation',
 
         }),
+        check_value_quantity:function (min,max){
+            var value = Number(event.target.value);
+            if(value == 0){
+                this.draft_quantity_status = true;
+            }else {
+                if (!(isNaN(min))) {
+                    if(value < min){
+                        Toast.fire({
+                            'icon':'error',
+                            'title':this.switchWord('quantity_shouldnt_less_than')+min,
+                        });
+                        this.draft_quantity_status = false;
+                    }
+                }
+                if (!(isNaN(min))) {
+                    if(value > max){
+                        Toast.fire({
+                            'icon':'error',
+                            'title':this.switchWord('quantity_shouldnt_exceed')+max,
+                        });
+                        this.draft_quantity_status = false;
+                    }
+                }
+            }
+        },
         detect_right_brand:function (sub_quotation){
            var test_result =  (sub_quotation['last_draft'] == null ? sub_quotation['brand_id']:sub_quotation['last_draft']['brand_id']);
            // if brand is number
@@ -942,7 +971,8 @@ export default {
         },
         detect_right_price:function (i,index){
             var prices;
-            if(index){
+            console.log('index = '+index);
+            if(index >= 0){
                 var d = this.admin_quotation[index];
             }else {
                 var d = this.admin_quotation.find((e) => {
@@ -957,11 +987,14 @@ export default {
 
             if(d != undefined){
                 d['prices'].sort((a, b) => b.min_quantity - a.min_quantity);
-                prices = d['prices'].find((p)=>
+                prices = d['prices'].find(function (p)
                     {
-                        return (i['last_draft'] == null ? i['quantity']:i['last_draft']['quantity']) >=                                                          p['min_quantity']}
+                        var quan = i['last_draft'] == null ? i['quantity']:i['last_draft']['quantity'];
+                        return (quan >= p['min_quantity'] || quan == 0);
+                    }
                 );
             }
+            console.log(d);
             console.log(d['prices']);
             var right_quan = (i['last_draft'] == null ? i['quantity']:i['last_draft']['quantity']);
             if(prices == undefined || ( Number(d['max_quantity_per_transaction']) < Number(right_quan)  )){
@@ -970,6 +1003,7 @@ export default {
                 return Number(prices['price']).toFixed(2)
             }
         },
+
         pass_data_to_export:function (){
             let arr = [];
             let checked = $('table tr td input:checked');
@@ -993,11 +1027,14 @@ export default {
             this.get_info_about_quotation_admin(id);
         },
         update_sub_quotation:function (item){
+            console.log('update.....')
           this.sub_quotation = item;
         },
         update_current_quotation_open_box:async function (i){
             console.log(i);
-            this.update_sub_quotation(i);
+            if(i != undefined) {
+                this.update_sub_quotation(i);
+            }
             await this.get_data_admin_of_quotation(this.item['id']);
 
             $('#see_prices').modal('hide');

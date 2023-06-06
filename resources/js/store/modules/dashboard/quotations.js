@@ -115,7 +115,10 @@ export default {
         save_quotation_at_draft:function({commit,getters,state},payload){
             var target = event.target;
             var data = new FormData(target);
-
+            var quantity = target.quantity.value;
+            if(quantity != 0 &&(quantity < payload.current_admin_quotation.min_quantity_per_transaction || quantity > payload.current_admin_quotation.max_quantity_per_transaction)){
+                return false;
+            }
             axios.post('/quotations/save-quotation-at-draft',data).then((e)=>{
                 validation(e.data,target,'');
                 if(payload){

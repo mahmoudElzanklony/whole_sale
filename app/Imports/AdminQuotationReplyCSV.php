@@ -66,6 +66,7 @@ class AdminQuotationReplyCSV implements ToModel, WithHeadingRow , WithValidation
         // create new quotation bill
         $brand_id = $this->brand_id != null ? $this->brand_id : (brands::query()->where('ar_name','=',$row['brand'])
                 ->orWhere('en_name','=',$row['brand'])->first()->id??$row['brand']);
+
         if(session()->get('type') != 'seller'){
 
             // get quotation

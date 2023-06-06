@@ -456,6 +456,9 @@ registered vendors, this process may take few moments',
     'ar_additional_note'=>'additional note in arabic',
     'en_additional_note'=>'additional note in english',
     'country'=>'Country',
+    'countries'=>'Countries',
+    'ar_name'=>'Arabic name',
+    'en_name'=>'English name',
 
 
 

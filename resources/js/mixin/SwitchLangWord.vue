@@ -937,6 +937,18 @@ export default {
             terms_conditions:{
                   ar:'الشروظ و الاتفاقيات',
                   en:'Terms and conditions',
+            },
+            quantity_shouldnt_exceed:{
+                  ar:'الكمية لا يجب ان تتعدي ',
+                  en:'Quantity can\'t exceed ',
+            },
+            quantity_shouldnt_less_than:{
+                  ar:'الكمية لا يجب ان تقل عن ',
+                  en:'Quantity can\'t be less than ',
+            },
+            wait_admin_reply_and_you_can_change_data:{
+                ar:'يرجي انتظار رد الادارة بالرد عليك بالكميات و الاسعار المناسب و بعدها يمكنك التحكم في اختيار الكمية او جعل القيمه بصفر في حاله عدم رغبتك في الشراء',
+                en:'Please wait for the management\'s response to respond to you with the appropriate quantities and prices, and then you can control the selection of the quantity or make the value zero in the event that you do not want to buy',
             }
 
 
