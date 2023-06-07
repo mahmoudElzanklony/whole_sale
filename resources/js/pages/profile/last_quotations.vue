@@ -467,8 +467,9 @@
                                     <td>{{ index + 1 }}</td>
                                     <td>
                                         {{
-                                            i['last_draft'] == null ? detect_supplied_part_name(i['part_number']):
-                                                detect_supplied_part_name(i['last_draft']['part_number'])
+                                            i['last_draft'] == null ?
+                                                detect_supplied_part_name(i['part_number'],index):
+                                                detect_supplied_part_name(i['last_draft']['part_number'],index)
                                         }}
                                    </td>
                                     <td v-if="admin_quotation.length > 0">
