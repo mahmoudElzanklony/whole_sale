@@ -18,7 +18,6 @@ use Maatwebsite\Excel\Concerns\WithHeadingRow;
 use Maatwebsite\Excel\Concerns\WithMappedCells;
 use Maatwebsite\Excel\Imports\HeadingRowFormatter;
 use Maatwebsite\Excel\Concerns\SkipsEmptyRows;
-use Maatwebsite\Excel\Events\BeforeImport;
 
 HeadingRowFormatter::extend('custom', function($value, $key) {
 
@@ -59,7 +58,6 @@ class AdminQuotationReplyCSV implements ToModel, WithHeadingRow , WithValidation
 
 
 
-
     public function model(array $row)
     {
         $inert_row = true;
@@ -73,13 +71,13 @@ class AdminQuotationReplyCSV implements ToModel, WithHeadingRow , WithValidation
 
             // get quotation
             $brand_query =
-            quotations::query()->create([
-                'quotation_order_id'=>$this->quotation_order_id ?? null,
-                'part_number'=>$row['part_number'],
-                'brand_id'=>$brand_id,
-                'quantity'=>$row['quantity']
-            ]);
-            /*if($quotation != null && $quotation->quantity != $row['quantity'] &&
+            $quotation = quotations::query()
+                ->where('part_number',$row['part_number'])
+                ->where('brand_id','=',$brand_id)
+               // ->where('quantity','=',$row['quantity'])
+                ->where('quotation_order_id',$this->quotation_order_id ?? null)
+                ->first();
+            if($quotation != null && $quotation->quantity != $row['quantity'] &&
                 (!(is_array($this->duplicate)) || $this->duplicate['part_number'] != $row['part_number']) ){
                 // you change quantity of user wanted
                 // if quantity > offered stock
@@ -97,7 +95,7 @@ class AdminQuotationReplyCSV implements ToModel, WithHeadingRow , WithValidation
                     'brand_id'=>$brand_id,
                     'quantity'=>$row['quantity']
                 ]);
-            }*/
+            }
         }
 
 
@@ -189,7 +187,6 @@ class AdminQuotationReplyCSV implements ToModel, WithHeadingRow , WithValidation
             's1_price.numeric' => trans('keywords.s1_price').trans('keywords.integer'),
         ];
     }
-
 
 
 }

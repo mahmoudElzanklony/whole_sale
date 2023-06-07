@@ -115,7 +115,7 @@
                            :href="'/quotations/export-file?user_id='+$page.props.user.id+'&ids='+item['id']" target="_blank">
                             {{ switchWord('export_selected') }}
                         </a>
-                        <p class="alert alert-warning">{{ switchWord('wait_admin_reply_and_you_can_change_data') }}</p>
+                        <p class="alert alert-warning" v-if="$page.props.user.role.name != 'seller' ">{{ switchWord('wait_admin_reply_and_you_can_change_data') }}</p>
                         <input class="form-control search_without_button mb-2" :placeholder="switchWord('search_for_you_best')">
                         <div class="overflow-auto hide-buttons"  v-if="get_my_quotation.length > 0">
                             <table class="table text-center table-bordered table-striped table-hover">
@@ -459,6 +459,7 @@
                                 <tbody>
                                 <tr v-for="(i,index) in get_my_quotation"
                                     v-if="i['last_draft'] == null || i['last_draft']['deleted_at'] == null"
+                                    :style="'display:'+( (i['last_draft'] == null ? i['quantity']:i['last_draft']['quantity']) > 0 ? 'table-row':'none')"
                                     :class="index == 20 ?
                                     'avoid':
                                     ((Number(index-20) % 28 ) == 0 ? 'avoid':'')"
@@ -1048,9 +1049,14 @@ export default {
             $('#print_box').modal('show');
             var total = 0;
             var total = 0;
+            var row_count = 1;
             for(let data_item_index in this.get_my_quotation){
                 var tr = $('#print_box table tbody tr').eq(data_item_index);
                 console.log(tr);
+                if(tr.css('display') != 'none'){
+                    tr.find('td').eq(0).html(row_count);
+                    row_count++;
+                }
                 tr.find('td:nth-of-type(6)')
                     .html(Number(this.detect_right_price(this.get_my_quotation[data_item_index],data_item_index))
                         .toFixed(2));

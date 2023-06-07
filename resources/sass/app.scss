@@ -711,7 +711,9 @@ input:focus{
         }
     }
 }
-
+.hidden{
+    display: none;
+}
 /*--------------start of dashboard----------------*/
 .dashboard{
     .content{

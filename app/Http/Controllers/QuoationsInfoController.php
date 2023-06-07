@@ -157,6 +157,16 @@ class QuoationsInfoController extends Controller
                             });
                         })
                         ->where('quotation_order_id', request('quotation_order_id'))->delete();
+
+                    $quotation = quotations::query()
+                        ->where('quotation_order_id', request('quotation_order_id'))
+                        ->withTrashed()
+                        ->get();
+                    if ($quotation != null) {
+                        foreach ($quotation as $q) {
+                            $q->forceDelete();
+                        }
+                    }
                 }
                 Excel::import(new AdminQuotationReplyCSV(request('quotation_order_id')),
                     request()->file('excel_file')

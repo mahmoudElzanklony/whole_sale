@@ -28,6 +28,7 @@ use App\Models\countries;
 use App\Models\items_info;
 use App\Models\notifications;
 use App\Models\offers;
+use App\Models\quotations;
 use App\Models\tax_money;
 use App\Models\User;
 use App\Services\notifications\pagiante_notifications;
@@ -232,7 +233,6 @@ class DashboardController extends DashboardServiceClass
 
 
     public function quotations(){
-
         return Inertia::render('dashboard/quotations',[
             'main_title'=>trans('keywords.last_quotations_out'),
             'handling_data' => quotations_dashboard::handle_data(),
