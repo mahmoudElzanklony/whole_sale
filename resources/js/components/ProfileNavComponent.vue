@@ -51,7 +51,7 @@
                     </li>
 
 
-                    <li v-if="$page.props.user.role.name != 'seller'">
+                    <li v-if="false && $page.props.user.role.name != 'seller'">
                         <inertia-link href="/profile/statistics">
                             <span><i class="ri-line-chart-line"></i></span>
                             <span>{{ switchWord('statistics') }}</span>

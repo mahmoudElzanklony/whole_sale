@@ -532,6 +532,7 @@
                                 <tbody>
                                 <tr v-for="(i,index) in get_my_quotation"
                                     v-if="i['last_draft'].length == 0 || i['last_draft'][0]['deleted_at'] == null"
+                                    :style="'display:'+( (i['last_draft'].length == 0 ? i['quantity']:i['last_draft'][0]['quantity']) > 0 ? 'table-row':'none')"
                                     :class="index == 20 ?
                                     'avoid':
                                     ((Number(index-20) % 28 ) == 0 ? 'avoid':'')"
@@ -1012,8 +1013,13 @@ export default {
             $('#print_box').modal('show');
             //
             var total = 0;
+            var row_count = 1;
             for(let data_item_index in this.get_my_quotation){
                 var tr = $('#print_box table tbody tr').eq(data_item_index);
+                if(tr.css('display') != 'none'){
+                    tr.find('td').eq(0).html(row_count);
+                    row_count++;
+                }
                 tr.find('td:nth-of-type(6)')
                     .html(Number(this.detect_right_price(this.get_my_quotation[data_item_index],data_item_index))
                     .toFixed(2));
@@ -1029,16 +1035,16 @@ export default {
                 }
 
                 tr.find('td:nth-of-type(7)')
-                    .html(Number(result).toLocaleString());
+                    .html(Number(result).toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 }));
                 total += Number(result)
             }
 
 
-            $('.total_part_number_price td:last-of-type').html(Number(total).toLocaleString());
+            $('.total_part_number_price td:last-of-type').html(Number(total).toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 }));
             $('#print_box table tr.tax_row td:last-of-type')
-                .html(Number(total * Number(this.item.tax ) / 100).toLocaleString());
+                .html(Number(total * Number(this.item.tax ) / 100).toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 }));
             total += (total * this.item.tax / 100 );
-            $('#print_box table tfoot tr:last-of-type td:last-of-type').html(Number(total).toLocaleString());
+            $('#print_box table tfoot tr:last-of-type td:last-of-type').html(Number(total).toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 }));
 
 
 

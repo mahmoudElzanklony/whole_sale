@@ -35,7 +35,6 @@ HeadingRowFormatter::default('custom');
 class AdminQuotationReplyCSV implements ToModel, WithHeadingRow , WithValidation , SkipsEmptyRows
 {
     use Importable;
-
     /**
      * @param array $row
      *
@@ -46,6 +45,8 @@ class AdminQuotationReplyCSV implements ToModel, WithHeadingRow , WithValidation
     private $offer_id;
     private $brand_id;
     private $duplicate;
+    public static $create_status = false;
+
     public function __construct($quotation_order_id = null , $offer_id = null , $brand_id = null){
         $this->quotation_order_id = $quotation_order_id;
         $this->offer_id = $offer_id;
@@ -63,7 +64,7 @@ class AdminQuotationReplyCSV implements ToModel, WithHeadingRow , WithValidation
     public function model(array $row)
     {
         $inert_row = true;
-
+        self::$create_status = true;
         // php artisan make:import countriesImportCSV --model=countries to make this class
         // create new quotation bill
         $brand_id = $this->brand_id != null ? $this->brand_id : (brands::query()->where('ar_name','=',$row['brand'])

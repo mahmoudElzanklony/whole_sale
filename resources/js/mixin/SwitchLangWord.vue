@@ -949,7 +949,15 @@ export default {
             wait_admin_reply_and_you_can_change_data:{
                 ar:'يرجي انتظار رد الادارة بالرد عليك بالكميات و الاسعار المناسب و بعدها يمكنك التحكم في اختيار الكمية او جعل القيمه بصفر في حاله عدم رغبتك في الشراء',
                 en:'Please wait for the management\'s response to respond to you with the appropriate quantities and prices, and then you can control the selection of the quantity or make the value zero in the event that you do not want to buy',
-            }
+            },
+            search_part_number_or_brand:{
+                  ar:'ابحث  برقم القطعه او  الماركة',
+                  en:'Search by part number or brand'
+            },
+          search_part_number_or_brand_or_price:{
+              ar:'ابحث  برقم القطعه  او اسم القطعه او الماركة او الكميه',
+              en:'Search by part number or part name or brand or quantity'
+          }
 
 
 

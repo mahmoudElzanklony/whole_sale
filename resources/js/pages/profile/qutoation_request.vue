@@ -11,7 +11,8 @@
                 <span v-if="$page.props.user.role.name != 'seller'">{{ keywords.main_title }}</span>
                 <span v-else>{{ keywords.you_can_upload_file_of_prices }}</span>
             </h2>
-            <p v-if="$page.props.user.approved == 1 && $page.props.user.role.name != 'seller'">
+            <p class="alert alert-primary"
+               v-if="$page.props.user.approved == 1 && $page.props.user.role.name != 'seller'">
                 <a target="_blank" href="/template-excel"
                    v-if="$page.props.user.role.name != 'seller'"
                    download>
@@ -33,14 +34,14 @@
             <form v-if="$page.props.user.approved == 1 && $page.props.user.role.name != 'seller'" method="post"
                   name="request_quotation"
                   @submit.prevent="save_qutation">
-                <div class="form-group d-flex align-items-center justify-content-between radio-buttons">
+                <div class="form-group d-flex align-items-center radio-buttons">
                     <p>
                         <input type="radio" name="quotation_request_type" value="enter_data"
                                @change="change_quotation_type"
                                checked>
                         <span>{{ keywords.enter_data }}</span>
                     </p>
-                    <p>
+                    <p class="mr-3 ml-3">
                         <input type="radio" name="quotation_request_type"
                                @change="change_quotation_type"
                                value="enter_file">

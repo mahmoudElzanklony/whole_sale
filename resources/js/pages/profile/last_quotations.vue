@@ -116,7 +116,8 @@
                             {{ switchWord('export_selected') }}
                         </a>
                         <p class="alert alert-warning" v-if="$page.props.user.role.name != 'seller' ">{{ switchWord('wait_admin_reply_and_you_can_change_data') }}</p>
-                        <input class="form-control search_without_button mb-2" :placeholder="switchWord('search_for_you_best')">
+                        <span class="search-icon-public"><i class="ri-search-line"></i></span>
+                        <input class="form-control search_without_button mb-2" :placeholder="switchWord('search_part_number_or_brand')">
                         <div class="overflow-auto hide-buttons"  v-if="get_my_quotation.length > 0">
                             <table class="table text-center table-bordered table-striped table-hover">
                                 <thead>
@@ -290,11 +291,14 @@
                             </div>
                         </div>
                         <a v-if="item != null && $page.props.user.role.name != 'seller'"
-                           class="btn btn-primary mb-3"
+                           class="btn btn-primary d-block mb-3"
+                           style="width: fit-content;"
                            :href="'/quotations/export-file?ids='+item['id']" target="_blank">
                             {{ switchWord('export_selected') }}
                         </a>
-                        <input class="form-control search_without_button mb-2" :placeholder="switchWord('search_for_you_best')">
+                        <span class="search-icon-public"><i class="ri-search-line"></i></span>
+                        <input class="form-control search_without_button mb-2" :placeholder="switchWord('search_part_number_or_brand_or_price')">
+
 
                         <div class="overflow-auto hide-buttons" v-if="admin_quotation.length > 0">
                             <table class="table text-center table-bordered table-striped table-hover">
@@ -1060,7 +1064,7 @@ export default {
                 }
                 tr.find('td:nth-of-type(6)')
                     .html(Number(this.detect_right_price(this.get_my_quotation[data_item_index],data_item_index))
-                        .toFixed(2));
+                        .toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 }));
                 var result = '';
                 if(isNaN(this.detect_right_price(this.get_my_quotation[data_item_index],data_item_index))){
                     result = this.detect_right_price(this.get_my_quotation[data_item_index],data_item_index);
@@ -1072,14 +1076,14 @@ export default {
                                 ['quantity'])).toFixed(2);
                 }
                 tr.find('td:nth-of-type(7)')
-                    .html(Number(result).toLocaleString());
+                    .html(Number(result).toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 }));
                 total += Number(Number(result.replaceAll(',','')))
             }
-            $('.total_part_number_price td:last-of-type').html(Number(total).toLocaleString());
+            $('.total_part_number_price td:last-of-type').html(Number(total).toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 }));
             $('#print_box table tr.tax td:last-of-type')
-                .html(Number(total * Number(this.item.tax ) / 100).toLocaleString());
+                .html(Number(total * Number(this.item.tax ) / 100).toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 }));
             total += (total * this.item.tax / 100 );
-            $('#print_box table tfoot tr:last-of-type td:last-of-type').html(Number(total).toLocaleString());
+            $('#print_box table tfoot tr:last-of-type td:last-of-type').html(Number(total).toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 }));
 
         },
         printOrder:function(){

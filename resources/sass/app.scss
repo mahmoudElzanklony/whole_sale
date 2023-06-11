@@ -181,6 +181,9 @@ nav + header{
     font-weight: bold;
     color:$blue;
 }
+.blue{
+    color:$main_color;
+}
 p{
     font-size: $paragraph;
     margin: 0px;
@@ -1126,6 +1129,16 @@ body.swal2-toast-shown .swal2-container{
             direction: ltr;
         }
     }
+    table{
+        thead{
+            tr{
+                td{
+                    font-size: 13px;
+                    font-weight: bold;
+                }
+            }
+        }
+    }
     .inner-profile{
         .sales{
             .data{
@@ -1165,6 +1178,11 @@ body.swal2-toast-shown .swal2-container{
     .sales{
         table{
             thead{
+                tr{
+                    td{
+
+                    }
+                }
                 input{
                     min-width: 150px;
                 }
@@ -1237,7 +1255,7 @@ body.swal2-toast-shown .swal2-container{
             td{
                 input + span{
                     bottom: unset !important;
-                    top:31px !important;
+                    top:14px !important;
                 }
             }
         }
@@ -1248,8 +1266,25 @@ body.swal2-toast-shown .swal2-container{
         tr{
             td{
                 input + span{
-                    bottom:17px !important;
+                    bottom:unset !important;
+                    top:15px !important;
                 }
+            }
+        }
+    }
+}
+.search-icon-public{
+    position: absolute;
+    color:$main_color;
+}
+table{
+    tr{
+        td{
+            input[name="id"]{
+                min-width: 170px;
+            }
+            input[name="is_completed"]{
+                width:120px;
             }
         }
     }

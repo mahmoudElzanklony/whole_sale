@@ -14,7 +14,9 @@
             <div class="collapse navbar-collapse  justify-content-between" id="navbarSupportedContent">
                 <ul class="d-flex align-items-center">
                     <li class="nav-item">
-                        <a class="nav-link" href="https://mkena.com/" target="_blank">
+                        <a class="nav-link blue font-weight-bold mrl-2 ml-2"
+                           style="background-color: #ddd; border-radius: 3px;"
+                           href="https://mkena.com/" target="_blank">
                             {{ switchWord('visit_mkena') }}
                         </a>
                     </li>
