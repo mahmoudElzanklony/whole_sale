@@ -1129,12 +1129,12 @@ export default {
         async detect_if_bill_id_in_url(bill_id){
             var com = this;
             while($('table thead tr td input[name="id"]').length == 0){
-                await new Promise(resolve => setTimeout(resolve, 100));
+                await new Promise(resolve => setTimeout(resolve, 500));
             }
             $('table thead tr td input[name="id"]').val(bill_id);
             $('.myTableServer thead tr td input').eq(0).click();
             while(!this.page_data || this.page_data.length != 1){
-                await new Promise(resolve => setTimeout(resolve, 100));
+                await new Promise(resolve => setTimeout(resolve, 500));
             }
             var item = com.get_obj_wanted(bill_id);
 
