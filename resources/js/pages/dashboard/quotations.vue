@@ -299,7 +299,7 @@
                                     :key="index" :class="'row_child_'+index">
                                     <td>{{ index + 1 }}</td>
                                     <td>{{ i['min_quantity'] }}</td>
-                                    <td>{{ i['price'] }}</td>
+                                    <td style="direction: initial">{{ i['price'] }}<span class="gray">SAR</span></td>
                                 </tr>
                                 </tbody>
                             </table>
@@ -1021,8 +1021,9 @@ export default {
                     row_count++;
                 }
                 tr.find('td:nth-of-type(6)')
-                    .html(Number(this.detect_right_price(this.get_my_quotation[data_item_index],data_item_index))
-                    .toFixed(2));
+                    .css('direction','initial')
+                    .html((Number(this.detect_right_price(this.get_my_quotation[data_item_index],data_item_index))
+                    .toFixed(2))+'<span class="gray">SAR</span>');
                 var result = '';
                 if(isNaN(this.detect_right_price(this.get_my_quotation[data_item_index],data_item_index))){
                     result = this.detect_right_price(this.get_my_quotation[data_item_index],data_item_index);
@@ -1035,16 +1036,22 @@ export default {
                 }
 
                 tr.find('td:nth-of-type(7)')
-                    .html(Number(result).toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 }));
+                    .css('direction','initial')
+                    .html((Number(result).toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 }))+'<span class="gray">SAR</span>');
                 total += Number(result)
             }
 
 
-            $('.total_part_number_price td:last-of-type').html(Number(total).toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 }));
+            $('.total_part_number_price td:last-of-type')
+                .css('direction','initial')
+                .html((Number(total).toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 }))+'<span class="gray">SAR</span>');
             $('#print_box table tr.tax_row td:last-of-type')
-                .html(Number(total * Number(this.item.tax ) / 100).toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 }));
+                .css('direction','initial')
+                .html((Number(total * Number(this.item.tax ) / 100).toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 }))+'<span class="gray">SAR</span>');
             total += (total * this.item.tax / 100 );
-            $('#print_box table tfoot tr:last-of-type td:last-of-type').html(Number(total).toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 }));
+            $('#print_box table tfoot tr:last-of-type td:last-of-type')
+                .css('direction','initial')
+                .html((Number(total).toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 }))+'<span class="gray">SAR</span>');
 
 
 

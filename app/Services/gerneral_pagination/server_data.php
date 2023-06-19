@@ -5,7 +5,9 @@ namespace App\Services\gerneral_pagination;
 
 
 use App\Models\quotation_orders;
+use Carbon\Carbon;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Str;
 
 class server_data
 {
@@ -46,6 +48,9 @@ class server_data
                                 if (str_contains( 'الغاء الطلب',$value) == true || str_contains( 'Cancel request',$value) == true) {
                                     $e->orWhere($key, '=', -1);
                                 }
+                                if (str_contains( 'قيد التنفيذ',$value) == true || str_contains( 'In progress',$value) == true) {
+                                    $e->orWhere($key, '=', 11);
+                                }
                                 if (str_contains( 'تم الرد من الأدارة',$value) == true || str_contains( 'Admin replied',$value) == true) {
                                     $e->orWhere($key, '=', 1);
                                 }
@@ -73,7 +78,18 @@ class server_data
                        });
 
                         }else if($key == 'id' && $value != null){
-                            $e->where($key, 'LIKE', '%'.$value . '%');
+                           /* if(strlen($value) >= 2){
+                                $e->whereYear('created_at',Carbon::parse($value)->format('y'));
+                            }
+                            if(strlen($value) == 4){
+                                $e->whereYear('created_at',Carbon::parse(Str::substr($value,2,4))->format('y'));
+                            }*/
+                            $e->whereRaw
+                            ('YEAR(created_at) = '.Str::substr($value,0,2)
+                                .' OR MONTH(created_at) = '.Str::substr($value,2,4)
+                            );
+
+                          //  $e->where($key, 'LIKE', '%'.$value . '%');
                         }else if(($key == 'username' && $value != null ) || ($key == 'phone' && $value != null )){
                             $e->whereHas('user',function ($e) use ($key,$value){
                                 $e->where($key, 'LIKE', '%'.$value . '%');

@@ -201,7 +201,7 @@
                                     :key="index" :class="'row_child_'+index">
                                     <td>{{ index + 1 }}</td>
                                     <td>{{ i['min_quantity'] }}</td>
-                                    <td>{{ i['price'] }}</td>
+                                    <td style="direction: initial">{{ i['price'] }}<span class="gray">SAR</span></td>
                                 </tr>
                                 </tbody>
                             </table>

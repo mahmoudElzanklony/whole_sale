@@ -34,6 +34,8 @@ AOS.init();
 import { App, plugin } from '@inertiajs/inertia-vue';
 
 import Vue from 'vue';
+import VueQRCodeComponent from 'vue-qrcode-component'
+Vue.component('qr-code', VueQRCodeComponent)
 // import CKEditor from 'ckeditor4-vue';
 import VueRouter from 'vue-router'
 import Swal from 'sweetalert2';

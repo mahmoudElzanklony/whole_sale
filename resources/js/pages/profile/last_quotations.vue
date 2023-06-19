@@ -26,14 +26,20 @@
                     </div>
                     <div class="m-auto mb-3 filters last-quotations-filter" v-if="$page.props.user.role.name != 'seller'">
                         <form class="justify-content-between flex-wrap">
-                            <div class="d-flex align-items-center justify-content-between flex-wrap">
+                            <div class="d-flex align-items-center justify-content-between flex-wrap mb-2">
                                 <p>
                                     <input type="radio" name="is_completed" :value="switchWord('all')">
                                     <span>{{ switchWord('all') }}</span>
                                 </p>
                                 <p>
-                                    <input type="radio" name="is_completed" :value="switchWord('sent_to_admin')">
+                                    <input type="radio" name="is_completed"
+                                           :value="switchWord('sent_to_admin')">
                                     <span>{{ switchWord('sent_to_admin') }}</span>
+                                </p>
+                                <p>
+                                    <input type="radio" name="is_completed"
+                                           :value="switchWord('in_progress')">
+                                    <span>{{ switchWord('in_progress') }}</span>
                                 </p>
                                 <p>
                                     <input type="radio" name="is_completed" :value="keywords.reply_from_admin">
@@ -216,7 +222,10 @@
                                         <tr v-for="(price_slap,index) in current_admin_quotation['prices']"
                                         :key="index">
                                             <td>{{ price_slap['min_quantity'] }}</td>
-                                            <td>{{ Number(price_slap['price']).toLocaleString() }}</td>
+                                            <td style="direction: initial">
+                                                    {{ Number(price_slap['price']).toLocaleString() }}
+                                                <span class="gray">SAR</span>
+                                            </td>
                                         </tr>
                                     </tbody>
                                 </table>
@@ -327,7 +336,7 @@
                                     <td>{{ i['offered_stock'] }}</td>
                                     <td>{{ i['min_quantity_per_transaction'] }}</td>
                                     <td>{{ i['max_quantity_per_transaction'] }}</td>
-                                    <td v-if="false">{{ i['prices'][0]['price'] }}</td>
+                                    <td v-if="false">{{ i['prices'][0]['price'] }}SAR</td>
                                     <td v-if="i['prices'].length >= 1">
                                         <button class="btn btn-outline-primary"
                                         @click="current_admin_quotation = i;
@@ -385,7 +394,10 @@
                                     :key="index" :class="'row_child_'+index">
                                     <td>{{ index + 1 }}</td>
                                     <td>{{ i['min_quantity'] }}</td>
-                                    <td>{{ i['price'].toLocaleString() }}</td>
+                                    <td style="direction: initial">
+                                        {{ i['price'].toLocaleString() }}
+                                        <span class="gray">SAR</span>
+                                    </td>
                                 </tr>
                                 </tbody>
                             </table>
@@ -443,8 +455,11 @@
                                         <span v-if="item != null">{{ new Date(item['updated_at']).toLocaleString() }}</span>
                                     </p>
                                 </div>
-                                <div>
-                                    <img class="qr_code" style="max-height: 130px;" src="/images/qr.png">
+                                <div v-if="item != null">
+                                    <qr-code
+                                        :size="160"
+                                        :text="'https://wholesale.mkena.com/profile/last-quotations?bill_id='+item['id']"></qr-code>
+
                                 </div>
                             </div>
 
@@ -666,6 +681,7 @@ import update_item from "../../mixin/update_item";
 import delete_item from "../../mixin/delete_item";
 import detect_right_part_number from "../../mixin/detect_right_part_number";
 import detect_right_part_name from "../../mixin/detect_right_part_name";
+
 import {mapActions, mapGetters} from "vuex";
 export default {
     name: "orders",
@@ -684,9 +700,12 @@ export default {
             print_name:'',
             min_quantity_per_draft:0,
             max_quantity_per_draft:0,
+            bill_id_url:0,
         }
     },
     created() {
+
+
         this.get_all_brands();
         var component = this;
         this.table_columns = [
@@ -700,14 +719,23 @@ export default {
                     return '<span name="order"></span>';
                 }
             },
-            { "data": "id",},
+            { "data": "id","render":function(data,type,row){
+                    var r =  '#W'+new Date(row.created_at).getFullYear().toString().substr(-2)+
+                        (Number(new Date(row.created_at).getMonth())+1).toString().padStart(2, '0')+
+                    row['id'];
+                    return r;
+                }},
             { "data": "is_completed",
                 "render":function(data,type,row){
-                    return  row['is_completed'] == 0  ? component.switchWord('sent_to_admin')
+                    var offer = '';
+                    if(row['offer'] != null){
+                        offer='<span class="cancel_info_icon" title="'+component.switchWord('this_order_made_from_offer_number')+row['offer']['offer_id']+'"><i class="ri ri-information-line"></i></span>';
+                    }
+                    return  (row['is_completed'] == 0  ? component.switchWord('sent_to_admin')
                         :row['is_completed'] == 11 ? component.switchWord('in_progress')
                         :row['is_completed'] == -1 ? '<span>'+component.switchWord('cancel_done')+'</span>'+'<span class="cancel_info_icon" title="'+component.reasons.find((e)=>{return e['id'] == row['cancelled_quotations']['cancelled_id']})['name']+'"><i class="ri ri-information-line"></i></span>'
                         :row['is_completed'] == 1 ? component.keywords.wait_client_to_confirm
-                            :row['is_completed'] == 2 ? component.keywords.order_confirmed : component.switchWord('order_confirmed');
+                            :row['is_completed'] == 2 ? component.keywords.order_confirmed : component.switchWord('order_confirmed'))+offer;
                 }
             },
             { "data": "id", // get my quotation
@@ -1063,8 +1091,9 @@ export default {
                     row_count++;
                 }
                 tr.find('td:nth-of-type(6)')
-                    .html(Number(this.detect_right_price(this.get_my_quotation[data_item_index],data_item_index))
-                        .toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 }));
+                    .css('direction','initial')
+                    .html((Number(this.detect_right_price(this.get_my_quotation[data_item_index],data_item_index))
+                        .toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 }))+'<span class="gray">SAR</span>');
                 var result = '';
                 if(isNaN(this.detect_right_price(this.get_my_quotation[data_item_index],data_item_index))){
                     result = this.detect_right_price(this.get_my_quotation[data_item_index],data_item_index);
@@ -1076,14 +1105,20 @@ export default {
                                 ['quantity'])).toFixed(2);
                 }
                 tr.find('td:nth-of-type(7)')
-                    .html(Number(result).toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 }));
+                    .css('direction','initial')
+                    .html(Number(result).toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })+'<span class="gray">SAR</span>');
                 total += Number(Number(result.replaceAll(',','')))
             }
-            $('.total_part_number_price td:last-of-type').html(Number(total).toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 }));
+            $('.total_part_number_price td:last-of-type')
+                .css('direction','initial')
+                .html(Number(total).toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })+'<span class="gray">SAR</span>');
             $('#print_box table tr.tax td:last-of-type')
-                .html(Number(total * Number(this.item.tax ) / 100).toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 }));
+                .css('direction','initial')
+                .html(Number(total * Number(this.item.tax ) / 100).toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })+'<span class="gray">SAR</span>');
             total += (total * this.item.tax / 100 );
-            $('#print_box table tfoot tr:last-of-type td:last-of-type').html(Number(total).toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 }));
+            $('#print_box table tfoot tr:last-of-type td:last-of-type')
+                .css('direction','initial')
+                .html(Number(total).toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })+'<span class="gray">SAR</span>');
 
         },
         printOrder:function(){
@@ -1095,10 +1130,32 @@ export default {
             }else{
                 event.target.parentElement.parentElement.classList.remove('selected');
             }
+        },
+        async detect_if_bill_id_in_url(bill_id){
+            var com = this;
+            while($('table thead tr td input[name="id"]').length == 0){
+                await new Promise(resolve => setTimeout(resolve, 100));
+            }
+            $('table thead tr td input[name="id"]').val(bill_id);
+            $('.myTableServer thead tr td input').eq(0).click();
+            while(!this.page_data || this.page_data.length != 1){
+                await new Promise(resolve => setTimeout(resolve, 100));
+            }
+            var item = com.get_obj_wanted(bill_id);
+
+            await com.print_bill(item);
+            await com.update_item(item);
         }
     },
     mounted() {
         this.current_com = this;
+        // check if url has bill id
+        if(document.URL.split('?bill_id=')[1] != undefined){
+            this.bill_id_url = document.URL.split('?bill_id=')[1];
+            this.detect_if_bill_id_in_url(this.bill_id_url);
+
+        }
+
         let all_thead_tds = document.querySelectorAll
         ('.myTableServer thead tr td:nth-of-type(3),.myTableServer thead tr td:nth-of-type(4)');
         for( let input of all_thead_tds){
@@ -1106,6 +1163,7 @@ export default {
             input.className = 'position-relative input-icon';
             input.innerHTML = '<input class="form-control" name="' + input.getAttribute('name') + '" placeholder="' + input.textContent + '"><span><i class="ri-search-line"></i></span>';
         }
+
     },
     components: {ProfileNavComponent, NavbarComponent,FooterComponent}
 }

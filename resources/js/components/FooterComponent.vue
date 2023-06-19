@@ -52,7 +52,7 @@
                                     <i class="ri-facebook-line"></i>
                                 </span>
                             </a>
-                            <a href="https://twitter.com/AutoMkena" target="_blank">
+                            <a href="https://twitter.com/AutoMkena" target="_blank" v-if="false">
                                 <span>
                                     <i class="ri-linkedin-box-line"></i>
                                 </span>

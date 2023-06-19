@@ -93,6 +93,8 @@ export default {
     },
     methods:{
         get_obj_wanted:function (id){
+            console.log(this.page_data);
+            console.log(id);
              return this.page_data.find((e)=>{
                  return e['id'] == id;
              })
