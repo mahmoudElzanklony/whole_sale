@@ -78,16 +78,17 @@ class server_data
                        });
 
                         }else if($key == 'id' && $value != null){
+                            $e->where('id','LIKE','%'.$value.'%');
                            /* if(strlen($value) >= 2){
                                 $e->whereYear('created_at',Carbon::parse($value)->format('y'));
                             }
                             if(strlen($value) == 4){
                                 $e->whereYear('created_at',Carbon::parse(Str::substr($value,2,4))->format('y'));
                             }*/
-                            $e->whereRaw
+                           /* $e->whereRaw
                             ('YEAR(created_at) = '.Str::substr($value,0,2)
                                 .' OR MONTH(created_at) = '.Str::substr($value,2,4)
-                            );
+                            );*/
 
                           //  $e->where($key, 'LIKE', '%'.$value . '%');
                         }else if(($key == 'username' && $value != null ) || ($key == 'phone' && $value != null )){

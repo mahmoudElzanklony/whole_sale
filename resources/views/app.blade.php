@@ -39,11 +39,11 @@
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@100;300&display=swap" rel="stylesheet">
     <link href='https://fonts.googleapis.com/css?family=Cairo' rel='stylesheet'>
 
-    <link href="{{ mix('/css/app.css') }}?version=33.12" rel="stylesheet" />
+    <link href="{{ mix('/css/app.css') }}?version=35.12" rel="stylesheet" />
     @if(session()->get('lang') == 'en' || session()->get('lang') == 'tu')
-        <link href="{{ mix('/css/english.css') }}?v=31.4" rel="stylesheet" />
+        <link href="{{ mix('/css/english.css') }}?v=35.4" rel="stylesheet" />
     @else
-        <link href="{{ mix('/css/arabic.css') }}?v=31.4" rel="stylesheet" />
+        <link href="{{ mix('/css/arabic.css') }}?v=35.4" rel="stylesheet" />
     @endif
     <link rel="icon" href="/images/logo.jpg" />
     <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/1.7.3/socket.io.min.js"></script>
@@ -51,7 +51,7 @@
 
 
 
-    <script src="{{ mix('/js/app.js') }}?v=96.33.7" defer></script>
+    <script src="{{ mix('/js/app.js') }}?v=97.33.7" defer></script>
     <style>
         /*body{
             overflow: hidden;

@@ -719,12 +719,7 @@ export default {
                     return '<span name="order"></span>';
                 }
             },
-            { "data": "id","render":function(data,type,row){
-                    var r =  '#W'+new Date(row.created_at).getFullYear().toString().substr(-2)+
-                        (Number(new Date(row.created_at).getMonth())+1).toString().padStart(2, '0')+
-                    row['id'];
-                    return r;
-                }},
+            { "data": "id"},
             { "data": "is_completed",
                 "render":function(data,type,row){
                     var offer = '';
