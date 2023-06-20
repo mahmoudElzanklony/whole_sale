@@ -67,24 +67,28 @@ class ProfileController extends ProfileServiceClass
     }
 
     public function bill(){
-        $item = quotation_orders::query()
-            ->with('user')
-            ->with('cancelled_quotations')->withCount('my_receipt')
-            ->with('terms_data',function($q){
-                if(session()->get('type') == 'seller'){
-                    $q->where('user_id','=',auth()->id());
-                }else{
-                    $q->where('status','=','admin');
-                }
-            })
-            ->with('offer',function($q){
-                $q->with('offer_owner');
-            })
-            ->withCount('vendors_requests')
-            ->when(session()->get('type') =='buyer',function ($e){
-                $e->with('one_item_admin:id,user_id,quotation_order_id,created_at')->where('user_id','=',auth()->id());
-            })
-            ->first();
+        if(request()->has('bill_id')) {
+            $item = quotation_orders::query()
+                ->with('user')
+                ->with('cancelled_quotations')->withCount('my_receipt')
+                ->with('terms_data', function ($q) {
+                    if (session()->get('type') == 'seller') {
+                        $q->where('user_id', '=', auth()->id());
+                    } else {
+                        $q->where('status', '=', 'admin');
+                    }
+                })
+                ->with('offer', function ($q) {
+                    $q->with('offer_owner');
+                })
+                ->withCount('vendors_requests')
+                ->when(session()->get('type') == 'buyer', function ($e) {
+                    $e->with('one_item_admin:id,user_id,quotation_order_id,created_at')->where('user_id', '=', auth()->id());
+                })
+                ->find(request('bill_id'));
+        }else{
+            redirect('/');
+        }
         return Inertia::render('bill',[
             'keywords'=>ProfileLasttQuotations::get_keywords(),
             'item_info'=>$item,
