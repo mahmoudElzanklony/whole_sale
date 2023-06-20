@@ -935,7 +935,7 @@ export default {
                 en:'Still pending',
             },
             terms_conditions:{
-                  ar:'الشروظ و الاتفاقيات',
+                  ar:'الشروط والاحكام',
                   en:'Terms and conditions',
             },
             quantity_shouldnt_exceed:{

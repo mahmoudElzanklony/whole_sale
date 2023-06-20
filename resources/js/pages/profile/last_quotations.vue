@@ -222,9 +222,9 @@
                                         <tr v-for="(price_slap,index) in current_admin_quotation['prices']"
                                         :key="index">
                                             <td>{{ price_slap['min_quantity'] }}</td>
-                                            <td style="direction: initial">
+                                            <td>
+                                                <span class="gray mr-1">SAR</span>
                                                     {{ Number(price_slap['price']).toLocaleString() }}
-                                                <span class="gray">SAR</span>
                                             </td>
                                         </tr>
                                     </tbody>
@@ -395,8 +395,8 @@
                                     <td>{{ index + 1 }}</td>
                                     <td>{{ i['min_quantity'] }}</td>
                                     <td style="direction: initial">
+                                        <span class="gray mr-1">SAR</span>
                                         {{ i['price'].toLocaleString() }}
-                                        <span class="gray">SAR</span>
                                     </td>
                                 </tr>
                                 </tbody>
@@ -458,7 +458,8 @@
                                 <div v-if="item != null">
                                     <qr-code
                                         :size="160"
-                                        :text="'https://wholesale.mkena.com/profile/last-quotations?bill_id='+item['id']"></qr-code>
+                                        :text="'https://wholesale.mkena.com/bill?bill_id='+item['id']">
+                                    </qr-code>
 
                                 </div>
                             </div>
@@ -1087,8 +1088,8 @@ export default {
                 }
                 tr.find('td:nth-of-type(6)')
                     .css('direction','initial')
-                    .html((Number(this.detect_right_price(this.get_my_quotation[data_item_index],data_item_index))
-                        .toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 }))+'<span class="gray">SAR</span>');
+                    .html('<span class="gray mr-1">SAR</span>'+(Number(this.detect_right_price(this.get_my_quotation[data_item_index],data_item_index))
+                        .toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })));
                 var result = '';
                 if(isNaN(this.detect_right_price(this.get_my_quotation[data_item_index],data_item_index))){
                     result = this.detect_right_price(this.get_my_quotation[data_item_index],data_item_index);
@@ -1101,19 +1102,16 @@ export default {
                 }
                 tr.find('td:nth-of-type(7)')
                     .css('direction','initial')
-                    .html(Number(result).toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })+'<span class="gray">SAR</span>');
+                    .html('<span class="gray mr-1">SAR</span>'+(Number(result).toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })));
                 total += Number(Number(result.replaceAll(',','')))
             }
             $('.total_part_number_price td:last-of-type')
-                .css('direction','initial')
-                .html(Number(total).toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })+'<span class="gray">SAR</span>');
+                .html('<span class="gray mr-1">SAR</span>'+Number(total).toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 }));
             $('#print_box table tr.tax td:last-of-type')
-                .css('direction','initial')
-                .html(Number(total * Number(this.item.tax ) / 100).toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })+'<span class="gray">SAR</span>');
+                .html('<span class="gray mr-1">SAR</span>'+(Number(total * Number(this.item.tax ) / 100).toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })));
             total += (total * this.item.tax / 100 );
             $('#print_box table tfoot tr:last-of-type td:last-of-type')
-                .css('direction','initial')
-                .html(Number(total).toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })+'<span class="gray">SAR</span>');
+                .html('<span class="gray mr-1">SAR</span>'+(Number(total).toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })));
 
         },
         printOrder:function(){

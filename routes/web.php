@@ -39,6 +39,8 @@ Route::group(['middleware'=>'changeLang'],function (){
     Route::get('/new-password',[AuthController::class,'new_password']);
     Route::get('/logout',[AuthController::class,'logout'])->middleware('auth');
     // profile
+    Route::get('/bill',[ProfileController::class,'bill']);
+
     Route::group(['prefix'=>'/profile','middleware'=>'auth'],function(){
         // edit
         Route::get('/edit',[ProfileController::class,'edit']);
