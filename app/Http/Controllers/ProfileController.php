@@ -87,7 +87,7 @@ class ProfileController extends ProfileServiceClass
                 })
                 ->find(request('bill_id'));
         }else{
-            redirect('/');
+            return  redirect('/');
         }
         return Inertia::render('bill',[
             'keywords'=>ProfileLasttQuotations::get_keywords(),
