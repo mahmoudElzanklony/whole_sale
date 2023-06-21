@@ -2,7 +2,7 @@
     <section class="bill">
         <navbar-component></navbar-component>
         <div class="container">
-            <div class="receipt">
+            <div class="receipt" v-if="item != null">
             <div id="admin_quotation_data">
                 <div class="loading-img">
                     <img src="/images/loading.gif">
