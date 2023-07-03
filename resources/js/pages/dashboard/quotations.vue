@@ -507,6 +507,10 @@
                                         <span class="font-weight-bold">{{ switchWord('phone_number') }}</span>:
                                         <span>{{ item.user.phone }}</span>
                                     </p>
+                                    <p v-if="item.address_quotation != null">
+                                        <span class="font-weight-bold">{{ switchWord('address') }}</span>:
+                                        <span>{{ item.address_quotation.address.address }}</span>
+                                    </p>
                                     <p>
                                         <span class="font-weight-bold">{{ keywords.date }}</span>:
                                         <span v-if="item != null">{{ new Date(item['updated_at']).toLocaleString() }}</span>

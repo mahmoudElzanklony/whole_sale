@@ -58,6 +58,12 @@
                         </inertia-link>
                     </li>
                     <li>
+                        <inertia-link href="/profile/addresses">
+                            <span><i class="ri-map-pin-line"></i></span>
+                            <span>{{ switchWord('addresses') }}</span>
+                        </inertia-link>
+                    </li>
+                    <li>
                         <inertia-link href="/profile/edit">
                             <span><i class="ri-user-line"></i></span>
                             <span>{{ switchWord('personal_info') }}</span>

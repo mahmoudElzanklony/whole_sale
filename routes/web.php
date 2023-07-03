@@ -51,6 +51,7 @@ Route::group(['middleware'=>'changeLang'],function (){
         Route::get('/sales',[ProfileController::class,'sales']);
         Route::get('/orders',[ProfileController::class,'orders']);
         Route::get('/offers',[ProfileController::class,'offers']);
+        Route::get('/addresses',[ProfileController::class,'addresses']);
     });
     // products
     Route::group(['prefix'=>'/products'],function(){

@@ -34,19 +34,32 @@
             <form v-if="$page.props.user.approved == 1 && $page.props.user.role.name != 'seller'" method="post"
                   name="request_quotation"
                   @submit.prevent="save_qutation">
-                <div class="form-group d-flex align-items-center radio-buttons">
-                    <p>
-                        <input type="radio" name="quotation_request_type" value="enter_data"
-                               @change="change_quotation_type"
-                               checked>
-                        <span>{{ keywords.enter_data }}</span>
-                    </p>
-                    <p class="mr-3 ml-3">
-                        <input type="radio" name="quotation_request_type"
-                               @change="change_quotation_type"
-                               value="enter_file">
-                        <span>{{ keywords.upload_file }}</span>
-                    </p>
+                <div class="">
+                    <div class="row">
+                        <div class="col-lg-4 col-md-6 col-12 mb-2">
+                            <p>
+                                <input type="radio" name="quotation_request_type" value="enter_data"
+                                       @change="change_quotation_type"
+                                       checked>
+                                <span>{{ keywords.enter_data }}</span>
+                            </p>
+                        </div>
+                        <div class="col-lg-4 col-md-6 col-12 mb-2">
+                            <p class="mr-3 ml-3">
+                                <input type="radio" name="quotation_request_type"
+                                       @change="change_quotation_type"
+                                       value="enter_file">
+                                <span>{{ keywords.upload_file }}</span>
+                            </p>
+                        </div>
+                        <div class="col-lg-4 col-12 mb-2">
+                            <select class="form-control" name="address_id" required>
+                                <option value="">{{ switchWord('select_address') }}</option>
+                                <option v-for="(i,index) in addresses" :key="index"
+                                        :value="i['id']">{{ i['address'] }}</option>
+                            </select>
+                        </div>
+                    </div>
                 </div>
                <div class="inner-form">
                    <div class="enter_data">
@@ -200,7 +213,7 @@ import {mapActions,mapMutations,mapGetters} from "vuex";
 import Qutoation_details_box from "../../components/qutoation_details_box";
 export default {
     name: "qutoation_request",
-    props:['keywords','data','brands'],
+    props:['keywords','data','brands','addresses'],
     mixins:[delete_item,SwitchLangWord],
     data:function(){
         return {

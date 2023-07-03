@@ -187,6 +187,13 @@ registered vendors, this process may take few moments',
     // end of profile offers----------------------------------
 
 
+    // start of profile addresses----------------------------------
+    'user_address_control'=>'Quotations addresses',
+    // end of profile addresses----------------------------------
+
+
+
+
 
 
     // start of profile sales ----------------------------------------------------

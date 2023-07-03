@@ -58,6 +58,15 @@ export default {
         axios.post('/profile/update-secondary-data',data).then((e)=>{
             validation(e.data,target);
         })
+      },
+
+      // save addresses data
+      save_addresses:function (){
+          var target = event.target;
+          var data = new FormData(target);
+          axios.post('/profile/save-addresses',data).then((e)=>{
+              validation(e.data,target,'/profile/addresses');
+          })
       }
     },
 }

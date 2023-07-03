@@ -800,6 +800,10 @@ export default {
                 ar:'الرقم الضريبي',
                 en:'VAT number',
               },
+              cr_number:{
+                  ar:'رقم السجل التجاري',
+                  en:'CR number',
+              },
               receipt_photo:{
                 ar:'صورة الايصال',
                 en:'Receipt photo',
@@ -888,6 +892,22 @@ export default {
                   ar:'رقم الهاتف',
                   en:'Phone number',
                   tu:''
+              },
+              address:{
+                ar:'العنوان',
+                en:'Address',
+              },
+              addresses:{
+                ar:'العنواين',
+                en:'Addresses',
+              },
+              select_address:{
+                ar:'اختر عنوان الشحن',
+                en:'Select your address delivery',
+              },
+              add_new_address:{
+                ar:'اضافة عنوان جديد',
+                en:'Add new address',
               },
               please_wait_seconds:{
                   ar:'من فضلك انتظر لحظات ...',

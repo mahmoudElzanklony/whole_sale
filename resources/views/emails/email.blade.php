@@ -24,15 +24,18 @@
     @endif
 
     @if(is_array($details['body']))
-        <p>
+        <div>
+            <p style="direction: rtl !important;">
             @foreach($details['body']['ar'] as $b)
             <span>{!!html_entity_decode($b)!!}</span>
             @endforeach
-            <br>
+            </p>
+            <p style="direction: ltr !important;">
             @foreach($details['body']['en'] as $b)
                 <span>{!!html_entity_decode($b)!!}</span>
             @endforeach
-        </p>
+            </p>
+        </div>
     @else
         <p>{{ $details['body'] }}</p>
     @endif

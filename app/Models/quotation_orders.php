@@ -70,4 +70,8 @@ class quotation_orders extends Model
         return $this->hasOne(quotations_orders_terms::class,'quotation_order_id');
     }
 
+    public function address_quotation(){
+        return $this->hasOne(orders_address::class,'quotation_order_id');
+    }
+
 }

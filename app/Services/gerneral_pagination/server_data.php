@@ -14,6 +14,9 @@ class server_data
     public static function get_data(){
         if(request('table') == 'quotation_orders'){
             return quotation_orders::query()
+                ->with('address_quotation',function($e){
+                    $e->with('address');
+                })
                 ->with('cancelled_quotations')->withCount('my_receipt')
                 ->with('terms_data',function($q){
                     if(session()->get('type') == 'seller'){

@@ -50,6 +50,7 @@ Route::group(['middleware'=>'changeLang'],function (){
         Route::post('/update-password',[ProfileController::class,'update_password']);
         Route::post('/update-personal-data',[ProfileController::class,'update_personal_data']);
         Route::post('/update-secondary-data',[ProfileController::class,'update_secondary_data']);
+        Route::post('/save-addresses',[ProfileController::class,'save_addresses']);
         Route::post('/send-quotation',[ProfileController::class,'send_quotation']);
         Route::post('/preview-request',[ProfileController::class,'preview_request']);
         Route::post('/send-quotation-excel',[ProfileController::class,'send_quotation_excel']);

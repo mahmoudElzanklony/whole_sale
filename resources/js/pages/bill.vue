@@ -18,6 +18,9 @@
                     <p>
                         <span class="font-weight-bold">{{ switchWord('tax_number') }}</span> : <span class="font-weight-bold">310188508400003</span>
                     </p>
+                    <p>
+                        <span class="font-weight-bold">{{ switchWord('cr_number') }}</span> : <span class="font-weight-bold">2051224564</span>
+                    </p>
                     <p v-if="item != null">
                         <span class="font-weight-bold">{{ switchWord('client_name') }}</span>:
                         <span>{{ item.user.username }}</span>
@@ -26,6 +29,10 @@
                         <span class="font-weight-bold">{{ switchWord('phone_number') }}</span>:
                         <span>{{ item.user.phone }}</span>
                     </p>
+                    <p v-if="item.address_quotation != null">
+                        <span class="font-weight-bold">{{ switchWord('address') }}</span>:
+                        <span>{{ item.address_quotation.address.address }}</span>
+                    </p>
                     <p v-if="item != null">
                         <span class="font-weight-bold">{{ keywords.date }}</span>:
                         <span v-if="item != null">{{ new Date(item['updated_at']).toLocaleString() }}</span>
@@ -33,7 +40,7 @@
                 </div>
                 <div v-if="item != null">
                     <qr-code
-                        :size="160"
+                        :size="190"
                         :text="'https://wholesale.mkena.com/profile/last-quotations?bill_id='+item['id']"></qr-code>
 
                 </div>

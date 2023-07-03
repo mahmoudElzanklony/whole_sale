@@ -12,8 +12,10 @@ use App\Http\traits\messages;
 use App\Http\traits\upload_image;
 use App\Imports\countriesImportCSV;
 use App\Imports\QuotationImportCSV;
+use App\Models\addresses;
 use App\Models\brands;
 use App\Models\listings_notes;
+use App\Models\orders_address;
 use App\Models\quotation_orders;
 use App\Models\quotations;
 use App\Models\quotations_orders_offers;
@@ -125,6 +127,20 @@ class ProfileServiceClass extends Controller
         return messages::success_output([trans('messages.updated_successfully')]);
     }
 
+    public function save_addresses(){
+        if(request()->has('addresses')){
+            foreach(request('addresses') as $key => $address){
+                addresses::query()->updateOrCreate([
+                   'id'=> request('ids')[$key] != null ? request('ids')[$key]:null,
+                ],[
+                    'user_id'=>auth()->id(),
+                    'address'=>$address,
+                ]);
+            }
+            return messages::success_output([trans('messages.saved_successfully')]);
+        }
+    }
+
     public function send_quotation(QuotationFormRequest $request){
         DB::beginTransaction();
         // create new quotation bill
@@ -133,6 +149,17 @@ class ProfileServiceClass extends Controller
            'is_completed'=>0,
            'tax'=>tax_money::query()->first() != null ? tax_money::query()->first()->tax:0,
         ]);
+
+        // create address
+        if(session()->get('type') == 'buyer'){
+            if(!(request()->has('address_id'))){
+                return error_output(["error"=>"العنوان حقل اجباري"], 422);
+            }
+            orders_address::query()->create([
+               'quotation_order_id'=> $qutation_bill->id,
+               'address_id'=> request('address_id'),
+            ]);
+        }
 
         if(request()->has('request_type') && request('request_type') == 'offer'){
             // make this quotation to offer table
@@ -249,6 +276,17 @@ class ProfileServiceClass extends Controller
                 'tax'=>tax_money::query()->first() != null ? tax_money::query()->first()->tax:0,
 
             ]);
+            // create address
+            if(session()->get('type') == 'buyer'){
+                if(!(request()->has('address_id'))){
+                    return error_output(["error"=>"العنوان حقل اجباري"], 422);
+                }
+                orders_address::query()->create([
+                    'quotation_order_id'=> $qutation_bill->id,
+                    'address_id'=> request('address_id'),
+                ]);
+            }
+
             $data = Excel::import(new QuotationImportCSV($qutation_bill),
                 request()->file('file')
             );

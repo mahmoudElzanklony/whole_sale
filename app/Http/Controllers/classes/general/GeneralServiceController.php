@@ -4,6 +4,7 @@ namespace App\Http\Controllers\classes\general;
 
 use App\Http\Controllers\Controller;
 use App\Http\traits\messages;
+use App\Models\addresses;
 use App\Models\items_info;
 use App\Models\listings_info;
 use App\Models\quotation_orders;
@@ -53,6 +54,8 @@ class GeneralServiceController extends Controller
                'updated_at'=>Carbon::now()->toDateTimeLocalString(),
                'deleted_at'=>Carbon::now()->toDateTimeLocalString()
             ]);
+        }else if($table == 'addresses'){
+             addresses::query()->find($id)->delete();
         }else {
             DB::table($table)->delete($id);
         }

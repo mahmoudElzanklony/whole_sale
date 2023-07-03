@@ -18,6 +18,7 @@ use App\Keywords\Profile\ProfileOffersKeywords;
 use App\Keywords\Profile\ProfileQutationsKeywords;
 use App\Keywords\Profile\ProfileSalesKeywords;
 use App\Keywords\Profile\ProfileStatisticsKeywords;
+use App\Models\addresses;
 use App\Models\brands;
 use App\Models\listings_info;
 use App\Models\offers;
@@ -48,9 +49,12 @@ class ProfileController extends ProfileServiceClass
 
     public function qutation_reuqest(){
         $brands = brands::selection()->get();
+        $addresses = addresses::query()->where('user_id',auth()->id())
+            ->orderBy('id','DESC')->get();
         return Inertia::render('profile/qutoation_request',[
             'keywords'=>ProfileQutationsKeywords::get_keywords(),
             'brands'=>brands::selection()->get(),
+            'addresses'=>$addresses,
             'quotations'=>quotation_orders::query()
                 ->where('user_id','=',auth()->id())->get(),
         ]);
@@ -70,6 +74,9 @@ class ProfileController extends ProfileServiceClass
         if(request()->has('bill_id')) {
             $item = quotation_orders::query()
                 ->with('user')
+                ->with('address_quotation',function($e){
+                    $e->with('address');
+                })
                 ->with('cancelled_quotations')->withCount('my_receipt')
                 ->with('terms_data', function ($q) {
                     if (session()->get('type') == 'seller') {
@@ -159,6 +166,15 @@ class ProfileController extends ProfileServiceClass
     public function client_template(){
         return Excel::download(new intial_template_client_export, 'template.xlsx');
 
+    }
+
+    public function addresses(){
+        return Inertia::render('profile/addresses',[
+            'data'=>addresses::query()->where('user_id',auth()->id())->orderBy('id','DESC')->get(),
+            'keywords'=>[
+                'main_title'=>trans('keywords.user_address_control'),
+            ]
+        ]);
     }
 
 

@@ -130,6 +130,11 @@ return [
     // end of profile last made quotations----------------------------------
 
 
+    // start of profile addresses----------------------------------
+    'user_address_control'=>'عنواين الطلبات الخاصة بك',
+    // end of profile addresses----------------------------------
+
+
 
 
 
