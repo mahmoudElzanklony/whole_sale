@@ -131,7 +131,7 @@ class ProfileServiceClass extends Controller
         if(request()->has('addresses')){
             foreach(request('addresses') as $key => $address){
                 addresses::query()->updateOrCreate([
-                   'id'=> request('ids')[$key] != null ? request('ids')[$key]:null,
+                   'id'=> isset(request('ids')[$key]) &&  request('ids')[$key]!= null ? request('ids')[$key]:null,
                 ],[
                     'user_id'=>auth()->id(),
                     'address'=>$address,
