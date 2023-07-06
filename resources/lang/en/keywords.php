@@ -200,6 +200,8 @@ registered vendors, this process may take few moments',
     'my_current_sales'=>'My current sales',
     'my_current_orders'=>'My current orders',
     'status'=>'Status',
+    'pending'=>'Pending',
+    'active'=>'Active',
     // end of profile sales ----------------------------------------------------
 
 
@@ -304,7 +306,7 @@ registered vendors, this process may take few moments',
     'wholesale_bill_info'=>'Thank you for your dealings with us, and we hope to be at your best',
     'bill_export_date'=>'Bill exported at date ',
     'show_details'=>'Show Details',
-    'order_that_client_made'=>'order client made',
+    'order_that_client_made'=>'Quotation request',
     'last_products'=>'Last Products',
     'last_brands'=>'Last Brands',
     'last_sales'=>'Last Sales',
@@ -395,8 +397,8 @@ registered vendors, this process may take few moments',
 
     // start of profile offers ----------------------------------------------------
     'offers'=>'Offers',
-    'start_date'=>'Start offer date',
-    'end_date'=>'End offer date',
+    'start_date'=>'Start On',
+    'end_date'=>'End On',
     'created_at'=>'Created at date',
 
     'seller_related_offer'=>'Seller offer',

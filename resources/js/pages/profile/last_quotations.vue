@@ -1152,6 +1152,10 @@ export default {
             this.detect_if_bill_id_in_url(this.bill_id_url);
 
         }
+        // name file of bill
+        window.addEventListener("beforeprint", (event) => {
+            document.title='wholesale#'+this.item.id;
+        });
 
         let all_thead_tds = document.querySelectorAll
         ('.myTableServer thead tr td:nth-of-type(3),.myTableServer thead tr td:nth-of-type(4)');

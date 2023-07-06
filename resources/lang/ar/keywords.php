@@ -124,8 +124,8 @@ return [
     'upload_bank_document'=>'رفع وثيقه البنك',
     'file'=>'ملف',
     'invoice_number'=>'رقم الفاتورة',
-    'request_date'=>'تاريخ ارسال الطلب',
-    'file_sent_date'=>'تاريخ وصول العرض',
+    'request_date'=>'تاريخ وصول الطلب',
+    'file_sent_date'=>'تاريخ ارسال العرض',
 
     // end of profile last made quotations----------------------------------
 
@@ -271,7 +271,7 @@ return [
 
     // start of profile offers ----------------------------------------------------
     'offers'=>'العروض',
-    'start_date'=>'بداية تاريخ العرض',
+    'start_date'=>'تاريخ بداية العرض',
     'end_date'=>'نهاية تاريخ العرض',
     'created_at'=>'تاريخ الانشاء ',
     'seller_related_offer'=>'صاحب العرض',
@@ -349,7 +349,7 @@ return [
     'wholesale_bill_info'=>'شكرا علي تعاملكم معنا ونتمني ان نكون عند حسن ظنكم بنا',
     'bill_export_date'=>'تم اصدار الفاتورة بتاريخ ',
     'show_details'=>'عرض التفاصيل',
-    'order_that_client_made'=>'الطلب الذي ارسلة العميل',
+    'order_that_client_made'=>'طلب التسعير',
     'last_products'=>'احدث المنتجات',
     'last_quotations_out'=>'احدث الطلبات',
     'last_sales'=>'احدث المبيعات',
@@ -360,6 +360,8 @@ return [
     'explore_sales'=>'تصفح المبيعات',
     'last_listings_statistics'=>'أحصائيات عن أنتشار العقارات هذا العام',
     'pending_listings'=>'العقارات المعلقة',
+    'pending'=>'معلقه',
+    'active'=>'نشطة',
     'last_categories'=>'أحدث الأقسام',
     'approve'=>'الموافقة',
     'block'=>'الحظر',

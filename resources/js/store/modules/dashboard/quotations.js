@@ -365,7 +365,7 @@ export default {
                 var confirm = 'نعم أنا متأكد';
                 var cancel = 'إلغاء';
                 var done = 'تمت عمليه الموافقة';
-                var response_msg = 'تم الأكتمال بنجاح';
+                var response_msg = 'تم انهاء الطلب بنجاح';
             }else{
                 var confirm_msg = 'are you sure from agreement';
                 var msg = 'Upon your approval, you will have to contact with client to finish process of order';

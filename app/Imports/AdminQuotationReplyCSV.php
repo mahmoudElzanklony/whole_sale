@@ -73,13 +73,14 @@ class AdminQuotationReplyCSV implements ToModel, WithHeadingRow , WithValidation
         if(session()->get('type') != 'seller'){
 
             // get quotation
-            $brand_query =
-            quotations::query()->create([
-                'quotation_order_id'=>$this->quotation_order_id ?? null,
-                'part_number'=>$row['part_number'],
-                'brand_id'=>$brand_id,
-                'quantity'=>$row['quantity']
-            ]);
+            if($this->offer_id == null) {
+                quotations::query()->create([
+                    'quotation_order_id' => $this->quotation_order_id ?? null,
+                    'part_number' => $row['part_number'],
+                    'brand_id' => $brand_id,
+                    'quantity' => $row['quantity']
+                ]);
+            }
             /*if($quotation != null && $quotation->quantity != $row['quantity'] &&
                 (!(is_array($this->duplicate)) || $this->duplicate['part_number'] != $row['part_number']) ){
                 // you change quantity of user wanted

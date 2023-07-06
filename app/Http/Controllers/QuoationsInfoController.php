@@ -297,7 +297,7 @@ class QuoationsInfoController extends Controller
                         'en'=>['Mkena Wholesale reply on your query no.',request('quotation_order_id')],
                     ];
                     $body_customer = [
-                        'ar'=>['  لقد تم الرد على طلب التسعير الخاص بكم، رقم ',request('quotation_order_id'),'، من مكينة جملة ، للاطلاع على التفاصيل، طباعة الفاتورة المبدئية ، والموافقة على العرض، يمكمنكم الدخول على حسابكم الخاص بمكينة جملة عن طريق الضغط على الرابط أدناه'],
+                        'ar'=>['  لقد تم الرد على طلب التسعير الخاص بكم، رقم ',request('quotation_order_id'),'، من مكينة جملة ، للاطلاع على التفاصيل، طباعة الفاتورة المبدئية ، والموافقة على العرض، يمكنكم الدخول على حسابكم الخاص بمكينة جملة عن طريق الضغط على الرابط أدناه'],
                         'en'=>['Mkena Wholesale management just replied on your query no. ',request('quotation_order_id'),'. To review the offer, print a proforma invoice and approve the order, you can sig in into your account by clicking on the below link'],
                     ];
                     send_email::send(

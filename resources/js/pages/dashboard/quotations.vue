@@ -800,6 +800,13 @@ export default {
         })
     },
     mounted() {
+
+
+        // name file of bill
+        window.addEventListener("beforeprint", (event) => {
+            document.title='wholesale#'+this.item.id;
+        });
+
         let all_thead_tds = document.querySelectorAll
         ('.myTableServer thead tr td:nth-of-type(2) p,.myTableServer thead tr td:nth-of-type(3) p,.myTableServer thead tr td:nth-of-type(4) p,.myTableServer thead tr td:nth-of-type(6) p');
         for( let input of all_thead_tds){

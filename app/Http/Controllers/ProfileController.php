@@ -136,9 +136,16 @@ class ProfileController extends ProfileServiceClass
         }])
             ->where('start_date','<=',date('Y-m-d'))
             ->where('end_date','>=',date('Y-m-d'))
-            ->where('status','=',1)
+            ->when(session()->get('type') == 'buyer',function ($q){
+                $q->where('status','=',1);
+            })
             ->orderBy('id','DESC')
             ->get();
+        if(session()->get('type') == 'buyer'){
+            $addresses = addresses::query()->where('user_id',auth()->id())->get();
+        }else{
+            $addresses = [];
+        }
 
 
         $pending = offers::query()->when(session()->get('type') == 'seller',function ($q){
@@ -155,6 +162,7 @@ class ProfileController extends ProfileServiceClass
             'keywords'=>ProfileOffersKeywords::get_keywords(),
             'brands'=>brands::selection()->get(),
             'pending'=>$pending,
+            'addresses'=>$addresses,
             'data_model'=>[
                 'brand_id'=>trans('keywords.brand'),
                 'start_date'=>trans('keywords.start_date'),

@@ -10,15 +10,18 @@
 
     <img  src="https://wholesale.mkena.com/images/logo_email.png">
     @if(is_array($details['title']))
-        <h1 style="text-align:center; margin-bottom: 20px">
+        <div style="text-align:center; margin-bottom: 20px">
+            <h1 style="direction: rtl !important;">
             @foreach($details['title']['ar'] as $b)
                 <span>{!!html_entity_decode($b)!!}</span>
             @endforeach
-            <br>
+            </h1>
+            <h1 style="direction: ltr !important;">
             @foreach($details['title']['en'] as $b)
                 <span>{!!html_entity_decode($b)!!}</span>
             @endforeach
-        </h1>
+            </h1>
+        </div>
     @else
         <h1 style="text-align:center; margin-bottom: 20px">{!!html_entity_decode($details['title'])!!}</h1>
     @endif

@@ -23,8 +23,9 @@ class items_info extends Model
             ,'width','length','thickness');
     }
 
+
     public function brand(){
-        return $this->belongsTo(brands::class,'brand_id');
+        return $this->belongsTo(brands::class,'brand_id')->withTrashed();
     }
 
     public function user(){

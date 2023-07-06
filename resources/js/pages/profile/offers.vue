@@ -50,7 +50,6 @@
                          </div>
                      </div>
                  </div>
-
                   <div v-if="get_offers_data_page.length > 0" class="overflow-auto">
                         <table class="offers_data table text-center table-bordered table-striped table-hover">
                             <thead>
@@ -59,6 +58,7 @@
                                 <td>{{ keywords.brand }}</td>
                                 <td>{{ switchWord('see_details') }}</td>
                                 <td>{{ keywords.file }}</td>
+                                <td v-if="$page.props.user.role.name == 'seller'">{{ keywords.status }}</td>
                                 <td>{{ keywords.start_date }}</td>
                                 <td>{{ keywords.end_date }}</td>
                             </tr>
@@ -76,6 +76,8 @@
                                         target="_blank"
                                         :href="'/quotations/export-offer?ids='+i['offer_items'].map((e)=>{return e['item_info_id']}).toString()">{{ switchWord('download_file') }}</a>
                                 </td>
+                                <td v-if="$page.props.user.role.name == 'seller'">
+                                    {{ i['status'] == 0 ? keywords.pending:keywords.active }}</td>
                                 <td>{{ i['start_date'] }}</td>
                                 <td>{{ i['end_date'] }}</td>
                             </tr>
@@ -107,8 +109,18 @@
                             <img src="/images/loading.gif">
                         </div>
                         <form method="post" @submit.prevent="make_offer">
-                        <input class="form-control search_without_button mb-2"
+                        <div class="form-group">
+                            <select class="form-control" name="address_id" required>
+                                <option value="">{{ switchWord('select_address') }}</option>
+                                <option v-for="(i,index) in addresses" :key="index"
+                                        :value="i['id']">{{ i['address'] }}</option>
+                            </select>
+                        </div>
+                            <span class="search-icon-public"><i class="ri-search-line"></i></span>
+
+                            <input class="form-control search_without_button mb-2"
                                :placeholder="switchWord('search_for_you_best')">
+
                         <div class="overflow-auto hide-buttons" v-if="offer_data.length > 0">
                             <table class="table text-center table-bordered table-striped table-hover">
                                 <thead>
@@ -290,7 +302,7 @@ import update_item from "../../mixin/update_item";
 import {mapActions, mapGetters, mapMutations} from "vuex";
 export default {
     name: "offers",
-    props:['keywords','data','data_model','brands','pending'],
+    props:['keywords','data','data_model','brands','pending','addresses'],
     data(){
         return {
             current_admin_quotation:null,

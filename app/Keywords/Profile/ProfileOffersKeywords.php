@@ -32,6 +32,9 @@ class ProfileOffersKeywords
             'upload_new_offer'=>trans('keywords.upload_new_offer'),
             'new_offer'=>trans('keywords.new_offer'),
             'download_offer_template'=>trans('keywords.download_offer_template'),
+            'status'=>trans('keywords.status'),
+            'pending'=>trans('keywords.pending'),
+            'active'=>trans('keywords.active'),
         ];
     }
 

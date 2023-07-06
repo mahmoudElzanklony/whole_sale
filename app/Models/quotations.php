@@ -13,7 +13,7 @@ class quotations extends Model
     protected $fillable = ['quotation_order_id','brand_id','part_number','quantity'];
 
     public function brand(){
-        return $this->belongsTo(brands::class,'brand_id');
+        return $this->belongsTo(brands::class,'brand_id')->withTrashed();
     }
 
     public function quotation_order(){

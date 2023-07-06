@@ -5,6 +5,7 @@ namespace App\Http\Controllers\classes\general;
 use App\Http\Controllers\Controller;
 use App\Http\traits\messages;
 use App\Models\addresses;
+use App\Models\brands;
 use App\Models\items_info;
 use App\Models\listings_info;
 use App\Models\quotation_orders;
@@ -56,6 +57,8 @@ class GeneralServiceController extends Controller
             ]);
         }else if($table == 'addresses'){
              addresses::query()->find($id)->delete();
+        }else if($table == 'brands'){
+            brands::query()->find($id)->delete();
         }else {
             DB::table($table)->delete($id);
         }

@@ -206,8 +206,8 @@ class ProfileServiceClass extends Controller
                 'en'=>['new request quotation from Mkena wholesale ',$qutation_bill->id],
             ];
             $body_admin = [
-              'ar'=>[' تم استلام طلب تسعير جديد رقم ### من   (',auth()->user()->username,'  )، للاطلاع على التفاصيل، يمكنك الدخول على حسابك عن طريق النقر على الرابط أدناه ',auth()->id(),' ورقم الطلب هو  ',$qutation_bill->id],
-              'en'=>['there is new quotation request from user id ',auth()->id(),' and request number is  ',$qutation_bill->id],
+              'ar'=>[' تم استلام طلب تسعير جديد رقم ',$qutation_bill->id,' من   (',auth()->user()->username,'  )، للاطلاع على التفاصيل، يمكنك الدخول على حسابك عن طريق النقر على الرابط أدناه '],
+              'en'=>['there is new quotation request from client name ',auth()->user()->username,' and request number is  ',$qutation_bill->id],
             ];
             send_email::send($title_admin,
                 $body_admin,
@@ -237,7 +237,7 @@ class ProfileServiceClass extends Controller
             'sender_id'=>auth()->id(),
             'receiver_id'=>get_first_admin::get_admin()->id,
             'ar_info'=> 'تم ارسال طلب تسعيرات جديد من عميل رقم '.auth()->id().' ورقم الطلب هو  '.$qutation_bill->id,
-            'en_info'=>'there is new quotation request from user id '.auth()->id().' and request number is  '.$qutation_bill->id,
+            'en_info'=>'there is new quotation request from username '.auth()->user()->username.' and request number is  '.$qutation_bill->id,
             'seen'=>0,
         ];
         DB::commit();
@@ -338,7 +338,7 @@ class ProfileServiceClass extends Controller
         ];
         $body_admin = [
             'ar'=>[' تم استلام طلب تسعير جديد رقم ### من   (',auth()->user()->username,'  )، للاطلاع على التفاصيل، يمكنك الدخول على حسابك عن طريق النقر على الرابط أدناه ',auth()->id(),' ورقم الطلب هو  ',$qutation_bill->id],
-            'en'=>['there is new quotation request from user id ',auth()->id(),' and request number is  ',$qutation_bill->id],
+            'en'=>['there is new quotation request from username ',auth()->user()->username,' and request number is  ',$qutation_bill->id],
         ];
         send_email::send($title_admin,
             $body_admin,
