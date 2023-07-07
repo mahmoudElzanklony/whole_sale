@@ -134,8 +134,11 @@ class ProfileController extends ProfileServiceClass
         })->with(['offer_items','user','brand'=>function($e){
             return $e->select('id',app()->getLocale().'_name as name');
         }])
-            ->where('start_date','<=',date('Y-m-d'))
-            ->where('end_date','>=',date('Y-m-d'))
+            ->when(session()->get('type') == 'buyer',function ($q){
+                $q->where('start_date','<=',date('Y-m-d'))
+                    ->where('end_date','>=',date('Y-m-d'));
+            })
+
             ->when(session()->get('type') == 'buyer',function ($q){
                 $q->where('status','=',1);
             })
