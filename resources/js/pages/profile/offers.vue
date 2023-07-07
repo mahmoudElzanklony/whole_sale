@@ -109,7 +109,7 @@
                             <img src="/images/loading.gif">
                         </div>
                         <form method="post" @submit.prevent="make_offer">
-                        <div class="form-group">
+                        <div class="form-group" v-if="$page.props.user.role.name == 'buyer'">
                             <select class="form-control" name="address_id" required>
                                 <option value="">{{ switchWord('select_address') }}</option>
                                 <option v-for="(i,index) in addresses" :key="index"
