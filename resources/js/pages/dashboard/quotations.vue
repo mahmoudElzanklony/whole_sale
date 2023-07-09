@@ -487,7 +487,7 @@
                         </button>
                     </div>
                     <div class="modal-body">
-                        <div class="receipt">
+                        <div class="receipt" v-if="item != null">
 
                             <div class="d-flex align-items-center justify-content-between mb-3"
                             >
@@ -521,7 +521,7 @@
                                     <p>{{ switchWord('client_info') }}</p>
                                 </div>
                                 <div class="card-body p-2">
-                                    <p>
+                                    <p v-if="item != null">
                                         <span class="font-weight-bold">{{ switchWord('client_name') }}</span>:
                                         <span>{{ item.user.username }}</span>
                                     </p>
