@@ -38,7 +38,7 @@ class server_data
                         $e->where('user_id',auth()->id());
                     });
             })->when(session()->get('type') == 'admin'||session()->get('type')=='supervisor',function ($e){
-                $e->with('user:id,username,phone');
+                $e->with('user:id,username,phone,vat');
             })
                 ->orderBy('id','DESC')
                 ->when(request()->has('searches') && sizeof(request('searches')) > 0, function ($e) {

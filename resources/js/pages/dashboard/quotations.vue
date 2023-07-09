@@ -489,32 +489,24 @@
                     <div class="modal-body">
                         <div class="receipt">
 
-                            <div class="d-flex align-items-center justify-content-between mb-5"
+                            <div class="d-flex align-items-center justify-content-between mb-3"
                             >
-                                <div v-if="item != null">
-                                    <img class="d-block m-auto" style="width: 150px;" src="/images/logo.png">
-                                    <p class="mt-3 font-weight-bold">{{ keywords.invoice_number }}
+                                <div class="p-2" v-if="item != null">
+                                    <img class="d-block m-auto" style="width: 150px; margin: unset !important;" src="/images/logo.png">
+                                    <p class="mt-3 mb-2 font-weight-bold">{{ keywords.invoice_number }}
                                         #W{{ ("0" + (new Date(item.created_at).getFullYear())).slice(-2) }}{{ ("0" + (new Date(item.created_at).getMonth() + 1)).slice(-2) }}{{ item.id }}
                                     </p>
-                                    <p>
+                                    <p class="mb-2">
                                         <span class="font-weight-bold">{{ switchWord('tax_number') }}</span> : <span class="font-weight-bold">310188508400003</span>
                                     </p>
-                                    <p>
-                                        <span class="font-weight-bold">{{ switchWord('client_name') }}</span>:
-                                        <span>{{ item.user.username }}</span>
+                                    <p class="mb-2">
+                                        <span class="font-weight-bold">{{ switchWord('address') }}</span> : <span class="font-weight-bold">
+                                  {{ switchWord('mkena_address') }}
+</span>
                                     </p>
-                                    <p v-if="item.user.phone.length > 0">
-                                        <span class="font-weight-bold">{{ switchWord('phone_number') }}</span>:
-                                        <span>{{ item.user.phone }}</span>
-                                    </p>
-                                    <p v-if="item.address_quotation != null">
-                                        <span class="font-weight-bold">{{ switchWord('address') }}</span>:
-                                        <span>{{ item.address_quotation.address.address }}</span>
-                                    </p>
-                                    <p>
-                                        <span class="font-weight-bold">{{ keywords.date }}</span>:
-                                        <span v-if="item != null">{{ new Date(item['updated_at']).toLocaleString() }}</span>
-                                    </p>
+                                    <p class="font-weight-bold">{{ switchWord('sudia') }}</p>
+
+
                                 </div>
                                 <div v-if="item != null">
                                     <qr-code
@@ -524,12 +516,57 @@
                                 </div>
                             </div>
 
+                            <div class="card mb-2">
+                                <div class="card-header p-2">
+                                    <p>{{ switchWord('client_info') }}</p>
+                                </div>
+                                <div class="card-body p-2">
+                                    <p>
+                                        <span class="font-weight-bold">{{ switchWord('client_name') }}</span>:
+                                        <span>{{ item.user.username }}</span>
+                                    </p>
+                                    <p v-if="item.user.phone.length > 0">
+                                        <span class="font-weight-bold">{{ switchWord('phone_number') }}</span>:
+                                        <span>{{ item.user.phone }}</span>
+                                    </p>
+                                    <p v-if="item.user.vat != '0' ">
+                                        <span class="font-weight-bold">{{ switchWord('tax_number') }}</span>:
+                                        <span>{{ item.user.vat }}</span>
+                                    </p>
+                                    <p v-if="item.address_quotation != null">
+                                        <span class="font-weight-bold">{{ switchWord('address') }}</span>:
+                                        <span>{{ item.address_quotation.address.address }}</span>
+                                    </p>
+                                </div>
+                            </div>
+
+                            <div class="card mb-2">
+                                <div class="card-header p-2">
+                                    <p>{{ switchWord('order_info') }}</p>
+                                </div>
+                                <div class="card-body p-2">
+                                    <p class="mb-2">
+                                        <span class="font-weight-bold">{{ switchWord('order_no') }}</span>:
+                                        <span v-if="item != null">{{ (item['id']) }}</span>
+                                    </p>
+                                    <p class="mb-2">
+                                        <span class="font-weight-bold">{{ keywords.date }}</span>:
+                                        <span v-if="item != null">{{ new Date(item['updated_at']).toLocaleString() }}</span>
+                                    </p>
+                                    <p>
+                                        <span class="font-weight-bold">{{ switchWord('order_status') }}</span>:
+                                        <span>{{ switchWord('order_confirmed') }}</span>
+                                    </p>
+                                </div>
+                            </div>
+
+
                             <table class="mb-0 table table-bordered table-hover table-striped">
                                 <thead>
                                     <tr>
                                         <td>{{ keywords.seq }}</td>
                                         <td>{{ keywords.part_no }}</td>
-                                        <td>{{ keywords.en_part_name }}</td>
+                                        <td>{{ switchWord('part_name') }}</td>
                                         <td>{{ keywords.brand }}</td>
                                         <td>{{ keywords.quantity }}</td>
                                         <td>{{ switchWord('unit_price') }}</td>
@@ -540,9 +577,9 @@
                                 <tr v-for="(i,index) in get_my_quotation"
                                     v-if="i['last_draft'].length == 0 || i['last_draft'][0]['deleted_at'] == null"
                                     :style="'display:'+( (i['last_draft'].length == 0 ? i['quantity']:i['last_draft'][0]['quantity']) > 0 ? 'table-row':'none')"
-                                    :class="index == 20 ?
+                                    :class="index == 14 ?
                                     'avoid':
-                                    ((Number(index-20) % 28 ) == 0 ? 'avoid':'')"
+                                    ((Number(index-14) % 28 ) == 0 ? 'avoid':'')"
                                     :key="index">
                                     <td>{{ index + 1 }}</td>
                                     <td>

@@ -8,6 +8,14 @@ const Toast = Swal.mixin({
         confirmButton: "swal2-confirm swal2-styled toast_fire_style"
     },
     confirmButtonText:'<i class="ri-close-line exit-box"></i>',
+    onBeforeOpen: () => {
+        // Disable user interactions with the page
+        document.querySelector('.content').style.pointerEvents = 'none';
+    },
+    onClose: () => {
+        // Enable user interactions with the page
+        document.querySelector('.content').style.pointerEvents = 'auto';
+    },
    // timer: 5000,
     timerProgressBar: true,
     heightAuto:false,

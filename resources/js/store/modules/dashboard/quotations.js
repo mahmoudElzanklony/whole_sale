@@ -262,6 +262,9 @@ export default {
                 $(target).find('input[type="submit"]').removeAttr('disabled');
                 target.reset();
                 $(target).find('input[type="file"]').next().html('');
+            }).catch((e)=>{
+                console.log(e);
+
             });
         },
 

@@ -150,7 +150,6 @@ class ProfileController extends ProfileServiceClass
             $addresses = [];
         }
 
-
         $pending = offers::query()->when(session()->get('type') == 'seller',function ($q){
             $q->where('user_id','=',auth()->id());
         })

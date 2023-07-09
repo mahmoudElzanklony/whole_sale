@@ -164,9 +164,13 @@ class QuoationsInfoController extends Controller
                         ->get();
 
                 }
-                Excel::import(new AdminQuotationReplyCSV(request('quotation_order_id')),
-                    request()->file('excel_file')
-                );
+                try {
+                    Excel::import(new AdminQuotationReplyCSV(request('quotation_order_id')),
+                        request()->file('excel_file')
+                    );
+                }catch (\Throwable $e){
+                    return messages::error_output([$e->getMessage()]);
+                }
                 //dd(AdminQuotationReplyCSV::$create_status,$quotations_delete);
                 if (isset($quotations_delete) && AdminQuotationReplyCSV::$create_status == true) {
                     if($quotations_delete != null) {
@@ -460,7 +464,7 @@ class QuoationsInfoController extends Controller
     }
 
     public function change_status_of_request(){
-        $quotation_order = quotation_orders::query()->find(request('id'));
+        $quotation_order = quotation_orders::query()->with('user')->find(request('id'));
         $quotation_order->is_completed = request('is_completed');
         $quotation_order->save();
         if(session()->get('type') == 'admin'){
@@ -473,6 +477,41 @@ class QuoationsInfoController extends Controller
                 'seen'=>0
 
             ]);
+            if($quotation_order->is_completed == 3) {
+                // send email to admin
+                $title_admin = [
+                    'ar' => ['تم انهاء الطلب رقم ', $quotation_order->id, 'بنجاح'],
+                    'en' => [$quotation_order->id, 'Has been ended successfully'],
+                ];
+                $body_admin = [
+                    'ar' => [' لقد تم انهاء الطلب رقم ', $quotation_order->id, 'بنجاح للعميل  ', $quotation_order->user->username, '. للاطلاع على التفاصيل، يمكنك الدخول لحسابك عن طريق النقر على الرابط أدناه '],
+                    'en' => ['(', $quotation_order->id, ' has been  ended successfully for client (', $quotation_order->user->username, ' ) . For further information you can sign in into your account by clicking on the below link']
+                ];
+                // send email to admin
+                send_email::send($title_admin,
+                    $body_admin,
+                    request()->root() . '/dashboard/pricing-requests',
+                    'الرجاء الضغط هنا', get_first_admin::get_admin()->email
+                );
+
+
+                // send email to customer
+                $title_customer = [
+                    'ar' => ['تم انهاء طلبكم بنجاح من مكينة جملة رقم ', request('id')],
+                    'en' => ['Mkena Wholesale query no', request('id') . ' has been ended successfully'],
+                ];
+                $body_customer = [
+                    'ar' => [' لقد تم انهاء الطلب رقم ', $quotation_order->id, 'بنجاح  ', '. للاطلاع على التفاصيل، يمكنك الدخول لحسابك عن طريق النقر على الرابط أدناه '],
+                    'en' => ['your query no. ', $quotation_order->id, ' has been ended successfully with Mkena Wholesale. For further information, you can sign in into your account by clicking on the below link']
+                ];
+                send_email::send($title_customer,
+                    $body_customer,
+                    request()->root() . '/profile/last-quotations',
+                    'الرجاء الضغط هنا', $quotation_order->user->email
+                );
+            }
+
+
         }
         return messages::success_output(trans('messages.saved_successfully'),$quotation_order);
 
@@ -596,7 +635,7 @@ class QuoationsInfoController extends Controller
         }
         $ids = explode(',',request('ids'));
         $user_id = request('user_id') ?? null;
-        if(request()->has('offer')){
+        if(request()->has('offer') && (session()->get('type') == 'buyer' || session()->get('type') == 'seller' )){
             $data = quotation_orders::query()
                 ->whereIn('id',$ids)
                 ->with(['offer'=>function($q){

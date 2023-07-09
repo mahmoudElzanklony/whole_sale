@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Support\Str;
 
 class quotations extends Model
 {
@@ -21,7 +22,7 @@ class quotations extends Model
     }
 
     public function last_draft(){
-        if(session()->has('type') && session()->get('type') == 'admin'){
+        if(session()->has('type') && session()->get('type') == 'admin' && !(request()->hasHeader('referer') && Str::contains(request()->header('referer'),'bill'))){
             return $this->hasMany(quotations_draft::class,'quotation_id')->orderBy('id','DESC');
         }
         return $this->hasOne(quotations_draft::class,'quotation_id')->orderBy('id','DESC');

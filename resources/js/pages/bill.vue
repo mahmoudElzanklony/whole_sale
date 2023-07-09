@@ -8,129 +8,164 @@
                     <img src="/images/loading.gif">
                 </div>
             </div>
-            <div class="d-flex align-items-center justify-content-between mb-5"
-            >
-                <div>
-                    <img class="d-block m-auto" style="width: 150px;" src="/images/logo.png">
-                    <p class="mt-3 font-weight-bold">{{ keywords.invoice_number }}
-                        #W{{ ("0" + (new Date(item.created_at).getFullYear())).slice(-2) }}{{ ("0" + (new Date(item.created_at).getMonth() + 1)).slice(-2) }}{{ item.id }}
-                    </p>
-                    <p>
-                        <span class="font-weight-bold">{{ switchWord('tax_number') }}</span> : <span class="font-weight-bold">310188508400003</span>
-                    </p>
-                    <p>
-                        <span class="font-weight-bold">{{ switchWord('cr_number') }}</span> : <span class="font-weight-bold">2051224564</span>
-                    </p>
-                    <p v-if="item != null">
-                        <span class="font-weight-bold">{{ switchWord('client_name') }}</span>:
-                        <span>{{ item.user.username }}</span>
-                    </p>
-                    <p v-if="item != null">
-                        <span class="font-weight-bold">{{ switchWord('phone_number') }}</span>:
-                        <span>{{ item.user.phone }}</span>
-                    </p>
-                    <p v-if="item.address_quotation != null">
-                        <span class="font-weight-bold">{{ switchWord('address') }}</span>:
-                        <span>{{ item.address_quotation.address.address }}</span>
-                    </p>
-                    <p v-if="item != null">
-                        <span class="font-weight-bold">{{ keywords.date }}</span>:
-                        <span v-if="item != null">{{ new Date(item['updated_at']).toLocaleString() }}</span>
-                    </p>
-                </div>
-                <div v-if="item != null">
-                    <qr-code
-                        :size="190"
-                        :text="'https://wholesale.mkena.com/profile/last-quotations?bill_id='+item['id']"></qr-code>
+                <div class="d-flex align-items-center justify-content-between mb-3"
+                >
+                    <div class="p-2" v-if="item != null">
+                        <img class="d-block m-auto" style="width: 150px; margin: unset !important;" src="/images/logo.png">
+                        <p class="mt-3 mb-2 font-weight-bold">{{ keywords.invoice_number }}
+                            #W{{ ("0" + (new Date(item.created_at).getFullYear())).slice(-2) }}{{ ("0" + (new Date(item.created_at).getMonth() + 1)).slice(-2) }}{{ item.id }}
+                        </p>
+                        <p class="mb-2">
+                            <span class="font-weight-bold">{{ switchWord('tax_number') }}</span> : <span class="font-weight-bold">310188508400003</span>
+                        </p>
+                        <p class="mb-2">
+                            <span class="font-weight-bold">{{ switchWord('address') }}</span> : <span class="font-weight-bold">
+                                  {{ switchWord('mkena_address') }}
+</span>
+                        </p>
+                        <p class="font-weight-bold">{{ switchWord('sudia') }}</p>
 
-                </div>
-            </div>
 
-            <table class="mb-0 table table-bordered table-hover table-striped">
-                <thead>
-                <tr>
-                    <td>{{ keywords.seq }}</td>
-                    <td>{{ keywords.part_no }}</td>
-                    <td>{{ keywords.en_part_name }}</td>
-                    <td>{{ keywords.brand }}</td>
-                    <td>{{ keywords.quantity }}</td>
-                    <td>{{ switchWord('unit_price') }}</td>
-                    <td>{{ keywords.total }}</td>
-                </tr>
-                </thead>
-                <tbody>
-                <tr v-for="(i,index) in get_my_quotation"
-                    v-if="i['last_draft'] == null || i['last_draft']['deleted_at'] == null"
-                    :style="'display:'+( (i['last_draft'] == null ? i['quantity']:i['last_draft']['quantity']) > 0 ? 'table-row':'none')"
-                    :class="index == 20 ?
+                    </div>
+                    <div v-if="item != null">
+                        <qr-code
+                            :size="160"
+                            :text="'https://wholesale.mkena.com/bill?bill_id='+item['id']">
+                        </qr-code>
+                    </div>
+                </div>
+
+                <div class="card mb-2">
+                    <div class="card-header p-2">
+                        <p>{{ switchWord('client_info') }}</p>
+                    </div>
+                    <div class="card-body p-2">
+                        <p>
+                            <span class="font-weight-bold">{{ switchWord('client_name') }}</span>:
+                            <span>{{ item.user.username }}</span>
+                        </p>
+                        <p v-if="item.user.phone.length > 0">
+                            <span class="font-weight-bold">{{ switchWord('phone_number') }}</span>:
+                            <span>{{ item.user.phone }}</span>
+                        </p>
+                        <p v-if="item.user.vat != '0' ">
+                            <span class="font-weight-bold">{{ switchWord('tax_number') }}</span>:
+                            <span>{{ item.user.vat }}</span>
+                        </p>
+                        <p v-if="item.address_quotation != null">
+                            <span class="font-weight-bold">{{ switchWord('address') }}</span>:
+                            <span>{{ item.address_quotation.address.address }}</span>
+                        </p>
+                    </div>
+                </div>
+
+                <div class="card mb-2">
+                    <div class="card-header p-2">
+                        <p>{{ switchWord('order_info') }}</p>
+                    </div>
+                    <div class="card-body p-2">
+                        <p class="mb-2">
+                            <span class="font-weight-bold">{{ switchWord('order_no') }}</span>:
+                            <span v-if="item != null">{{ (item['id']) }}</span>
+                        </p>
+                        <p class="mb-2">
+                            <span class="font-weight-bold">{{ keywords.date }}</span>:
+                            <span v-if="item != null">{{ new Date(item['updated_at']).toLocaleString() }}</span>
+                        </p>
+                        <p>
+                            <span class="font-weight-bold">{{ switchWord('order_status') }}</span>:
+                            <span>{{ switchWord('order_confirmed') }}</span>
+                        </p>
+                    </div>
+                </div>
+
+                <table class="mb-0 table table-bordered table-hover table-striped">
+                    <thead>
+                    <tr>
+                        <td>{{ keywords.seq }}</td>
+                        <td>{{ keywords.part_no }}</td>
+                        <td>{{ switchWord('part_name') }}</td>
+                        <td>{{ keywords.brand }}</td>
+                        <td>{{ keywords.quantity }}</td>
+                        <td>{{ switchWord('unit_price') }}</td>
+                        <td>{{ keywords.total }}</td>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr v-for="(i,index) in get_my_quotation"
+                        v-if="i['last_draft'] == null || i['last_draft']['deleted_at'] == null"
+                        :style="'display:'+( (i['last_draft'] == null ? i['quantity']:i['last_draft']['quantity']) > 0 ? 'table-row':'none')"
+                        :class="index == 14 ?
                                     'avoid':
-                                    ((Number(index-20) % 28 ) == 0 ? 'avoid':'')"
-                    :key="index">
-                    <td>{{ index + 1 }}</td>
-                    <td>
-                        {{
-                            i['last_draft'] == null ?
-                                detect_supplied_part_name(i['part_number'],index):
-                                detect_supplied_part_name(i['last_draft']['part_number'],index)
-                        }}
-                    </td>
-                    <td v-if="admin_quotation.length > 0">
-                        {{
-                            detect_right_part_name(i['part_number'])
-                        }}
-                    </td>
-                    <td>{{  i['last_draft'] == null ?
-                        (i['brand'] != null ? i['brand']['name']:i['brand_id'])
-                        :
-                        (i['last_draft']['brand'] != null ?
-                            i['last_draft']['brand']['name']:i['last_draft']['brand_id'])
-                        }}</td>
-                    <td>
-                        {{
-                            i['last_draft'] == null ? i['quantity']:i['last_draft']['quantity']
-                        }}
-                    </td>
+                                    ((Number(index-14) % 28 ) == 0 ? 'avoid':'')"
+                        :key="index">
+                        <td>{{ index + 1 }}</td>
+                        <td>
+                            {{
+                                i['last_draft'] == null ?
+                                    detect_supplied_part_name(i['part_number'],index):
+                                    detect_supplied_part_name(i['last_draft']['part_number'],index)
+                            }}
+                        </td>
+                        <td v-if="admin_quotation.length > 0">
+                            {{
+                                detect_right_part_name(i['part_number'])
+                            }}
+                        </td>
+                        <td>{{  i['last_draft'] == null ?
+                            (i['brand'] != null ? i['brand']['name']:i['brand_id'])
+                            :
+                            (i['last_draft']['brand'] != null ?
+                                i['last_draft']['brand']['name']:i['last_draft']['brand_id'])
+                            }}</td>
+                        <td>
+                            {{
+                                i['last_draft'] == null ? i['quantity']:i['last_draft']['quantity']
+                            }}
+                        </td>
 
-                    <td>
+                        <td>
 
-                    </td>
-                    <td>
+                        </td>
+                        <td>
 
-                    </td>
-                </tr>
-                </tbody>
-            </table>
-            <table class="table table-bordered table-hover table-striped">
-                <thead style="visibility: collapse;">
-                <tr>
-                    <td>{{ keywords.seq }}</td>
-                    <td>{{ keywords.part_no }}</td>
-                    <td>{{ keywords.en_part_name }}</td>
-                    <td>{{ keywords.brand }}</td>
-                    <td>{{ keywords.quantity }}</td>
-                    <td>{{ switchWord('unit_price') }}</td>
-                    <td>{{ keywords.total }}</td>
-                </tr>
-                </thead>
-                <tfoot>
-                <tr class="total_part_number_price">
-                    <td colspan="6">{{ switchWord('total_part_number_price') }}</td>
-                    <td></td>
-                </tr>
-                <tr class="tax_row tax">
-                    <td colspan="6">{{ switchWord('tax_percentage') }}</td>
-                    <td></td>
-                </tr>
-                <tr>
-                    <td colspan="6">{{ keywords.total }}</td>
-                    <td></td>
-                </tr>
-                </tfoot>
-            </table>
+                        </td>
+                    </tr>
+                    </tbody>
 
-            <p class="text-center mb-3">
-                <strong>{{ keywords.wholesale_bill_info }}</strong>
-            </p>
+
+                </table>
+                <table class="table table-bordered table-hover table-striped">
+                    <thead style="visibility: collapse;">
+                    <tr>
+                        <td>{{ keywords.seq }}</td>
+                        <td>{{ keywords.part_no }}</td>
+                        <td>{{ switchWord('part_name') }}</td>
+                        <td>{{ keywords.brand }}</td>
+                        <td>{{ keywords.quantity }}</td>
+                        <td>{{ switchWord('unit_price') }}</td>
+                        <td>{{ keywords.total }}</td>
+                    </tr>
+                    </thead>
+                    <tfoot>
+                    <tr class="total_part_number_price">
+                        <td colspan="6">{{ switchWord('total_part_number_price') }}</td>
+                        <td></td>
+                    </tr>
+                    <tr class="tax_row">
+                        <td colspan="6">{{ keywords.tax }}</td>
+                        <td v-if="item != null">{{  item.tax }}%</td>
+                        <td v-else></td>
+                    </tr>
+                    <tr>
+                        <td colspan="6">{{ keywords.total }}</td>
+                        <td></td>
+                    </tr>
+                    </tfoot>
+                </table>
+                <p class="text-center mb-3">
+                    <strong>{{ keywords.wholesale_bill_info }}</strong>
+                </p>
 
         </div>
         </div>
@@ -328,10 +363,12 @@ export default {
                             this.get_my_quotation[data_item_index]['last_draft']
                                 ['quantity'])).toFixed(2);
                 }
-                console.log(result);
+                if(!(isNaN(result))) {
+                    total += Number(result);
+                }
                 tr.find('td:nth-of-type(7)')
                     .html('<span class="gray mr-1">SAR</span>'+Number(result).toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 }));
-                total += Number(Number(result.replaceAll(',','')))
+
             }
             $('.total_part_number_price td:last-of-type')
                 .html('<span class="gray mr-1">SAR</span>'+(Number(total).toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })));

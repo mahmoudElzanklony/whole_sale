@@ -407,7 +407,7 @@ return [
     'confirm_request'=>'تأكيد الطلب',
     'wait_client_to_confirm'=>'في انتظار العميل بتأكيد الطلب',
     'order_confirmed'=>'تم تأكيد الطلب',
-    'tax_title'=>'الضريبة',
+    'tax_title'=>'ضريبة القيمة المضافة(15%)',
     'share_quotation_file'=>'مشاركة ملف التسعيرات',
     'add_vendor'=>'أضافه مورد',
     'vendor_name'=>'أسم المورد',

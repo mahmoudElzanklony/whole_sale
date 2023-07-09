@@ -432,16 +432,38 @@
                     <div class="modal-body">
                         <div class="receipt">
 
-                            <div class="d-flex align-items-center justify-content-between mb-5"
+                            <div class="d-flex align-items-center justify-content-between mb-3"
                             >
-                                <div>
-                                    <img class="d-block m-auto" style="width: 150px;" src="/images/logo.png">
-                                    <p class="mt-3 font-weight-bold">{{ keywords.invoice_number }}
+                                <div class="p-2" v-if="item != null">
+                                    <img class="d-block m-auto" style="width: 150px; margin: unset !important;" src="/images/logo.png">
+                                    <p class="mt-3 mb-2 font-weight-bold">{{ keywords.invoice_number }}
                                         #W{{ ("0" + (new Date(item.created_at).getFullYear())).slice(-2) }}{{ ("0" + (new Date(item.created_at).getMonth() + 1)).slice(-2) }}{{ item.id }}
                                     </p>
-                                    <p>
+                                    <p class="mb-2">
                                         <span class="font-weight-bold">{{ switchWord('tax_number') }}</span> : <span class="font-weight-bold">310188508400003</span>
                                     </p>
+                                    <p class="mb-2">
+                                        <span class="font-weight-bold">{{ switchWord('address') }}</span> : <span class="font-weight-bold">
+                                  {{ switchWord('mkena_address') }}
+</span>
+                                    </p>
+                                    <p class="font-weight-bold">{{ switchWord('sudia') }}</p>
+
+
+                                </div>
+                                <div v-if="item != null">
+                                    <qr-code
+                                        :size="160"
+                                        :text="'https://wholesale.mkena.com/bill?bill_id='+item['id']">
+                                    </qr-code>
+                                </div>
+                            </div>
+
+                            <div class="card mb-2">
+                                <div class="card-header p-2">
+                                    <p>{{ switchWord('client_info') }}</p>
+                                </div>
+                                <div class="card-body p-2">
                                     <p>
                                         <span class="font-weight-bold">{{ switchWord('client_name') }}</span>:
                                         <span>{{ $page.props.user.username }}</span>
@@ -450,23 +472,37 @@
                                         <span class="font-weight-bold">{{ switchWord('phone_number') }}</span>:
                                         <span>{{ $page.props.user.phone }}</span>
                                     </p>
+                                    <p v-if="$page.props.user.vat != '0' ">
+                                        <span class="font-weight-bold">{{ switchWord('tax_number') }}</span>:
+                                        <span>{{ $page.props.user.vat }}</span>
+                                    </p>
                                     <p v-if="item.address_quotation != null">
                                         <span class="font-weight-bold">{{ switchWord('address') }}</span>:
                                         <span>{{ item.address_quotation.address.address }}</span>
                                     </p>
-                                    <p>
+                                </div>
+                            </div>
+
+                            <div class="card mb-2">
+                                <div class="card-header p-2">
+                                    <p>{{ switchWord('order_info') }}</p>
+                                </div>
+                                <div class="card-body p-2">
+                                    <p class="mb-2">
+                                        <span class="font-weight-bold">{{ switchWord('order_no') }}</span>:
+                                        <span v-if="item != null">{{ (item['id']) }}</span>
+                                    </p>
+                                    <p class="mb-2">
                                         <span class="font-weight-bold">{{ keywords.date }}</span>:
                                         <span v-if="item != null">{{ new Date(item['updated_at']).toLocaleString() }}</span>
                                     </p>
-                                </div>
-                                <div v-if="item != null">
-                                    <qr-code
-                                        :size="160"
-                                        :text="'https://wholesale.mkena.com/bill?bill_id='+item['id']">
-                                    </qr-code>
-
+                                    <p>
+                                        <span class="font-weight-bold">{{ switchWord('order_status') }}</span>:
+                                        <span>{{ switchWord('order_confirmed') }}</span>
+                                    </p>
                                 </div>
                             </div>
+
 
                             <table class="mb-0 table table-bordered table-hover table-striped">
                                 <thead>
@@ -484,9 +520,9 @@
                                 <tr v-for="(i,index) in get_my_quotation"
                                     v-if="i['last_draft'] == null || i['last_draft']['deleted_at'] == null"
                                     :style="'display:'+( (i['last_draft'] == null ? i['quantity']:i['last_draft']['quantity']) > 0 ? 'table-row':'none')"
-                                    :class="index == 20 ?
+                                    :class="index == 14 ?
                                     'avoid':
-                                    ((Number(index-20) % 28 ) == 0 ? 'avoid':'')"
+                                    ((Number(index-14) % 28 ) == 0 ? 'avoid':'')"
                                     :key="index">
                                     <td>{{ index + 1 }}</td>
                                     <td>
@@ -1005,7 +1041,6 @@ export default {
         },
         detect_right_price:function (i,index){
             var prices;
-            console.log('index = '+index);
             if(index >= 0){
                 var d = this.admin_quotation[index];
             }else {
@@ -1028,8 +1063,7 @@ export default {
                     }
                 );
             }
-            console.log(d);
-            console.log(d['prices']);
+
             var right_quan = (i['last_draft'] == null ? i['quantity']:i['last_draft']['quantity']);
             if(prices == undefined || ( Number(d['max_quantity_per_transaction']) < Number(right_quan)  )){
                 return this.switchWord('error_in_price')
@@ -1061,11 +1095,9 @@ export default {
             this.get_info_about_quotation_admin(id);
         },
         update_sub_quotation:function (item){
-            console.log('update.....')
           this.sub_quotation = item;
         },
         update_current_quotation_open_box:async function (i){
-            console.log(i);
             if(i != undefined) {
                 this.update_sub_quotation(i);
             }
@@ -1081,11 +1113,9 @@ export default {
             await this.get_info_to_print_bill(i['id']);
             $('#print_box').modal('show');
             var total = 0;
-            var total = 0;
             var row_count = 1;
             for(let data_item_index in this.get_my_quotation){
                 var tr = $('#print_box table tbody tr').eq(data_item_index);
-                console.log(tr);
                 if(tr.css('display') != 'none'){
                     tr.find('td').eq(0).html(row_count);
                     row_count++;
@@ -1104,11 +1134,15 @@ export default {
                             this.get_my_quotation[data_item_index]['last_draft']
                                 ['quantity'])).toFixed(2);
                 }
+                if(!(isNaN(result))) {
+                    total += Number(result);
+                }
                 tr.find('td:nth-of-type(7)')
                     .css('direction','initial')
                     .html('<span class="gray mr-1">SAR</span>'+(Number(result).toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })));
-                total += Number(Number(result.replaceAll(',','')))
+
             }
+
             $('.total_part_number_price td:last-of-type')
                 .html('<span class="gray mr-1">SAR</span>'+Number(total).toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 }));
             $('#print_box table tr.tax td:last-of-type')

@@ -173,15 +173,21 @@ class items_info_export extends DefaultValueBinder implements FromCollection ,
             foreach ($rows_data as $key => $quotation){
                 if(sizeof($row->items) > 0){
                     // get item prices that part_number equal to quotation part number
+
                     if($quotation->prices == null){
                         $item = collect($row->items)->filter(function ($e) use ($quotation){
                             return $e->part_number == $quotation->part_number;
                         })->first();
                     }else{
                         $item = $quotation; // in this case you use $row->items at line 170
-                        $quotation->quantity = $row->quotations->filter(function ($e) use ($item){
+                        $quantity_data = $row->quotations->filter(function ($e) use ($item){
                             return $e->part_number == $item->part_number;
-                        })->first()->quantity;
+                        })->first();
+                        if(isset($quantity_data->quantity)) {
+                            $quotation->quantity = $quantity_data->quantity;
+                        }else{
+                            break;
+                        }
 
                     }
                     $item->brand = brands::selection()->find($item->brand_id);

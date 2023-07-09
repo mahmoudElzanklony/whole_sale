@@ -29,6 +29,10 @@ export default {
                  en:'part number of part name',
                  tu:'',
               },
+              part_name:{
+                ar:'اسم القطعة',
+                en:'Part Name',
+              },
               Arabic_Language:{
                   ar:'Arabic',
                   en:'عربي',
@@ -914,8 +918,8 @@ export default {
                   en:'Please wait seconds...',
               },
               total_part_number_price:{
-                  ar:'مجموع اسعار القطع',
-                  en:'total price of part numbers',
+                  ar:'الأجمالى',
+                  en:'Sub-Total',
                   tu:'',
               },
               order_quantity_offer:{
@@ -977,6 +981,30 @@ export default {
           search_part_number_or_brand_or_price:{
               ar:'ابحث  برقم القطعه  او اسم القطعه او الماركة او الكميه',
               en:'Search by part number or part name or brand or quantity'
+          },
+          order_no:{
+                  ar:'رقم الطلب',
+                  en:'Order number',
+          },
+          order_info:{
+                  ar:'تفاصيل الطلب',
+                  en:'Order info',
+          },
+          order_status:{
+                  ar:'حالة الطلب',
+                  en:'Order status',
+          },
+          client_info:{
+              ar:'تفاصيل العميل',
+              en:'Client info',
+          },
+          mkena_address:{
+                  ar:'3511 طريق الأمير سلطان – حي الجوهرة الخبر 34434 – 9497, مبنى 61 مكتب رقم 2  ',
+                  en:'3511 Al Amir Sultan Road – Al Jawharah Dist Unit 61, Office No 2, Al Khubar 34434 - 9497 ',
+          },
+          sudia:{
+                  ar:'المملكة العربية السعودية',
+                  en:'Kingdom of Saudi Arabia',
           }
 
 

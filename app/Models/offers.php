@@ -24,6 +24,6 @@ class offers extends Model
     }
 
     public function brand(){
-        return $this->belongsTo(brands::class,'brand_id');
+        return $this->belongsTo(brands::class,'brand_id')->withTrashed();
     }
 }
