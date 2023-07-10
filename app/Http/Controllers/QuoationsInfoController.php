@@ -666,7 +666,7 @@ class QuoationsInfoController extends Controller
             $data = quotation_orders::query()
                 ->whereIn('id',$ids)
                 ->with(['quotations'=>function($e) {
-                $e->with('brand:id,en_name as name');
+                $e->with('brand:id,en_name as name')->with('last_draft');
             },'items'=>function($e) use ($user_id){
                     $e->when($user_id != null,function($q) use ($user_id){
                         $q->where('user_id','=',$user_id);

@@ -171,13 +171,23 @@ class items_info_export extends DefaultValueBinder implements FromCollection ,
                 $rows_data = $row->items;
             }
             foreach ($rows_data as $key => $quotation){
+                if(isset($quotation->last_draft)){
+                    if(is_countable($quotation->last_draft)){
+                        if(sizeof($quotation->last_draft) > 0){
+                            $quotation->quantity = $quotation->last_draft[0]->quantity;
+                        }
+                    }else if( $quotation->last_draft != null){
+                        $quotation->quantity = $quotation->last_draft->quantity;
+                    }
+                }
                 if(sizeof($row->items) > 0){
                     // get item prices that part_number equal to quotation part number
-
                     if($quotation->prices == null){
-                        $item = collect($row->items)->filter(function ($e) use ($quotation){
+                        /*$item = collect($row->items)->filter(function ($e) use ($quotation){
                             return $e->part_number == $quotation->part_number;
-                        })->first();
+                        })->first();*/
+                        $item = collect($row->items)->toArray()[$key];
+                        $item = (object) $item;
                     }else{
                         $item = $quotation; // in this case you use $row->items at line 170
                         $quantity_data = $row->quotations->filter(function ($e) use ($item){
@@ -189,11 +199,18 @@ class items_info_export extends DefaultValueBinder implements FromCollection ,
                             break;
                         }
 
+
                     }
-                    $item->brand = brands::selection()->find($item->brand_id);
+
+                    $item->brand = brands::selection()
+                        ->withTrashed()
+                        ->find($item->brand_id);
                     if(sizeof($item->prices) > 0){
                         // there are prices
                         foreach($item->prices as $price){
+                            if(is_array($price)){
+                                $price = (object) $price;
+                            }
                             array_push($prices_output,$price->min_quantity);
                             array_push($prices_output,$price->price);
                         }
@@ -237,6 +254,7 @@ class items_info_export extends DefaultValueBinder implements FromCollection ,
                 array_pop($output);
             }
         }
+        //dd($final_output);
         return $final_output;
     }
 

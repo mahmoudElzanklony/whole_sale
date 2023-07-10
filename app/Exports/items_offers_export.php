@@ -153,10 +153,14 @@ class items_offers_export extends DefaultValueBinder implements FromCollection ,
            $row->min_quantity_per_transaction,
            $row->max_quantity_per_transaction,
         ]);
+        for($i = 0; $i < 6; $i++){
+            if(!(isset($prices_output[$i]))){
+                $prices_output[$i] = null;
+            }
+        }
         $final_output[] = (array_merge($output[0],$prices_output));
         $final_output[] = [
             $row->unit_of_packing,
-            $row->quantity_per_pallet,
             $row->quantity_per_pallet,
             $row->height,
             $row->thickness,
