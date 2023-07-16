@@ -29,6 +29,7 @@ class offersFormRequest extends FormRequest
             'brand_id'=>'required|exists:brands,id',
             'start_date'=>'required',
             'end_date'=>'required',
+            'terms'=>'required',
         ];
     }
 }

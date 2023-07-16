@@ -35,6 +35,7 @@ class offers_dashboard
                 'brand_id'=>trans('keywords.brand'),
                 'start_date'=>trans('keywords.start_date'),
                 'end_date'=>trans('keywords.end_date'),
+                'terms'=>trans('keywords.terms'),
             ]
         ];
     }

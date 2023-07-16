@@ -619,7 +619,7 @@
                     <div class="modal-body">
                         <form  method="post" @submit.prevent="send_excel">
                             <input v-if="item != null" type="hidden" name="quotation_order_id" :value="item.id">
-                            <div class="form-group">
+                            <div class="form-group" v-if="item != null && item.offer == null">
                                 <label>{{ switchWord('terms_conditions') }}</label>
                                 <textarea class="form-control" name="terms" required
                                           :value="item != null && item.terms_data != null

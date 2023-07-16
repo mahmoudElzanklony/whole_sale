@@ -19,6 +19,8 @@ class CreateOffersTable extends Migration
             $table->foreignId('brand_id')->constrained()->onUpdate('cascade')->onDelete('cascade');
             $table->date('start_date');
             $table->date('end_date');
+            $table->tinyInteger('status');
+            $table->text('terms');
             $table->timestamps();
         });
     }

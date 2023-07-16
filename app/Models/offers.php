@@ -9,7 +9,7 @@ class offers extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['user_id','brand_id','start_date','end_date','status'];
+    protected $fillable = ['user_id','brand_id','start_date','end_date','status','terms'];
 
     public function offer_items(){
         return  $this->hasMany(offers_items_info::class,'offer_id');

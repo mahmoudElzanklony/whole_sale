@@ -61,6 +61,7 @@
                                 <td v-if="$page.props.user.role.name == 'seller'">{{ keywords.status }}</td>
                                 <td>{{ keywords.start_date }}</td>
                                 <td>{{ keywords.end_date }}</td>
+                                <td>{{ switchWord('conditions') }}</td>
                             </tr>
                             </thead>
                             <tbody>
@@ -80,6 +81,7 @@
                                     {{ i['status'] == 0 ? keywords.pending:keywords.active }}</td>
                                 <td>{{ i['start_date'] }}</td>
                                 <td>{{ i['end_date'] }}</td>
+                                <td>{{ i['terms'] }}</td>
                             </tr>
                             </tbody>
                         </table>
@@ -259,6 +261,10 @@
                                     </option>
                                 </select>
                                 <p class="alert alert-danger"></p>
+                            </div>
+                            <div class="form-group">
+                                <label>{{ switchWord('terms_conditions') }}</label>
+                                <textarea class="form-control" name="terms" required></textarea>
                             </div>
                             <div class="form-group">
                                 <div class="drag-drop-files">

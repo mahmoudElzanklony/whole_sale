@@ -68,8 +68,11 @@
                                 <label>{{ handling_data['data_model'][input] }}</label>
                                 <input :name="input" class="form-control"
                                        type="date"
-                                       v-if="!(input == 'user_id' || input == 'brand_id')"
+                                       v-if="!(input == 'user_id' || input == 'brand_id' || input == 'terms')"
                                        :value="item != null ? item[input]:''" :required="input.indexOf('tu') == -1">
+                                <textarea class="form-control" v-else-if="input == 'terms'" :name="input"
+                                          :value="item != null ? item[input]:''"
+                                          required></textarea>
                                 <select class="form-control" v-else :name="input" required>
                                     <option value="">{{ switchWord('select_best_choice') }}</option>
                                     <option v-for="(i,index) in handling_data[input == 'user_id'?'users':'brands']"

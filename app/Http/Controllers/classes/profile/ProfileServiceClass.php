@@ -15,10 +15,12 @@ use App\Imports\QuotationImportCSV;
 use App\Models\addresses;
 use App\Models\brands;
 use App\Models\listings_notes;
+use App\Models\offers;
 use App\Models\orders_address;
 use App\Models\quotation_orders;
 use App\Models\quotations;
 use App\Models\quotations_orders_offers;
+use App\Models\quotations_orders_terms;
 use App\Models\tax_money;
 use App\Models\User;
 use App\Models\user_company_info;
@@ -166,6 +168,14 @@ class ProfileServiceClass extends Controller
             quotations_orders_offers::query()->create([
                 'quotation_order_id'=>$qutation_bill->id,
                 'offer_id'=>request('offer_id')[0],
+            ]);
+            // make terms for this quotation
+            $offer = offers::query()->find(request('offer_id')[0]);
+            quotations_orders_terms::query()->create([
+                'quotation_order_id'=>$qutation_bill->id,
+                'user_id'=>$offer->user_id,
+                'status'=>'seller',
+                'terms'=>$offer->terms
             ]);
         }else{
             $assoc_array = array();
