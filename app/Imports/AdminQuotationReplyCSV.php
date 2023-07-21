@@ -7,6 +7,7 @@ use App\Models\countries;
 use App\Models\items_info;
 use App\Models\items_infos_prices;
 use App\Models\items_infos_supplied_part_number;
+use App\Models\offers;
 use App\Models\offers_items_info;
 use App\Models\quotation_orders;
 use App\Models\quotations;
@@ -46,11 +47,14 @@ class AdminQuotationReplyCSV implements ToModel, WithHeadingRow , WithValidation
     private $brand_id;
     private $duplicate;
     public static $create_status = false;
+    private $counter = 0;
+    private $action = null;
 
-    public function __construct($quotation_order_id = null , $offer_id = null , $brand_id = null){
+    public function __construct($quotation_order_id = null , $offer_id = null , $brand_id = null , $action = null){
         $this->quotation_order_id = $quotation_order_id;
         $this->offer_id = $offer_id;
         $this->brand_id = $brand_id;
+        $this->action = $action;
     }
 
     public function array(array $rows)
@@ -132,33 +136,56 @@ class AdminQuotationReplyCSV implements ToModel, WithHeadingRow , WithValidation
         }
 
         // check if offer_id is not null to save items offers
-        if($this->offer_id != null){
-            offers_items_info::query()->create([
-                'offer_id'=>$this->offer_id,
-                'item_info_id'=>$item->id,
-            ]);
+        if($this->action == null) {
+            if ($this->offer_id != null && $this->action == null) {
+                offers_items_info::query()->create([
+                    'offer_id' => $this->offer_id,
+                    'item_info_id' => $item->id,
+                ]);
+            }
+            if (array_key_exists('s1_min', $row) && $row['s1_min'] != '' && array_key_exists('s1_price', $row) && $row['s1_price'] != '') {
+                items_infos_prices::query()->create([
+                    'item_id' => $item->id,
+                    'min_quantity' => $row['s1_min'],
+                    'price' => $row['s1_price']
+                ]);
+            }
+            if (array_key_exists('s2_min', $row) && $row['s2_min'] != '' && array_key_exists('s2_price', $row) && $row['s2_price'] != '') {
+                items_infos_prices::query()->create([
+                    'item_id' => $item->id,
+                    'min_quantity' => $row['s2_min'],
+                    'price' => $row['s2_price']
+                ]);
+            }
+            if (array_key_exists('s3_min', $row) && $row['s3_min'] != '' && array_key_exists('s3_price', $row) && $row['s3_price'] != '') {
+                items_infos_prices::query()->create([
+                    'item_id' => $item->id,
+                    'min_quantity' => $row['s3_min'],
+                    'price' => $row['s3_price']
+                ]);
+            }
+        }else{
+            // reply from vendor to client (( offer ))
+            if($this->offer_id != null) {
+                $item_info_data = offers::query()->with('items',function ($e){
+                    $e->with('prices');
+                })->find($this->offer_id);
+                if(sizeof($item_info_data->items) > 0){
+                    if($item_info_data->items[$this->counter] != null){
+                        if(sizeof($item_info_data->items[$this->counter]->prices) > 0){
+                            foreach($item_info_data->items[$this->counter]->prices as $price_obj){
+                                items_infos_prices::query()->create([
+                                    'item_id' => $item->id,
+                                    'min_quantity' => $price_obj->min_quantity,
+                                    'price' => $price_obj->price
+                                ]);
+                            }
+                        }
+                    }
+                }
+            }
         }
-        if(array_key_exists('s1_min',$row) && $row['s1_min'] != '' &&  array_key_exists('s1_price',$row) && $row['s1_price'] != ''){
-            items_infos_prices::query()->create([
-                'item_id'=>$item->id,
-                'min_quantity'=>$row['s1_min'],
-                'price'=>$row['s1_price']
-            ]);
-        }
-        if(array_key_exists('s2_min',$row) && $row['s2_min'] != '' &&  array_key_exists('s2_price',$row) && $row['s2_price'] != ''){
-            items_infos_prices::query()->create([
-                'item_id'=>$item->id,
-                'min_quantity'=>$row['s2_min'],
-                'price'=>$row['s2_price']
-            ]);
-        }
-        if(array_key_exists('s3_min',$row) && $row['s3_min'] != '' &&  array_key_exists('s3_price',$row) && $row['s3_price'] != ''){
-            items_infos_prices::query()->create([
-                'item_id'=>$item->id,
-                'min_quantity'=>$row['s3_min'],
-                'price'=>$row['s3_price']
-            ]);
-        }
+        $this->counter++;
     }
 
 

@@ -165,7 +165,8 @@ class QuoationsInfoController extends Controller
 
                 }
                 try {
-                    Excel::import(new AdminQuotationReplyCSV(request('quotation_order_id') , request('offer') ?? null),
+                    Excel::import(new AdminQuotationReplyCSV(request('quotation_order_id') ,
+                        request('offer') ?? null,null,request('action') ?? null),
                         request()->file('excel_file')
                     );
                 }catch (\Throwable $e){

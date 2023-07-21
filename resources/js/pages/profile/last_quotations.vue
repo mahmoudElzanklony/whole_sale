@@ -626,6 +626,8 @@
                             <input v-if="item != null" type="hidden" name="quotation_order_id" :value="item.id">
                             <input v-if="item != null && item.offer != null"
                                    type="hidden" name="offer" :value="item.offer.offer_id">
+                            <input v-if="item != null && item.offer != null"
+                                   type="hidden" name="action" value="reply_to_client">
                             <div class="form-group" v-if="item != null && item.offer == null">
                                 <label>{{ switchWord('terms_conditions') }}</label>
                                 <textarea class="form-control" name="terms" required
