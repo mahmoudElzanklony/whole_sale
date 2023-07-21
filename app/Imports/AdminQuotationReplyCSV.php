@@ -23,11 +23,11 @@ use Maatwebsite\Excel\Events\BeforeImport;
 HeadingRowFormatter::extend('custom', function($value, $key) {
 
     // And you can use heading column index.
-     //dd(app()->getLocale());
-     if(array_search($value,trans('keywords')) == false){
-         app()->setLocale(app()->getLocale() == 'ar'?'en':'ar');
-     }
-     return  array_search($value,trans('keywords'));
+    //dd(app()->getLocale());
+    if(array_search($value,trans('keywords')) == false){
+        app()->setLocale(app()->getLocale() == 'ar'?'en':'ar');
+    }
+    return  array_search($value,trans('keywords'));
 });
 HeadingRowFormatter::default('custom');
 
@@ -127,15 +127,15 @@ class AdminQuotationReplyCSV implements ToModel, WithHeadingRow , WithValidation
             items_infos_supplied_part_number::query()->updateOrCreate([
                 'item_id'=>$item->id,
             ],[
-               'part_number'=> $row['supplied_part_number']
+                'part_number'=> $row['supplied_part_number']
             ]);
         }
 
         // check if offer_id is not null to save items offers
         if($this->offer_id != null){
             offers_items_info::query()->create([
-               'offer_id'=>$this->offer_id,
-               'item_info_id'=>$item->id,
+                'offer_id'=>$this->offer_id,
+                'item_info_id'=>$item->id,
             ]);
         }
         if(array_key_exists('s1_min',$row) && $row['s1_min'] != '' &&  array_key_exists('s1_price',$row) && $row['s1_price'] != ''){

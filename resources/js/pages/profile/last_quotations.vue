@@ -116,9 +116,14 @@
                         <div class="loading-img">
                             <img src="/images/loading.gif">
                         </div>
-                        <a v-if="item != null"
+                        <a v-if="item != null && $page.props.user.role.name == 'seller'"
                            class="btn btn-primary mb-2"
-                           :href="'/quotations/export-file?user_id='+$page.props.user.id+'&ids='+item['id']" target="_blank">
+                           :href="'/quotations/export-file'+(item['offer'] != null ? '?offer=true&':'?')+'user_id='+$page.props.user.id+'&ids='+item['id']" target="_blank">
+                            {{ switchWord('export_selected') }}
+                        </a>
+                        <a v-else-if="item != null "
+                           class="btn btn-primary mb-2"
+                           :href="'/quotations/export-file?'+'user_id='+$page.props.user.id+'&ids='+item['id']" target="_blank">
                             {{ switchWord('export_selected') }}
                         </a>
                         <p class="alert alert-warning" v-if="$page.props.user.role.name != 'seller' ">{{ switchWord('wait_admin_reply_and_you_can_change_data') }}</p>
@@ -619,6 +624,8 @@
                     <div class="modal-body">
                         <form  method="post" @submit.prevent="send_excel">
                             <input v-if="item != null" type="hidden" name="quotation_order_id" :value="item.id">
+                            <input v-if="item != null && item.offer != null"
+                                   type="hidden" name="offer" :value="item.offer.offer_id">
                             <div class="form-group" v-if="item != null && item.offer == null">
                                 <label>{{ switchWord('terms_conditions') }}</label>
                                 <textarea class="form-control" name="terms" required

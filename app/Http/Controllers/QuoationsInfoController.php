@@ -165,7 +165,7 @@ class QuoationsInfoController extends Controller
 
                 }
                 try {
-                    Excel::import(new AdminQuotationReplyCSV(request('quotation_order_id')),
+                    Excel::import(new AdminQuotationReplyCSV(request('quotation_order_id') , request('offer') ?? null),
                         request()->file('excel_file')
                     );
                 }catch (\Throwable $e){
@@ -635,7 +635,7 @@ class QuoationsInfoController extends Controller
         }
         $ids = explode(',',request('ids'));
         $user_id = request('user_id') ?? null;
-        if(request()->has('offer') && (session()->get('type') == 'buyer' || session()->get('type') == 'seller' )){
+        if(request()->has('offer')){
             $data = quotation_orders::query()
                 ->whereIn('id',$ids)
                 ->with(['offer'=>function($q){
