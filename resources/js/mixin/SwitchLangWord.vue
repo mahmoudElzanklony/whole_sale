@@ -1005,11 +1005,71 @@ export default {
           sudia:{
                   ar:'المملكة العربية السعودية',
                   en:'Kingdom of Saudi Arabia',
+          },
+          create_account_mkena_wholesale:{
+              ar:'إنشاء حساب في موقع  مكينة',
+              en:'Creating an Account in Mkena Website '
+          },
+          you_may_not:{
+               ar:'لا يحق لك',
+               en:'You may not',
+          },
+          access_mkena:{
+            ar:'استخدام والوصول إلى محتوى وخدمات موقع مكينة',
+            en:'Using and Accessing Mkena Website Content and Services',
+          },
+          you_agree_on:{
+            ar:'انت توافق علي',
+            en:'You agree to',
+          },
+          product_info:{
+             ar:'معلومات عن المنتج',
+             en:'Product Information',
+          },
+          product_availability:{
+              ar:'توافر المنتج',
+              en:'Product Availability',
+          },
+          prices_duties_taxes:{
+               ar:'الأسعار والرسوم والضرائب',
+               en:'Prices, Duties, and Taxes',
+          },
+          orders_and_payments:{
+               ar:'الطلب و الدفع',
+               en:'Order and Payments',
+          },
+          order_cancellation:{
+               ar:'الغاء الطلب',
+               en:'Order Cancellation',
+          },
+          delivery:{
+              ar:'التسليم',
+              en:'Delivery'
+          },
+          loss_or_damage_in_transit:{
+              ar:'الفقدان او التلف اثناء النقل',
+              en:'Loss or Damage in Transit',
+          },
+          variation:{
+              ar:'إمكانية التعديل',
+              en:'Variation',
+          },
+          entire_agreement:{
+              ar:'الأتفاقية بالمجمل',
+              en:'Entire Agreement',
+          },
+          law_jurisdiction_disputes:{
+              ar:'القانون والولاية والنزاعات',
+              en:'Law and Jurisdiction and Disputes',
+          },
+          registrations_authorizations:{
+              ar:'التسجيلات والتراخيص',
+              en:'Registrations and Authorizations',
+          },
+          customer_support:{
+              ar:'مساندة العملاء',
+              en:'Customer Support',
           }
-
-
-
-
 
 
 

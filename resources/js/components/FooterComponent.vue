@@ -30,7 +30,7 @@
                                 </inertia-link>
                             </li>
                             <li>
-                                <inertia-link href="#">
+                                <inertia-link href="/terms">
                                     {{ switchWord('conditions') }}
                                 </inertia-link>
                             </li>

@@ -31,6 +31,7 @@ use Illuminate\Support\Facades\DB;
 Route::group(['middleware'=>'changeLang'],function (){
     Route::get('/',[WelcomeController::class,'index']);
     Route::get('/home',[WelcomeController::class,'index']);
+    Route::get('/terms',[WelcomeController::class,'terms']);
     Route::get('/lang/{lang}',[LangController::class,'index']);
     // auth pages
     Route::get('/login',[AuthController::class,'login'])->name('login')->middleware('guest');

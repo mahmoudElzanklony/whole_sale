@@ -60,4 +60,8 @@ class WelcomeController extends Controller
         $data =  Excel::import(new countriesImportCSV, request()->file('file'));
         return response()->json($data);
     }
+
+    public function terms(){
+        return Inertia::render('terms');
+    }
 }
