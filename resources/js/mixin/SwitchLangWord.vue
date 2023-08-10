@@ -130,7 +130,7 @@ export default {
                   tu:'',
               },
               conditions:{
-                  ar:'الاحكام',
+                  ar:'الشروط والاحكام',
                   en:'Terms & Conditions',
                   tu:'',
               },
@@ -1023,7 +1023,7 @@ export default {
             en:'You agree to',
           },
           product_info:{
-             ar:'معلومات عن المنتج',
+             ar:'معلومات المنتج',
              en:'Product Information',
           },
           product_availability:{

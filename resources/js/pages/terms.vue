@@ -39,6 +39,8 @@
             </ol>
 
             <h2 class="mb-2">{{ switchWord('access_mkena') }}</h2>
+            <p class="mb-2" v-if="$page.props.lang == 'ar'">يمكنك تصفح محتويات الموقع وتنزيلها للتخزين المؤقت فقط وطباعتها للاستخدام الشخصي فقط ، على أن يكون ذلك خاضعًا للقيود التالية</p>
+            <p class="mb-2" v-else>You may view, download for caching purposes only, and print pages from the website for your own personal use, subject to the restrictions below.</p>
             <p class="mb-2" v-if="$page.props.lang == 'ar'">لا يحق لك و لا يحق لك تمكين أي طرف ثالث من:</p>
             <p class="mb-2" v-else>You may not and you agree not to allow any third party to</p>
 
@@ -48,7 +50,7 @@
                 <li> بيع أو تأجير أو ترخيص المواد على الموقع.</li>
                 <li> تحرير أو تعديل أو استخدام هندسة عكسية لأي جزء أو مادة على الموقع.</li>
                 <li>إعادة توزيع المواد من هذا الموقع باستثناء المحتوى المتاح بشكل صريح لإعادة التوزيع (مثل النشرات الدورية). </li>
-                <li>لوصول إلى أي جزء من موقع مكينة لأغراض بناء قاعدة بيانات.</li>
+                <li>الوصول إلى أي جزء من موقع مكينة لأغراض بناء قاعدة بيانات.</li>
                 <li>جمع أي معلومات حول المستخدمين الآخرين لموقع مكينة لأي غرض آخر غير استخدام الموقع بالطريقة التي تحدد من قبلنا</li>
                 <li>إنشاء حسابات المستخدمين بواسطة وسائل آلية أو بموجب وسائل احتيالية.</li>
                 <li>إنشاء أو إرسال أي اتصالات إلكترونية غير مرغوب فيها مثل “البريد التطفلي” إلى مستخدمي الموقع أو التدخل بأي شكل من الأشكال في استخدام المستخدم الآخر للموقع</li>
@@ -64,7 +66,7 @@
             <ol class="mb-4" v-else>
                 <li>Violate any of the laws of Saudi Arabia or any other countries our services are offered to.</li>
                 <li>Republish material from this website (including republication on another website).</li>
-                <li>Republish material from this website (including republication on another website).</li>
+                <li>c-	Sell, rent or otherwise sub-license material on the website.</li>
                 <li>Edit, modify, or reverse engineer any portion or material on the website.</li>
                 <li>Redistribute material from this website except for content specifically and expressly made available for redistribution (such as our newsletter).</li>
                 <li>Access, retrieve or index any portion of the Mkena website for purposes of constructing or populating any database.</li>
@@ -85,13 +87,13 @@
             <ol class="mb-4" v-if="$page.props.lang == 'ar'">
                 <li>إخطارنا على الفور بأي استخدام غير مصرح به لحساب موقع مكينة الخاص بك ، أو أي خرق آخر لأمان الموقع.</li>
                 <li>التأكد من تسجيل الخروج في نهاية كل جلسة وفقًا للتعليمات الموجودة على الموقع. لا يمكننا ولن نكون مسؤولين عن أي خسارة أو ضرر ينشأ عن عدم الامتثال لهذا البند.</li>
-                <li>السماح باستخدام موقعنا يتم بشكل مؤقت ، ونحتفظ بالحق في سحب أي جانب أو ميزة من الموقع دون إشعارمسبق دون ترتب أي مسؤولية علينا</li>
             </ol>
             <ol class="mb-4" v-else>
                 <li>Immediately notify us of any unauthorized use of your Mkena website account, or any other related breach of security</li>
                 <li>Ensure that you logout at the end of each session following the instructions on the website. We cannot and will not be liable for any loss or damage arising from your failure to comply with this section</li>
-                <li>Access to our website is permitted on a temporary basis, and we reserve the right to withdraw, suspend or amend any aspect or feature of the website without notice or liability.</li>
             </ol>
+            <p class="mb-2" v-if="$page.props.lang == 'ar'">السماح باستخدام موقعنا يتم بشكل مؤقت ، ونحتفظ بالحق في سحب أي جانب أو ميزة من الموقع دون إشعار مسبق ودون ترتب أي مسؤولية علينا</p>
+            <p class="mb-2" v-else>Access to our website is permitted on a temporary basis, and we reserve the right to withdraw, suspend or amend any aspect or feature of the website without notice or liability.</p>
 
             <h2 class="mb-2">{{ switchWord('product_info') }}</h2>
             <p class="gray mb-4" v-if="$page.props.lang == 'ar'">تسعى مكينة إلى تحري الدقة في جميع المعلومات المدرجة  أو المشار لها بالموقع  من أوصاف للمنتجات و معلومات المطابقة والصور والتسعير والروابط وأي معلومات أخرى متعلقة بالمنتجات المدرجة. ومع ذلك ،نتستند في هذه المعلومات على تلك التي تقدمها الشركات المصنعة والموردون ، ولا يمكننا ضمان أن جميع المعلومات بما في ذلك الأوصاف والصور والتسعير أو أي معلومات أخرى متعلقة بالمنتج المدرج هي دقيقة تمامًا أو كاملة أو حديثة ، كما لا يمكننا تحمل المسؤولية عن هذه الأخطاء.
@@ -158,7 +160,7 @@
                    <li>كتابة تفاصيل اختلاف الاعداد / الأضرار على مذكرة / وثيقة التسليم قبل التوقيع عليها. </li>
                    <li>التقاط صور / فيديوهات واضحة توضح الاختلاف / الضرر.</li>
                    <li>الاحتفاظ بنسخة من المستند مع الملاحظات المذكورة. </li>
-                   <li>تقديم مطالبة الاختلاف / الضرر إلى إدارة مكينة عبر البريد الإلكتروني    info@mkena.com  في غضون 24 ساعة من استلام الشحنة وإرفاق جميع المستندات ذات الصلة والصور / مقاطع الفيديو.</li>
+                   <li>تقديم مطالبة الاختلاف / الضرر إلى إدارة مكينة عبر البريد الإلكتروني    <a :href="'mailto:info@mkena.com'" >info@mkena.com</a>  في غضون 24 ساعة من استلام الشحنة وإرفاق جميع المستندات ذات الصلة والصور / مقاطع الفيديو.</li>
                    <li>بمجرد قبول استلام الشحنة دون الابلاغ عن نواقص أو أضرار ظاهرة ، قد لا يكون بإمكانك تقديم مطالبة بالفقدان أو التلف في النقل  بعد ذلك.</li>
                    <li>بمجرد تحققنا من وجود نقص أو تلف في الشحنة خلال النقل ، فسنقوم، و بقرارنا الحصري:</li>
                    <ol>
@@ -174,7 +176,7 @@
                     <li>write down the variations / damages’ details on the delivery note/ document before signing it</li>
                     <li>take clear pictures/ videos illustrating the variation/ damage</li>
                     <li>keep a copy of the document with the notes mentioned</li>
-                    <li>submit a variation/ damage claim to Mkena management on email to info@mkena.com within 24 hours of receiving the shipment attaching all related documents, pictures/ videos.</li>
+                    <li>submit a variation/ damage claim to Mkena management on email to <a :href="'mailto:info@mkena.com'" >info@mkena.com</a> within 24 hours of receiving the shipment attaching all related documents, pictures/ videos.</li>
                     <li>Once you have accepted delivery of the shipment as being complete and physically undamaged, you may not be able to make a claim for loss or damage in transit.</li>
                     <li>Once we have verified that the shipment has been a loss or damage in transit, we may at our sole discretion:</li>
                     <ol>
@@ -203,17 +205,17 @@
             <h2 class="mb-2">{{ switchWord('address') }}</h2>
             <p class="mb-4 gray" v-if="$page.props.lang == 'ar'">
                 3511 شارع الأمير سلطان - حي الجوهرة وحدة 61 ، مكتب رقم 2 ، الخبر 34434 - 9497 المملكة العربية السعودية
-                البريد الإلكتروني: info@mkena.com
+                البريد الإلكتروني: <a :href="'mailto:info@mkena.com'" >info@mkena.com</a>
             </p>
             <p class="mb-4 gray" v-else>3511 Al Amir Sultan Road – Al Jawharah Dist.
                 Unit 61, Office No 2, Al Khubar 34434 - 9497
                 Kingdom of Saudi Arabia
-                email: info@mkena.com
+                email: <a :href="'mailto:info@mkena.com'" >info@mkena.com</a>
             </p>
 
             <h2 class="mb-2">{{ switchWord('customer_support') }}</h2>
-            <p class="mb-4 gray" v-if="$page.props.lang == 'ar'">إذا لم تستطع لأي سبب كان من العمل على الموقع بنجاح ، أو لديك أسئلة أو تحتاج إلى استشارة ، يرجى التواصل مع مديرحسابك من خلال البريد الالكتروني: info@mkena.com، أو مع فريق خدمة العملاء عبر رابط WhatsApp المتاح في الموقع.</p>
-            <p class="mb-4 gray" v-else>If for any reason you are unable to operate on the site successfully, have questions or need consultations, please contact our managers at info@mkena.com, or our Customer Support Team via the WhatsApp link available in the website.</p>
+            <p class="mb-4 gray" v-if="$page.props.lang == 'ar'">إذا لم تستطع لأي سبب كان من العمل على الموقع بنجاح ، أو لديك أسئلة أو تحتاج إلى استشارة ، يرجى التواصل مع مديرحسابك من خلال البريد الالكتروني: <a :href="'mailto:info@mkena.com'" >info@mkena.com</a>، أو مع فريق خدمة العملاء عبر رابط WhatsApp المتاح في الموقع.</p>
+            <p class="mb-4 gray" v-else>If for any reason you are unable to operate on the site successfully, have questions or need consultations, please contact our managers at <a :href="'mailto:info@mkena.com'" >info@mkena.com</a>, or our Customer Support Team via the WhatsApp link available in the website.</p>
 
         </div>
         <footer-component></footer-component>

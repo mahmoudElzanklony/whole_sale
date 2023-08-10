@@ -211,7 +211,7 @@
             <div class="layer">
                 <div class="container text-center">
                     <p>{{ keywords.customer_support }}</p>
-                    <a :href="'mailto:wholesale@mkena.com'" class="btn btn-primary d-flex align-items-center">
+                    <a :href="'mailto:info@mkena.com'" class="btn btn-primary d-flex align-items-center">
                         <span style="color:white">
                                     <i class="ri-mail-line"></i>
                                 </span>
