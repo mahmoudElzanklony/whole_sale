@@ -96,7 +96,9 @@
             <p class="mb-2" v-else>Access to our website is permitted on a temporary basis, and we reserve the right to withdraw, suspend or amend any aspect or feature of the website without notice or liability.</p>
 
             <h2 class="mb-2">{{ switchWord('product_info') }}</h2>
-            <p class="gray mb-4" v-if="$page.props.lang == 'ar'">تسعى مكينة إلى تحري الدقة في جميع المعلومات المدرجة  أو المشار لها بالموقع  من أوصاف للمنتجات و معلومات المطابقة والصور والتسعير والروابط وأي معلومات أخرى متعلقة بالمنتجات المدرجة. ومع ذلك ،نتستند في هذه المعلومات على تلك التي تقدمها الشركات المصنعة والموردون ، ولا يمكننا ضمان أن جميع المعلومات بما في ذلك الأوصاف والصور والتسعير أو أي معلومات أخرى متعلقة بالمنتج المدرج هي دقيقة تمامًا أو كاملة أو حديثة ، كما لا يمكننا تحمل المسؤولية عن هذه الأخطاء.
+            <p class="gray mb-4" v-if="$page.props.lang == 'ar'">تسعى مكينة إلى تحري الدقة في جميع المعلومات المدرجة  أو المشار لها بالموقع  من أوصاف للمنتجات و معلومات المطابقة والصور والتسعير والروابط وأي معلومات أخرى متعلقة بالمنتجات المدرجة. ومع ذلك ،نتستند في هذه المعلومات على تلك التي تقدمها الشركات المصنعة والموردون ، ولا يمكننا ضمان أن جميع المعلومات بما في ذلك الأوصاف والصور والتسعير أو أي معلومات أخرى متعلقة بالمنتج المدرج هي دقيقة تمامًا أو
+                كاملة أو حديثة ، كما لا يمكننا تحمل المسؤولية عن هذه الأخطاء.
+                <br>
                 في حال تم تسجيل منتج على موقعنا بسعر خاطئ بسبب أخطاء ادخال أو معلوماتية أو فنية أخرى ، نحتفظ - بتقديرنا الحصري- بالحق في رفض / أو إلغاء أي طلب للمنتج المذكور وتصحيح / إزالة المعلومات غير الدقيقة. بالإضافة إلى ذلك ، يتم اتاحة جميع الروابط إلى مواقع الإنترنت الأخرى من مكينة كمصدر للمشترين الذين يبحثون عن مزيد من المعلومات و / أو المشورة التقنية. لا تتحمل مكينة المسؤولية عن المعلومات الموجودة بهذه المواقع أو أي مواقع أخر
             </p>
             <p class="gray mb-4" v-else>Mkena strives for accuracy in all item descriptions, pictures, compatibility references, detailed specifications, pricing, links, and any other product-related information listed or referenced on our website. However, Product descriptions and specifications on the site are based on information provided by manufacturers and vendors and we cannot guarantee that all item information including descriptions, pictures and pricing or any other product-related information listed is entirely accurate, complete, or current, nor can we assume responsibility for these errors. In the event a product listed on our website is labeled with an incorrect price due to some typographical, informational, technical, or other error, Mkena shall, at its sole discretion, have the right to refuse and/or cancel any order for the said product and correct and/or remove the inaccurate information. Additionally, all hyperlinks to other websites from Mkena are provided as resources to Buyers looking for additional information and/or professional opinion. Mkena does not assume responsibility for the claims and/or representations made on these or any other websites.</p>
@@ -107,6 +109,7 @@
 
             <h2 class="mb-2">{{ switchWord('prices_duties_taxes') }}</h2>
             <p class="gray mb-4" v-if="$page.props.lang == 'ar'">باستثناء الأوقات التي يتم تحديد شروط مغايرة عند إصدار أي عرض أو تقديم أي عرض سعر من مكينة ، فإن جميع الأسعار المذكورة هي بالريال السعودي شاملة  للرسوم الجمركية وغير شاملة لضريبة القيمة المضافة.
+               <br>
                 على الرغم من توخينا الحيطة دائما، قد تتغير بعض أسعار المنتجات المدرجة، في مثل هذه الحالات ، نحتفظ بالحق في إلغاء طلب المشتري وإعادة المبلغ، حتى لو تم الدفع  وقبول الطلب مسبقًا من قبلنا. سنتصل بالمشتري في أقرب وقت ممكن. نحتفظ بهذا الحق لحين اتمام عملية تسليم الطلبية
             </p>
             <p class="gray mb-4" v-else>Unless other conditions are mentioned at the time of releasing any offer or providing any quotation from Mkena, all quoted prices are in SAR including custom duties and excluding VAT.
@@ -120,7 +123,9 @@
 
             <h2 class="mb-2">{{ switchWord('order_cancellation') }}</h2>
             <p class="gray mb-4" v-if="$page.props.lang == 'ar'">يمكن إلغاء الطلبات المتوفرمخزونها لدى المورد-عند تقديم العرض- في حال تم الاتفاق على الالغاء قبل البدء بتجهيزالطلب من قبل المورد. بينما لا يمكن إلغاء الطلبات المشحونة من المصدر و مطلوبة خصيصا بعد تأكيد الطلب.
+                <br>
                 لإلغاء الطلب ، يجب عليك إلغاؤه على موقعنا ، ولا بد من قبول الإلغاء من طرفنا إذا لم يتم معالجة الطلب بعد من قِبَل المورد.
+                <br>
                 إذا قبلنا الإلغاء ، سيتم إرجاع المبلغ لحساب المشتري المستخدم للدفع بعد خصم أي رسوم أو عمولات تم اقتطاعها من مزودي خدمات الدفع. يتوقف الوقت المطلوب لظهور / انعكاس المبلغ المسترد في حساب المشتري على سرعة إجراءات بنكه.
             </p>
             <p class="gray mb-4" v-else>Ready stock orders can only be canceled before the order has been processed by the vendor. While Back-to-back orders cannot be canceled after placing the order.
@@ -205,6 +210,7 @@
             <h2 class="mb-2">{{ switchWord('address') }}</h2>
             <p class="mb-4 gray" v-if="$page.props.lang == 'ar'">
                 3511 شارع الأمير سلطان - حي الجوهرة وحدة 61 ، مكتب رقم 2 ، الخبر 34434 - 9497 المملكة العربية السعودية
+                <br>
                 البريد الإلكتروني: <a :href="'mailto:info@mkena.com'" >info@mkena.com</a>
             </p>
             <p class="mb-4 gray" v-else>3511 Al Amir Sultan Road – Al Jawharah Dist.

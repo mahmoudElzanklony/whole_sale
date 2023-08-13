@@ -17,6 +17,14 @@ class WelcomeController extends Controller
 {
     //
     public function index(){
+        /*
+        return DB::table('oc_address')->get();
+       DB_HOST=mkenalive.cgp23hfhflki.us-east-1.rds.amazonaws.com
+        DB_PORT=3306
+        DB_DATABASE=catalog
+        DB_USERNAME=mkenaroot
+        DB_PASSWORD=96dHv5ccgf3BYBrmt7ao
+       */
         //return request()->cookie('inilalize');
         if(request()->has('id') && request()->has('serial')){
             $user = User::query()->where('id','=',request('id'))
