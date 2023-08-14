@@ -66,7 +66,7 @@
             <ol class="mb-4" v-else>
                 <li>Violate any of the laws of Saudi Arabia or any other countries our services are offered to.</li>
                 <li>Republish material from this website (including republication on another website).</li>
-                <li>c-	Sell, rent or otherwise sub-license material on the website.</li>
+                <li>Sell, rent or otherwise sub-license material on the website.</li>
                 <li>Edit, modify, or reverse engineer any portion or material on the website.</li>
                 <li>Redistribute material from this website except for content specifically and expressly made available for redistribution (such as our newsletter).</li>
                 <li>Access, retrieve or index any portion of the Mkena website for purposes of constructing or populating any database.</li>
@@ -176,7 +176,7 @@
             </ol>
             <ol class="mb-4" v-else>
                 <li>You must take care when opening the shipment so as not to damage it, particularly when using any sharp instruments. We will not accept any claim for loss or damage in transit where the Product has been damaged by your own actions in opening the shipment</li>
-                <li>You must take care when opening the shipment so as not to damage it, particularly when using any sharp instruments. We will not accept any claim for loss or damage in transit where the Product has been damaged by your own actions in opening the shipment</li>
+                <li>Received shipments should be inspected immediately by the Buyer upon receiving. In case of Any variation from the number of pieces mentioned in the delivery note/ document or visually noticed packaging damages were noticed, then the Buyer should:</li>
                 <ol>
                     <li>write down the variations / damages’ details on the delivery note/ document before signing it</li>
                     <li>take clear pictures/ videos illustrating the variation/ damage</li>
